@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.helloweb.Constantes;
+
 /**
  * Servlet implementation class LogoutServlet
  */
@@ -20,7 +22,16 @@ public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request,
 	    HttpServletResponse response) throws ServletException, IOException {
-	// TODO Auto-generated method stub
+	request.getSession().setAttribute(Constantes.USER_SESSION, null);
+
+	// Otra opcion
+	// request.getSession().invalidate();
+	request.setAttribute(Constantes.MSG_KEY, Constantes.MSG_LOGOUT);
+	request.getRequestDispatcher(Constantes.JSP_LOGIN).forward(request,
+		response);
+
+	// response.sendRedirect(request.getContextPath() + "/"
+	// + Constantes.JSP_LOGIN);
     }
 
     /**
@@ -30,7 +41,7 @@ public class LogoutServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request,
 	    HttpServletResponse response) throws ServletException, IOException {
-	// TODO Auto-generated method stub
+	doGet(request, response);
     }
 
 }

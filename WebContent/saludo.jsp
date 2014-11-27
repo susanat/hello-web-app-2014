@@ -1,3 +1,6 @@
+<%@page import="java.util.Enumeration"%>
+<%@page import="java.io.PrintWriter"%>
+<%@page import="com.ipartek.formacion.helloweb.util.Rol"%>
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -6,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Index Usuario</title>
 </head>
 <body>
 	<%
@@ -19,5 +22,42 @@
 		}
 	%>
 	<h1>Ongi Etorri <%= p.getNombre() %> </h1>
+	<br>
+	<h2>Request info</h2>
+	<ol>
+		
+		<li>Method: <b><%=request.getMethod() %></b></li>
+		<li>Request URI: <b> <%= request.getRequestURI()%></b></li>
+		<li>Request URL: <b> <%= request.getRequestURL()%></b></li>
+		<li>Protocol: <b> <%= request.getProtocol()%></b></li>
+		<li>PathInfo: <b> <%= request.getPathInfo()%></b></li>
+		<li>Remote Address: <b> <%= request.getRemoteAddr()%></b></li>
+        <li>ServerName: <b> <%= request.getServerName() %></b></li>
+	</ol>
+	<h2>Request Headers</h2>
+	<ol>
+		<%
+	        Enumeration e = request.getHeaderNames();
+	        while (e.hasMoreElements()) {
+	            String key = (String)e.nextElement();
+	            String value = request.getHeader(key);
+	            out.println("<li>" + key + "<b> :" + value + "</b></li>");
+	            
+	        } %>
+		
+       
+	</ol>
+	<h2>Request parameters</h2>
+	<ol>
+		
+		<li>Usuario: <b><%=request.getParameter(Constantes.PARAMETRO_USER) %></b></li>
+		<li>Password: <b> <%= request.getParameter(Constantes.PARAMETRO_PASS)%></b></li>
+		
+	</ol>
+	
+	
+	<form action="${pageContext.request.contextPath}/LogoutServlet" method="post">
+    <input type="submit" value="Logout" />
+	</form>
 </body>
 </html>

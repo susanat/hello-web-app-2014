@@ -1,13 +1,17 @@
 package com.ipartek.formacion.helloweb.bean;
 
+import com.ipartek.formacion.helloweb.util.Rol;
+
 public class Persona {
     private String nombre;
     private int edad;
+    private Rol rol;
 
     public Persona(String nombre, int edad) {
 	super();
-	this.nombre = nombre;
-	this.edad = edad;
+	setNombre(nombre);
+	setEdad(edad);
+	this.rol = Rol.USUARIO;
     }
 
     public String getNombre() {
@@ -24,6 +28,14 @@ public class Persona {
 
     public void setEdad(int edad) {
 	this.edad = edad;
+    }
+
+    public Rol getRol() {
+	return rol;
+    }
+
+    public void setRol(Rol rol) {
+	this.rol = rol;
     }
 
 }
