@@ -16,9 +16,9 @@ public class CargasTemporales {
 	public static Persona getPersona(String name)
 	{
 		if("sergio".equals(name)) {
-			return new Persona("name", 18, getListRoles().get(0));
+			return new Persona(name, 18, getListRoles().get(0));
 		} else if("user".equals(name)) {
-			return new Persona("name", 18, getListRoles().get(1));
+			return new Persona(name, 18, getListRoles().get(1));
 		}
 		
 		return null;

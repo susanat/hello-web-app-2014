@@ -18,23 +18,16 @@
 
 	//miramos si existe sessión, si existe y tiene la propiedad, comprobamos que es true
 	if(session == null || session.getAttribute(Constantes.PARAM_SESSION_AUTHENTICATED) ==null  || session.getAttribute(Constantes.PARAM_SESSION_AUTHENTICATED).equals(false))
-	{
-		
-		
-		
-		
-		
+	{		
 		//sesion sin authentificar
 		session.setAttribute(Constantes.PARAM_SESSION_AUTHENTICATED, false);
-		
-		
-		
+	
 		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
    		response.sendRedirect("login.jsp");
 	} else {
 		
 		//comprobamos los permisos
-		int[] rolesAllowed = new int[]{ 1, 2 }; 
+		int[] rolesAllowed = new int[]{ 1 }; 
 		
 		persona = (Persona) session.getAttribute(Constantes.PARAM_SESSION_USER);
 		if (persona != null) {
@@ -75,15 +68,14 @@
 			strName = persona.getNombre();
 		}
 		
-		
 	%>
 
-	<h1>Usuario para arriba: Ongi Etorri <%= strName %> </h1>
+	<h1>Administración: Ongi Etorri <%= strName %> </h1>
 	
+	 
 	<div class="col-xs-12 text-right">
 		<a class="btn btn-success btn-lg" href="logout.jsp">Logout</a>			  		
 	</div>
-	
 	
 	
 	
