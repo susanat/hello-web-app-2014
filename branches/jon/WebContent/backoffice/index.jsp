@@ -15,10 +15,7 @@
 		p = new Persona("anonimo", 99);
 		response.setStatus(response.SC_UNAUTHORIZED);
 		
-
 		response.sendRedirect("../"+Constantes.JSP_LOGIN);
-		//response.setHeader("Location", Constantes.JSP_LOGIN);
-		//p = new Persona("anonimo", 99);
 	}
 %>
 

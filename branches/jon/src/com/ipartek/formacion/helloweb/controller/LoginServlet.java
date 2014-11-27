@@ -37,18 +37,6 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		/*response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<title>Hello World!</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<h1>Peticion tipo GET</h1>");
-        out.println("</body>");
-        out.println("</html>");
-	*/
 		getParameters(request);
 		session = request.getSession();
 		
@@ -67,30 +55,15 @@ public class LoginServlet extends HttpServlet {
 			request.setAttribute(Constantes.MSG_KEY, Constantes.MSG_LOGIN_INCORRECT);
 			}
 		}
-		// recoger parametros del login
-		// validar el usuario
-		// correcto: redirigir a saludo.jsp
+		
 		dispatch.forward(request, response);
-		// incorrecto: enviar de nuevo a login.jsp
-	
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		/*response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<title>Hello World!</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<h1>Peticion tipo POST</h1>");
-        out.println("</body>");
-        out.println("</html>");
-	*/
 		doGet(request, response);
 	
 	}
