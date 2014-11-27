@@ -1,5 +1,15 @@
 <%@page import="com.ipartek.formacion.helloweb.comun.Constantes"%>
 <%@page pageEncoding="UTF-8" %>
+
+
+<%
+	String fromPath = "";
+
+	if( session != null && session.getAttribute(Constantes.PARAM_SESSION_LAST_URL) != null ) {
+		fromPath = session.getAttribute(Constantes.PARAM_SESSION_LAST_URL).toString();
+	}
+%>
+
 <!doctype html>
 
 <html lang="en">
@@ -51,25 +61,31 @@
 					<form class="" role="form" method="post" id="frm_install_database" action="login">
 						<div class="form-group form-group-install col-md-12">
 							<label class="control-label" for="cont1">Username * </label>
-							<input class="form-control" type="text" name="<%= Constantes.PARAMETRO_USER %>" id="cont1" value="" required="required" placeholder="Enter the username">
+							<input class="form-control" type="text" name="<%=Constantes.PARAMETRO_USER%>" id="cont1" value="" required="required" placeholder="Enter the username">
 						</div>
 						
 						<div class="form-group form-group-install col-md-12">
 							<label class="control-label" for="cont2">Password * </label>
-							<input class="form-control" type="password" name="<%= Constantes.PARAMETRO_PASSWORD %>" id="cont2" required="required" placeholder="Enter password">
+							<input class="form-control" type="password" name="<%=Constantes.PARAMETRO_PASSWORD%>" id="cont2" required="required" placeholder="Enter password">
 						</div>
+						
+						<!-- Path de referencia para redirigir -->
+						<input type="hidden" name="<%=Constantes.PARAM_SESSION_LAST_URL%>" value="<%= fromPath %>">
 						
 						<div class="col-xs-12 text-right">
 								<input form="frm_install_database" class="btn btn-success btn-lg" 
 									type="submit" name="save" value="Sign In" 
 									title="Save" />				  		
 						</div>
+						
+						
+						
 					</form>	
 				</div> <!--  panel-body -->				
 			</div>
 			
 			<%  
-					Object result = request.getAttribute(Constantes.PARAMETRO_REQUEST_RESULT);  
+					String result = (String) request.getAttribute(Constantes.PARAM_SESSION_MSJ);  
 					if(result != null){
 						
 						%>
@@ -84,14 +100,9 @@
 		</div>
 	</div>
 	
-	<% 
-		if( session != null && session.getAttribute(Constantes.SESSION_LAST_URL) != null ) {
-			out.print(session.getAttribute(Constantes.SESSION_LAST_URL));
-		}
-	
-	%>
 	
 	
+	<%= fromPath %>
 
   	<!-- Añadimos los javascript -->
 	<script src="bootstrap/js/vendor/jquery-1.11.1.min.js"></script>

@@ -20,48 +20,17 @@
 
 <body>
 
-	<h1>Hellow World 2</h1>
-	<h2>
-	<% 
-		out.print("Hola holita");
-	
-		Persona p = new Persona("pepe", 89);
-	
-		out.print(p.toString() + System.getProperty("line.separator"));
-		out.print(p.getNombre() + System.getProperty("line.separator"));
-		out.print(p.getEdad() + System.getProperty("line.separator"));
+	<%
+		String path = request.getRequestURL().toString();
 	
 	%>
+
+	<h1>Index de la página</h1>
+	<h2>
+		<a href="<%=path %>administracion.jsp">Administracion</a>
+		<br>
+		<a href="saludo.jsp">Saludo</a>		
 	</h2>
-	
-	<form class="" role="form" method="post" id="frm_install_database">
-			<div class="form-group form-group-install col-md-12">
-				<label class="control-label" for="cont1">Database host * </label>
-				<input class="form-control" type="text" name="cont1" id="cont1" value="127.0.0.1" required="required" placeholder="Enter the URL of the database">
-			</div>
-			
-			<div class="form-group form-group-install col-md-12">
-				<label class="control-label" for="cont2">Database username * </label>
-				<input class="form-control" type="text" name="cont2" id="cont2" required="required" placeholder="Enter database username">
-			</div>
-			
-			<div class="form-group form-group-install col-md-12">
-				<label class="control-label" for="cont3">Database password </label>
-				<input class="form-control" type="text" name="cont3" id="cont3" placeholder="Enter database password">
-				<h6 class="help-block" name="cont3">It may be empty.</h6>
-			</div>
-			
-			<div class="form-group form-group-install col-md-12">
-				<label class="control-label" for="cont4">Database name * </label>
-				<input class="form-control" type="text" name="cont4" id="cont4" required="required" placeholder="Enter database name">
-			</div>
-			
-			<div class="form-group form-group-install col-md-12">
-				<label class="control-label" for="cont5">Table prefix * </label>
-				<input class="form-control" type="text" name="cont5" id="cont5" value="srn_" required="required" placeholder="Enter table prefix">
-			</div>
-		</form>	
-	
 	
 	
 	
