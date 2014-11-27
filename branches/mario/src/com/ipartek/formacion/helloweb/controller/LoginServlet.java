@@ -48,16 +48,14 @@ public class LoginServlet extends HttpServlet {
 	if (Constantes.USER_ADMIN.equals(pUser)
 		&& Constantes.PASS_ADMIN.equals(pPass)) {
 	    // correcto: redirigir a un JSP
-	    dispatch = request.getRequestDispatcher(Constantes.JSP_SALUDO);
+	    dispatch = request.getRequestDispatcher(Constantes.JSP_ADMIN_LOGIN);
 
-	    // guardar datos en session
-	    // TODO recuperar usuario de la BD
+	    // guardar datos en session // TODO recuperar usuario de la BD
 	    Persona p = new Persona(pUser, 0);
 	    session.setAttribute(Constantes.USER_SESSION, p);
-	}
 
-	// validar usuario
-	if (Constantes.USER.equals(pUser) && Constantes.PASS.equals(pPass)) {
+	} else if (Constantes.USER.equals(pUser)
+		&& Constantes.PASS.equals(pPass)) {
 
 	    // correcto: redirigir a un JSP
 	    dispatch = request.getRequestDispatcher(Constantes.JSP_SALUDO);
