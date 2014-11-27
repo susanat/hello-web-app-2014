@@ -23,5 +23,10 @@
 %>
 
 <h1>Hola <%=p.getNombre()%></h1>
+
+<form method="get" action="logout">
+<input type="submit" value="logout"/>
+</form>
+
 </body>
 </html>
