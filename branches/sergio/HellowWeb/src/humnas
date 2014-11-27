@@ -1,0 +1,105 @@
+
+Lógica privada - publica
+Entrada por index.jsp
+		
+	¿La pagina es privada?
+	Si
+		¿Tiene sesion?
+		Si
+			primer tipo de permiso a mirar	Usuario  - site
+			¿Tiene permiso?
+			Si
+				redirect index
+			No
+				redirect login + mensaje (site privado)
+		No
+			redirect login + mensaje(site privado)
+			
+	No
+		redirect index	(lógica pública)	
+
+
+Entrada por otra página
+	¿La pagina es privada?
+	Si
+		¿Tiene sesion?
+		Si
+			primer tipo de permiso a mirar	Usuario  - site
+			¿Tiene permiso?
+			Si
+				redirect index
+			No
+				redirect login + mensaje (site privado)
+		No
+			redirect login + mensaje(site privado)
+			
+	No
+		redirect index (lógica pública)
+
+		
+Lógica pública
+	¿Tiene sesión?
+	Si
+		¿tiene permiso de entrada a la página?
+		Si
+			Permitir acceso			
+		No
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			response.sendRedirect("login.jsp");
+	No
+		redirect login + mensaje + página
+	
+	
+	Tipos de permiso del usuario
+		- site: tiene permiso al sitio si es privado
+		- página1: acceso
+		- página2: acceso
+		- página3: acceso
+		- ...
+	
+	
+public static boolean getAllowedSite(Persona persona) {
+	
+}	
+
+public static boolean getAllowedSitePage(Persona persona, siteName) {
+
+}	
+
+		
+Usuario
+	sergio
+	18
+	admin
+
+
+Rol
+	Visitante
+	Usuario
+	Editor
+	admin
+
+Permisos -> objeto Permisos
+	site
+	administracion.jsp
+	saludos.jsp
+	index.jsp
+	
+Rol - Permisos -> HashMap<Rol, List<Permisos>>	
+	Visitante - saludos.jsp
+	Visitante - index.jsp
+	Usuario  - saludos.jsp
+	Usuario  - index.jsp
+	Editor - saludos.jsp
+	Editor - index.jsp
+	admin - site
+	admin - daministracion.jsp
+	admin - saludos.jsp
+
+	
+	
+	
+Permiso
+	- Nombre
+	- Descripcion
+	
