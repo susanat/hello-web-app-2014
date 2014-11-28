@@ -13,13 +13,20 @@ import com.ipartek.formacion.helloweb.Constantes;
 public class Usuario {
 	private String usuario;
 	private String password;
+	private Rol rol;
 	
 	// Constructor
-	public Usuario(String usuario, String password) {
+	public Usuario() {
 		super();
+		this.rol = Rol.USER;
+	}
+	
+	public Usuario(String usuario, String password) {
+		this();
 		setUsuario(usuario);
 		setPassword(password);
 	}
+
 
 	// Getters & Setters
 	public String getUsuario() {
@@ -38,6 +45,14 @@ public class Usuario {
 		this.password = password;
 	}
 	
+	public Rol getRol() {
+		return rol;
+	}
+
+	public void setRol(Rol rol) {
+		this.rol = rol;
+	}
+
 	/**
 	 * Indica si el usuario es ADMINISTRADOR
 	 * @return
@@ -48,4 +63,13 @@ public class Usuario {
 		return (bUsuario && bPassword);
 	}
 	
+	/**
+	 * Enumeracion para los Roles de las Personas
+	 * 
+	 * @author Curso
+	 *
+	 */
+	public enum Rol {
+		ADMINISTRADOR, USER;
+	}
 }

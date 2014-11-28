@@ -11,6 +11,9 @@ import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.bean.Persona;
+import com.ipartek.formacion.helloweb.bean.Usuario;
+
+;
 
 /**
  * Servlet implementation class LoginServlet
@@ -37,6 +40,7 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -58,11 +62,18 @@ public class LoginServlet extends HttpServlet {
 		// validar el usuario
 		if (validarParametros()) {
 			// guardar usuario en sesion
-			Persona p = new Persona(pUser, 0);
+
+			// Caso de que una Persona contenga un Usuario
+			// Usuario u = new Usuario(pUser, pPass);
+			// Persona p = new Persona(pUser, 0);
+			// p.setUsuario(u);
+
+			Persona p = new Persona(pUser);
 			session.setAttribute(Constantes.USER_SESSION, p);
 			// TODO recuperar usuario de la BBDD
-			if (esAdministrador()) {
-				dispatch = request.getRequestDispatcher(Constantes.JSP_BACKOFFICE);
+			if (Persona.Rol.ADMINISTRADOR.equals(p.getRol())) {
+				dispatch = request
+						.getRequestDispatcher(Constantes.JSP_BACKOFFICE);
 			} else {
 				// correcto: rediriguir a saludo.jsp
 				dispatch = request.getRequestDispatcher(Constantes.JSP_SALUDO);
@@ -93,10 +104,10 @@ public class LoginServlet extends HttpServlet {
 	 * Devuelve si el usuario y el password es valido
 	 * 
 	 * @return {@code boolean}
-	 * <ul>
-	 * 	<li>True - si el usuario NO es vacio y el password es correcto</li>
-	 * 	<li>False - eoc</li>
-	 * </ul>
+	 *         <ul>
+	 *         <li>True - si el usuario NO es vacio y el password es correcto</li>
+	 *         <li>False - eoc</li>
+	 *         </ul>
 	 */
 	private boolean validarParametros() {
 
@@ -104,11 +115,13 @@ public class LoginServlet extends HttpServlet {
 		// Constantes.USER_ADMIN.equals(pUser)?true:false;
 		boolean bUsuarioValido = false;
 		if (pUser != null) {
-			if (!pUser.isEmpty()) {
+			if (Constantes.USER_USER.equals(pUser)
+					|| Constantes.USER_ADMIN.equals(pUser)) {
 				bUsuarioValido = true;
 			}
 		}
-		boolean bPasswordValido = Constantes.PASS.equals(pPass) ? true : false;
+		boolean bPasswordValido = Constantes.PASS_USER.equals(pPass)
+				|| Constantes.PASS_ADMIN.equals(pPass) ? true : false;
 
 		return (bUsuarioValido && bPasswordValido);
 	}
@@ -116,19 +129,23 @@ public class LoginServlet extends HttpServlet {
 	/**
 	 * Devuelve is el usuario es administrador o no
 	 * 
+	 * @param usuario
+	 *            {@code Usuario} Usuario a comprobar
 	 * @return {@code boolean}
-	 * <ul>
-	 * 	<li>True -  si el usuario es administrador</li>
-	 * 	<li>False - eoc</li>
-	 * </ul>
+	 *         <ul>
+	 *         <li>True - si el usuario es administrador</li>
+	 *         <li>False - eoc</li>
+	 *         </ul>
 	 */
-	private boolean esAdministrador() {
-		boolean bUsuarioValido = Constantes.USER_ADMIN.equals(pUser) ? true
-				: false;
-		boolean bPasswordValido = Constantes.PASS_ADMIN.equals(pPass) ? true
-				: false;
-
-		return (bUsuarioValido && bPasswordValido);
+	private boolean esAdministrador(Usuario usuario) {
+		/*
+		 * boolean bUsuarioValido = Constantes.USER_ADMIN.equals(pUser) ? true :
+		 * false; boolean bPasswordValido = Constantes.PASS_ADMIN.equals(pPass)
+		 * ? true : false;
+		 * 
+		 * return (bUsuarioValido && bPasswordValido);
+		 */
+		return usuario.esAdministrador();
 
 	}
 
@@ -136,6 +153,7 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
