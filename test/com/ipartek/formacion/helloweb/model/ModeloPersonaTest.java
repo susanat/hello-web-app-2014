@@ -11,6 +11,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.ipartek.formacion.helloweb.bean.Persona;
+import com.sun.image.codec.jpeg.TruncatedFileException;
 
 import sun.font.CreatedFontTracker;
 
@@ -68,10 +69,19 @@ public class ModeloPersonaTest {
 
 		int idNuevaPersona = model.insert(new Persona("El nuevo"));
 		assertTrue(Persona.ID_NULL < idNuevaPersona);
-		assertEquals(Persona.ID_NULL, model.insert(null));
-
+		
+		assertEquals("No deberia insertarse", Persona.ID_NULL, model.insert(null));
+		
+		
 		assertEquals("debemos tener un registro nuevo ", (todos + 1), model
 				.getAll().size());
+		
+		//insertar cuando no existen registros
+		ModeloPersona.truncateTable();
+		int idNuevaPersona2 = model.insert(new Persona("El nuevo2"));
+		assertTrue("Debe poder insertar a pesar de no haber registros",Persona.ID_NULL < idNuevaPersona2);
+
+		
 
 	}
 
@@ -82,7 +92,12 @@ public class ModeloPersonaTest {
 		int todos = model.getAll().size();
 		
 		assertTrue(  model.delete(1) );
+		//comprobar que este borrado
+		assertNull( model.getById(1) );
+		
+		
 		assertFalse(  model.delete(13) );
+		assertNull(model.getById(13));
 
 		assertEquals("debemos tener un registro menos ", (todos - 1), model
 				.getAll().size());
@@ -98,7 +113,7 @@ public class ModeloPersonaTest {
 		for (Persona persona : personas) {
 			assertTrue( model.delete(persona.getId()));
 		}
-		assertNull(model.getAll());		
+		assertNull( model.getAll() );		
 	}
 	
 	@Test
