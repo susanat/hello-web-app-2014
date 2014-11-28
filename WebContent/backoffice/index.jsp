@@ -7,7 +7,7 @@
 <head>
   <meta charset="utf-8">
 
-  <title>The HTML5 Herald</title>
+  <title>Backoffice</title>
   <meta name="description" content="">
   <meta name="author" content="">
 
@@ -22,19 +22,21 @@
 		//recuperar usuario de sesion
 		Persona p = (Persona)session.getAttribute(Constantes.USER_SESSION);
 	
-		if(p !=(Persona)session.getAttribute(Constantes.USER_ADMIN)){
-					
-			String root = request.getSession().getServletContext().getRealPath("/");
-			response.sendRedirect(root + Constantes.JSP_LOGIN);
-				
-		}
+	if(p == null || p.getRoll()!=Persona.Roll.ADMINISTRADOR){
+		//p = new Persona("Anonimo",99);		
+		String root = request.getContextPath();  //devuelve la ruta de donde esta en el servidor
+		String root2 = request.getSession().getServletContext().getRealPath("/"); //devuelve la ruta de donde esta en el disco duro
+		response.sendRedirect(root + Constantes.JSP_LOGIN);
+						
+	}
 	
 	
 	 %>
   <h1>Hello <%= p.getNombre() %></h1>
   
-  out.print( "Has entrado como  " + p.getNombre());
-  <input type="button" name="logout" class="login login-submit" value="logout">
+  <p>Has entrado como: <%= p.getNombre() %></p>
+  
+  <a href="<%=Constantes.PATH_LOGOUT %>" title="Cierra tu sesion">Logout</a>	
  
 </body>
 </html>
