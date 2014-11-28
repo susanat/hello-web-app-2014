@@ -53,20 +53,48 @@ public class LoginServlet extends HttpServlet {
 	// recoger parametros del login
 	getParameters(request);
 
-	// validar el usuario
-	if (comprobarUsuario()) {
+	// validar usuario
+	validarUser(request);
+
+	// despachar o servir JSP.
+	dispath.forward(request, response);
+    }
+
+    /**
+     * Comprobar los datos del login y mirar si el roll es "administrador" o
+     * "usuario"
+     * 
+     * <ol>
+     * <li>Adminstrador: ir al backoffice</li>
+     * <li>Usuario: voy a saluda</li>
+     * <li>Si no validado; retornar al login</li>
+     * </ol>
+     * 
+     * 
+     * 
+     * 
+     */
+    private void validarUser(HttpServletRequest request) {
+
+	// Usuario: voy a saluda
+	if (Constantes.USER_USER_NAME.equals(pUser)
+		&& Constantes.USER_USER_PASS.equals(pPass)) {
 	    // => correcto: rediriguir a saludo.jsp // dispath, se carga le
 	    // dices donde quieres ir y con el forward lo envias ES NECESARIO
 	    dispath = request.getRequestDispatcher(Constantes.JSP_SALUDO);
-
-	    // Comprobamos el nombre del usuario
-
-	    validarURL();
 
 	    // guardar ususario en session(a un usuario por lo que la sacamos de
 	    // request)
 	    // TODO recuperar usuario de la BBDD
 	    Persona p = new Persona(pUser, 0);
+	    session.setAttribute(Constantes.USER_SESSION, p);
+
+	    // Adminstrador: ir al backoffice
+	} else if (Constantes.USER_ADMIN_NAME.equals(pUser)
+		&& Constantes.USER_ADMIN_PASS.equals(pPass)) {
+	    dispath = request.getRequestDispatcher(Constantes.JSP_BACKOFFICES);
+	    Persona p = new Persona(pUser, 0);
+	    p.setRol(Persona.Rol.ADMINISTRADOR);
 	    session.setAttribute(Constantes.USER_SESSION, p);
 
 	} else {
@@ -76,27 +104,6 @@ public class LoginServlet extends HttpServlet {
 	    request.setAttribute(Constantes.MSG_KEY,
 		    Constantes.MSG_LOGIN_INCORRECT);
 	}
-
-	// despachar o servir JSP.
-	dispath.forward(request, response);
-    }
-
-    private void validarURL() {
-
-	if (Constantes.USER.equals(pUser == "admin")
-		&& Constantes.PASS.equals(pPass == "admin")) {
-	}
-
-    }
-
-    private boolean comprobarUsuario() {
-
-	boolean resul = false;
-
-	if (Constantes.USER.equals(pUser) && Constantes.PASS.equals(pPass)) {
-	    resul = true;
-	}
-	return resul;
 
     }
 
