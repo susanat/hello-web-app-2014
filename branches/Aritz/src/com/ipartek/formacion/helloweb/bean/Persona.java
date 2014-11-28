@@ -1,4 +1,4 @@
-package com.ipartek.formacion.bean;
+package com.ipartek.formacion.helloweb.bean;
 
 public class Persona {
 

@@ -1,5 +1,5 @@
 <%@page import="java.util.Enumeration"%>
-<%@page import="com.ipartek.formacion.bean.Persona"%>
+<%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">

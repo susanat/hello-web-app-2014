@@ -2,7 +2,7 @@ package com.ipartek.formacion.helloweb.model.interfaces;
 
 import java.util.ArrayList;
 
-import com.ipartek.formacion.bean.Persona;
+import com.ipartek.formacion.helloweb.bean.Persona;
 
 /**
  * nodelo para gestionar el bean de <code>Persona</code>.

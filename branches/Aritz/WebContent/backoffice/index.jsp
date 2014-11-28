@@ -1,6 +1,6 @@
 <!doctype html>
 
-<%@page import="com.ipartek.formacion.bean.Persona"%>
+<%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
 
 <html lang="es">
