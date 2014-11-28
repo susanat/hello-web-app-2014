@@ -9,85 +9,156 @@ import com.ipartek.formacion.helloweb.bean.Persona;
 import com.ipartek.formacion.helloweb.model.interfaces.IModeloPersona;
 
 /**
- * Implementacion para la Persistencia de las Personas 
+ * Implementacion para la Persistencia de las Personas
+ * 
  * @author ur00
  *
  */
 public class ModeloPersona implements IModeloPersona {
 
-	//TODO implementar base BBDD	
+	// TODO implementar base BBDD
 	static ArrayList<Persona> personas = null;
-	
-	static void createTable(){
+
+	static void createTable() {
 		personas = new ArrayList<Persona>();
 		Persona p = new Persona("");
 		p.setNombre("Gorriti");
 		p.setId(1);
 		personas.add(p);
-		
+
+		p = new Persona("");
 		p.setNombre("Antton");
 		p.setId(2);
 		personas.add(p);
-		
+
+		p = new Persona("");
 		p.setNombre("Pirulero");
 		p.setId(3);
 		personas.add(p);
-		
+
+		p = new Persona("");
 		p.setNombre("Duquesita");
 		p.setId(4);
 		personas.add(p);
-		
+
+		p = new Persona("");
 		p.setNombre("Manoli");
 		p.setId(5);
 		personas.add(p);
-		
+
 	}
-	
-	static void truncateTable(){
+
+	static void truncateTable() {
 		personas = null;
 	}
-	
-	
-	
-	
-	/* (non-Javadoc)
-	 * @see com.ipartek.formacion.helloweb.model.interfaces.IModeloPersona#getAll()
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.ipartek.formacion.helloweb.model.interfaces.IModeloPersona#getAll()
 	 */
 	public ArrayList<Persona> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Persona> personasLogicas = null;
+		if (personas != null) {
+			personasLogicas = new ArrayList<Persona>();
+			for (Persona p : personas) {
+				if (p != null) {
+					personasLogicas.add(p);
+				}
+			}
+			
+			//Si todos estan borrados logicamente
+			if ( personasLogicas.isEmpty() ){
+				personasLogicas = null;
+			}
+		}
+		return personasLogicas;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.ipartek.formacion.helloweb.model.interfaces.IModeloPersona#getById()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.ipartek.formacion.helloweb.model.interfaces.IModeloPersona#getById()
 	 */
-	public Persona getById( int id ) {
-		// TODO Auto-generated method stub
-		return null;
+	public Persona getById(int id) {
+		Persona resul = null;
+		if (personas != null) {
+			for (Persona p : personas) {
+				if (p != null) {
+					if (p.getId() == id) {
+						resul = p;
+						break;
+					}
+				}
+			}
+		}
+		return resul;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.ipartek.formacion.helloweb.model.interfaces.IModeloPersona#insert(com.ipartek.formacion.helloweb.bean.Persona)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.ipartek.formacion.helloweb.model.interfaces.IModeloPersona#insert
+	 * (com.ipartek.formacion.helloweb.bean.Persona)
 	 */
 	public int insert(Persona p) {
-		// TODO Auto-generated method stub
-		return 0;
+		int resul = Persona.ID_NULL;
+		
+		if ( personas == null ){
+			personas = new ArrayList<Persona>();
+		}
+		
+		if ( p != null  ) {
+			personas.add(p);
+			p.setId(personas.size());
+			resul = personas.size();
+		}
+		
+		
+		return resul;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.ipartek.formacion.helloweb.model.interfaces.IModeloPersona#update(com.ipartek.formacion.helloweb.bean.Persona)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.ipartek.formacion.helloweb.model.interfaces.IModeloPersona#update
+	 * (com.ipartek.formacion.helloweb.bean.Persona)
 	 */
 	public int update(Persona p) {
-		// TODO Auto-generated method stub
-		return 0;
+		int resul = Persona.ID_NULL;
+		if (personas != null) {
+			personas.set(p.getId(), p);
+			resul = p.getId();
+		}
+		return resul;
+
 	}
 
-	/* (non-Javadoc)
-	 * @see com.ipartek.formacion.helloweb.model.interfaces.IModeloPersona#delete(int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.ipartek.formacion.helloweb.model.interfaces.IModeloPersona#delete
+	 * (int)
 	 */
 	public boolean delete(int id) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean resul = false;
+		try{
+			if (personas != null) {
+				if ( getById(id) != null ){
+					personas.set((id-1), null);
+					resul =  true;
+				}	
+			}
+		}catch( Exception e ){
+			//TODO traza de Log
+			System.out.print( "No existe el ID["+id+"] queremos eliminar" );
+		}				
+		return resul;
 	}
 
 }
