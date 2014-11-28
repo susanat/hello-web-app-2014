@@ -21,6 +21,7 @@ public class LoginServlet extends HttpServlet {
 	HttpSession sesion = null;
 	private String pUser = null;
 	private String pPass = null;
+	private String pRoll = null;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -45,20 +46,43 @@ public class LoginServlet extends HttpServlet {
 		getParameters(request);
 
 		// validar usuario
-		if (Constantes.USER.equals(pUser) && Constantes.PASS.equals(pPass)
-				|| Constantes.USER_ADMIN.equals(pUser)
+		validarUser(request, response);
+
+		// despachar o servir jsp
+		dispatch.forward(request, response);
+	}
+
+	/**
+	 * comprobar datos del usuario y si tiene rolde admin o de user
+	 *
+	 * <ol>
+	 * <li>admin: ir a backoffice</li>
+	 * <li>user: ir a saluda</li>
+	 * <li>si no existe/validado: ir a login</li>
+	 * </ol>
+	 *
+	 * @param request
+	 * @param response
+	 */
+	protected void validarUser(HttpServletRequest request,
+			HttpServletResponse response) {
+		if (Constantes.USER_ADMIN.equals(pUser)
 				&& Constantes.PASS_ADMIN.equals(pPass)) {
+			// correcto: redirigir a saludo.jsp
+			dispatch = request
+					.getRequestDispatcher(Constantes.JSP_BACKOFFICE_INDEX);
 
-			if (Constantes.USER_ADMIN.equals(pUser)
-					&& Constantes.PASS_ADMIN.equals(pPass)) {
-				// correcto: redirigir a saludo.jsp
-				dispatch = request
-						.getRequestDispatcher(Constantes.JSP_BACKOFFICE);
+			// guardar usuario en sesion
+			Persona p = new Persona(pUser, 0);
+			p.setRoll(Persona.Roll.ADMINISTRADOR);
+			sesion.setAttribute(Constantes.USER_SESSION, p);
 
-			} else {
-				// correcto: redirigir a saludo.jsp
-				dispatch = request.getRequestDispatcher(Constantes.JSP_SALUDO);
-			}
+		} else if (Constantes.USER.equals(pUser)
+				&& Constantes.PASS.equals(pPass)) {
+
+			// correcto: redirigir a saludo.jsp
+			dispatch = request.getRequestDispatcher(Constantes.JSP_SALUDO);
+
 			// guardar usuario en sesion
 			Persona p = new Persona(pUser, 0);
 			sesion.setAttribute(Constantes.USER_SESSION, p);
@@ -70,8 +94,6 @@ public class LoginServlet extends HttpServlet {
 					Constantes.MSG_LOGIN_INCORRECT);
 		}
 
-		// despachar o servir jsp
-		dispatch.forward(request, response);
 	}
 
 	/**
@@ -82,6 +104,7 @@ public class LoginServlet extends HttpServlet {
 
 		pUser = request.getParameter(Constantes.PARAMETRO_USER);
 		pPass = request.getParameter(Constantes.PARAMETRO_PASS);
+		pRoll = request.getParameter(Constantes.PARAMETRO_ROLL);
 
 	}
 
