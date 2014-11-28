@@ -1,44 +1,45 @@
 <!DOCTYPE html>
-<%@page import="com.ipartek.formacion.helloweb.Constantes"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page import="com.ipartek.formacion.helloweb.Constantes"%>
 <html>
 
 <head>
-
-  <meta charset="UTF-8">
-
-  <title>Log-in - CodePen</title>
-
-  <link rel='stylesheet' href='http://codepen.io/assets/libs/fullpage/jquery-ui.css'>
-
-    <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
-
+<meta charset="UTF-8">
+<title>Log-in - CodePen</title>
+<link rel='stylesheet'
+	href='http://codepen.io/assets/libs/fullpage/jquery-ui.css'>
+<link rel="stylesheet" href="css/style.css" media="screen"
+	type="text/css" />
 </head>
 
 <body>
+	<div class="login-card">
+		<h1>Log-in</h1>
+		<br>
+		<form action="<%=Constantes.PATH_LOGIN%>" method="post">
 
-  <div class="login-card">
-    <h1>Log-in</h1><br>
-  <form action="<%=Constantes.PATH_LOGIN%>" method="post">
-  
-  	<%  
-  		//	mostrar mensaje si existe
-  		if ( null != request.getAttribute(Constantes.MSG_KEY)){
-  			out.print( request.getAttribute(Constantes.MSG_KEY) );
-  		}		  	
-  	%>
-  
-    <input type="text" name="<%=Constantes.PARAMETRO_USER%>" placeholder="Username">
-    <input type="password" name="<%=Constantes.PARAMETRO_PASS%>" placeholder="Password">
-    <input type="submit" name="login" class="login login-submit" value="login">
-  </form>
+			<%
+				//	mostrar mensaje si existe
+				if (null != request.getAttribute(Constantes.MSG_KEY)) {
+					out.print(request.getAttribute(Constantes.MSG_KEY));
+				}
+			%>
 
-  <div class="login-help">
-    <a href="#">Register</a> • <a href="#">Forgot Password</a>
-  </div>
-</div>
+			<input type="text" name="<%=Constantes.PARAMETRO_USER%>"
+				placeholder="Username"> <input type="password"
+				name="<%=Constantes.PARAMETRO_PASS%>" placeholder="Password">
+			<input type="submit" name="login" class="login login-submit"
+				value="login">
+		</form>
 
-  <script src='http://codepen.io/assets/libs/fullpage/jquery_and_jqueryui.js'></script>
+		<div class="login-help">
+			<a href="#">Register</a> • <a href="#">Forgot Password</a>
+		</div>
+	</div>
 
+	<script
+		src='http://codepen.io/assets/libs/fullpage/jquery_and_jqueryui.js'></script>
 </body>
 
 </html>
