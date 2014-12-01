@@ -36,9 +36,15 @@ public class LogoutServlet extends HttpServlet {
 	    HttpServletResponse response) throws ServletException, IOException {
 	// recuperar sesion
 	session = request.getSession();
-	session.removeAttribute(Constantes.USER_SESSION);
+
+	// poner a null su session
+	session.setAttribute(Constantes.USER_SESSION, null);
+
+	// forward a login
 	dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
+	request.setAttribute(Constantes.MSG_KEY, Constantes.MSG_LOGOUT);
 	dispatch.forward(request, response);
+
     }
 
     /**
