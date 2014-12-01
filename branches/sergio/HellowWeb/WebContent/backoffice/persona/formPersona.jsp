@@ -25,8 +25,8 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="bootstrap/css/main.css">
+  <link rel="stylesheet" href="<%=Constantes.SITE_PATH %>bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="<%=Constantes.SITE_PATH %>bootstrap/css/main.css">
 	
 	<style>
 	body {
@@ -34,10 +34,10 @@
 		padding-bottom: 20px;
 	}
 	</style>
-	<link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="bootstrap/css/main.css">
+	<link rel="stylesheet" href="<%=Constantes.SITE_PATH %>bootstrap/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="<%=Constantes.SITE_PATH %>bootstrap/css/main.css">
 	
-	<script src="bootstrap/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+	<script src="<%=Constantes.SITE_PATH %>bootstrap/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 
 
   <!--[if lt IE 9]>
@@ -47,13 +47,23 @@
 
 <body>
 
+	<nav>
+		<!-- Insert breadcrumb -->
+		<ol class="breadcrumb">
+			<li><a href="<%= Constantes.JSP_BACK_ADMIN %>">Administracion</a></li>
+			<li><a href="<%= Constantes.JSP_BACK_PERSONA_LIST %>">Listado Personas</a></li>
+			<li>Formulario Persona</li>
+		</ol>
+	</nav>
+	
 	<div class="container row-centered">
 				
 		
 		<div class="col-xs-4 col-centered">
 		
 			<div class="row row-centered sombra" style="border: 1px solid; border-radius: 4px; margin-bottom: 20px; border-color: #428BCA; background-color: #428BCA; color: white;">				
-					<h1>Nueva Persona</h1>				
+					<h1>Nueva Persona</h1>	
+					<p> <%= request.getRequestURL().toString() %> </p>			
 			</div>
 		
 			<div class="row">
@@ -122,10 +132,10 @@
 	
 
   	<!-- Añadimos los javascript -->
-	<script src="bootstrap/js/vendor/jquery-1.11.1.min.js"></script>
+	<script src="<%=Constantes.SITE_PATH %>bootstrap/js/vendor/jquery-1.11.1.min.js"></script>
 	<script>window.jQuery || document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"><\/script>')</script>
 	
-	<script src="bootstrap/js/vendor/bootstrap.min.js"></script>
-	<script src="bootstrap/js/main.js"></script>
+	<script src="<%=Constantes.SITE_PATH %>bootstrap/js/vendor/bootstrap.min.js"></script>
+	<script src="<%=Constantes.SITE_PATH %>bootstrap/js/main.js"></script>
 </body>
 </html>

@@ -13,17 +13,51 @@ public final class Constantes {
 		
 	}
 	
+	
+	/**
+	 * Numeración para acciones en los Modelos
+	 * de manejo de datos.
+	 * 
+	 * @author Sergio Rubio Nieto
+	 *
+	 */
+	public enum EModeloAccion{	    
+		/**
+		 * Flag que indica que se desea realizar un insert
+		 */
+		INSERT(1), 	       
+		/**
+		 * Flag que indica que se desea realizar una insercción
+		 */
+		UPDATE(2),		
+		/**
+		 * Flag que indica que se desea realizar un borrado
+		 */
+		DELETE(3);
+	       
+	       private int value;
+	      
+	       private EModeloAccion(int value) {
+	            this.value = value;
+	       }
+	       public int getValue(){
+	        return value;
+	       }
+	   }
+	
+	
+	
 	/**
 	 * path del sitio
 	 */
-	public static String SITE_PATH = "http://localhost:8080/HelloWeb/";
+	public static String SITE_PATH = "http://localhost:8090/HelloWeb/";
 	
 	
-	//*************** Árbol de Servlet
+	//*************** Ã�rbol de Servlet
 	public static String CONTROLLER_PERSONA = "persona";
 	public static String CONTROLLER_LOGIN = "login";
 
-	//*************** Árbol de JSP
+	//*************** Ã�rbol de JSP
 	public static String JSP_INDEX = SITE_PATH + "index.jsp";
 	
 	public static String JSP_SALUDO = SITE_PATH + "saludo.jsp";
@@ -51,29 +85,29 @@ public final class Constantes {
     
     //*** general
     /**
-     * Contendrá la última url visitada (String)
+     * ContendrÃ¡ la Ãºltima url visitada (String)
      */
     public static String PARAM_SESSION_LAST_URL = "lasturl";
     
     /**
-     * Contendrá un mensaje
+     * ContendrÃ¡ un mensaje
      */
     public static String PARAM_SESSION_MSJ = "msj";
         
     /**
-     * Contendrá el usuario  (Persona)
+     * ContendrÃ¡ el usuario  (Persona)
      */
     public static String PARAM_SESSION_USER = "user_session";
     
     //*** login
     /**
-     * Contendrá si se ha autentificado un usuario    
+     * ContendrÃ¡ si se ha autentificado un usuario    
      */
     public static String PARAM_SESSION_AUTHENTICATED = "authenticated";
         
     //*** logout
     /**
-     * Si se desea mantener datos o invalidar la sessión completamente
+     * Si se desea mantener datos o invalidar la sessiÃ³n completamente
      */
     public static String PARAM_SESSION_INVALIDATE = "invalidate";
     
@@ -98,8 +132,8 @@ public final class Constantes {
     
     
     //*** LANG
-    public static String LANG_LOGIN_INCORRECT = "Usuario o contraseña incorrectos.";    
-    public static String LANG_LOG_OFF = "Usuario o contraseña incorrectos.";
+    public static String LANG_LOGIN_INCORRECT = "Usuario o contraseÃ±a incorrectos.";    
+    public static String LANG_LOG_OFF = "Usuario o contraseÃ±a incorrectos.";
 
 
 }

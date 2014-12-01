@@ -19,11 +19,6 @@
 	//miramos si existe sessión, si existe y tiene la propiedad, comprobamos que es true
 	if(session == null || session.getAttribute(Constantes.PARAM_SESSION_AUTHENTICATED) ==null  || session.getAttribute(Constantes.PARAM_SESSION_AUTHENTICATED).equals(false))
 	{
-		
-		
-		
-		
-		
 		//sesion sin authentificar
 		session.setAttribute(Constantes.PARAM_SESSION_AUTHENTICATED, false);
 		
