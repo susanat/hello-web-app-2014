@@ -1,3 +1,4 @@
+<%@page import="com.ipartek.formacion.helloweb.comun.Constantes"%>
 <%@page import="java.util.Enumeration"%>
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <%@page pageEncoding="UTF-8" %>
@@ -28,7 +29,7 @@
 
 	<h1>Index de la página</h1>
 	<h2>
-		<a href="<%=path %>administracion.jsp">Administracion</a>
+		<a href="<%=Constantes.JSP_BACK_ADMIN %>">Administracion</a>
 		<br>
 		<a href="saludo.jsp">Saludo</a>		
 	</h2>

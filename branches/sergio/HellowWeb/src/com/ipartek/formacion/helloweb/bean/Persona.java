@@ -44,6 +44,10 @@ public class Persona {
 	public void setRol(Roles rol) {
 		this.rol = rol;
 	}
+	
+	public Persona() {
+		
+	}
 
 	public Persona(int id, String nombre, int edad, Roles rol) {
 		super();
@@ -59,6 +63,14 @@ public class Persona {
 		this.edad = edad;
 		this.rol = rol;
 	}
+
+	@Override
+	public String toString() {
+		
+		return this.nombre;
+	}
+	
+	
 		
 	
 }

@@ -34,6 +34,7 @@ public class Utils {
 	}
 	
 	public static String getUriFile(String url) {
-		return url.substring( url.lastIndexOf('/')+1, url.length() );
+		//return url.substring( url.lastIndexOf('/')+1, url.length() );
+		return url.substring(Constantes.SITE_PATH.length(), url.length());
 	}
 }
