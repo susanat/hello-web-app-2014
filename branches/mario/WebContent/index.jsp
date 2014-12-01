@@ -1,5 +1,6 @@
 <!doctype html>
 
+<%@page import="com.ipartek.formacion.helloweb.Rol"%>
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <html lang="en">
 <head>
@@ -23,7 +24,7 @@
   		out.print("<h" + i + ">Cabecera " + i + "</h" + i + ">\n"); 
   	}
   
-  	Persona p = new Persona ("pepe",3);
+  	Persona p = new Persona ("pepe",3,Rol.USUARIO);
   	out.print ( "Nombre: " + p.getNombre() );
   	
   %>  

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.helloweb.Constantes;
+import com.ipartek.formacion.helloweb.Rol;
 import com.ipartek.formacion.helloweb.bean.Persona;
 
 /**
@@ -45,15 +46,38 @@ public class LoginServlet extends HttpServlet {
 	// recoger parametros del login
 	getParameters(request);
 
+	// validar usuario
+	validateUser(request);
+
+	// despachar o servir JSP
+	dispatch.forward(request, response);
+    }
+
+    /**
+     * Comprobar los datos del Login y mirar si el rol es "administrador" o
+     * "usuario"
+     *
+     * <ol>
+     * <li>Administrador: ir a backoffice</li>
+     * <li>Usuario: ir a backoffice</li>
+     * <li >Si no validado: retornar al login</li>
+     * <ol>
+     *
+     */
+    private void validateUser(HttpServletRequest request) {
+	// Administrador: ir a backoffice
 	if (Constantes.USER_ADMIN.equals(pUser)
 		&& Constantes.PASS_ADMIN.equals(pPass)) {
 	    // correcto: redirigir a un JSP
-	    dispatch = request.getRequestDispatcher(Constantes.JSP_ADMIN_LOGIN);
+	    dispatch = request
+		    .getRequestDispatcher(Constantes.JSP_BACKOFFICE_INDEX);
 
-	    // guardar datos en session // TODO recuperar usuario de la BD
-	    Persona p = new Persona(pUser, 0);
+	    // guardar datos en session
+	    // TODO recuperar usuario de la BD
+	    Persona p = new Persona(pUser, 0, Rol.ADMINISTRADOR);
 	    session.setAttribute(Constantes.USER_SESSION, p);
 
+	    // Usuario: ir a backoffice
 	} else if (Constantes.USER.equals(pUser)
 		&& Constantes.PASS.equals(pPass)) {
 
@@ -62,7 +86,7 @@ public class LoginServlet extends HttpServlet {
 
 	    // guardar datos en session
 	    // TODO recuperar usuario de la BD
-	    Persona p = new Persona(pUser, 0);
+	    Persona p = new Persona(pUser, 0, Rol.USUARIO);
 	    session.setAttribute(Constantes.USER_SESSION, p);
 
 	} else {
@@ -74,8 +98,6 @@ public class LoginServlet extends HttpServlet {
 
 	}
 
-	// despachar o servir JSP
-	dispatch.forward(request, response);
     }
 
     /**
