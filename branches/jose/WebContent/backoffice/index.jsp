@@ -3,7 +3,7 @@
 
 <%
 	//recuperar el usuario de session
-	Persona p = (Persona) request.getAttribute(Constantes.USER_SESSION);
+	Persona p = (Persona) session.getAttribute(Constantes.USER_SESSION);
 	// variable para saber si el usuario es administrador
 	boolean esAdministrador = true;
 	// Comprueba que exista la session
@@ -37,5 +37,11 @@
 	<h1>Bienvenido a la seccion de Administracion</h1>
 	<a href="<%=Constantes.PATH_LOGOUT%>" title="Cierra tu session">[x]
 		Cerrar Session</a>
+<nav>
+<h3>Menu Administracion</h3>
+<ul>
+	<li><a href="<%=Constantes.CONTROLLER_PERSONA%>" title="Gestionar Personas">Personas</a>
+</ul>
+</nav>
 </body>
 </html>

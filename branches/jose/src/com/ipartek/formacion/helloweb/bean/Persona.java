@@ -61,6 +61,11 @@ public class Persona {
 		this.id = id;
 	}
 
+	@Override
+	public String toString() {
+		return "Persona [id=" + id + ", nombre=" + nombre + ", edad=" + edad
+				+ ", rol=" + rol + "]";
+	}
 
 	/**
 	 * Enumeracion para los Roles de las Personas

@@ -26,7 +26,7 @@ public interface IModeloPersona {
 	 *            identificador <code>Persona</code>
 	 * @return <code>Persona</code>, si no existe null
 	 */
-	Persona getByd(int id);
+	Persona getById(int id);
 
 	/**
 	 * Insertar nueva <code>Persona</code>

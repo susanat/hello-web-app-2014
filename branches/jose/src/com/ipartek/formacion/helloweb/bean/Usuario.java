@@ -58,9 +58,12 @@ public class Usuario {
 	 * @return
 	 */
 	public boolean esAdministrador(){
-		boolean bUsuario = Constantes.USER_ADMIN.equals(this.usuario)?true:false;
-		boolean bPassword = Constantes.PASS_ADMIN.equals(this.password)?true:false;
+		boolean bUsuario = Constantes.USER_ADMIN_NAME.equals(this.usuario) ? true
+				: false;
+		boolean bPassword = Constantes.USER_ADMIN_PASS.equals(this.password) ? true
+				: false;
 		return (bUsuario && bPassword);
+
 	}
 	
 	/**
