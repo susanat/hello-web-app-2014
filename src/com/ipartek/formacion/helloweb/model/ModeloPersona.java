@@ -19,7 +19,7 @@ public class ModeloPersona implements IModeloPersona {
 	// TODO implementar base BBDD
 	static ArrayList<Persona> personas = null;
 
-	static void createTable() {
+	public static void createTable() {
 		personas = new ArrayList<Persona>();
 		Persona p = new Persona("");
 		p.setNombre("Gorriti");
