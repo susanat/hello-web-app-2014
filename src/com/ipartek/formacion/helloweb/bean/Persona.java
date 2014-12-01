@@ -65,4 +65,10 @@ public class Persona {
 	ADMINISTRADOR, USER;
     }
 
+    @Override
+    public String toString() {
+	return "Persona [id=" + id + ", rol=" + rol + " ,  nombre=" + nombre
+		+ "  , edad=" + edad + "]";
+    }
+
 }

@@ -92,7 +92,7 @@ public class LoginServlet extends HttpServlet {
 	    // Adminstrador: ir al backoffice
 	} else if (Constantes.USER_ADMIN_NAME.equals(pUser)
 		&& Constantes.USER_ADMIN_PASS.equals(pPass)) {
-	    dispath = request.getRequestDispatcher(Constantes.JSP_BACKOFFICES);
+	    dispath = request.getRequestDispatcher(Constantes.JSP_BACK_INDEX);
 	    Persona p = new Persona(pUser, 0);
 	    p.setRol(Persona.Rol.ADMINISTRADOR);
 	    session.setAttribute(Constantes.USER_SESSION, p);

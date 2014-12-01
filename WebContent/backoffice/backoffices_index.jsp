@@ -29,6 +29,22 @@
 	<h2>Ongi Etorri</h2>
 	
 	 <a href="<%=Constantes.PATH_LOGOUT%>" title="Cerrar session">[X] Cerrar Session</a>
+	 
+	 <nav>
+		 
+		 <h3>Menu Administracion</h3>
+		 
+		 <ul>
+		 <!-- La peticion tiene que ser GET  //el = para que me lo pinte-->
+		 	<li><a href="<%=Constantes.CONTROLER_PERSONA %>" title="Gestionar Personas">Personas</a></li>
+		 	
+		 
+		 </ul>
+		 
+		 
+		 
+		 
+	 </nav>
 
 </body>
 </html>
