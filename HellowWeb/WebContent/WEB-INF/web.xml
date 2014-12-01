@@ -18,15 +18,20 @@
     <description>Realiza un logout del usuario</description>
     <display-name>LogoutServlet</display-name>
     <servlet-name>LogoutServlet</servlet-name>
-    <servlet-class>com.ipartek.formacion.helloweb.controller.LogoutServlet</servlet-class>
-    <init-param>
-      <description>Si queremos invalidar completamente el usuario</description>
-      <param-name>invalidate</param-name>
-      <param-value>true</param-value>
-    </init-param>
+    <servlet-class>com.ipartek.formacion.helloweb.controller.LogoutServlet</servlet-class>    
   </servlet>
   <servlet-mapping>
     <servlet-name>LogoutServlet</servlet-name>
     <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>CRUD para Personas</description>
+    <display-name>PersonaServlet</display-name>
+    <servlet-name>PersonaServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controller.PersonaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PersonaServlet</servlet-name>
+    <url-pattern>/persona</url-pattern>
   </servlet-mapping>
 </web-app>

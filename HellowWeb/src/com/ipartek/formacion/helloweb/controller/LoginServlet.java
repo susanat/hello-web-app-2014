@@ -63,7 +63,7 @@ public class LoginServlet extends HttpServlet {
 		 	session.setAttribute(Constantes.PARAM_SESSION_USER, CargasTemporales.getPersona(username));
 	    } else {
 			//incorrecto: enviar de nuevo a login.jsp
-		 	dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
+		 	dispatch = request.getRequestDispatcher(Constantes.CONTROLLER_LOGIN);
 		 	
 		 	session.setAttribute(Constantes.PARAM_SESSION_AUTHENTICATED, false);
 		 	request.setAttribute(Constantes.PARAM_SESSION_MSJ, Constantes.LANG_LOGIN_INCORRECT);

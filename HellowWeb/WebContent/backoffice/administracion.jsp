@@ -25,7 +25,7 @@
 		session.setAttribute(Constantes.PARAM_SESSION_AUTHENTICATED, false);
 	
 		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-   		response.sendRedirect("login.jsp");
+   		response.sendRedirect(Constantes.JSP_LOGIN);
    		
 	} else {
 		
@@ -75,8 +75,15 @@
 
 	<h1>Administración: Ongi Etorri <%= strName %> </h1>	
 	 
+	 <h2> Menú Administracion </h2>
+	 <ul>
+	 	<a href="<%= Constantes.SITE_PATH +  Constantes.CONTROLLER_PERSONA %>" title="Gestion Personas">Gestión Personas</a>
+	 </ul>
+	 
+	 
+	 
 	<div class="col-xs-12 text-right">
-		<a class="btn btn-success btn-lg" href="logout.jsp">Logout</a>			  		
+		<a class="btn btn-success btn-lg" href="<%= Constantes.JSP_LOGOUT %>">Logout</a>			  		
 	</div>
 	
 	<% out.println("<h3>Request Information Example</h3>"); %>
@@ -119,10 +126,7 @@
 	            String name = (String)e.nextElement();
 	            String value = (String) request.getAttribute(name);
 	            out.println("<li>" + name + " = " + value + "</li>");
-	        }
-			
-		
-			
+	        }			
 		%>	
 	</ol>
 	

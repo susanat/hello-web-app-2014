@@ -112,8 +112,9 @@ public class ModeloPersona implements IModeloPersona {
 	/* (non-Javadoc)
 	 * @see com.ipartek.formacion.helloweb.model.interfaces.IModeloPersona#Insert(com.ipartek.formacion.helloweb.bean.Persona)
 	 */
-	public int Insert(Persona obj) {
-		int res  = -1;		
+	public Persona Insert(Persona obj) {
+		
+		Persona res = null;		
 		
 		
 		if(obj == null) {
@@ -122,11 +123,11 @@ public class ModeloPersona implements IModeloPersona {
 			if(CargasTemporales.personas == null) {
 				CargasTemporales.personas = new ArrayList<Persona>();
 			}
-
-			res = getLastId();					
-			obj.setId(res);			
+				
+			obj.setId(getLastId());			
 			CargasTemporales.personas.add(obj);
 			
+			res = obj;
 		}		
 		
 		
@@ -163,7 +164,7 @@ public class ModeloPersona implements IModeloPersona {
 		Boolean res = false;
 		
 		if (id < 0) {
-			onError(null, new Exception("Delete: Identificador no válido (ha de ser mayor que 0)"  + id));
+			onError(null, new Exception("Delete: Identificador no válido (ha de ser mayor que 0): "  + id));
 		} else {
 			//obtenemos la persona
 			Persona p = this.getById(id);			
@@ -180,8 +181,8 @@ public class ModeloPersona implements IModeloPersona {
 	/* (non-Javadoc)
 	 * @see com.ipartek.formacion.helloweb.model.interfaces.IModeloPersona#update(int, com.ipartek.formacion.helloweb.bean.Persona)
 	 */
-	public int update(int id, Persona obj) {
-		int res = -1;
+	public Persona update(int id, Persona obj) {
+		Persona res = null;
 		
 		if (id < 0) {
 			onError(null, new Exception("Update: Identificador no válido (ha de ser mayor que 0)"  + id));
@@ -194,11 +195,11 @@ public class ModeloPersona implements IModeloPersona {
 				
 				CargasTemporales.personas.add(obj);
 				
-				res = id;
+				res = obj;
 			}			
 		}
 		
-		if (res == -1) {
+		if (res == null) {
 			onError(null, new Exception("Update: No ha encontrado el objeto a actualizar con id " + id));
 		}
 		

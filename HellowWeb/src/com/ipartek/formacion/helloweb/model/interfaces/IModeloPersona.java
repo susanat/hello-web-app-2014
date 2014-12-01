@@ -70,7 +70,7 @@ public interface IModeloPersona {
 	 * @param obj Persona a insertar
 	 * @return integer con el id o -1 si no ha sido insertado -2 existe
 	 */
-	public int Insert ( Persona obj);
+	public Persona Insert ( Persona obj);
 	
 	/**
 	 * Modifica registro en base de datos
@@ -78,7 +78,7 @@ public interface IModeloPersona {
 	 * @param obj Persona a modificar
 	 * @return integer con el identificador de la persona o -1 con error.
 	 */
-	public int update (int id, Persona obj);
+	public Persona update (int id, Persona obj);
 	
 	
 	/**

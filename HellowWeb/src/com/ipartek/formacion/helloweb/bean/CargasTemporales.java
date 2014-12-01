@@ -58,9 +58,7 @@ public class CargasTemporales {
 		personas.add(new Persona(5, "Manole", 20,roles.get(0)));
 		personas.add(new Persona(6, "Sergio", 20,roles.get(1)));
 	}
-	
-	
-	
+		
 	
 	public static boolean checkPermisoPagina(String file, Persona persona) {
 		
@@ -69,14 +67,7 @@ public class CargasTemporales {
 		return false;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
+		
 	public static List<Roles> getListRoles(){
 		List<Roles> roles = new ArrayList<Roles>();
 		roles.add(new Roles(1,"Administrador"));

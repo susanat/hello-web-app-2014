@@ -30,7 +30,7 @@
 		
 		
 		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-   		response.sendRedirect("login.jsp");
+   		response.sendRedirect(Constantes.JSP_LOGIN);
 	} else {
 		
 		//comprobamos los permisos
