@@ -20,7 +20,7 @@ public class ModeloPersona implements IModeloPersona {
 
     static ArrayList<Persona> personas = null;
 
-    static void createTable() {
+    public static void createTable() {
 	personas = new ArrayList<Persona>();
 
 	Persona p = new Persona("");
@@ -70,13 +70,19 @@ public class ModeloPersona implements IModeloPersona {
 
 	ArrayList<Persona> personasLogicas = null;
 	if (personas != null) {
+	    personasLogicas = new ArrayList<Persona>();
 	    for (Persona p : personas) {
 		if (p != null) {
 		    personasLogicas.add(p);
 		}
 	    }
-	    return personasLogicas;
+
+	    // Si todos estan borrados logicamente
+	    if (personasLogicas.isEmpty()) {
+		personasLogicas = null;
+	    }
 	}
+	return personasLogicas;
     }
 
     /*
