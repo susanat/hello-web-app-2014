@@ -15,13 +15,21 @@ public class Constantes {
 	public static final String PATH_LOGIN = "login";
 	public static final String PATH_LOGOUT = "logout";
 	
+	public static final String CONTROLLER_PERSONA = "persona";
+	
 	//JSPs publicas
 	public static final String JSP_SALUDO = "saludo.jsp"; 
 	public static final String JSP_LOGIN = "login.jsp";
 	
 	//JSPs Backoffice
-	public static final String JSP_BACKOFFICE_INDEX = "backoffice/index.jsp";
+	public static final String JSP_BACKOFFICE = "backoffice/";
+	public static final String JSP_BACK_INDEX = JSP_BACKOFFICE+"index.jsp";
+	
+	public static final String JSP_BACK_PERSONA_LIST = JSP_BACKOFFICE + "persona/list.jsp";
+	public static final String JSP_BACK_PERSONA_FORM = JSP_BACKOFFICE + "persona/form.jsp";
 	 
+	
+	
 	//Parametros
 	public static final String PARAMETRO_USER = "user";
 	public static final String PARAMETRO_PASS = "pass";
@@ -33,6 +41,9 @@ public class Constantes {
 	
 	public static final String MSG_NOT_ALLOWED = "No tienes permisos";
 	 
+    //Atrinuttos	 
+	public static final String ATT_PERSONAS = "personas";
+	public static final String ATT_PERSONA  = "persona";
 }
 
 

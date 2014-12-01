@@ -83,7 +83,7 @@ public class LoginServlet extends HttpServlet {
 		}else if ( Constantes.USER_ADMIN_NAME.equals(pUser) && 
 				 Constantes.USER_ADMIN_PASS.equals(pPass)	 ){
 			
-			dispatch = request.getRequestDispatcher(Constantes.JSP_BACKOFFICE_INDEX );
+			dispatch = request.getRequestDispatcher(Constantes.JSP_BACK_INDEX );
 			//guardar usuario en session
 			//TODO recuperar usuario de la BBDD
 			Persona p = new Persona(pUser, 0);

@@ -31,5 +31,14 @@
 	
 	<a href="<%=Constantes.PATH_LOGOUT%>" title="Cierra tu seccion" > [x] Cerrar Session </a>
 
+	
+	<nav>
+		<h3>Menu Administracion</h3>
+		<ul>
+			<li><a href="<%=Constantes.CONTROLLER_PERSONA%>" title="Gestionar Personas"> Personas</a></li>
+		</ul>
+		
+	</nav>
+
 </body>
 </html>
