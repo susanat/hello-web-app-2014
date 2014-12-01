@@ -87,7 +87,7 @@ public class ModeloPersonaTest {
 		Persona prueba = new Persona("Gorriti2", 20, CargasTemporales.roles.get(0));
 		
 		//comprobamos que ha insertado correctamente
-		assertTrue(Persona.ID_NULL < modeloPersona.Insert(prueba));
+		assertTrue(Persona.ID_NULL < modeloPersona.Insert(prueba).getId());
 				
 		//testeamos que al insertar mal nos devuelve -1
 		assertEquals(Persona.ID_NULL, modeloPersona.Insert( null ));
