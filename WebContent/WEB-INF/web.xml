@@ -15,13 +15,23 @@
     <url-pattern>/login</url-pattern>
   </servlet-mapping>
   <servlet>
-    <description></description>
+    <description>Logout de usuarios</description>
     <display-name>LogoutServlet</display-name>
     <servlet-name>LogoutServlet</servlet-name>
     <servlet-class>com.ipartek.formacion.helloweb.controller.LogoutServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>LogoutServlet</servlet-name>
-    <url-pattern>/logoutServlet</url-pattern>
+    <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>CRUD para Personas</description>
+    <display-name>PersonaServlet</display-name>
+    <servlet-name>PersonaServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controller.PersonaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PersonaServlet</servlet-name>
+    <url-pattern>/persona</url-pattern>
   </servlet-mapping>
 </web-app>
