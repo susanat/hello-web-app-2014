@@ -36,6 +36,11 @@ public class Constantes {
     public static final String MSG_LOGIN_INCORRECT = "Usuario o contraseña incorrecta";
     public static final String MSG_LOGOUT = "Hasta la vista Baby recuerda visitarnos!!";
     public static final String MSG_NOT_ALLOWED = "No tienes permisos";
+    public static final String MSG_REG_CREATE = "Registro creado con éxito";
+    public static final String MSG_REG_DELETE = "Registro eliminado con éxito";
+    public static final String MSG_REG_UPDATE = "Registro modificado con éxito";
+    public static final String MSG_ERR_PARAMETERS = "Error recogiendo parametros";
+    public static final String MSG_ERR_DELETE = "Error eliminando registro";
 
     // Atributos
     public static final String ATT_PERSONAS = "personas";
@@ -47,4 +52,6 @@ public class Constantes {
     public static final String OP_DELETE = "1"; // Eliminar registro
     public static final String OP_LIST = "2"; // Listar todos los registros
     public static final String OP_DETAIL = "3"; // Mostrar detalle registro
+    public static final String OP_CREATE = "4"; // Mostrar detalle registro
+
 }
