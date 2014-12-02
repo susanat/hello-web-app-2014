@@ -49,7 +49,7 @@ public class ModeloPersonaTest {
 
 	@Test
 	public void testGetById() throws Exception {
-		final Persona p = modelo.getById(1);
+		final Persona p = modelo.getById(0);
 		assertEquals("La persona recogida por id es incorrecta.", "Gorriti", p.getNombre());
 
 		assertNull("La persona que se pide, y no existe, debería devolver null.", modelo.getById(13));
@@ -59,11 +59,18 @@ public class ModeloPersonaTest {
 	public void testInsert() throws Exception {
 		final int todos = modelo.getAll().size();
 
-		assertTrue("Si se hace una insert debería retornar un valor mayor que -1.",
-				Persona.ID_NULL < modelo.insert(new Persona("Nuevo")));
+		final int idNuevaPersona = modelo.insert(new Persona("Nuevo"));
+		assertTrue("Si se hace una insert debería retornar un valor mayor que -1.", Persona.ID_NULL < idNuevaPersona);
+		// assertTrue("No se ha generado correctamente el ID.", condition);
+
 		assertEquals("Si la persona está a null la insert debería retornar -1.", Persona.ID_NULL, modelo.insert(null));
 		assertEquals("El registro nuevo debería haber aumentado el size() del ArrayList", todos + 1, modelo.getAll()
 				.size());
+
+		// Insertar cuando no existen registros
+		ModeloPersona.truncateTable();
+		final int idNuevaPersona2 = modelo.insert(new Persona("El nuevo2"));
+		assertTrue("Debe poder insertar a pesar de no haber registros", Persona.ID_NULL < idNuevaPersona2);
 	}
 
 	@Test

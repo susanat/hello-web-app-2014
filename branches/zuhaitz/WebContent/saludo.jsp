@@ -27,7 +27,7 @@
 	<h1>
 		Ongi Etorri
 		<%=p.getNombre()%></h1>
-	<a href="<%=Constantes.PATH_LOGOUT%>" title="Cierra tu sesión">[x] Logout</a>
+	<a href="<%=Constantes.CONTROLLER_LOGOUT%>" title="Cierra tu sesión">[x] Logout</a>
 	
 	<h2>Request Info</h2>
 	<ol>
