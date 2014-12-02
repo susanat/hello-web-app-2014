@@ -1,16 +1,6 @@
-<%@page import="com.ipartek.formacion.helloworld.util.Constante"%>
-<%@page import="com.ipartek.formacion.helloworld.bean.Persona"%>
-<%@page import="java.util.ArrayList"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<%@include file="../includes/header.jsp" %>
 <%@include file="../../includes/alerts.jsp" 	%>
+
 <% 
 
 	Persona persona  = (Persona)session.getAttribute(Constante.USER_SESSION);
@@ -59,5 +49,4 @@
 	}
 	%>
 	 <p><a href="<%=Constante.JSP_BACKOFFICE_PERSONA_FORM%>">Crear persona</a></p>
-</body>
-</html>
+<%@include file="../includes/footer.jsp" %>
