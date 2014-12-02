@@ -63,10 +63,10 @@
 	<% 
 	
 	//default values
-	String id = "-1";
+	String id = String.valueOf(Persona.ID_NULL);
 	String nombre = "";
-	String edad = "0";
-	Roles role = null;
+	String edad = String.valueOf(Persona.EDAD_NULL);
+	String role = String.valueOf(Persona.ROL_NULL);
 	
 	//ORIGEN: nos ha llegado la persona por el servlet (en una lista)
 	if (request.getAttribute(Constantes.ATTR_PERSONAS_LIST) != null) {
@@ -76,7 +76,7 @@
 			id = String.valueOf(personas.get(0).getId());
 			nombre = personas.get(0).getNombre();
 			edad = String.valueOf(personas.get(0).getEdad());
-			role = personas.get(0).getRol();
+			role = String.valueOf(personas.get(0).getRol());
 		}
 		
 	} else	if (request.getParameter(Constantes.PARAM_PERSONAS_ID) != null) {

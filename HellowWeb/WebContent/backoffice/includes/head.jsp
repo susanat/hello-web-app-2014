@@ -1,10 +1,3 @@
-<% 
-//strings a sacar de aquí o que son de idioma
-String adm_index_desc = "Administración del sitio";
-String adm_index_title = "Administración";
-
-
-%>
 
 <!-- Directiva codificación de la página -->
 <%@ page pageEncoding="UTF-8" %>
@@ -18,10 +11,10 @@ String adm_index_title = "Administración";
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="<%= adm_index_desc %>">
+    <meta name="description" content="<%= Constantes.adm_index_desc %>">
     <meta name="author" content="">
 
-    <title><%=adm_index_title %></title>
+    <title><%=Constantes.adm_index_title %></title>
 	
 	<% //TODO Pasar a theme-head %>
 	 <!-- Bootstrap Core CSS -->

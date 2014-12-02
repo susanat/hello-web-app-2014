@@ -1,3 +1,4 @@
+<%@page import="com.ipartek.formacion.helloweb.temp.UtilsTemp"%>
 <%@page import="com.ipartek.formacion.helloweb.comun.Utils"%>
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
@@ -30,7 +31,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <link rel="stylesheet" href="<%= Constantes.SITE_PATH%>bootstrap/css/bootstrap.min.css">
+  	<link rel="stylesheet" href="<%= Constantes.SITE_PATH%>bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<%= Constantes.SITE_PATH%>bootstrap/css/main.css">
 	
 	<style>
@@ -143,7 +144,7 @@
 						out.println("<td>" + per.getId() + "</td>");
 						out.println("<td>" + per.getNombre() + "</td>");
 						out.println("<td>" + per.getEdad() + "</td>");
-						out.println("<td>" + per.getRol().toString() + "</td>");						
+						out.println("<td>" + UtilsTemp.getNameFromRole(request, String.valueOf(per.getRol()) ) + "</td>");						
 						out.println("<td>");
 						%>						
 							<form action="<%=Constantes.CONTROLLER_PERSONA %>" method="post">							

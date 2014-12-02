@@ -1,3 +1,4 @@
+<%@page import="com.ipartek.formacion.helloweb.comun.Constantes"%>
 <%
 	//Absolute path for root of themes for backoffice
 	//Constantes.TEMP_ABS_PATH_THEME

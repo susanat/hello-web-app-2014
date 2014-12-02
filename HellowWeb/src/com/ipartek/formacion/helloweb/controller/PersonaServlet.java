@@ -317,15 +317,16 @@ public class PersonaServlet extends HttpServlet {
 	}
 	
 	
-	private Persona getPersona(HttpServletRequest request) throws Exception {
+	private Persona getPersonaFromRequest(HttpServletRequest request) throws Exception {
 		
 		Persona  per = null;
 		boolean isValidado = true;
 		
-		int id = -1;
+		//inicializamos
+		int id = Persona.ID_NULL;
 		String name = "";
-		int edad = 0;
-		Roles rol = null;
+		int edad = Persona.EDAD_NULL;
+		int rol = Persona.ROL_NULL;
 		
 		try {
 		
@@ -346,6 +347,10 @@ public class PersonaServlet extends HttpServlet {
 				edad = Integer.valueOf(request.getParameter(Constantes.PARAM_PERSONAS_EDAD));
 			}
 			
+			if(request.getParameter(Constantes.PARAM_PERSONAS_ROLE) != null) {
+				rol = Integer.valueOf(request.getParameter(Constantes.PARAM_PERSONAS_ROLE));
+			}
+			
 			if (isValidado) {
 				
 				per = new Persona();
@@ -354,7 +359,7 @@ public class PersonaServlet extends HttpServlet {
 				per.setNombre(name);
 				per.setEdad(edad);
 				//TODO: Puesto a pelo
-				per.setRol(CargasTemporales.roles.get(1));
+				per.setRol(rol);
 				
 			}
 			
