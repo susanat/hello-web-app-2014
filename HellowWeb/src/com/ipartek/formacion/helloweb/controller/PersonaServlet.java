@@ -17,8 +17,10 @@ import com.ipartek.formacion.helloweb.bean.CargasTemporales;
 import com.ipartek.formacion.helloweb.bean.Persona;
 import com.ipartek.formacion.helloweb.bean.Roles;
 import com.ipartek.formacion.helloweb.comun.Constantes;
+import com.ipartek.formacion.helloweb.comun.Constantes.EModeloAccion;
 import com.ipartek.formacion.helloweb.comun.Utils;
 import com.ipartek.formacion.helloweb.model.ModeloPersona;
+import com.ipartek.formacion.helloweb.model.interfaces.IModeloPersona.onModelPersonaError;
 import com.ipartek.formacion.helloweb.temp.ShutdownExample;
 
 /**
@@ -35,6 +37,9 @@ public class PersonaServlet extends HttpServlet {
 	
 	RequestDispatcher dispatcher = null;
 	
+	HttpServletRequest actualRequest = null;
+	
+	
 	/**
 	 * Contador accesos
 	 */
@@ -46,8 +51,22 @@ public class PersonaServlet extends HttpServlet {
 		
 		//Creamos el objeto al iniciarse el servlet
 		model = new ModeloPersona();
+		model.setOnIError(new onModelPersonaError() {
+			
+			public void onException(Persona obj, Exception ex) {
+				
+				
+			}
+		});
 		
 		contador = new ShutdownExample();
+	}
+	
+	public void onModelException(Persona obj, Exception ex) {
+		
+		actualRequest.setAttribute(Constantes.ATTR_ERROR, true);
+		actualRequest.setAttribute(Constantes.ATTR_ERROR_MSJ, "Error en el modelo.");
+		actualRequest.setAttribute(Constantes.ATTR_ERROR_EXCEPTION, ex);
 	}
 	
 	@Override
@@ -72,6 +91,8 @@ public class PersonaServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		actualRequest = request;
+		
 		//recoger parámetros
 		
 		//comprobar si es getAll o getById
@@ -91,15 +112,87 @@ public class PersonaServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//this.doGet(request, response);
+			
 		
+		//Siempre: Inicializamos el error
 		request.setAttribute(Constantes.ATTR_ERROR, false);
 		request.setAttribute(Constantes.ATTR_ERROR_MSJ, "");
 		request.setAttribute(Constantes.ATTR_ERROR_EXCEPTION, null);
+					
+		///////////////// Obtención de urls
+		//obtenemos la url de referencia y de destino. Asumimos destino igual a referencia si no se dice lo contrario.
+		String urlReferer = request.getHeader("Referer");
+		String urlTo = request.getHeader("Referer");
+		
+		//obtenemos la página de origen (si no existe se asume que es la que ha relizado la petición):
+		if(request.getParameter(Constantes.PARAM_URL_FROM) != null) {
+			urlReferer = request.getParameter(Constantes.PARAM_URL_FROM);
+			urlTo = request.getParameter(Constantes.PARAM_URL_FROM);
+		}
+		
+		//obtenemos la página de destino (si no existe se asume que es la misma que la de origen):
+		if(request.getParameter(Constantes.PARAM_URL_TO) != null) {
+			urlTo = request.getParameter(Constantes.PARAM_URL_TO);
+		}
+				
+		
+		//orígenes:
+		
+		//- solicita datos
+		//	- solicita el listado		
+		//	- solicita una persona
+		
+		//- solicita un insert		
+		//- solicita un update		
+		//- solicita un delete
+		
+		
+		//comprobamos si nos llega el parámetro de acción
+		if(request.getParameter(Constantes.PARAM_ACTION) != null) {			
+			//lo obtenemos
+			EModeloAccion accion = EModeloAccion.getEnumNameForValue(request.getParameter(Constantes.PARAM_ACTION));
+			if(accion != null) 
+			{				
+				switch (accion) {
+				case GET:
+					Get(request, response);
+					break;
+					
+				case INSERT:
+					
+					break;
+					
+				case UPDATE:
+					
+					break;
+					
+				case DELETE:
+					
+					break;
+
+				default:
+					break;
+				}				
+			} else {
+				//TODO error, acción errónea
+			}
+		} else {
+			//TODO error, no ha llegado acción
+		}
 		
 		
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/*
 		Persona p = null;
 		Persona pRetorno = null;	
 		List<Persona> lstPersona =  null;
@@ -143,13 +236,83 @@ public class PersonaServlet extends HttpServlet {
 			request.setAttribute(Constantes.ATTR_ERROR_MSJ, "Error con excepción.");
 			request.setAttribute(Constantes.ATTR_ERROR_EXCEPTION, e);
 		}
+		*/
 		
 				
 		//fordward a la vista sí o sí
-		dispatcher = request.getRequestDispatcher(Utils.getUriFile(Constantes.JSP_BACK_PERSONA_FORM));
+		dispatcher = request.getRequestDispatcher(Utils.getUriFile(urlTo));
 		dispatcher.forward(request, response);
 		
 		
+	}
+	
+	private int Delete (HttpServletRequest request, HttpServletResponse response) {
+		int res = 0;
+		
+		
+		return res;
+		
+	}
+	
+	private Persona Update (HttpServletRequest request, HttpServletResponse response) {
+		Persona res = null;
+		
+		
+		return res;
+		
+	}
+	
+	private Persona Insert (HttpServletRequest request, HttpServletResponse response) {
+		Persona res = null;
+		
+		return res;
+	}
+	
+	/**
+	 * Crea los atributos necesario para la respuesta al request de tipo SELECT
+	 * 
+	 * @param request
+	 * @param response
+	 */
+	private void Get (HttpServletRequest request, HttpServletResponse response) {
+		List<Persona> lstPersona = null;
+		//actualmente dos opciones. Obtener la lista completa u obtener solo un objeto
+		//se diferencia por el campo PARAM_PERSONAS_ID si viene indicado		
+		try {
+		
+			if (request.getParameter(Constantes.PARAM_PERSONAS_ID) != null) {
+				//obtenemos la persona por el id
+				int id = Integer.parseInt(request.getParameter(Constantes.PARAM_PERSONAS_ID));
+				
+				Persona p = model.getById(id);
+				
+				//error, no existe
+				if(p == null) {
+					request.setAttribute(Constantes.ATTR_ERROR, true);
+					request.setAttribute(Constantes.ATTR_ERROR_MSJ, "No existe persona con ese identificador");
+				} else {
+					lstPersona = new ArrayList<Persona>();
+					lstPersona.add(p);
+				}
+				
+			} else  {
+				//obtenemos el listado completo
+				lstPersona = model.getAll();			
+			}
+			
+			
+			//devolvemos. Null, no existen elementos encontrados
+			request.setAttribute(Constantes.ATTR_PERSONAS_LIST, lstPersona);
+			
+				
+		} catch (Exception ex) {
+			//mandamos el error para el peticionario. Aqui no nos interesa saber por qué.
+			//TODO: meterlo en log también
+			request.setAttribute(Constantes.ATTR_ERROR, true);
+			request.setAttribute(Constantes.ATTR_ERROR_MSJ, "Accion Get Persona: " + ex.getMessage());
+			request.setAttribute(Constantes.ATTR_ERROR_EXCEPTION, ex);
+		} 
+				
 	}
 	
 	
@@ -203,12 +366,13 @@ public class PersonaServlet extends HttpServlet {
 		
 	}
 	
-
-
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {		
 		//super.service(req, resp);
+		//guardamos el httpServletRequest actual, siempre pasa por aquí, por lo que cada
+		//petición tendrá su propio request.
+		actualRequest = req;
 		
 		contador.enteringServiceMethod();	
 		
