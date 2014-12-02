@@ -1,4 +1,14 @@
-	</nav>
+	<%@page import="com.ipartek.formacion.helloworld.util.Constante"%>
+<%@page import="com.ipartek.formacion.helloworld.bean.Persona"%>
+</nav>
+	<% 
+	Persona persona  = (Persona)session.getAttribute(Constante.USER_SESSION);
+ 	if(persona==null || !persona.getRol().getCodigo().equals(Constante.ROL_ADMIN_CODE)){
+	    String root = request.getContextPath();
+	    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+	    response.sendRedirect(root+"/"+Constante.JSP_SALUDO);
+ 	}
+%>
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">

@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@include file="../includes/header.jsp" %>
 <%@include file="../../includes/alerts.jsp" 	%>
 

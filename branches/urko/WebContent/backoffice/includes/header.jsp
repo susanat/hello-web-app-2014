@@ -30,14 +30,7 @@
 </head>
 <body>
 <%@ include file="../../includes/alerts.jsp" 	%>
-<% 
-	Persona persona  = (Persona)session.getAttribute(Constante.USER_SESSION);
- 	if(persona==null || !persona.getRol().getCodigo().equals(Constante.ROL_ADMIN_CODE)){
-	    String root = request.getContextPath();
-	    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-	    response.sendRedirect(root+"/"+Constante.JSP_SALUDO);
- 	}
-%>
+
 
 
 
