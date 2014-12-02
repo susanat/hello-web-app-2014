@@ -19,27 +19,27 @@ public class ModeloPersona implements IModeloPersona {
 	// TODO implementar BBDD
 	static ArrayList<Persona> personas = null;
 
-	static void createTable() {
+	public static void createTable() {
 		personas = new ArrayList<Persona>();
 
 		final Persona p1 = new Persona("Gorriti");
-		p1.setId(1);
+		p1.setId(0);
 		personas.add(p1);
 
 		final Persona p2 = new Persona("Antton");
-		p2.setId(2);
+		p2.setId(1);
 		personas.add(p2);
 
 		final Persona p3 = new Persona("Pirulero");
-		p3.setId(3);
+		p3.setId(2);
 		personas.add(p3);
 
 		final Persona p4 = new Persona("Duquesita");
-		p4.setId(4);
+		p4.setId(3);
 		personas.add(p4);
 
 		final Persona p5 = new Persona("Manoli");
-		p5.setId(5);
+		p5.setId(4);
 		personas.add(p5);
 	}
 
@@ -99,10 +99,14 @@ public class ModeloPersona implements IModeloPersona {
 	public int insert(final Persona p) {
 		int res = Persona.ID_NULL;
 
-		if (p != null && personas != null) {
-			p.setId(personas.size() + 1);
+		if (personas == null) {
+			personas = new ArrayList<Persona>();
+		}
+
+		if (p != null) {
+			p.setId(personas.size());
+			res = personas.size();
 			personas.add(p);
-			res = p.getId();
 		}
 		return res;
 	}
@@ -117,9 +121,9 @@ public class ModeloPersona implements IModeloPersona {
 	public int update(final Persona p) {
 		int res = Persona.ID_NULL;
 
-		if (p != null && p.getId() <= personas.size()) {
+		if (p != null) {
 			personas.set(p.getId(), p);
-			res = personas.get(p.getId()).getId();
+			res = p.getId();
 		}
 		return res;
 	}
@@ -135,7 +139,7 @@ public class ModeloPersona implements IModeloPersona {
 		try {
 			if (personas != null) {
 				if (getById(id) != null) {
-					personas.set(id - 1, null);
+					personas.set(id, null);
 					res = true;
 				}
 			}
