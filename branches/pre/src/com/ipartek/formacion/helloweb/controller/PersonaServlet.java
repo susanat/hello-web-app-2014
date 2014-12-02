@@ -23,6 +23,7 @@ public class PersonaServlet extends HttpServlet {
 	RequestDispatcher dispatcher = null;
 	ModeloPersona model = null;
 	String msg="";
+	int id = Persona.ID_NULL; // identificador Persona
       
 	@Override
 	public void init(ServletConfig config) throws ServletException {		
@@ -43,7 +44,7 @@ public class PersonaServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		//TODO comprobar Autorizacion del usuario
-		
+		id = Persona.ID_NULL; 
 		super.service(req, resp);
 	}
 	
@@ -53,22 +54,45 @@ public class PersonaServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//recoger parametros
-		
+		try{
+			id = Integer.parseInt( request.getParameter("id") );
+		}catch( Exception e){
+			//TODO log
+		}	
 		//comprobar si es getAll o getById
+		if ( id == Persona.ID_NULL ){
+			getAll(request);
+		}else{
+			getById(request);
+		}
 		
-		//acceder al modelo
-		
-		
-		ArrayList<Persona> personas = model.getAll();
-		
-		//pasamos los atributos
-		request.setAttribute( Constantes.ATT_PERSONAS , personas );
-		
-		//forward a la vista
-		dispatcher = request.getRequestDispatcher( Constantes.JSP_BACK_PERSONA_LIST );
 		dispatcher.forward(request, response);
 		
 	}
+	
+	
+	
+	
+	
+
+	private void getById(HttpServletRequest request) {
+		Persona p = model.getById(id);
+		//pasamos los atributos
+		request.setAttribute( Constantes.ATT_PERSONA , p );
+		//forward a la vista del formulario
+	    dispatcher = request.getRequestDispatcher( Constantes.JSP_BACK_PERSONA_FORM );
+		
+	}
+
+
+	private void getAll(HttpServletRequest request) {
+		ArrayList<Persona> personas = model.getAll();		
+		//pasamos los atributos
+		request.setAttribute( Constantes.ATT_PERSONAS , personas );		
+		//forward a la vista
+		dispatcher = request.getRequestDispatcher( Constantes.JSP_BACK_PERSONA_LIST );		
+	}
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -90,6 +114,21 @@ public class PersonaServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
+	
+	@Override
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {	
+		super.doDelete(request, response);
+		int id = Integer.parseInt(request.getParameter("id"));
+		if ( model.delete(id) ){
+			msg=" Persona Eliminada";
+		}else{
+			msg=" NO se ha podido Eliminar";
+		}
+		//llamar a GET y forward vista listado
+		doGet(request, response);
+	}
+	
 	/**
 	 * Recoger los parametros de la request y crear <code>Persona</code>.
 	 * Tambien gestiona los mensajes para el usuario
