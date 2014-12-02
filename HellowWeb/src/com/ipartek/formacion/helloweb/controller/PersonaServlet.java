@@ -38,8 +38,7 @@ public class PersonaServlet extends HttpServlet {
 	RequestDispatcher dispatcher = null;
 	
 	HttpServletRequest actualRequest = null;
-	
-	
+		
 	/**
 	 * Contador accesos
 	 */
@@ -54,7 +53,7 @@ public class PersonaServlet extends HttpServlet {
 		model.setOnIError(new onModelPersonaError() {
 			
 			public void onException(Persona obj, Exception ex) {
-				
+				onModelException(obj, ex);
 				
 			}
 		});
@@ -300,6 +299,8 @@ public class PersonaServlet extends HttpServlet {
 				lstPersona = model.getAll();			
 			}
 			
+			//de regalo incluimos los roles (habitualmente será para obtener datos para modificar)
+			request.setAttribute(Constantes.ATTR_ROLES_LIST, CargasTemporales.getListRoles() );
 			
 			//devolvemos. Null, no existen elementos encontrados
 			request.setAttribute(Constantes.ATTR_PERSONAS_LIST, lstPersona);

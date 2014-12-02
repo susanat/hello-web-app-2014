@@ -65,12 +65,16 @@ public final class Constantes {
 		}
 	}
 
-
-
 	/**
 	 * path del sitio
 	 */
 	public static String SITE_PATH = "http://localhost:8080/HelloWeb/";
+	
+	public static String TEMP_REL_PATH_THEME = "backoffice/themes/sb-admin-2/";
+	public static String TEMP_ABS_PATH_THEME = SITE_PATH + TEMP_REL_PATH_THEME;
+
+
+	
 
 
 	//*************** Ã�rbol de Servlet
@@ -88,7 +92,7 @@ public final class Constantes {
 
 	public static String JSP_PATH_BACK = SITE_PATH + "backoffice/";
 
-	public static String JSP_BACK_ADMIN = JSP_PATH_BACK + "administracion.jsp";
+	public static String JSP_BACK_ADMIN = JSP_PATH_BACK + "index.jsp";
 	public static String JSP_BACK_PERSONA_LIST = JSP_PATH_BACK + "persona/listPersonas.jsp";
 	public static String JSP_BACK_PERSONA_FORM = JSP_PATH_BACK + "persona/formPersona.jsp";
 
@@ -152,6 +156,7 @@ public final class Constantes {
 	//*Attributtes (servlet to jsp)    
 	public static String ATTR_PERSONAS_LIST = "personas";
 	public static String ATTR_PERSONA = "persona";
+	public static String ATTR_ROLES_LIST = "list_roles";
 
 	//*** LANG
 	public static String LANG_LOGIN_INCORRECT = "Usuario o contraseÃ±a incorrectos.";    

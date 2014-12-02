@@ -1,3 +1,8 @@
+<%@page import="com.ipartek.formacion.helloweb.temp.UtilsTemp"%>
+<%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="com.ipartek.formacion.helloweb.bean.Roles"%>
 <%@page import="com.ipartek.formacion.helloweb.comun.Constantes"%>
 <%@page pageEncoding="UTF-8" %>
 
@@ -57,8 +62,22 @@
 
 	<% 
 	
-	if (request.getAttribute(Constantes.ATTR_ERROR) != null) {
-		//ORIGEN: nos ha llegado la persona por el servlet
+	//default values
+	String id = "-1";
+	String nombre = "";
+	String edad = "0";
+	Roles role = null;
+	
+	//ORIGEN: nos ha llegado la persona por el servlet (en una lista)
+	if (request.getAttribute(Constantes.ATTR_PERSONAS_LIST) != null) {
+		
+		List<Persona> personas = (List<Persona>)request.getAttribute(Constantes.ATTR_PERSONAS_LIST);
+		if(personas != null && personas.size() > 0) {
+			id = String.valueOf(personas.get(0).getId());
+			nombre = personas.get(0).getNombre();
+			edad = String.valueOf(personas.get(0).getEdad());
+			role = personas.get(0).getRol();
+		}
 		
 	} else	if (request.getParameter(Constantes.PARAM_PERSONAS_ID) != null) {
 		//ORIGEN: nos ha llegado por post un parámetro de identificador
@@ -83,8 +102,6 @@
 
 
 %>
-
-
 
 	<nav>
 		<!-- Insert breadcrumb -->
@@ -113,27 +130,32 @@
 					<form class="" role="form" method="post" id="frm_personas" action="<%= Constantes.SITE_PATH +  Constantes.CONTROLLER_PERSONA %>">
 						<div class="form-group form-group-install col-md-12">
 							<label class="control-label" for="cont1">Id</label>
-							<input class="form-control" type="text" name="<%=Constantes.PARAM_PERSONAS_ID%>" id="cont1" value="" 
-							 placeholder="" disabled>
+							<input class="form-control" type="text" name="<%=Constantes.PARAM_PERSONAS_ID%>" id="cont1" 
+								value="<%= id %>" 
+							 	placeholder="" disabled>
 						</div>
 					
 					
 						<div class="form-group form-group-install col-md-12">
 							<label class="control-label" for="cont2">Nombre</label>
-							<input class="form-control" type="text" name="<%=Constantes.PARAM_PERSONAS_NOMBRE%>" id="cont2" value="" 
+							<input class="form-control" type="text" name="<%=Constantes.PARAM_PERSONAS_NOMBRE%>" id="cont2" 
+							value="<%=nombre %>" 
 							required="required" placeholder="Enter the username">
 						</div>
 						
 						<div class="form-group form-group-install col-md-12">
 							<label class="control-label" for="cont3">Edad</label>
-							<input class="form-control" type="numeric" name="<%=Constantes.PARAM_PERSONAS_EDAD%>" id="cont3" value=""
+							<input class="form-control" type="numeric" name="<%=Constantes.PARAM_PERSONAS_EDAD%>" id="cont3"
+							value="<%=edad %>"
 							required="required" placeholder="">
 						</div>
 						
 						<div class="form-group form-group-install col-md-12">
-							<label class="control-label" for="cont4">Role</label>
-							<input class="form-control" type="password" name="<%=Constantes.PARAM_PERSONAS_ROLE%>" id="cont4"  value=""
-							required="required" placeholder="" disabled>
+						
+							<label class="control-label" for="cont4">Rol</label>
+							<%= UtilsTemp.getComboRoles(request, role) %>
+							
+							
 						</div>
 						
 						<!-- Path de referencia para redirigir -->
