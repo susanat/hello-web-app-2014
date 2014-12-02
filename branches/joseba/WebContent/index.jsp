@@ -24,7 +24,7 @@
   	  
   	  
   	}
-  	 Persona p = new Persona("Pepe", 89);
+  	 Persona p = new Persona("Pepe");
 	 out.print("Nombre: " + p.getNombre());
 	 
 	 

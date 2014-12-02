@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.bean.Persona;
-import com.ipartek.formacion.helloweb.util.Rol;
 
 /**
  * Servlet implementation class LoginServlet
@@ -57,15 +56,17 @@ public class LoginServlet extends HttpServlet {
 	    dispatch = request.getRequestDispatcher(Constantes.JSP_SALUDO);
 
 	    // TODO: Recuperar usuario de la base de datos
-	    Persona p = new Persona(pUser, 0);
+	    Persona p = new Persona(pUser);
 	    sesion.setAttribute(Constantes.USER_SESSION, p);
 
 	} else if (Constantes.USER_ADMIN_NAME.equals(pUser)
 		&& Constantes.USER_ADMIN_PASS.equals(pPass)) {
 	    // Usuario de tipo administrador, tiene que ir al backoffice
-	    dispatch = request.getRequestDispatcher(Constantes.JSP_BACKOFFICE);
-	    Persona p = new Persona(pUser, 0);
-	    p.setRol(Rol.ADMINISTRADOR);
+	    dispatch = request
+		    .getRequestDispatcher(Constantes.JSP_BACKOFFICE_INDEX);
+	    Persona p = new Persona(pUser);
+	    // TODO: Fallo aqui
+	    p.setRol(Persona.Rol.ADMINISTRADOR);
 	    sesion.setAttribute(Constantes.USER_SESSION, p);
 	} else {
 	    // Incorrecto: Enviar de nuevo a login.jsp
