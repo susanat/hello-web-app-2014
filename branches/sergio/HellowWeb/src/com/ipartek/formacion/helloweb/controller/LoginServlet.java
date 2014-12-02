@@ -32,8 +32,14 @@ public class LoginServlet extends HttpServlet {
 	 */
 	private ModeloPersona model = null;
 	
+	/**
+	 * Dispatcher para la redirecci髇
+	 */
 	RequestDispatcher dispatcher = null;
 	
+	/**
+	 * Actual resquest para cada petici髇 de servicio
+	 */
 	HttpServletRequest actualRequest = null;
 		
 	/**
@@ -58,10 +64,16 @@ public class LoginServlet extends HttpServlet {
 		contador = new ShutdownExample();
 	}
 	
+	/**
+	 * Funci髇 que prepara los mensajes de error del modelo
+	 * 
+	 * @param obj Persona o null, Objeto persona que ha dado el error
+	 * @param ex Excepci髇 o null
+	 */
 	public void onModelException(Persona obj, Exception ex) {
 		
 		actualRequest.setAttribute(Constantes.ATTR_ERROR, true);
-		actualRequest.setAttribute(Constantes.ATTR_ERROR_MSJ, "Error en el modelo de datos de persona.");
+		actualRequest.setAttribute(Constantes.ATTR_ERROR_MSJ, "LoginServlet.java: Error en el modelo de datos de persona.");
 		actualRequest.setAttribute(Constantes.ATTR_ERROR_EXCEPTION, ex);
 	}
 	
@@ -79,71 +91,85 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//obtenemos la redirecci贸n por defecto
+		
+		HttpSession session = request.getSession();
+		
+		//Inicializamos las variables necesarias
+		Boolean validado = true;
+		boolean autentificado = false;
+		Persona perSesion = null;
+		
+		//inicializamos las respuestas
+		request.setAttribute(Constantes.ATTR_ERROR, false);
+		request.setAttribute(Constantes.ATTR_ERROR_MSJ, "");
+		request.setAttribute(Constantes.ATTR_ERROR_EXCEPTION, null);
+		
+		request.setAttribute(Constantes.PARAM_SESSION_AUTHENTICATED, autentificado);
+		
+		//obtenemos la redireccion por defecto
 		String urlToDefault = Constantes.JSP_LOGIN;
 		String urlTo = urlToDefault;
 				
-		//obtenemos la redirecci贸n si nos la pasan
+		//obtenemos la redireccion si nos la pasan
 		if (request.getParameter(Constantes.PARAM_URL_TO) != null) 
 		{
-			
+			urlTo = request.getParameter(Constantes.PARAM_URL_TO);
 		}
-		 
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		HttpSession session = null;		
-				
+		//obtenemos los par醡etros del login
 		String username = request.getParameter(Constantes.PARAMETRO_USER);
 	    String password = request.getParameter(Constantes.PARAMETRO_PASSWORD);
 	    String fromPath = request.getParameter(Constantes.PARAM_SESSION_LAST_URL);
-	    
-	    //recuperar session
-	    session = request.getSession();
-	    	    
-		//recoger parametros del login
-		
-	    if(CargasTemporales.getPersona(username) != null) {
-	    	//Correcto: redirigir a saludo.jsp si no existe procedencia
-	    	
-	    	if (fromPath != null && fromPath != "") {
-	    		dispatcher = request.getRequestDispatcher(Utils.getUriFile(fromPath));
-	    	} else {
-	    		dispatcher = request.getRequestDispatcher(Constantes.JSP_SALUDO);
-	    	}
-	 	
-		 	//guardar usuario en sesi贸n TODO recuperer usuario de la base de datos
-		 	//marcamos como autentificado
-		 	session.setAttribute(Constantes.PARAM_SESSION_AUTHENTICATED, true);
-		 	
-		 	//cargamos sus datos
-		 	session.setAttribute(Constantes.PARAM_SESSION_USER, CargasTemporales.getPersona(username));
-	    } else {
-			//incorrecto: enviar de nuevo a login.jsp
-		 	dispatch = request.getRequestDispatcher(Constantes.CONTROLLER_LOGIN);
-		 	
-		 	session.setAttribute(Constantes.PARAM_SESSION_AUTHENTICATED, false);
-		 	request.setAttribute(Constantes.PARAM_SESSION_MSJ, Constantes.LANG_LOGIN_INCORRECT);
-		 			 	
-		}		
 				
-		//despachar o servir JSP		
-	    dispatcher.forward(request, response);
+		//validamos los par醡etros del login
+		if(username.equals("")) {
+			validado = false;
+			request.setAttribute(Constantes.ATTR_ERROR, true);
+			request.setAttribute(Constantes.ATTR_ERROR_MSJ, "Usuario o contrase馻 vac韔s");
+		}
 		
-			
+		if (password.equals("")) {
+			validado = false;
+			request.setAttribute(Constantes.ATTR_ERROR, true);
+			request.setAttribute(Constantes.ATTR_ERROR_MSJ, "Usuario o contrase馻 vac韔s");			
+		}
+		
+		//buscamos por nombre el usuario
+		if (validado) {			
+			//obtenemos el usuario del origen de datos
+			perSesion = model.getByName(username);			
+						
+			//TODO: falta campo de password en el usuario
+			//usuario autentificado 
+			if(perSesion != null) {				
+				autentificado = true; 
+				
+			} else {				
+				validado = false;
+				request.setAttribute(Constantes.ATTR_ERROR, true);
+				request.setAttribute(Constantes.ATTR_ERROR_MSJ, "Usuario o contrase馻 incorrecto");
+				
+				//devolvemos al login
+				urlTo = urlToDefault;
+			}
+		}		
+		
+		//preparamos la respuesta
+		request.setAttribute(Constantes.PARAM_SESSION_USER, perSesion);		
+		request.setAttribute(Constantes.PARAM_SESSION_AUTHENTICATED, autentificado);
+		
+		//de regalo, la lista de roles
+		request.setAttribute(Constantes.ATTR_ROLES_LIST, CargasTemporales.getListRoles());
+		
+		//preparamos la session
+		session.setAttribute(Constantes.PARAM_SESSION_USER, perSesion);		
+		session.setAttribute(Constantes.PARAM_SESSION_AUTHENTICATED, autentificado);
+		
+		
+		
+		//redirigimos necesario
+		dispatcher = request.getRequestDispatcher(Utils.getUriFile(urlTo));	    
+		dispatcher.forward(request, response);			
 	}
 
 	/**
@@ -170,7 +196,7 @@ public class LoginServlet extends HttpServlet {
 			contador.leavingServiceMethod();	
 		}		
 		
-		//TODO comprobar Autorizaci贸n del usuario		
+		//TODO comprobar Autorizacion del usuario en el servlet tambi閚		
 	}
 
 

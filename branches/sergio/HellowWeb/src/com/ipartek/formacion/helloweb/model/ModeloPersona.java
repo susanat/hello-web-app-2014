@@ -205,5 +205,73 @@ public class ModeloPersona implements IModeloPersona {
 		
 		return res;
 	}
+	
+	/* (non-Javadoc)
+	 * @see com.ipartek.formacion.helloweb.model.interfaces.IModeloPersona#existUserName(string username)
+	 */
+	public boolean existUserName(String username) throws Exception {
+		boolean existe = false; 
+		
+		try {	
+		
+			if (CargasTemporales.personas != null) {
+				
+				int contador = 0;
+				while ( CargasTemporales.personas.size() >  contador ) {
+				//comparamos ignorando mayúsculas y minúsculas
+		          if (CargasTemporales.personas.get(contador).getNombre().equalsIgnoreCase(username)) {
+		        	  existe = true;
+		        	  
+		        	  //salimos del bucle
+		        	  contador = CargasTemporales.personas.size();
+		          }	
+		          contador ++;
+			    }
+			}
+		} catch (Exception ex) {
+			onError(null, ex);
+			throw ex;
+		}
+		
+		return existe;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.ipartek.formacion.helloweb.model.interfaces.IModeloPersona#existUserName(Persona persona)
+	 */
+	public boolean existUserName(Persona persona) throws Exception {
+		try {		
+			if(persona == null) {
+				onError(null, new Exception("existUserName: El objeto persona no puede estar a null"));
+			}			
+			return this.existUserName(persona.getNombre());
+		} catch (Exception ex) {
+			onError(null, ex);
+			throw ex;
+		}					
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.ipartek.formacion.helloweb.model.interfaces.IModeloPersona#getByName(string username)
+	 */
+	public Persona getByName(String username) {
+		Persona res = null;
+		
+		if (CargasTemporales.personas != null) {			
+			int contador = 0;
+			while ( CargasTemporales.personas.size() >  contador ) {
+			//comparamos ignorando mayúsculas y minúsculas
+	          if (CargasTemporales.personas.get(contador).getNombre().equalsIgnoreCase(username)) {
+	        	  res = CargasTemporales.personas.get(contador);
+	        	  
+	        	  //salimos del bucle
+	        	  contador = CargasTemporales.personas.size();
+	          }	
+	          contador ++;
+		    }
+		}		
+		
+		return res;
+	}
 
 }

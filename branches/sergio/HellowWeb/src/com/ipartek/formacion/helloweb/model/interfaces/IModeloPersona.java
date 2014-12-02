@@ -63,6 +63,12 @@ public interface IModeloPersona {
 	 */
 	public Persona getById(int id);
 	
+	/**
+	 * Obtiene la persona por el nombre
+	 * @param username String nombre del usuario
+	 * @return Persona objeto persona con usuario o null si no existe
+	 */
+	public Persona getByName(String username);
 	
 	/**
 	 * Inserta registro en base de datos
@@ -89,5 +95,22 @@ public interface IModeloPersona {
 	 */
 	public boolean delete(int id, EBorrado tipoBorrado );
 	
+	/**
+	 * Comprueba si existe un usuario con ese nombre
+	 * @param username Nombre de usuario a comprobar
+	 * @return true si existe y false si no existe
+	 * @throws Exception 
+	 */
+	public boolean existUserName(String username) throws Exception;
+	
+	/**
+	 * Comprueba si existe un usuario con ese nombre
+	 * @param persona Objeto persona con el nombre a comprobar
+	 * @return true si existe y false si no existe
+	 * @throws Exception 
+	 */
+	public boolean existUserName(Persona persona) throws Exception;
+	
+
 
 }

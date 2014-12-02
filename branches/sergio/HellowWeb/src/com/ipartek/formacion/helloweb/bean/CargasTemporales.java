@@ -56,7 +56,7 @@ public class CargasTemporales {
 		personas.add(new Persona(3, "Pirulero", 20,1));
 		personas.add(new Persona(4, "Duquesita", 20,1));
 		personas.add(new Persona(5, "Manole", 20,1));
-		personas.add(new Persona(6, "Sergio", 20,1));
+		personas.add(new Persona(6, "Sergio", 20,2));
 	}
 		
 	

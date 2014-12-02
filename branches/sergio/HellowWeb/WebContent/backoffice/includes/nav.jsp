@@ -10,7 +10,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="<%=Constantes.JSP_BACK_ADMIN %>">
-                	<%=adm_index_title %>                	
+                	<%=Constantes.adm_index_title %>                	
                 </a>
             </div>
             <!-- /.navbar-header -->
