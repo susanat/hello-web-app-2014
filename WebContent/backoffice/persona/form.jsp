@@ -1,7 +1,8 @@
+<%@include file="../includes/head.jsp" %>
+<%@include file="../includes/nav.jsp" %>
+
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
     
 <%
 		//recoger attributo de Persona		
@@ -24,13 +25,7 @@
 		}
 %>    
     
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Editar Persona</title>
-</head>
-<body>
+
 
 	<%@include file="/includes/alerts.jsp" %>
 
@@ -61,8 +56,8 @@
 		</form>
 	<% } %>	
 
-</body>
-</html>
+<%@include file="../includes/footer.jsp" %>
+
 
 
 
