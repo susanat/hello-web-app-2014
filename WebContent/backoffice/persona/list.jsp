@@ -13,7 +13,8 @@
 <body>
 
 	<h1>Listado Personas</h1>
-	
+	<h2><a href="<%=request.getContextPath()+"/"+Constantes.JSP_BACK_INDEX%>">volver</a></h2>
+	<p><a href="<%=Constantes.JSP_BACK_PERSONA_FORM%>" title="crear nueva persona">cree una nueva persona</a></p>
 	<%
 		ArrayList<Persona> personas = (ArrayList<Persona>)request.getAttribute( Constantes.ATT_PERSONAS );
 		if ( personas == null ){
@@ -22,13 +23,24 @@
 				<p><a href="<%=Constantes.JSP_BACK_PERSONA_FORM%>" title="crear nueva persona">cree una nueva persona</a></p>
 			<%
 		}else{
+			Persona p = null;
 			for ( int i=0; i < personas.size(); i++){
-				out.println("<ol>");
-				out.println( "<li>"+personas.get(i).toString() +"</li>");
+				p = personas.get(i); //detalle persona
+				out.println("<ol>");				
+				%>
+					<li>
+						<a href="<%=Constantes.CONTROLLER_PERSONA+"?id="+p.getId()%>">
+							<%=p.getNombre()%> 
+						</a>
+					</li>
+				<%
 				out.println("</ol>");
 			}
 		}
 	%>
+	
+	
+	
 	
 </body>
 </html>
