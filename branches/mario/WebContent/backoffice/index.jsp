@@ -18,7 +18,7 @@
 		}
 		
 	%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -28,5 +28,12 @@
 		
 	<h1>Este es el backoffice del <%= p.getNombre() %></h1> <br><br>
 	<a href="<%=Constantes.PATH_LOGOUT %>" title="Cierra tu sesión">[x] Cerrar Sesión</a>
+	
+	<nav>
+		<h3>Menú Administración</h3>
+		<ul>
+			<li><a href="<%=Constantes.CONTROLLER_PERSONA %>" title="Gestionar Personas">Personas</a></li>
+		</ul>	
+	</nav>
 </body>
 </html>

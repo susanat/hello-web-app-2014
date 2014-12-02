@@ -69,8 +69,7 @@ public class LoginServlet extends HttpServlet {
 	if (Constantes.USER_ADMIN.equals(pUser)
 		&& Constantes.PASS_ADMIN.equals(pPass)) {
 	    // correcto: redirigir a un JSP
-	    dispatch = request
-		    .getRequestDispatcher(Constantes.JSP_BACKOFFICE_INDEX);
+	    dispatch = request.getRequestDispatcher(Constantes.JSP_BACK_INDEX);
 
 	    // guardar datos en session
 	    // TODO recuperar usuario de la BD

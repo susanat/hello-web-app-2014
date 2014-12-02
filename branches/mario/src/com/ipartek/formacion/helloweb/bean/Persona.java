@@ -59,4 +59,10 @@ public class Persona {
 	this.id = id;
     }
 
+    @Override
+    public String toString() {
+	return "Persona [id=" + id + ", rol=" + rol + ", nombre=" + nombre
+		+ ", edad=" + edad + "]";
+    }
+
 }
