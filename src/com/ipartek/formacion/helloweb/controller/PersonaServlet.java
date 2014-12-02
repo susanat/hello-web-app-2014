@@ -63,8 +63,6 @@ public class PersonaServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
-		
 		//comprobar si es getAll o getById
 		if ( id == Persona.ID_NULL ){
 			getAll(request);
@@ -123,6 +121,32 @@ public class PersonaServlet extends HttpServlet {
 	}
 
 	/**
+	 * Actulizar los datos de una Persona, foward a form.jsp
+	 * @param request
+	 */
+	private void update(HttpServletRequest request) {
+		
+		Persona p = getParametrosPersona(request);		
+		if ( p != null ){
+			//modificar
+			p.setId(id);
+			//TODO comprobar que realmente se a modificado
+			model.update(p);					
+			//enviar atributos
+			msg =  Constantes.MSG_REG_UPDATE;			
+		}else{
+			msg = Constantes.MSG_ERR_PARAMETERS;
+		}	
+				
+		request.setAttribute(Constantes.ATT_PERSONA ,p);
+		
+		//forward vista
+		dispatcher = request.getRequestDispatcher( Constantes.JSP_BACK_PERSONA_FORM );
+		
+	}
+
+
+	/**
 	 * Elimina la Persona por su ID y nos retorna a list.jsp
 	 * @param request
 	 */
@@ -133,7 +157,7 @@ public class PersonaServlet extends HttpServlet {
 		}else{
 			msg = Constantes.MSG_ERR_REG_DELETE;
 		}		
-		dispatcher = request.getRequestDispatcher( Constantes.JSP_BACK_PERSONA_LIST );
+		getAll(request);		
 		
 	}
 
@@ -174,19 +198,7 @@ public class PersonaServlet extends HttpServlet {
 	}
 
 
-	@Override
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {	
-		super.doDelete(request, response);
-		int id = Integer.parseInt(request.getParameter("id"));
-		if ( model.delete(id) ){
-			msg=" Persona Eliminada";
-		}else{
-			msg=" NO se ha podido Eliminar";
-		}
-		//llamar a GET y forward vista listado
-		doGet(request, response);
-	}
+
 	
 	/**
 	 * Recoger los parametros de la request y crear <code>Persona</code>.
@@ -199,7 +211,8 @@ public class PersonaServlet extends HttpServlet {
 		try{
 			p = new Persona("");
 			p.setNombre( request.getParameter("name"));
-			p.setEdad( Integer.parseInt(request.getParameter("edad")) );		
+			p.setEdad( Integer.parseInt(request.getParameter("edad")) );
+			//TODO obtener ROL
 		}catch(Exception e){
 			p = null;		
 			e.printStackTrace();
