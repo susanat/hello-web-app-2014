@@ -26,6 +26,9 @@
 <title>BAKOFFICE</title>
 </head>
 <body>
+
+	<%@include file="/includes/alerts.jsp" %>
+
 	<h1>BAKOFFICE</h1>
 	<h2>Ongi Etorri Cheriff</h2>
 	
