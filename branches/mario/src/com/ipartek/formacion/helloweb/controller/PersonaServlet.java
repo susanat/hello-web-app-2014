@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.helloweb.Constantes;
+import com.ipartek.formacion.helloweb.Rol;
 import com.ipartek.formacion.helloweb.bean.Persona;
 import com.ipartek.formacion.helloweb.model.ModeloPersona;
 
@@ -48,7 +49,13 @@ public class PersonaServlet extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp)
 	    throws ServletException, IOException {
 	// TODO Comprobar autorizacion del usuario
-	id = Persona.ID_NULL;
+	try {
+	    id = Integer.parseInt(req.getParameter("id"));
+	} catch (Exception e) {
+	    id = Persona.ID_NULL;
+
+	}
+
 	super.service(req, resp);
 
     }
@@ -111,20 +118,101 @@ public class PersonaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request,
 	    HttpServletResponse response) throws ServletException, IOException {
+	// check Operacion
+	String op = request.getParameter(Constantes.OP_KEY);
+
+	if (Constantes.OP_DELETE.equals(op)) {
+	    delete(request);
+
+	} else if (Constantes.OP_UPDATE.equals(op)) {
+	    update(request);
+
+	} else if (Constantes.OP_CREATE.equals(op)) {
+	    create(request);
+	} else {
+	    opNotSuported(request);
+	}
+
+	request.setAttribute(Constantes.MSG_KEY, msg);
+	dispatcher.forward(request, response);
+
+    }
+
+    /**
+     * Si no existe la Operación a realizar mensaje y forward al list.jsp
+     *
+     * @param request
+     */
+    private void opNotSuported(HttpServletRequest request) {
+	getAll(request);
+	msg = Constantes.MSG_NOT_ALLOWED;
+
+    }
+
+    /**
+     * Crear nueva persona e insertarla en la BBDD
+     *
+     * @param request
+     */
+    private void create(HttpServletRequest request) {
+	Persona p = getParametrosPersona(request);
+	if (p != null) {
+	    // instertalo
+	    // TODO comprobar la inserccion
+	    model.insert(p);
+	    msg = Constantes.MSG_REG_CREATE;
+	} else {
+	    msg = Constantes.MSG_ERR_PARAMETERS;
+	}
+
+	// enviar atributos
+	request.setAttribute(Constantes.ATT_PERSONA, p);
+	// forward a la vista
+	dispatcher = request
+		.getRequestDispatcher(Constantes.JSP_BACK_PERSONA_FORM);
+    }
+
+    /**
+     * Actualizar los datos de una <code>Persona</code>, forward a form.jsp
+     *
+     * @param request
+     */
+    private void update(HttpServletRequest request) {
 	// recoger parametros
 	Persona p = getParametrosPersona(request);
 
-	// instertalo
-	model.insert(p);
+	if (p != null) {
+	    // modificar
+	    p.setId(id);
+	    // TODO comprobar que realmente se ha modificado
+	    model.update(p);
+	    // enviar atributos
+	    msg = Constantes.MSG_REG_UPDATE;
+	} else {
+	    msg = Constantes.MSG_ERR_PARAMETERS;
+	}
 
-	// enviar atributos
-	request.setAttribute(Constantes.MSG_KEY, msg);
 	request.setAttribute(Constantes.ATT_PERSONA, p);
 
 	// forward a la vista
 	dispatcher = request
 		.getRequestDispatcher(Constantes.JSP_BACK_PERSONA_FORM);
-	dispatcher.forward(request, response);
+    }
+
+    /**
+     * Elimina la <code>Persona</code> por su <code>id</code> y nos retorna a
+     * <code>list.jsp</code>
+     *
+     * @param request
+     */
+    private void delete(HttpServletRequest request) {
+
+	if (model.delete(id)) {
+	    msg = Constantes.MSG_REG_DELETE;
+	} else {
+	    msg = Constantes.MSG_ERR_DELETE;
+	}
+	getAll(request);
     }
 
     /**
@@ -142,10 +230,14 @@ public class PersonaServlet extends HttpServlet {
 	    p = new Persona("");
 	    p.setNombre(request.getParameter("nombre"));
 	    p.setEdad(Integer.parseInt(request.getParameter("edad")));
-	    msg = "Persona creada";
+	    if (Rol.ADMINISTRADOR.toString()
+		    .equals(request.getParameter("rol"))) {
+		p.setRol(Rol.ADMINISTRADOR);
+	    } else {
+		p.setRol(Rol.USUARIO);
+	    }
 	} catch (Exception e) {
 	    p = null;
-	    msg = "Error creando Persona";
 	    e.printStackTrace();
 	}
 

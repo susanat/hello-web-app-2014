@@ -54,7 +54,7 @@ public class ModeloPersona implements IModeloPersona {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see
      * com.ipartek.formacion.helloweb.model.interfaces.IModeloPersona#getAll()
      */
@@ -78,7 +78,7 @@ public class ModeloPersona implements IModeloPersona {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see
      * com.ipartek.formacion.helloweb.model.interfaces.IModeloPersona#getById()
      */
@@ -99,7 +99,7 @@ public class ModeloPersona implements IModeloPersona {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see
      * com.ipartek.formacion.helloweb.model.interfaces.IModeloPersona#insert
      * (com.ipartek.formacion.helloweb.bean.Persona)
@@ -113,8 +113,8 @@ public class ModeloPersona implements IModeloPersona {
 
 	if (p != null) {
 	    personas.add(p);
-	    p.setId(personas.size());
-	    resul = personas.size();
+	    p.setId(personas.size() - 1);
+	    resul = personas.size() - 1;
 	}
 
 	return resul;
@@ -122,7 +122,7 @@ public class ModeloPersona implements IModeloPersona {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see
      * com.ipartek.formacion.helloweb.model.interfaces.IModeloPersona#update
      * (com.ipartek.formacion.helloweb.bean.Persona)
@@ -139,7 +139,7 @@ public class ModeloPersona implements IModeloPersona {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see
      * com.ipartek.formacion.helloweb.model.interfaces.IModeloPersona#delete
      * (int)

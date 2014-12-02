@@ -25,7 +25,7 @@
 <title>BACKOFFICE</title>
 </head>
 <body>
-		
+	<%@include file="/includes/alerts.jsp" %>	
 	<h1>Este es el backoffice del <%= p.getNombre() %></h1> <br><br>
 	<a href="<%=Constantes.PATH_LOGOUT %>" title="Cierra tu sesión">[x] Cerrar Sesión</a>
 	

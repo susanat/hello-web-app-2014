@@ -11,6 +11,7 @@
 <title>Listado Personas</title>
 </head>
 <body>
+	<%@include file="/includes/alerts.jsp" %>
 	<h1>Listado Personas</h1>
 	<p><a href="<%=Constantes.JSP_BACK_INDEX %>" title="volver">Volver</a></p>
 	

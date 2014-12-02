@@ -19,12 +19,8 @@
   <div class="login-card">
     <h1>Log-in</h1><br>
   <form action="<%=Constantes.PATH_LOGIN %>" method="post">
- 	<%
- 		//mostrar mensaje si existe
- 		if(request.getAttribute(Constantes.MSG_KEY)!=null ){
- 		    out.print(request.getAttribute(Constantes.MSG_KEY));
- 		}
- 	%> 
+  
+ 	<%@include file="includes/alerts.jsp" %>
   
     <input type="text" name="<%=Constantes.PARAMETRO_USER %>" placeholder="Username">
     <input type="password" name="<%=Constantes.PARAMETRO_PASS %>" placeholder="Password">
