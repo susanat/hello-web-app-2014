@@ -16,7 +16,7 @@
 		//recuperar usuario de sesion
 		Persona p = (Persona)session.getAttribute(Constantes.USER_SESSION);
 		if(p == null){
-		   p = new Persona("anonimo", 99);
+		   p = new Persona("anonimo");
 		   response.setStatus(response.SC_UNAUTHORIZED);
 		   response.sendRedirect(Constantes.JSP_LOGIN);
 		}
@@ -41,7 +41,7 @@
 	        while (e.hasMoreElements()) {
 	            String key = (String)e.nextElement();
 	            String value = request.getHeader(key);
-	            out.println("<li>" + key + "<b> :" + value + "</b></li>");
+	            out.println("<li>" + key + "<b>: " + value + "</b></li>");
 	            
 	        } %>
 		
@@ -49,9 +49,29 @@
 	</ol>
 	<h2>Request parameters</h2>
 	<ol>
+		<%
+	        Enumeration ep = request.getParameterNames();
+	        while (ep.hasMoreElements()) {
+	            String key = (String)ep.nextElement();
+	            String value = request.getParameter(key);
+	            out.println("<li>" + key + "<b>: " + value + "</b></li>");
+	            
+	        } %>
 		
-		<li>Usuario: <b><%=request.getParameter(Constantes.PARAMETRO_USER) %></b></li>
-		<li>Password: <b> <%= request.getParameter(Constantes.PARAMETRO_PASS)%></b></li>
+		
+	</ol>
+	
+	<h2>Request parameters</h2>
+	<ol>
+		<%
+	        Enumeration et = request.getAttributeNames();
+	        while (et.hasMoreElements()) {
+	            String key = (String)et.nextElement();
+	            String value = (String)request.getAttribute(key);
+	            out.println("<li>" + key + "<b>: " + value + "</b></li>");
+	            
+	        } %>
+		
 		
 	</ol>
 	
