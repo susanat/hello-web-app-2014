@@ -44,6 +44,15 @@ public class Constantes {
     //Atrinuttos	 
 	public static final String ATT_PERSONAS = "personas";
 	public static final String ATT_PERSONA  = "persona";
+	
+	
+	//Operaciones CRUD
+	public static final String OP_KEY = "op"; //Actualizar Registro
+	public static final String OP_UPDATE = "0"; //Actualizar Registro
+	public static final String OP_DELETE = "1"; //Eliminar Registro
+	public static final String OP_LIST   = "2"; //Listar todos los Regsitros 
+	public static final String OP_DETAIL = "3"; //Mostrar Detalle Registro 
+	
 }
 
 
