@@ -27,8 +27,8 @@ public class CargasTemporales {
 	
 	public static void CargaTablaRoles() {
 		roles = new ArrayList<Roles>();
-		roles.add(new Roles(1, "user"));
-		roles.add(new Roles(2, "admin"));
+		roles.add(new Roles(1, "Usuario"));
+		roles.add(new Roles(2, "Administrador"));
 	}
 	
 	public static void truncateTablaRoles() {
@@ -51,12 +51,12 @@ public class CargasTemporales {
 	
 	public static void CargaTablaPersonas(){
 		personas = new ArrayList<Persona>();
-		personas.add(new Persona(1, "Gorriti", 20,roles.get(0)));
-		personas.add(new Persona(2, "Antton", 20,roles.get(0)));
-		personas.add(new Persona(3, "Pirulero", 20,roles.get(0)));
-		personas.add(new Persona(4, "Duquesita", 20,roles.get(0)));
-		personas.add(new Persona(5, "Manole", 20,roles.get(0)));
-		personas.add(new Persona(6, "Sergio", 20,roles.get(1)));
+		personas.add(new Persona(1, "Gorriti", 20,1));
+		personas.add(new Persona(2, "Antton", 20,1));
+		personas.add(new Persona(3, "Pirulero", 20,1));
+		personas.add(new Persona(4, "Duquesita", 20,1));
+		personas.add(new Persona(5, "Manole", 20,1));
+		personas.add(new Persona(6, "Sergio", 20,1));
 	}
 		
 	
@@ -68,24 +68,11 @@ public class CargasTemporales {
 	}
 	
 		
-	public static List<Roles> getListRoles(){
-		List<Roles> roles = new ArrayList<Roles>();
-		roles.add(new Roles(1,"Administrador"));
-		roles.add(new Roles(2,"Usuario"));
-		
+	public static List<Roles> getListRoles(){				
 		return roles;		
 	}
 	
-	public static Persona getPersona(String name)
-	{
-		if("sergio".equals(name)) {
-			return new Persona(name, 18, getListRoles().get(0));
-		} else if("user".equals(name)) {
-			return new Persona(name, 18, getListRoles().get(1));
-		}
-		
-		return null;
-	}
+	
 	
 	
 }

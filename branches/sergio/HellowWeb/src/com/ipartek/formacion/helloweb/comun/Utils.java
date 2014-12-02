@@ -18,10 +18,11 @@ import com.ipartek.formacion.helloweb.bean.Roles;
  */
 public class Utils {
 
+	
 	public static boolean inArrayRolles(int[] rolesAllowed, Persona persona) {
 
 		for (int lRol : rolesAllowed) {
-			if (lRol == persona.getRol().getId())
+			if (lRol == persona.getRol())
 				return true;
 		}
 		return false;

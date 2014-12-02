@@ -4,14 +4,12 @@ public class Persona {
 	
 	public static final int ID_NULL = -1;
 	public static final int EDAD_NULL = 0;
+	public static final int ROL_NULL = -1;
 	
-	private int id = ID_NULL;
-	
-	private String nombre;
-	
-	private int edad = EDAD_NULL;
-	
-	private Roles rol;
+	private int id = ID_NULL;	
+	private String nombre = "";	
+	private int edad = EDAD_NULL;	
+	private int idRol = ROL_NULL;
 
 	public int getId() {
 		return id;
@@ -37,31 +35,31 @@ public class Persona {
 		this.edad = edad;
 	}
 
-	public Roles getRol() {
-		return rol;
+	public int getRol() {
+		return idRol;
 	}
 
-	public void setRol(Roles rol) {
-		this.rol = rol;
+	public void setRol(int idRol) {
+		this.idRol = idRol;
 	}
 	
 	public Persona() {
 		
 	}
 
-	public Persona(int id, String nombre, int edad, Roles rol) {
+	public Persona(int id, String nombre, int edad, int idRol) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.edad = edad;
-		this.rol = rol;
+		this.idRol = idRol;
 	}
 
-	public Persona(String nombre, int edad, Roles rol) {
+	public Persona(String nombre, int edad, int idRol) {
 		super();
 		this.nombre = nombre;
 		this.edad = edad;
-		this.rol = rol;
+		this.idRol = idRol;
 	}
 
 	@Override
