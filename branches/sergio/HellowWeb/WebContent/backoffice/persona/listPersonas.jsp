@@ -143,9 +143,30 @@
 						out.println("<td>" + per.getId() + "</td>");
 						out.println("<td>" + per.getNombre() + "</td>");
 						out.println("<td>" + per.getEdad() + "</td>");
-						out.println("<td>" + per.getRol().toString() + "</td>");
-						out.println("<td>" + "Editar" + "</td>");
-						out.println("<td>" + "Eliminar" + "</td>");
+						out.println("<td>" + per.getRol().toString() + "</td>");						
+						out.println("<td>");
+						%>						
+							<form action="<%=Constantes.CONTROLLER_PERSONA %>" method="post">							
+								<input type='hidden' value='<%= Constantes.EModeloAccion.GET.getValue() %>' name='<%= Constantes.PARAM_ACTION %>' />
+							    <input type='hidden' value='<%= per.getId() %>' name='<%= Constantes.PARAM_PERSONAS_ID %>' />
+							    <input type='hidden' value='<%= Constantes.JSP_BACK_PERSONA_FORM %>' name='<%= Constantes.PARAM_URL_TO %>' />
+							    <input type='submit' name="submit" value='Editar' class='btn btn-success btn-lg'>
+							</form>
+						<%
+						out.println("</td>");
+						
+						out.println("<td>");
+						%>						
+							<form action="<%=Constantes.CONTROLLER_PERSONA %>" method="post">							
+								<input type='hidden' value='<%= Constantes.EModeloAccion.DELETE.getValue() %>' name='<%= Constantes.PARAM_ACTION %>' />
+							    <input type='hidden' value='<%= per.getId() %>' name='<%= Constantes.PARAM_PERSONAS_ID %>' />							    
+							    <input type='submit' name="submit" value='Eliminar' class='btn btn-success btn-lg'>
+							</form>
+						<%
+						out.println("</td>");
+						
+						
+						
 						out.println("</tr>");
 					}	
 					

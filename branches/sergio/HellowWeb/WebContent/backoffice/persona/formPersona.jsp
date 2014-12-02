@@ -15,6 +15,10 @@
 	
 %>
 
+
+
+
+
 <!doctype html>
 
 <html lang="en">
@@ -26,7 +30,8 @@
   <meta name="author" content="">
 
   <link rel="stylesheet" href="<%=Constantes.SITE_PATH %>bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="<%=Constantes.SITE_PATH %>bootstrap/css/main.css">
+  <link rel="stylesheet" href="<%=Constantes.SITE_PATH %>bootstrap/css/main.css">
+  
 	
 	<style>
 	body {
@@ -38,7 +43,10 @@
 	<link rel="stylesheet" href="<%=Constantes.SITE_PATH %>bootstrap/css/main.css">
 	
 	<script src="<%=Constantes.SITE_PATH %>bootstrap/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-
+	
+	<!-- JQUERY -->
+	<script src="<%=Constantes.SITE_PATH %>bootstrap/js/vendor/jquery-1.11.1.min.js"></script>
+	<script>window.jQuery || document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"><\/script>')</script>
 
   <!--[if lt IE 9]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -46,6 +54,37 @@
 </head>
 
 <body>
+
+	<% 
+	
+	if (request.getAttribute(Constantes.ATTR_ERROR) != null) {
+		//ORIGEN: nos ha llegado la persona por el servlet
+		
+	} else	if (request.getParameter(Constantes.PARAM_PERSONAS_ID) != null) {
+		//ORIGEN: nos ha llegado por post un parámetro de identificador
+			//solicitamos al servlet que nos mande la información del usuario
+			//llamamos para que nos cargue persona
+			%>
+				<form id="get_from_id" action="<%=Constantes.SITE_PATH +  Constantes.CONTROLLER_PERSONA %>" method="post">
+						<input type='hidden' value='<%= request.getParameter(Constantes.PARAM_PERSONAS_ID) %>' name='<%= Constantes.PARAM_PERSONAS_ID %>' />						
+				</form>
+				<script>
+				$( "#get_from_id" ).ready(function() {
+					  $( "#get_from_id" ).submit();
+				});
+				</script>
+			<%
+		
+	} else {
+		//ORIGEN: ninguno. Para crear una nueva persona
+	}
+
+
+
+
+%>
+
+
 
 	<nav>
 		<!-- Insert breadcrumb -->
@@ -56,9 +95,7 @@
 		</ol>
 	</nav>
 	
-	<div class="container row-centered">
-				
-		
+	<div class="container row-centered">		
 		<div class="col-xs-4 col-centered">
 		
 			<div class="row row-centered sombra" style="border: 1px solid; border-radius: 4px; margin-bottom: 20px; border-color: #428BCA; background-color: #428BCA; color: white;">				
@@ -111,18 +148,8 @@
 				</div> <!--  panel-body -->				
 			</div>
 			
-			<%  
-					String result = (String) request.getAttribute(Constantes.PARAM_SESSION_MSJ);  
-					if(result != null){
-						
-						%>
-						
-						<div class="alert alert-danger sombra" role="alert"><%= String.valueOf(result) %></div>
-						
-						<%						
-						
-					}				
-			%>
+			
+			
 		</div>
 		</div>
 	</div>
@@ -132,8 +159,7 @@
 	
 
   	<!-- Añadimos los javascript -->
-	<script src="<%=Constantes.SITE_PATH %>bootstrap/js/vendor/jquery-1.11.1.min.js"></script>
-	<script>window.jQuery || document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"><\/script>')</script>
+	
 	
 	<script src="<%=Constantes.SITE_PATH %>bootstrap/js/vendor/bootstrap.min.js"></script>
 	<script src="<%=Constantes.SITE_PATH %>bootstrap/js/main.js"></script>
