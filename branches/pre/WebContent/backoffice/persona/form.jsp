@@ -39,7 +39,7 @@
 	
 	<form action="<%=request.getContextPath()+"/"+Constantes.CONTROLLER_PERSONA%>" method="post">
 	
-		<input type="text"    name="id" disabled value="<%=p.getId()%>">
+		<input type="text"    name="id" readonly value="<%=p.getId()%>">
 		<br>		
 		<input type="text"    name="name" value="<%=p.getNombre()%>">
 		<br>
@@ -54,8 +54,8 @@
 	</form>
 	
 	<% if ( !isNew) { %>	
-		<form action="<%=request.getContextPath()+"/"+Constantes.CONTROLLER_PERSONA%>" method="delete">
-			<input type="hidden"    name="id"  value="<%=p.getId()%>">
+		<form action="<%=request.getContextPath()+"/"+Constantes.CONTROLLER_PERSONA%>" method="post">
+			<input type="hidden"  name="id"  value="<%=p.getId()%>">
 			<input type="hidden" name="<%=Constantes.OP_KEY%>" value="<%=Constantes.OP_DELETE%>">
 			<input type="submit" value="Eliminar" >	
 		</form>

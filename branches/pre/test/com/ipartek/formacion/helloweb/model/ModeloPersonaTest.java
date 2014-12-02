@@ -69,6 +69,8 @@ public class ModeloPersonaTest {
 
 		int idNuevaPersona = model.insert(new Persona("El nuevo"));
 		assertTrue(Persona.ID_NULL < idNuevaPersona);
+		assertEquals("No se ha generado bien el ID", todos , idNuevaPersona );
+		
 		
 		assertEquals("No deberia insertarse", Persona.ID_NULL, model.insert(null));
 		

@@ -23,27 +23,27 @@ public class ModeloPersona implements IModeloPersona {
 		personas = new ArrayList<Persona>();
 		Persona p = new Persona("");
 		p.setNombre("Gorriti");
-		p.setId(1);
+		p.setId(0);
 		personas.add(p);
 
 		p = new Persona("");
 		p.setNombre("Antton");
-		p.setId(2);
+		p.setId(1);
 		personas.add(p);
 
 		p = new Persona("");
 		p.setNombre("Pirulero");
-		p.setId(3);
+		p.setId(2);
 		personas.add(p);
 
 		p = new Persona("");
 		p.setNombre("Duquesita");
-		p.setId(4);
+		p.setId(3);
 		personas.add(p);
 
 		p = new Persona("");
 		p.setNombre("Manoli");
-		p.setId(5);
+		p.setId(4);
 		personas.add(p);
 
 	}
@@ -113,8 +113,8 @@ public class ModeloPersona implements IModeloPersona {
 		
 		if ( p != null  ) {
 			personas.add(p);
-			p.setId(personas.size());
-			resul = personas.size();
+			p.setId((personas.size()-1));
+			resul = (personas.size()-1);
 		}
 		
 		
@@ -150,7 +150,7 @@ public class ModeloPersona implements IModeloPersona {
 		try{
 			if (personas != null) {
 				if ( getById(id) != null ){
-					personas.set((id-1), null);
+					personas.set(id, null);
 					resul =  true;
 				}	
 			}
