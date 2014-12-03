@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ipartek.formacion.helloweb.bean.Mensaje;
 import com.ipartek.formacion.helloweb.bean.Persona;
 import com.ipartek.formacion.helloweb.constantes.Constantes;
 
@@ -46,21 +47,24 @@ public class LoginServlet extends HttpServlet {
 		// Validar el usuario
 
 		if (Constantes.USER.equals(pUser) && Constantes.PASS.equals(pPass)) {
-			// Si es correcto, redirigir a saludo.jsp
-			rd = request.getRequestDispatcher(Constantes.JSP_BACKOFFICE);
+			// Si es ADMINISTRADOR, redirigir al backoffice
+			rd = request.getRequestDispatcher(Constantes.JSP_BACK_INDEX);
 			// Guardar usuario en sesión
 			Persona p = new Persona(pUser, 0);
+			p.setRole(Persona.Rol.ADMINISTRADOR);
 			session.setAttribute(Constantes.USER_SESSION, p);
 		} else if (Constantes.USER_USER.equals(pUser)
 				&& Constantes.PASS_USER.equals(pPass)) {
+			// Si es USER, redirigir al saludo
 			rd = request.getRequestDispatcher(Constantes.JSP_SALUDO);
 			Persona p = new Persona(pUser, 0);
 			session.setAttribute(Constantes.USER_SESSION, p);
 		} else {
-			// Si no, reenviar a login.jsp
+			// Si no, reenviar al login
 			rd = request.getRequestDispatcher(Constantes.JSP_LOGIN);
+			Mensaje mensaje = new Mensaje(Constantes.MSG_LOGIN_INCORRECT, Mensaje.MsgType.LOG, Constantes.COD_LOGIN_INCORRECT);
 			request.setAttribute(Constantes.MSG_KEY,
-					Constantes.MENSAJE_INCORECT);
+					mensaje);
 		}
 		// Despachar el jsp
 		rd.forward(request, response);
