@@ -1,9 +1,11 @@
 package com.ipartek.formacion.helloweb.temp;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.helloweb.bean.Message;
@@ -209,10 +211,27 @@ public class UtilsTemp {
 	 * @param p
 	 * @return true si dispone de permiso, false si no
 	 */
-	public static boolean havePermisso(String nombrePermiso, Persona p) 
+	public static boolean havePermiso(String nombrePermiso, Persona p) 
 	{
-		return false;
+		//TODO hardcodeado
+		if(p == null) {
+			return false;
+		}
 		
+		if( p.getRol() == 2) {
+			return true;
+		}
+		
+		
+		
+		return false;		
+	}
+	
+	public static void goToLogin(HttpServletResponse response) throws IOException {
+		
+		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+   		response.sendRedirect(Constantes.JSP_LOGIN);
+   		
 	}
 
 }

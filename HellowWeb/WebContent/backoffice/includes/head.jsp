@@ -1,5 +1,6 @@
 
 <!-- Directiva codificación de la página -->
+<%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <%@page import="com.ipartek.formacion.helloweb.temp.UtilsTemp"%>
 <%@ page pageEncoding="UTF-8" %>
 
@@ -12,9 +13,6 @@
 	//carga la última página visitada en session dentro del parámetro PARAM_SESSION_LAST_URL
 	UtilsTemp.cargaHistorial(request, session);
 %>
-
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -35,13 +33,9 @@
 	 <!-- Bootstrap Core CSS -->
 	 <link href="<%=Constantes.PATH_BACK_ABS_THEME %>css/bootstrap.min.css" rel="stylesheet">	
 	 <!-- MetisMenu CSS -->
-	 <link href="<%=Constantes.PATH_BACK_ABS_THEME %>css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">	
-	 <!-- Timeline CSS -->
-	 <link href="<%=Constantes.PATH_BACK_ABS_THEME %>css/plugins/timeline.css" rel="stylesheet">	
+	 <link href="<%=Constantes.PATH_BACK_ABS_THEME %>css/metisMenu/metisMenu.min.css" rel="stylesheet">	 	
 	 <!-- Custom CSS -->
-	 <link href="<%=Constantes.PATH_BACK_ABS_THEME %>css/sb-admin-2.css" rel="stylesheet">	
-	 <!-- Morris Charts CSS -->
-	 <link href="<%=Constantes.PATH_BACK_ABS_THEME %>css/plugins/morris.css" rel="stylesheet">	
+	 <link href="<%=Constantes.PATH_BACK_ABS_THEME %>css/main.css" rel="stylesheet">	 	
 	 <!-- Custom Fonts -->
 	 <link href="<%=Constantes.PATH_BACK_ABS_THEME %>fonts/css/font-awesome.min.css" rel="stylesheet" type="text/css">	
 	 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

@@ -1,6 +1,13 @@
+<% 
+	//comprueba autentificacion y autorización
+	Persona p = UtilsTemp.getAuthenticated(session);
+	if ( p == null || ! UtilsTemp.havePermiso("ACCESO_ADMINISTRACION", p)) {
+		UtilsTemp.goToLogin(response);
+	} else {
+%>
+
 <%@include file="includes/head.jsp" %>       
 		<%@include file="includes/nav.jsp" %>
-
         
             <div class="row">
                 <div class="col-lg-12">
@@ -15,9 +22,11 @@
         
         <% 
         	String myVariable = "includes/footer.jsp";
-        	
         %>
         
  <jsp:include page="<%= myVariable %>" flush="true" />
 
+<% 
+	}
+%>
  

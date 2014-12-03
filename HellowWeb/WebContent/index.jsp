@@ -36,8 +36,7 @@
 	
 	<% out.println("<h3>Request Information Example</h3>"); %>
 	<ol>
-		<% 
-			
+		<%			
 	        out.println("<li>Method: " + request.getMethod() + "</li>");
 	        out.println("<li>Request URI: " + request.getRequestURI()  + "</li>");
 	        out.println("<li>Request URL: " + request.getRequestURL()  + "</li>");

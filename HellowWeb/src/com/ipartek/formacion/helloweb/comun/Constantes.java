@@ -71,7 +71,8 @@ public final class Constantes {
 	/**
 	 * path del sitio
 	 */
-	public final static  String PATH_SITE = "http://localhost:8080/HelloWeb/";
+	//public final static  String PATH_SITE = "http://localhost:8080/HelloWeb/";
+	public final static  String PATH_SITE = "http://localhost:8090/HelloWeb/";
 	
 	
 
@@ -83,7 +84,10 @@ public final class Constantes {
 	public final static String PATH_BACK_ABS_INCLUDE = PATH_SITE + PATH_BACK_REL_INCLUDE;
 		
 	//** THEMES
-	public final static  String PATH_BACK_REL_THEME = "backoffice/themes/sb-admin-2/";
+	private final static String theme_prueba = "st-admin-2/";
+	private final static String theme_default = "default/";
+	
+	public final static  String PATH_BACK_REL_THEME = "backoffice/themes/" + theme_default;
 	public final static  String PATH_BACK_ABS_THEME = PATH_SITE + PATH_BACK_REL_THEME;
 	
 
