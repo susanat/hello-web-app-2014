@@ -8,7 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-	<h1>Listado Personas</h1>
+	<!-- <h1>Listado Personas</h1> -->
 	<%@include file="/includes/alert.jsp"%>
 	
 	<%
@@ -20,18 +20,49 @@
 		<a href='<%=Constantes.JSP_BACKOFFICE_PERSONA_FORM%>'
 			title='crear nueva persona'>Por favor crea una nueva persona</a>
 	</p>
-	<%
-		} else {
-			out.println("<a href='" + request.getContextPath() + "/backoffice/persona/" + Constantes.JSP_PERSONA_FORM + "' title='crear persona'>Crear Persona</a>");
-			out.println("<h2>Personas</h2>");
-			out.println("<ul>");
-			for (Persona persona : personas) {
-				out.println("<li>ID = <a href='" + request.getContextPath() + "/" + Constantes.CONTROLLER_PERSONA + "?id=" + persona.getId()
-						+ "' title='ir al detalle de " + String.format("%04d", persona.getId()) + "'>"
-						+ String.format("%04d", persona.getId()) + "</a>, " + persona + "</li>");
-			}
-			out.println("</ul>");
-		}
-	%>
+	
+	<%	} else { %>
+			<a href='<%=request.getContextPath() + "/backoffice/persona/" + Constantes.JSP_PERSONA_FORM %>' title='crear persona'>Crear Persona</a>
+			<!-- <h2>Personas</h2> -->
 
-<%@include file="../includes/footer.jsp" %> 	
+			<!-- Sintaxis para el plugin DataTable, paginación de los datos  --> 
+			<table id='personasList' class='display' cellspacing='0' width='100%'>
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Nombre</th>
+						<th>Edad</th>
+						<th>Rol</th>
+					</tr>
+				</thead>
+		
+				<tfoot>
+					<tr>
+						<th>ID</th>
+						<th>Nombre</th>
+						<th>Edad</th>
+						<th>Rol</th>
+					</tr>
+				</tfoot>
+			
+				<tbody>
+			
+				<% for (Persona persona : personas) { %>
+					<tr>
+		
+						<td><a href="<%=Constantes.CONTROLLER_PERSONA + "?id=" + persona.getId()%>"
+							   title='ir al detalle de <%=String.format("%04d", persona.getId())%>'>
+								<%=String.format("%04d", persona.getId()) %></a></td>			
+						<td><%=persona.getNombre()%></td>
+						<td><%=persona.getEdad()%></td>
+						<td><%=persona.getRol()%></td>
+			
+					</tr>
+				<% } %>
+
+				</tbody>
+			
+		</table>
+	 <% } %>
+
+<%@include file="../includes/footer.jsp" %> 

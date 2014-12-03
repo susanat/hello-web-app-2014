@@ -22,6 +22,9 @@ public class Constantes {
 	public static final String JSP_PERSONA_LIST = "list.jsp";
 	public static final String JSP_PERSONA_FORM = "form.jsp";
 
+	public static final String JSP_TITLE_PERSONA_LIST = "Lista de Personas";
+	public static final String JSP_TITLE_PERSONA_FORM = "Formulario de Personas";
+
 	// JSPs Backoffice
 	public static final String JSP_BACKOFFICE = "backoffice/";
 	public static final String JSP_BACKOFFICE_INDEX = JSP_BACKOFFICE + "index.jsp";
