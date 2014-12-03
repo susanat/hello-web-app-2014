@@ -69,8 +69,7 @@ public class LoginServlet extends HttpServlet {
 		if (Constantes.USER_ADMIN.equals(pUser)
 				&& Constantes.PASS_ADMIN.equals(pPass)) {
 			// correcto: redirigir a saludo.jsp
-			dispatch = request
-					.getRequestDispatcher(Constantes.JSP_BACKOFFICE_INDEX);
+			dispatch = request.getRequestDispatcher(Constantes.JSP_BACK_INDEX);
 
 			// guardar usuario en sesion
 			Persona p = new Persona(pUser, 0);

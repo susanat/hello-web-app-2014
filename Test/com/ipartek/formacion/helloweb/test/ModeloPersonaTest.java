@@ -5,6 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -36,11 +38,12 @@ public class ModeloPersonaTest {
 	@After
 	public void tearDown() throws Exception {
 		ModeloPersona.truncateTable();
+		modelo = null;
 	}
 
 	@Test
 	public void testGetAll() {
-		assertEquals(5, modelo.getAll().size());
+		assertEquals(6, modelo.getAll().size());
 		ModeloPersona.truncateTable();
 		assertNull(modelo.getAll());
 
@@ -48,8 +51,12 @@ public class ModeloPersonaTest {
 
 	@Test
 	public void testGetById() {
-		Persona pGorriti = modelo.getById();
-		assertEquals("Gorriti", pGorriti.getNombre());
+
+		String nombre = "Gorriti2";
+		int idNuevo = modelo.insert(new Persona(nombre));
+
+		Persona pGorriti = modelo.getById(idNuevo);
+		assertEquals(nombre, pGorriti.getNombre());
 		assertNull(modelo.getById(13));
 
 	}
@@ -60,10 +67,20 @@ public class ModeloPersonaTest {
 		int todos = modelo.getAll().size();
 		int idNuevaPersona = modelo.insert(new Persona("El nuevo"));
 		assertTrue(Persona.ID_NULL < idNuevaPersona);
-		assertEquals(Persona.ID_NULL, modelo.insert(null));
+		assertEquals("no se ha generado bien el id", todos, modelo.insert(null));
 
-		assertEquals("debemos tener un registro nuevo", todos + 1, modelo
+		assertEquals("no deberia insertarse", Persona.ID_NULL,
+				modelo.insert(null));
+
+		assertEquals("debemos tener un registro nuevo", (todos + 1), modelo
 				.getAll().size());
+
+		// insertar cuando no existen registros
+		ModeloPersona.truncateTable();
+		int idNuevaPersona2 = modelo.insert(new Persona("El nuevo2"));
+		assertTrue(Persona.ID_NULL < idNuevaPersona2);
+		assertEquals("debe poder insertar aunq no haya registros",
+				Persona.ID_NULL, modelo.insert(null));
 
 	}
 
@@ -71,15 +88,31 @@ public class ModeloPersonaTest {
 	public void testDelete() {
 
 		int todos = modelo.getAll().size();
-		// int idNuevaPersona = modelo.insert(new Persona("El nuevo"));
+
 		assertTrue(modelo.delete(1));
 		assertFalse(modelo.delete(13));
 
-		assertEquals("debemos tener un registro menos", todos - 1, modelo
+		assertEquals("debemos tener un registro menos", (todos - 1), modelo
 				.getAll().size());
-
-		// eliminar todas las personas
 
 	}
 
+	@Test
+	public void testDeleteAll() throws Exception {
+		// eliminar todas las personas
+		// Persona p = null;
+		ArrayList<Persona> personas = modelo.getAll();
+		for (Persona persona : personas) {
+			assertTrue(modelo.delete(persona.getId()));
+		}
+		assertNull(modelo.getAll());
+	}
+
+	@Test
+	public void testUpdate() {
+
+		// Persona pGorriti = modelo.getById();
+		// assertTrue(modelo.update(pGorriti));
+
+	}
 }
