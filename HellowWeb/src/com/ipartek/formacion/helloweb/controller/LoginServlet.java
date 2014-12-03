@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.helloweb.bean.CargasTemporales;
+import com.ipartek.formacion.helloweb.bean.Message;
+import com.ipartek.formacion.helloweb.bean.Message.ETypeAlert;
 import com.ipartek.formacion.helloweb.bean.Persona;
 import com.ipartek.formacion.helloweb.comun.Constantes;
 import com.ipartek.formacion.helloweb.comun.Utils;
@@ -33,12 +35,12 @@ public class LoginServlet extends HttpServlet {
 	private ModeloPersona model = null;
 	
 	/**
-	 * Dispatcher para la redirección
+	 * Dispatcher para la redirecciï¿½n
 	 */
 	RequestDispatcher dispatcher = null;
 	
 	/**
-	 * Actual resquest para cada petición de servicio
+	 * Actual resquest para cada peticiï¿½n de servicio
 	 */
 	HttpServletRequest actualRequest = null;
 		
@@ -47,6 +49,11 @@ public class LoginServlet extends HttpServlet {
 	 */
 	ShutdownExample contador = null;
 
+	/**
+	 * Mensaje de error
+	 */
+	Message msg = null;
+	
 	@Override
 	public void init(ServletConfig config) throws ServletException {		
 		super.init(config);
@@ -65,16 +72,23 @@ public class LoginServlet extends HttpServlet {
 	}
 	
 	/**
-	 * Función que prepara los mensajes de error del modelo
+	 * Funciï¿½n que prepara los mensajes de error del modelo
 	 * 
 	 * @param obj Persona o null, Objeto persona que ha dado el error
-	 * @param ex Excepción o null
+	 * @param ex Excepciï¿½n o null
 	 */
 	public void onModelException(Persona obj, Exception ex) {
+		//cumplimentamos el error		
+		msg.setError(true);
+		msg.setText("LoginServlet.java: Error en el modelo de datos de persona.");
+		msg.setException(ex);
+		msg.setType(ETypeAlert.DANGER);
 		
-		actualRequest.setAttribute(Constantes.ATTR_ERROR, true);
-		actualRequest.setAttribute(Constantes.ATTR_ERROR_MSJ, "LoginServlet.java: Error en el modelo de datos de persona.");
-		actualRequest.setAttribute(Constantes.ATTR_ERROR_EXCEPTION, ex);
+		
+		
+		//actualRequest.setAttribute(Constantes.ATTR_ERROR, true);
+		//actualRequest.setAttribute(Constantes.ATTR_ERROR_MSJ, "LoginServlet.java: Error en el modelo de datos de persona.");
+		//actualRequest.setAttribute(Constantes.ATTR_ERROR_EXCEPTION, ex);
 	}
 	
 	@Override
@@ -98,12 +112,8 @@ public class LoginServlet extends HttpServlet {
 		Boolean validado = true;
 		boolean autentificado = false;
 		Persona perSesion = null;
-		
-		//inicializamos las respuestas
-		request.setAttribute(Constantes.ATTR_ERROR, false);
-		request.setAttribute(Constantes.ATTR_ERROR_MSJ, "");
-		request.setAttribute(Constantes.ATTR_ERROR_EXCEPTION, null);
-		
+				
+		//inicializamos si ha sido autentificado (en inicio, false)
 		request.setAttribute(Constantes.PARAM_SESSION_AUTHENTICATED, autentificado);
 		
 		//obtenemos la redireccion por defecto
@@ -116,22 +126,27 @@ public class LoginServlet extends HttpServlet {
 			urlTo = request.getParameter(Constantes.PARAM_URL_TO);
 		}
 		
-		//obtenemos los parámetros del login
+		//obtenemos los parï¿½metros del login
 		String username = request.getParameter(Constantes.PARAMETRO_USER);
 	    String password = request.getParameter(Constantes.PARAMETRO_PASSWORD);
 	    String fromPath = request.getParameter(Constantes.PARAM_SESSION_LAST_URL);
 				
-		//validamos los parámetros del login
+		//validamos los parï¿½metros del login
 		if(username.equals("")) {
 			validado = false;
-			request.setAttribute(Constantes.ATTR_ERROR, true);
-			request.setAttribute(Constantes.ATTR_ERROR_MSJ, "Usuario o contraseña vacíos");
+			
+			msg.setError(true);
+			msg.setText("Usuario o contraseÃ±a vacÃ­os");
+			msg.setType(ETypeAlert.WARNING);
+			
 		}
 		
 		if (password.equals("")) {
 			validado = false;
-			request.setAttribute(Constantes.ATTR_ERROR, true);
-			request.setAttribute(Constantes.ATTR_ERROR_MSJ, "Usuario o contraseña vacíos");			
+
+			msg.setError(true);
+			msg.setText("Usuario o contraseÃ±a vacÃ­os");
+			msg.setType(ETypeAlert.WARNING);
 		}
 		
 		//buscamos por nombre el usuario
@@ -146,9 +161,11 @@ public class LoginServlet extends HttpServlet {
 				
 			} else {				
 				validado = false;
-				request.setAttribute(Constantes.ATTR_ERROR, true);
-				request.setAttribute(Constantes.ATTR_ERROR_MSJ, "Usuario o contraseña incorrecto");
 				
+				msg.setError(true);
+				msg.setText("Usuario o contraseÃ±a incorrecto");
+				msg.setType(ETypeAlert.DANGER);
+								
 				//devolvemos al login
 				urlTo = urlToDefault;
 			}
@@ -160,6 +177,10 @@ public class LoginServlet extends HttpServlet {
 		
 		//de regalo, la lista de roles
 		request.setAttribute(Constantes.ATTR_ROLES_LIST, CargasTemporales.getListRoles());
+		
+		//aÃ±adimos el error
+		request.setAttribute(Constantes.ATTR_ERROR, msg);
+		
 		
 		//preparamos la session
 		session.setAttribute(Constantes.PARAM_SESSION_USER, perSesion);		
@@ -186,6 +207,9 @@ public class LoginServlet extends HttpServlet {
 		//guardamos el httpServletRequest actual, siempre pasa por aquÃ­, por lo que cada
 		//peticiÃ³n tendrÃ¡ su propio request.
 		actualRequest = req;
+
+		//nuevo mensaje de error
+		msg = new Message();
 		
 		contador.enteringServiceMethod();	
 		
@@ -196,7 +220,7 @@ public class LoginServlet extends HttpServlet {
 			contador.leavingServiceMethod();	
 		}		
 		
-		//TODO comprobar Autorizacion del usuario en el servlet también		
+		//TODO comprobar Autorizacion del usuario en el servlet tambiï¿½n		
 	}
 
 

@@ -33,10 +33,8 @@ public class PersonaServlet extends HttpServlet {
 	/**
 	 * Modelo de la persona
 	 */
-	private ModeloPersona model = null;
-	
-	RequestDispatcher dispatcher = null;
-	
+	private ModeloPersona model = null;	
+	RequestDispatcher dispatcher = null;	
 	HttpServletRequest actualRequest = null;
 		
 	/**
@@ -120,8 +118,8 @@ public class PersonaServlet extends HttpServlet {
 					
 		///////////////// Obtención de urls
 		//obtenemos la url de referencia y de destino. Asumimos destino igual a referencia si no se dice lo contrario.
-		String urlReferer = request.getHeader("Referer");
-		String urlTo = request.getHeader("Referer");
+		String urlReferer = (String) request.getSession().getAttribute(Constantes.PARAM_SESSION_LAST_URL);
+		String urlTo = urlReferer;
 		
 		//obtenemos la página de origen (si no existe se asume que es la que ha relizado la petición):
 		if(request.getParameter(Constantes.PARAM_URL_FROM) != null) {
@@ -154,15 +152,15 @@ public class PersonaServlet extends HttpServlet {
 			{				
 				switch (accion) {
 				case GET:
-					Get(request, response);
+					get(request, response);
 					break;
 					
 				case INSERT:
-					
+					insert(request, response);
 					break;
 					
 				case UPDATE:
-					
+					insert(request, response);
 					break;
 					
 				case DELETE:
@@ -179,31 +177,38 @@ public class PersonaServlet extends HttpServlet {
 			//TODO error, no ha llegado acción
 		}
 		
+				
+		//fordward a la vista sí o sí
+		dispatcher = request.getRequestDispatcher(Utils.getUriFile(urlTo));
+		dispatcher.forward(request, response);
 		
 		
+	}
+	
+	private int delete (HttpServletRequest request, HttpServletResponse response) {
+		int res = 0;
 		
 		
+		return res;
 		
-		
-		
-		
-		
-		
-		
-		
-		/*
+	}
+	
+	
+	
+	private Persona insert (HttpServletRequest request, HttpServletResponse response) {
 		Persona p = null;
+		
 		Persona pRetorno = null;	
 		List<Persona> lstPersona =  null;
 		Boolean isError = false;
 		
 		//obtenemos los datos pasados
 		try {
-			p = getPersona(request);
+			p = getPersonaFromRequest(request);
 			
 			//insertamos o actualizamos si no es null
 			if(p != null) {
-				if( p.getId() == p.ID_NULL) {
+				if( p.getId() == Persona.ID_NULL) {
 					pRetorno = model.Insert(p);
 				} else {
 					pRetorno = model.update(p.getId(), p);
@@ -235,36 +240,15 @@ public class PersonaServlet extends HttpServlet {
 			request.setAttribute(Constantes.ATTR_ERROR_MSJ, "Error con excepción.");
 			request.setAttribute(Constantes.ATTR_ERROR_EXCEPTION, e);
 		}
-		*/
 		
-				
-		//fordward a la vista sí o sí
-		dispatcher = request.getRequestDispatcher(Utils.getUriFile(urlTo));
-		dispatcher.forward(request, response);
+		//de regalo incluimos los roles (habitualmente será para obtener datos para modificar)
+		request.setAttribute(Constantes.ATTR_ROLES_LIST, CargasTemporales.getListRoles() );
 		
-		
-	}
-	
-	private int Delete (HttpServletRequest request, HttpServletResponse response) {
-		int res = 0;
+		//devolvemos. Null, no existen elementos encontrados
+		request.setAttribute(Constantes.ATTR_PERSONAS_LIST, lstPersona);
 		
 		
-		return res;
-		
-	}
-	
-	private Persona Update (HttpServletRequest request, HttpServletResponse response) {
-		Persona res = null;
-		
-		
-		return res;
-		
-	}
-	
-	private Persona Insert (HttpServletRequest request, HttpServletResponse response) {
-		Persona res = null;
-		
-		return res;
+		return p;
 	}
 	
 	/**
@@ -273,7 +257,7 @@ public class PersonaServlet extends HttpServlet {
 	 * @param request
 	 * @param response
 	 */
-	private void Get (HttpServletRequest request, HttpServletResponse response) {
+	private void get (HttpServletRequest request, HttpServletResponse response) {
 		List<Persona> lstPersona = null;
 		//actualmente dos opciones. Obtener la lista completa u obtener solo un objeto
 		//se diferencia por el campo PARAM_PERSONAS_ID si viene indicado		

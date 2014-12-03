@@ -84,7 +84,7 @@ public class ModeloPersonaTest {
 		
 		int todos = modeloPersona.getAll().size();
 		int todoRes = modeloPersona.getAll().size();
-		Persona prueba = new Persona("Gorriti2", 20, CargasTemporales.roles.get(0));
+		Persona prueba = new Persona("Gorriti2", 20, 0);
 		
 		//comprobamos que ha insertado correctamente
 		assertTrue(Persona.ID_NULL < modeloPersona.Insert(prueba).getId());
@@ -124,7 +124,7 @@ public class ModeloPersonaTest {
 		//assertTrue( modeloPersona.delete(1, EBorrado.LOGICA));		
 		//assertEquals(todos, modeloPersona.getAll());
 		
-		Persona prueba = new Persona(1,"Gorriti2", 20, CargasTemporales.roles.get(0));
+		Persona prueba = new Persona(1,"Gorriti2", 20, 1);
 		
 		//borrado Fisico
 		assertEquals(1, modeloPersona.update(1, prueba));

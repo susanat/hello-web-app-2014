@@ -1,15 +1,100 @@
-<%@include file="/backoffice/includes/head.jsp" %>       
-		<%@include file="/backoffice/includes/nav.jsp" %>
-
-
-<!-- Importaciones de la página -->
 <%@page import="com.ipartek.formacion.helloweb.temp.UtilsTemp"%>
 <%@page import="com.ipartek.formacion.helloweb.comun.Utils"%>
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <%@page import="java.util.List"%>
 <%@page import="com.ipartek.formacion.helloweb.comun.Constantes"%>
+
+<%
+	//Persona persona = null;
+
+	//obtenemos el actual path
+	String path = request.getRequestURL().toString();
 	
+	//creamos una session anónima si no existe
+	if(session == null) {
+		session = request.getSession(true);
+	}
+	
+	//añadimos el último path visitado
+	session.setAttribute(Constantes.PARAM_SESSION_LAST_URL, path);
+	
+%>
+
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Administracion: personas</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  	<link rel="stylesheet" href="<%=Constantes.PATH_SITE%>bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="<%=Constantes.PATH_SITE%>bootstrap/css/main.css">
+	
+	<style>
+	body {
+		padding-top: 50px;
+		padding-bottom: 20px;
+	}
+	</style>
+	
+	<script src="<%=Constantes.PATH_SITE%>bootstrap/js/vendor/jquery-1.11.1.min.js"></script>
+	<script>window.jQuery || document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"><\/script>')</script>
+	
+	<link rel="stylesheet" href="<%=Constantes.PATH_SITE%>bootstrap/css/bootstrap-theme.min.css">
+	
+	
+	<script src="<%=Constantes.PATH_SITE%>bootstrap/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+
+
+	
+
+	  <!--[if lt IE 9]>
+	  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	  <![endif]-->
+	<style>
+	
+	table {
+		padding-left: 20px;
+		padding-right: 20px;
+	    border-collapse: separate;
+	    border-spacing: 0 5px;
+	}
+	
+	thead th {
+	    background-color: #006DCC;
+	    color: white;
+	}
+	
+	tbody td {
+	    background-color: #EEEEEE;
+	}
+	
+	tr td:first-child,
+	tr th:first-child {
+	    border-top-left-radius: 6px;
+	    border-bottom-left-radius: 6px;
+	}
+	
+	tr td:last-child,
+	tr th:last-child {
+	    border-top-right-radius: 6px;
+	    border-bottom-right-radius: 6px;
+	}
+	</style>
+
+
+</head>
+
+<body>
+	
+	
+	
+	
+	<div class="container">
 		<nav>
 			<!-- Insert breadcrumb -->
 			<ol class="breadcrumb">
@@ -35,8 +120,7 @@
 										} else {
 									%>
 						<!-- html -->
-					<div class="row">
-						<table class="table" id="lstPersonas">
+						<table class="table">
 						    <thead>
 						        <tr>
 						        	<th></th>
@@ -77,7 +161,9 @@
 							    <input type='submit' name="submit" value='Eliminar' class='btn btn-success btn-lg'>
 							</form>
 						<%
-							out.println("</td>");										
+							out.println("</td>");
+										
+										
 										
 										out.println("</tr>");
 									}
@@ -115,15 +201,17 @@
 							
 							// Display an info toast with no title
 							toastr.success('Listado cargado correctamente.');
-						}					
+						}
+						
+							
+					
 					});	
 					</script>
 				<%
 					}
 				%>
 			
-		</div>
-		<div class="row" style="margin-top: 20px;">
+		<div class="row">
 			<div class="col-md-6">			
 				<a href="<%=Constantes.JSP_BACK_PERSONA_FORM%>" type="button" class="btn btn-success btn-lg">
 					Nueva Persona
@@ -137,24 +225,18 @@
 			</div>	
 		</div>
 	
-
-	<!-- Añadimos los plugins que utilice está página -->	
+	
+	
+	</div> <!-- fin content -->
+	
+	<!-- Añadimos los javascript -->
+	
+	
+	<script src="<%=Constantes.PATH_SITE%>bootstrap/js/vendor/bootstrap.min.js"></script>
+	<script src="<%=Constantes.PATH_SITE%>bootstrap/js/main.js"></script>
+	
 	<link href="<%=Constantes.PATH_SITE%>bootstrap/js/vendor/toastr/toastr.css" rel="stylesheet"/>
 	<script src="<%=Constantes.PATH_SITE%>bootstrap/js/vendor/toastr/toastr.js"></script>
 	
-	<!-- Para el datatable: http://www.datatables.net/ -->
-	<link href="http://cdn.datatables.net/1.10.4/css/jquery.dataTables.min.css" rel="stylesheet">
-	<script src="http://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
-
-
- <script>
-    
-    $(document).ready(function() {
-    	$('#lstPersonas').DataTable();
-	} );
-	</script>
-
-
-
-<%@include file="/backoffice/includes/footer.jsp" %>
-	
+</body>
+</html>

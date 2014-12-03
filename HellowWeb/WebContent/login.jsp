@@ -1,28 +1,24 @@
+<%@page import="com.ipartek.formacion.helloweb.bean.Message"%>
+<%@page import="com.ipartek.formacion.helloweb.temp.UtilsTemp"%>
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <%@page import="com.ipartek.formacion.helloweb.comun.Constantes"%>
 <%@page pageEncoding="UTF-8" %>
 
 
-<%
+<%//*************************** Autentificación usuario
 
+	//Obtenemos la persona autentificada
+	Persona persona = UtilsTemp.getAuthenticated(session);
+		
 	boolean autentificado = false;
-	Persona persona = null;
-
-	//si existe sessión, avisamos
-	//Existe una sessión, si quiere entrar con otra cuenta deslogueate o vete al panel de usuarios
-	if( session.getAttribute(Constantes.PARAM_SESSION_AUTHENTICATED) != null &&
-			(Boolean)session.getAttribute(Constantes.PARAM_SESSION_AUTHENTICATED) != false) {
-		
+	//Comprobamos si está autentificado
+	if( persona != null) {
 		//está ya autentificado		
-		autentificado = true;
-		
-		persona = (Persona) session.getAttribute(Constantes.PARAM_SESSION_USER);
-		
+		autentificado = true;		
 	}
+%>
 
-
-	//obtenemos el path desde el que se nos ha redirigido al login, para poder volver luego
-	//despues de authentificarnos
+<%//*************************** CASO ESPECIAL: obtenemos el path desde el que se nos ha redirigido al login, para poder redirigir desde el servlet login	
 	String fromPath = "";
 	if( session != null && session.getAttribute(Constantes.PARAM_SESSION_LAST_URL) != null ) {
 		fromPath = session.getAttribute(Constantes.PARAM_SESSION_LAST_URL).toString();
@@ -67,160 +63,146 @@
 
 <body>
 
-	<div class="container row-centered">
-				
+	<div class="container row-centered">				
 		
-		<div class="col-xs-4 col-centered">
-		
+		<div class="col-xs-4 col-centered">		
 			<div class="row row-centered sombra" style="border: 1px solid; border-radius: 4px; margin-bottom: 20px; border-color: #428BCA; background-color: #428BCA; color: white;">				
 				<h1><%=Constantes.general_login %></h1>				
 			</div>
 		
 			<div class="row">
-			<div class="panel panel-primary sombra ">
-		    	<div class="panel-heading">
-		      		<h3 class="panel-title">
-		      			<% 
-		      			if (! autentificado) {
-		      				out.print(Constantes.general_login_insert);	
-		      			} else {
-		      				out.print( String.format(Constantes.general_login_wellcome, persona.getNombre()));
-		      			}		      			
-		      			%>		      		
-		      		</h3>
-		    	</div>
-		    	<div class="panel-body">		
-		    	
-					
-	<% 
-		if (! autentificado) {
-	%>
-					<form class="" role="form" method="post" id="frm_login" action="login">
-						<div class="form-group form-group-install col-md-12">
-							<label class="control-label" for="cont1"><%=Constantes.general_login_username %> * </label>
-							<input class="form-control" type="text" name="<%=Constantes.PARAMETRO_USER%>" id="cont1" value="" required="required" placeholder="Enter the username">
-						</div>
+				<div class="panel panel-primary sombra ">
+			    	<div class="panel-heading">
+			      		<h3 class="panel-title">
+			      			<% 
+			      			if (! autentificado) {
+			      				out.print(Constantes.general_login_insert);	
+			      			} else {
+			      				out.print( String.format(Constantes.general_login_wellcome, persona.getNombre()));
+			      			}		      			
+			      			%>		      		
+			      		</h3>
+			    	</div>			    	
+			    	<div class="panel-body">		
+			    	
 						
-						<div class="form-group form-group-install col-md-12">
-							<label class="control-label" for="cont2"><%=Constantes.general_login_password %> * </label>
-							<input class="form-control" type="password" name="<%=Constantes.PARAMETRO_PASSWORD%>" id="cont2" required="required" placeholder="Enter password">
-						</div>
-						
-						<!-- Path de referencia para redirigir -->
-						<input type="hidden" name="<%=Constantes.PARAM_SESSION_LAST_URL%>" value="<%= fromPath %>">
-						
-						<div class="col-xs-12 text-right">
-								<input form="frm_login" class="btn btn-success btn-lg" 
-									type="submit" name="save" value="Sign In" 
-									title="Save" />				  		
-						</div>						
-					</form>	
-	<% 
-		} else {		
-	%>	
-	
-					<div class="row">
-					<ul>
-						<li> Home Page </li>
-						<li> Panel de usuario </li>					
 						<% 
-							//TODO: ver como hacer lo de los permisos						
-							if ( persona.getRol() == 2) {
-								out.print("<li>");
-								out.print("<a href='" + Constantes.JSP_BACK_ADMIN + "' title=' "+ "Administracion" +" '>");	
-								out.print("Administración");
-								out.print("</a>");
-								out.print("</li>");
-							}						
+							if (! autentificado) {
 						%>
-					</div>
-					<form class="" role="form" method="post" id="frm_login" action="logout">
-						<!-- Path de referencia para redirigir -->
-						<input type="hidden" name="<%=Constantes.PARAM_SESSION_LAST_URL%>" value="<%= fromPath %>">
+										<form class="" role="form" method="post" id="frm_login" action="login">
+											<div class="form-group form-group-install col-md-12">
+												<label class="control-label" for="cont1"><%=Constantes.general_login_username %> * </label>
+												<input class="form-control" type="text" name="<%=Constantes.PARAMETRO_USER%>" id="cont1" value="" required="required" placeholder="Enter the username">
+											</div>
+											
+											<div class="form-group form-group-install col-md-12">
+												<label class="control-label" for="cont2"><%=Constantes.general_login_password %> * </label>
+												<input class="form-control" type="password" name="<%=Constantes.PARAMETRO_PASSWORD%>" id="cont2" required="required" placeholder="Enter password">
+											</div>
+											
+											<!-- Path de referencia para redirigir -->
+											<input type="hidden" name="<%=Constantes.PARAM_SESSION_LAST_URL%>" value="<%= fromPath %>">
+											
+											<div class="col-xs-12 text-right">
+													<input form="frm_login" class="btn btn-success btn-lg" 
+														type="submit" name="save" value="Sign In" 
+														title="Save" />				  		
+											</div>						
+										</form>	
+						<% 
+							} else {		
+						%>	
 						
-						<!-- Invalidamos la sesión, no borramos los datos nada más -->
-						<input type="hidden" name="<%=Constantes.PARAM_SESSION_INVALIDATE%>" value="true">
+										<div class="row">
+											<ul>
+												<li> Home Page </li>
+												<li> Panel de usuario </li>					
+												<% 
+													//TODO: ver como hacer lo de los permisos						
+													if ( persona.getRol() == 2) {
+														out.print("<li>");
+														out.print("<a href='" + Constantes.JSP_BACK_ADMIN + "' title=' "+ "Administracion" +" '>");	
+														out.print("Administración");
+														out.print("</a>");
+														out.print("</li>");
+													}						
+												%>
+											</ul>
+										</div>
+										<div class="row">
+											<form class="" role="form" method="post" id="frm_login" action="logout">
+												<!-- Path de referencia para redirigir -->
+												<input type="hidden" name="<%=Constantes.PARAM_SESSION_LAST_URL%>" value="<%= fromPath %>">
+												
+												<!-- Invalidamos la sesión, no borramos los datos nada más -->
+												<input type="hidden" name="<%=Constantes.PARAM_SESSION_INVALIDATE%>" value="true">
+												
+												<div class="col-xs-12 text-right">
+														<input form="frm_login" class="btn btn-active btn-lg" 
+															type="submit" name="save" value="Logo out" 
+															title="Logo out" />				  		
+												</div>						
+											</form>	
+										</div>
 						
-						<div class="col-xs-12 text-right">
-								<input form="frm_login" class="btn btn-active btn-lg" 
-									type="submit" name="save" value="Logo out" 
-									title="Logo out" />				  		
-						</div>						
-					</form>	
-	
-	<% 
-		}//fin condicion de autentificado
-	%>				
-					
-				</div> <!--  panel-body -->				
-			</div>
+						<% 
+							}//fin condicion de autentificado
+						%>				
+						
+					</div> <!--  panel-body -->				
+				</div> <!-- fin panel primary -->
 			
-			<%  
-					if(request.getAttribute(Constantes.ATTR_ERROR) != null && 
-							(Boolean)request.getAttribute(Constantes.ATTR_ERROR) == true) 
-					{
-						String result = (String) request.getAttribute(Constantes.ATTR_ERROR_MSJ);  
-						if(result != null){
-							
-							%>
-							
-							<div class="alert alert-danger sombra" role="alert"><%= String.valueOf(result) %></div>
-							
-							<%						
-							
-						}
-					}		
+			<!-- Mostramos el error si hay  -->
+			<%				
+				Message msg = UtilsTemp.getMessage(request);
+				if(msg != null && msg.isError()){
+					out.print(msg.getShowDivAlert());
+				}
 			%>
-		</div>
+			</div>
 		</div>
 	</div>
 	
 	<% 
-			if (request.getAttribute(Constantes.ATTR_LOGOUT_ACTION) != null && 
+	if (request.getAttribute(Constantes.ATTR_LOGOUT_ACTION) != null && 
 			(Boolean)request.getAttribute(Constantes.ATTR_LOGOUT_ACTION) == true) {
 			
-	%>
-		
-					<script>
-					$(document).ready(function(){
+	%>		
+				<script>
+				$(document).ready(function(){						
+					lanzarToast();					
+					function lanzarToast(){
+						//http://codeseven.github.io/toastr/demo.html
+						toastr.options = {
+								  "closeButton": true,
+								  "debug": false,
+								  "progressBar": false,
+								  "positionClass": "toast-bottom-right",
+								  "onclick": null,
+								  "showDuration": "200",
+								  "hideDuration": "1000",
+								  "timeOut": "3000",
+								  "extendedTimeOut": "1000",
+								  "showEasing": "swing",
+								  "hideEasing": "linear",
+								  "showMethod": "slideDown",
+								  "hideMethod": "fadeOut"
+								}
 						
-						lanzarToast();
-					
-						function lanzarToast(){
-							//http://codeseven.github.io/toastr/demo.html
-							toastr.options = {
-									  "closeButton": true,
-									  "debug": false,
-									  "progressBar": false,
-									  "positionClass": "toast-bottom-right",
-									  "onclick": null,
-									  "showDuration": "200",
-									  "hideDuration": "1000",
-									  "timeOut": "3000",
-									  "extendedTimeOut": "1000",
-									  "showEasing": "swing",
-									  "hideEasing": "linear",
-									  "showMethod": "slideDown",
-									  "hideMethod": "fadeOut"
-									}
-							
-							// Display an info toast with no title
-							toastr.info('<%=Constantes.general_login_desconect_msj%>');
-						}
-					
-					});	
-					</script>	
-	<% 
-	
-	}
-		
+						// Display an info toast with no title
+						toastr.info('<%=Constantes.general_login_desconect_msj%>');
+					}
+				
+				});	
+				</script>	
+	<% 	
+	} //fin condicion logout		
 	%>
-	
 	
 
   	<!-- Añadimos los javascript -->
-	<link href="<%= Constantes.SITE_PATH%>bootstrap/js/vendor/toastr/toastr.css" rel="stylesheet"/>
-	<script src="<%= Constantes.SITE_PATH%>bootstrap/js/vendor/toastr/toastr.js"></script>
+	<link href="<%=Constantes.PATH_SITE%>bootstrap/js/vendor/toastr/toastr.css" rel="stylesheet"/>
+	<script src="<%=Constantes.PATH_SITE%>bootstrap/js/vendor/toastr/toastr.js"></script>
 	
 	<script src="bootstrap/js/vendor/bootstrap.min.js"></script>
 	<script src="bootstrap/js/main.js"></script>
