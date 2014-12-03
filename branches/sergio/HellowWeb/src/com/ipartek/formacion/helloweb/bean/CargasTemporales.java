@@ -20,8 +20,7 @@ public class CargasTemporales {
 		
 		CargaTablaRoles();
 		CargaTablaPermisos();
-		CargaTablaPersonas();
-		
+		CargaTablaPersonas();		
 		
 	}
 	

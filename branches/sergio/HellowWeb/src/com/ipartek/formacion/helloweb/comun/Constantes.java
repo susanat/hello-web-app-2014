@@ -66,14 +66,26 @@ public final class Constantes {
 		}
 	}
 
+	//*************** Arbol de PATHS
+	
 	/**
 	 * path del sitio
 	 */
-	public final static  String SITE_PATH = "http://localhost:8080/HelloWeb/";
+	public final static  String PATH_SITE = "http://localhost:8080/HelloWeb/";
 	
-	public final static  String TEMP_REL_PATH_THEME = "backoffice/themes/sb-admin-2/";
-	public final static  String TEMP_ABS_PATH_THEME = SITE_PATH + TEMP_REL_PATH_THEME;
+	
 
+	//*** ARBOL DE LA PARTE BACKOFFICE
+	public final static String PATH_BACK = "backoffice/";
+
+	//** INCLUDES
+	public final static String PATH_BACK_REL_INCLUDE = PATH_BACK + "include/";
+	public final static String PATH_BACK_ABS_INCLUDE = PATH_SITE + PATH_BACK_REL_INCLUDE;
+		
+	//** THEMES
+	public final static  String PATH_BACK_REL_THEME = "backoffice/themes/sb-admin-2/";
+	public final static  String PATH_BACK_ABS_THEME = PATH_SITE + PATH_BACK_REL_THEME;
+	
 
 	
 
@@ -81,22 +93,38 @@ public final class Constantes {
 	//*************** Ã�rbol de Servlet
 	public final static  String CONTROLLER_PERSONA = "persona";
 	public final static  String CONTROLLER_LOGIN = "login";
+	public final static  String CONTROLLER_LOG_OUT = "logout";
+	
+	
 
-	//*************** Ã�rbol de JSP
-	public final static  String JSP_INDEX = SITE_PATH + "index.jsp";
+	//*************** JSP'S
+	public final static  String JSP_INDEX = PATH_SITE + "index.jsp";
 
-	public final static  String JSP_SALUDO = SITE_PATH + "saludo.jsp";
+	public final static  String JSP_SALUDO = PATH_SITE + "saludo.jsp";
 
-	public final static  String JSP_LOGIN = SITE_PATH + "login.jsp";
-	public final static  String JSP_LOGOUT = SITE_PATH + "logout.jsp";
+	public final static  String JSP_LOGIN = PATH_SITE + "login.jsp";
+	public final static  String JSP_LOGOUT = PATH_SITE + "logout.jsp";
 
 
-	public final static  String JSP_PATH_BACK = SITE_PATH + "backoffice/";
+	public final static  String JSP_PATH_BACK = PATH_SITE + "backoffice/";
 
 	public final static  String JSP_BACK_ADMIN = JSP_PATH_BACK + "index.jsp";
+	
+	/**
+	 * Ruta completa para <a> del jsp lista de personas
+	 */
 	public final static  String JSP_BACK_PERSONA_LIST = JSP_PATH_BACK + "persona/listPersonas.jsp";
+	
+	/**
+	 * Ruta completa para <a> del jsp formulario de persona
+	 */
 	public final static  String JSP_BACK_PERSONA_FORM = JSP_PATH_BACK + "persona/formPersona.jsp";
 
+	
+	public final static String JSP_BACK_FOOTER = "footer.jsp";
+	public final static String JSP_BACK_HEAD = "head.jsp";
+	public final static String JSP_BACK_NAV = "nav.jsp";
+	public final static String JSP_BACK_NAV_SIDEBAR = "nav_sidebar.jsp";
 
 
 	//***************NAMES FORMULARIOS
