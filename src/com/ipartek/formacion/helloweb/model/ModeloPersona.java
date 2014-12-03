@@ -130,7 +130,7 @@ public class ModeloPersona implements IModeloPersona {
 	public int update(Persona p) {
 		int resul = Persona.ID_NULL;
 		if (personas != null) {
-			personas.set(p.getId(), p);
+			personas.set((p.getId() - 1), p);
 			resul = p.getId();
 		}
 		return resul;

@@ -48,6 +48,13 @@ public class Constantes {
 
 	public static final String MSG_NOT_ALLOWED = "No tienes permisos";
 
+	public static final String MSG_REG_CREATE = "Registro Creado con exito";
+	public static final String MSG_REG_DELETE = "Registro Eliminado con exito";
+	public static final String MSG_REG_UPDATE = "Registro Modificado con exito";
+
+	public static final String MSG_ERROR_PARAMETERS = "Error recogiendo parametros";
+	public static final String MSG_ERROR_REG_DELETE = "Error eliminando registros";
+
 	// /Atributos
 
 	public static final String ATT_PERSONAS = "personas";
@@ -60,5 +67,7 @@ public class Constantes {
 	public static final String OP_DELETE = "1"; // Eliminar registro
 	public static final String OP_LIST = "2"; // Listar todos los registros
 	public static final String OP_DETAIL = "3"; // Mostrar detalle resgitro
+	public static final String OP_CREATE = "4"; // Crear o insertar un nuevo
+												// resgitro
 
 }

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.helloweb.Constantes;
+import com.ipartek.formacion.helloweb.bean.Message;
 import com.ipartek.formacion.helloweb.bean.Persona;
 import com.ipartek.formacion.helloweb.model.ModeloPersona;
 
@@ -18,32 +19,43 @@ import com.ipartek.formacion.helloweb.model.ModeloPersona;
  * Servlet implementation class PersonaServlet
  */
 public class PersonaServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	ModeloPersona model = null;
-	RequestDispatcher dispatcher = null;
-	String msg = "";
-	int id = Persona.ID_NULL;
 
-	// Solo se ejecuta la primera vez. No se ejecuta ninguna peticion
+	private static final long serialVersionUID = 1L;
+	RequestDispatcher dispatcher = null;
+	ModeloPersona model = null;
+	// String msg = "";
+	Message msg = null;
+	int id = Persona.ID_NULL; // identificador Persona
+
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		model = new ModeloPersona();
+		msg = new Message();
 	}
 
-	// Es autmoatico en el TomCat
 	@Override
 	public void destroy() {
 		super.destroy();
 		model = null;
+		msg = null;
 	}
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+
 		// TODO comprobar Autorizacion del usuario
+
+		// recoger paramtro identificador Persona
+		try {
+			id = Integer.parseInt(req.getParameter("id"));
+		} catch (Exception e) {
+			id = Persona.ID_NULL;
+		}
+
 		super.service(req, resp);
-		id = Persona.ID_NULL;
+
 	}
 
 	/**
@@ -53,24 +65,12 @@ public class PersonaServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// recoger parametros
-
-		try {
-			id = Integer.parseInt(request.getParameter("id"));
-		} catch (Exception e) {
-			// TODO log
-		}
-
-		// comprobar si es getALL o getById
-		if (id != Persona.ID_NULL) {
-			getById(request);
-
-		} else {
+		// comprobar si es getAll o getById
+		if (id == Persona.ID_NULL) {
 			getAll(request);
-
+		} else {
+			getById(request);
 		}
-
-		// forward(redirigir) a la vista
 
 		dispatcher.forward(request, response);
 
@@ -78,7 +78,9 @@ public class PersonaServlet extends HttpServlet {
 
 	private void getById(HttpServletRequest request) {
 		Persona p = model.getById(id);
+		// pasamos los atributos
 		request.setAttribute(Constantes.ATT_PERSONA, p);
+		// forward a la vista del formulario
 		dispatcher = request
 				.getRequestDispatcher(Constantes.JSP_BACK_PERSONA_FORM);
 
@@ -86,10 +88,11 @@ public class PersonaServlet extends HttpServlet {
 
 	private void getAll(HttpServletRequest request) {
 		ArrayList<Persona> personas = model.getAll();
+		// pasamos los atributos
 		request.setAttribute(Constantes.ATT_PERSONAS, personas);
+		// forward a la vista
 		dispatcher = request
 				.getRequestDispatcher(Constantes.JSP_BACK_PERSONA_LIST);
-
 	}
 
 	/**
@@ -98,61 +101,125 @@ public class PersonaServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// recoger parametros y validar
-		Persona p = getParametrosPersona(request);
 
-		// insertarlo
+		// check Operacion
+		String op = request.getParameter(Constantes.OP_KEY);
+		if (Constantes.OP_UPDATE.equals(op)) {
+			update(request);
+		} else if (Constantes.OP_DELETE.equals(op)) {
+			delete(request);
+		} else if (Constantes.OP_CREATE.equals(op)) {
+			create(request);
+		} else {
+			opNotSuported(request);
+		}
 
-		model.insert(p);
+		request.setAttribute(Constantes.MSG_KEY, msg.getMsg());
 
-		// enviar atributos
-		request.setAttribute(Constantes.MSG_KEY, msg);
-		request.setAttribute(Constantes.ATT_PERSONA, p);
-
-		// forward a la vista
-
-		dispatcher = request
-				.getRequestDispatcher(Constantes.JSP_BACK_PERSONA_FORM);
 		dispatcher.forward(request, response);
 	}
 
 	/**
+	 * Actulizar los datos de una Persona, foward a form.jsp
+	 * 
+	 * @param request
+	 */
+	private void update(HttpServletRequest request) {
+
+		Persona p = getParametrosPersona(request);
+		if (p != null) {
+			// modificar
+			p.setId(id);
+			// TODO comprobar que realmente se a modificado
+			model.update(p);
+			// enviar atributos
+			msg.setMsg(Constantes.MSG_REG_UPDATE);
+		} else {
+			msg.setMsg(Constantes.MSG_ERROR_PARAMETERS);
+		}
+
+		request.setAttribute(Constantes.ATT_PERSONA, p);
+
+		// forward vista
+		dispatcher = request
+				.getRequestDispatcher(Constantes.JSP_BACK_PERSONA_FORM);
+
+	}
+
+	/**
+	 * Elimina la Persona por su ID y nos retorna a list.jsp
+	 * 
+	 * @param request
+	 */
+	private void delete(HttpServletRequest request) {
+
+		if (model.delete(id)) {
+			msg.setMsg(Constantes.MSG_REG_DELETE);
+		} else {
+			msg.setMsg(Constantes.MSG_ERROR_REG_DELETE);
+		}
+		getAll(request);
+
+	}
+
+	/**
+	 * Si no existe la Operacion a realizar mensaje y forward al list.jsp
+	 * 
+	 * @param request
+	 */
+	private void opNotSuported(HttpServletRequest request) {
+		getAll(request);
+		msg.setMsg(Constantes.MSG_NOT_ALLOWED);
+	}
+
+	/**
+	 * Crear nueva persona e insertarla en la BBDD
+	 * 
+	 * @param request
+	 */
+	private void create(HttpServletRequest request) {
+		// recoger parametros y validar
+		Persona p = getParametrosPersona(request);
+
+		if (p != null) {
+			// insertarlo
+			// TODO comprobar la inserccion
+			model.insert(p);
+			// enviar atributos
+			msg.setMsg(Constantes.MSG_REG_CREATE);
+		} else {
+			msg.setMsg(Constantes.MSG_ERROR_PARAMETERS);
+		}
+
+		request.setAttribute(Constantes.ATT_PERSONA, p);
+
+		// forward vista
+		dispatcher = request
+				.getRequestDispatcher(Constantes.JSP_BACK_PERSONA_FORM);
+
+	}
+
+	/**
 	 * Recoger los parametros de la request y crear <code>Persona</code>.
-	 * Tambien gestiona los mensajes para el usuario.
+	 * Tambien gestiona los mensajes para el usuario
 	 * 
 	 * @param request
 	 * @return <code>Persona</code> inicializada con los parametros de la
 	 *         request, en caso de fallo null
 	 */
-
 	private Persona getParametrosPersona(HttpServletRequest request) {
-		Persona p = new Persona("");
-
+		Persona p = null;
 		try {
-			p.setNombre(request.getParameter("name"));// el parametro es el k le
-														// he
-														// puesto en el
-														// formulario
+			p = new Persona("");
+			p.setNombre(request.getParameter("name"));
 			p.setEdad(Integer.parseInt(request.getParameter("edad")));
-			msg = "Persona creada";
-		}
-
-		catch (Exception e) {
+			// p.setRol(request.getParameter("value"));
+		} catch (Exception e) {
 			p = null;
-			msg = "Error creando Persona";
 			e.printStackTrace();
 		}
+
 		return p;
-
-	}
-
-	@Override
-	protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		super.doDelete(req, resp);
-		int id = Integer.parseInt(req.getParameter("id"));
-		model.delete(id);
-
 	}
 
 }
