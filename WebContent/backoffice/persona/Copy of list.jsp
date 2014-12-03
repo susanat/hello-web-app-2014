@@ -16,7 +16,29 @@
 	<h1>Listado Personas</h1>
 	<h2><a href="<%=request.getContextPath()+"/"+Constantes.JSP_BACK_INDEX%>">volver</a></h2>
 	<p><a href="<%=Constantes.JSP_BACK_PERSONA_FORM%>" title="crear nueva persona">cree una nueva persona</a></p>
-	
+	<%
+		ArrayList<Persona> personas = (ArrayList<Persona>)request.getAttribute( Constantes.ATT_PERSONAS );
+		if ( personas == null ){
+			%>
+				<h2>No existe nigun persona, por favor</h2>
+				<p><a href="<%=Constantes.JSP_BACK_PERSONA_FORM%>" title="crear nueva persona">cree una nueva persona</a></p>
+			<%
+		}else{
+			Persona p = null;
+			for ( int i=0; i < personas.size(); i++){
+				p = personas.get(i); //detalle persona
+				out.println("<ol>");				
+				%>
+					<li>
+						<a href="<%=Constantes.CONTROLLER_PERSONA+"?id="+p.getId()%>">
+							<%=p.getNombre()%> 
+						</a>
+					</li>
+				<%
+				out.println("</ol>");
+			}
+		}
+	%>
 	
 	<table id="example" class="display" cellspacing="0" width="100%">
         <thead>
@@ -38,50 +60,21 @@
         </tfoot>
  
         <tbody>
-        <%
-		ArrayList<Persona> personas = (ArrayList<Persona>)request.getAttribute( Constantes.ATT_PERSONAS );
-		if ( personas == null ){
-			%>
-				<h2>No existe nigun persona, por favor</h2>
-				<p><a href="<%=Constantes.JSP_BACK_PERSONA_FORM%>" title="crear nueva persona">cree una nueva persona</a></p>
-			<%
-		}else{
-			Persona p = null;
-			for ( int i=0; i < personas.size(); i++){
-				p = personas.get(i); //detalle persona
-				out.println("<tr>");				
-				%>
-					<td>
-						<a href="<%=Constantes.CONTROLLER_PERSONA+"?id="+p.getId()%>">
-						<%=p.getId()%>
-						</a>
-					</td>
-					<td>
-						
-							<%=p.getNombre()%> 
-						
-					</td>
-					<td>
-						
-							<%=p.getEdad()%> 
-						
-					</td>
-					<td>
-						<%=p.getRol()%> 
-					</td>
-				<%
-				out.println("</tr>");
-			}
-		}
-	%>
-        
-        
-        
-        
-       		
-        </tbody>
-     </table>
-     
-    
+            <tr>
+                <td>Tiger Nixon</td>
+                <td>System Architect</td>
+                <td>Edinburgh</td>
+                
+            </tr>
+            <tr>
+                <td>Garrett Winters</td>
+                <td>Accountant</td>
+                <td>Tokyo</td>
+                
+            </tr>
+            </tbody>
+            </table>
+	
+	
 	
 <%@include file="../includes/footer.jsp" %>   

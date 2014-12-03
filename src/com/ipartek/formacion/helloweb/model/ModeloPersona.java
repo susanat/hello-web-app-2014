@@ -9,51 +9,43 @@ import com.ipartek.formacion.helloweb.bean.Persona;
 import com.ipartek.formacion.helloweb.model.interfaces.IModeloPersona;
 
 /**
- * Implementacion para la persistencia de las Personas
+ * Implementacion para la Persistencia de las Personas
  * 
- * @author Curso
+ * @author ur00
  *
  */
 public class ModeloPersona implements IModeloPersona {
 
-    // TODO implementar BBDD
-
+    // TODO implementar base BBDD
     static ArrayList<Persona> personas = null;
 
     public static void createTable() {
 	personas = new ArrayList<Persona>();
-
 	Persona p = new Persona("");
-
-	p = new Persona("");
 	p.setNombre("Gorriti");
-	p.setId(1);
+	p.setId(0);
 	personas.add(p);
 
 	p = new Persona("");
 	p.setNombre("Antton");
-	p.setId(2);
+	p.setId(1);
 	personas.add(p);
 
 	p = new Persona("");
 	p.setNombre("Pirulero");
-	p.setId(3);
+	p.setId(2);
 	personas.add(p);
 
 	p = new Persona("");
 	p.setNombre("Duquesita");
-	p.setId(4);
+	p.setId(3);
 	personas.add(p);
 
 	p = new Persona("");
 	p.setNombre("Manoli");
-	p.setId(5);
+	p.setId(4);
 	personas.add(p);
 
-    }
-
-    public ModeloPersona() {
-	// TODO Auto-generated constructor stub
     }
 
     static void truncateTable() {
@@ -67,7 +59,6 @@ public class ModeloPersona implements IModeloPersona {
      * com.ipartek.formacion.helloweb.model.interfaces.IModeloPersona#getAll()
      */
     public ArrayList<Persona> getAll() {
-
 	ArrayList<Persona> personasLogicas = null;
 	if (personas != null) {
 	    personasLogicas = new ArrayList<Persona>();
@@ -89,10 +80,9 @@ public class ModeloPersona implements IModeloPersona {
      * (non-Javadoc)
      * 
      * @see
-     * com.ipartek.formacion.helloweb.model.interfaces.IModeloPersona#getByID()
+     * com.ipartek.formacion.helloweb.model.interfaces.IModeloPersona#getById()
      */
-    public Persona getByID(int id) {
-	// como nos tenia que dar null al final
+    public Persona getById(int id) {
 	Persona resul = null;
 	if (personas != null) {
 	    for (Persona p : personas) {
@@ -102,11 +92,9 @@ public class ModeloPersona implements IModeloPersona {
 			break;
 		    }
 		}
-
 	    }
-
 	}
-	return null;
+	return resul;
     }
 
     /*
@@ -119,16 +107,16 @@ public class ModeloPersona implements IModeloPersona {
     public int insert(Persona p) {
 	int resul = Persona.ID_NULL;
 
-	// persona es nula existe o no devolvemos el resul
 	if (personas == null) {
 	    personas = new ArrayList<Persona>();
 	}
 
 	if (p != null) {
 	    personas.add(p);
-	    p.setId(personas.size());
-	    resul = personas.size();
+	    p.setId((personas.size() - 1));
+	    resul = (personas.size() - 1);
 	}
+
 	return resul;
     }
 
@@ -140,13 +128,13 @@ public class ModeloPersona implements IModeloPersona {
      * (com.ipartek.formacion.helloweb.bean.Persona)
      */
     public int update(Persona p) {
-
 	int resul = Persona.ID_NULL;
 	if (personas != null) {
 	    personas.set(p.getId(), p);
 	    resul = p.getId();
 	}
 	return resul;
+
     }
 
     /*
@@ -157,22 +145,24 @@ public class ModeloPersona implements IModeloPersona {
      * (int)
      */
     public boolean delete(int id) {
-
 	boolean resul = false;
 	try {
 	    if (personas != null) {
-		if (getByID(id) != null) {
+		if (getById(id) != null) {
 		    personas.set(id, null);
 		    resul = true;
 		}
 	    }
 	} catch (Exception e) {
-	    // TODO traza de log
-	    System.out.print("No existe el ID[" + id
-		    + "] que queremos eliminar");
+	    // TODO traza de Log
+	    System.out.print("No existe el ID[" + id + "] queremos eliminar");
 	}
-	return false;
+	return resul;
+    }
 
+    public Persona getByID(int id) {
+	// TODO Auto-generated method stub
+	return null;
     }
 
 }
