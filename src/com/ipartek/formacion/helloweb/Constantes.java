@@ -33,7 +33,7 @@ public class Constantes {
 
     // Mensajes
     public static final String MSG_KEY = "msg";
-    public static final String MSG_LOGIN_INCORRECT = "Usuario o contraseña incorrecta";
+    public static final String MSG_LOGIN_INCORRECT = "Usuario o contraseña incorrecta!!";
     public static final String MSG_LOGOUT = "Hasta la vista Baby recuerda visitarnos!!";
     public static final String MSG_NOT_ALLOWED = "No tienes permisos";
     public static final String MSG_REG_CREATE = "Registro creado con éxito";

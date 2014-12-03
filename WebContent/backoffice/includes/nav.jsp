@@ -1,12 +1,53 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+  <!-- Navigation -->
+    <%@page import="com.ipartek.formacion.helloweb.Rol"%>
+	<%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
+	<%@page import="com.ipartek.formacion.helloweb.Constantes"%>
+    <% 
+		//recuperar usuario de session
+		Persona p = (Persona) session.getAttribute(Constantes.USER_SESSION);
+		if ((p == null) || (p.getRol() != Rol.ADMINISTRADOR)){
+		    p = new Persona ("anonimo", 99, Rol.USUARIO);
+		   
+		    String root =  request.getContextPath();
+		    response.sendRedirect( root + Constantes.JSP_LOGIN );   
+		}
+		
+	%>
+<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Backoffice  <%= p.getNombre() %> </a>
+            </div>
+            <!-- /.navbar-header -->
 
-</body>
-</html>
+            <ul class="nav navbar-top-links navbar-right">
+                <li >
+                    <a href="<%=Constantes.PATH_LOGOUT %>" title="Cierra tu sesión">
+                         [x] Cerrar sesión
+                    </a>
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        
+                        <li>
+                            <a href="<%=Constantes.CONTROLLER_PERSONA %>" class="active"  title="Gestionar Personas"> Persona</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <div id="page-wrapper">

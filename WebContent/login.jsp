@@ -11,17 +11,17 @@
   <link rel='stylesheet' href='http://codepen.io/assets/libs/fullpage/jquery-ui.css'>
 
   <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
-
+  
+  
+	
 </head>
 
 <body>
-
+	
   <div class="login-card">
+  <%@include file="includes/alerts.jsp" %>
     <h1>Log-in</h1><br>
-  <form action="<%=Constantes.PATH_LOGIN %>" method="post">
-  
- 	<%@include file="includes/alerts.jsp" %>
-  
+  <form action="<%=Constantes.PATH_LOGIN %>" method="post"> 
     <input type="text" name="<%=Constantes.PARAMETRO_USER %>" placeholder="Username">
     <input type="password" name="<%=Constantes.PARAMETRO_PASS %>" placeholder="Password">
     <input type="submit" name="login" class="login login-submit" value="login">

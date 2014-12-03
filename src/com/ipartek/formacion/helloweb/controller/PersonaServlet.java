@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.Rol;
+import com.ipartek.formacion.helloweb.TipoMensaje;
+import com.ipartek.formacion.helloweb.bean.Mensaje;
 import com.ipartek.formacion.helloweb.bean.Persona;
 import com.ipartek.formacion.helloweb.model.ModeloPersona;
 
@@ -22,7 +24,7 @@ public class PersonaServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     RequestDispatcher dispatcher;
     ModeloPersona model = null;
-    String msg = null;
+    Mensaje msg = null;
     int id = Persona.ID_NULL; // identificador persona
 
     /**
@@ -145,7 +147,8 @@ public class PersonaServlet extends HttpServlet {
      */
     private void opNotSuported(HttpServletRequest request) {
 	getAll(request);
-	msg = Constantes.MSG_NOT_ALLOWED;
+	msg = new Mensaje(Constantes.MSG_NOT_ALLOWED, TipoMensaje.WARNING, 3);
+	;
 
     }
 
@@ -160,9 +163,10 @@ public class PersonaServlet extends HttpServlet {
 	    // instertalo
 	    // TODO comprobar la inserccion
 	    model.insert(p);
-	    msg = Constantes.MSG_REG_CREATE;
+	    msg = new Mensaje(Constantes.MSG_REG_CREATE, TipoMensaje.SUCCESS, 1);
 	} else {
-	    msg = Constantes.MSG_ERR_PARAMETERS;
+	    msg = new Mensaje(Constantes.MSG_ERR_PARAMETERS,
+		    TipoMensaje.DANGER, 4);
 	}
 
 	// enviar atributos
@@ -180,16 +184,16 @@ public class PersonaServlet extends HttpServlet {
     private void update(HttpServletRequest request) {
 	// recoger parametros
 	Persona p = getParametrosPersona(request);
-
 	if (p != null) {
 	    // modificar
 	    p.setId(id);
 	    // TODO comprobar que realmente se ha modificado
 	    model.update(p);
 	    // enviar atributos
-	    msg = Constantes.MSG_REG_UPDATE;
+	    msg = new Mensaje(Constantes.MSG_REG_UPDATE, TipoMensaje.SUCCESS, 1);
 	} else {
-	    msg = Constantes.MSG_ERR_PARAMETERS;
+	    msg = new Mensaje(Constantes.MSG_ERR_PARAMETERS,
+		    TipoMensaje.DANGER, 4);
 	}
 
 	request.setAttribute(Constantes.ATT_PERSONA, p);
@@ -208,9 +212,10 @@ public class PersonaServlet extends HttpServlet {
     private void delete(HttpServletRequest request) {
 
 	if (model.delete(id)) {
-	    msg = Constantes.MSG_REG_DELETE;
+	    msg = new Mensaje(Constantes.MSG_REG_DELETE, TipoMensaje.SUCCESS, 1);
 	} else {
-	    msg = Constantes.MSG_ERR_DELETE;
+	    msg = new Mensaje(Constantes.MSG_ERR_PARAMETERS,
+		    TipoMensaje.DANGER, 4);
 	}
 	getAll(request);
     }
