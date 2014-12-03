@@ -20,6 +20,7 @@ public class Constantes {
 	//JSPs publicas
 	public static final String JSP_SALUDO = "saludo.jsp"; 
 	public static final String JSP_LOGIN = "login.jsp";
+	public static final String JSP_LOGOUT = "/logout";
 	
 	//JSPs Backoffice
 	public static final String JSP_BACKOFFICE = "backoffice/";

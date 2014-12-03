@@ -189,7 +189,10 @@ public class PersonaServlet extends HttpServlet {
 		}else{
 			msg = Constantes.MSG_ERR_PARAMETERS;
 		}	
-				
+	
+		ArrayList<Persona> personas = model.getAll();		
+		//pasamos los atributos
+		request.setAttribute( Constantes.ATT_PERSONAS , personas );	
 		request.setAttribute(Constantes.ATT_PERSONA ,p);
 		
 		//forward vista
