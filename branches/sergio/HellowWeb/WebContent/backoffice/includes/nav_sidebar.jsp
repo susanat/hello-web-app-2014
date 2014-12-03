@@ -13,14 +13,17 @@
 				</div> <!-- /input-group -->
 			</li>
 			
+			<!--  
 			<li><a class="active" href="<%= Constantes.JSP_BACK_ADMIN %>">
 					<i class="fa fa-dashboard fa-fw"></i> 
 					Dashboard
 				</a>
 			</li>
+			-->
+			
 			<li>
 				<a href="#">
-					<i class="fa fa-bar-chart-o fa-fw"></i>
+					<i class="fa fa-user fa-fw"></i>
 					Personas
 					<span class="fa arrow"></span>
 				</a>

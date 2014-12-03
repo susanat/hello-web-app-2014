@@ -18,6 +18,7 @@
                 <a class="navbar-brand" href="<%=Constantes.JSP_BACK_ADMIN %>">
                 	<%=Constantes.adm_index_title %>                	
                 </a>
+                
             </div>
             <!-- /.navbar-header -->
             
@@ -34,7 +35,11 @@
                         <li>
                         	<a href="#">
                         		<i class="fa fa-user fa-fw"></i> 
-                        		<%= persona.getNombre()   %> Profile
+                        		<%
+                        		if(persona != null) {
+                        			out.print(persona.getNombre());
+                        		}
+                        		%> Profile
                         	</a>
                         </li>
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>

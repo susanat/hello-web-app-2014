@@ -10,13 +10,14 @@
 <%@page import="java.util.List"%>
 <%@page import="com.ipartek.formacion.helloweb.comun.Constantes"%>
 	
-		<nav>
-			<!-- Insert breadcrumb -->
+		<!-- Insert breadcrumb
+		<nav>			
 			<ol class="breadcrumb">
 				<li><a href="<%=Constantes.JSP_BACK_ADMIN%>">Administracion</a></li>
 				<li>Listado Personas</li>
 			</ol>
 		</nav>
+		 -->
 	
 		<div class="row text-center">
 			<h1>Listado Personas</h1>
@@ -139,13 +140,17 @@
 	
 
 	<!-- Añadimos los plugins que utilice está página -->	
-	<link href="<%=Constantes.PATH_SITE%>bootstrap/js/vendor/toastr/toastr.css" rel="stylesheet"/>
-	<script src="<%=Constantes.PATH_SITE%>bootstrap/js/vendor/toastr/toastr.js"></script>
+	<link href="<%=Constantes.PATH_BACK_ABS_THEME %>css/alerts/toastr.css" rel="stylesheet"/>
+	<script src="<%=Constantes.PATH_BACK_ABS_THEME %>js/alerts/toastr.js"></script>
 	
 	<!-- Para el datatable: http://www.datatables.net/ -->
+	<!--  
 	<link href="http://cdn.datatables.net/1.10.4/css/jquery.dataTables.min.css" rel="stylesheet">
 	<script src="http://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
+	-->
 
+	<link href="<%= Constantes.PATH_BACK_ABS_THEME %>css/dataTables/jquery.dataTables.min.css" rel="stylesheet">
+	<script src="<%= Constantes.PATH_BACK_ABS_THEME %>js/dataTables/jquery.dataTables.js"></script>
 
  <script>
     
