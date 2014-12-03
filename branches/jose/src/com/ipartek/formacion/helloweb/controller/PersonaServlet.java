@@ -41,7 +41,13 @@ public class PersonaServlet extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		// TODO comprobar la autorizacion del usuario
-		id = Persona.ID_NULL;
+		try {
+			id = Integer.parseInt(req.getParameter("id"));
+		} catch (Exception e) {
+			// TODO log
+			id = Persona.ID_NULL;
+		}
+
 		super.service(req, resp);
 	}
 
@@ -53,17 +59,10 @@ public class PersonaServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// recoger parametros
-		try {
-			id = Integer.parseInt(request.getParameter("id"));
-		} catch (Exception e) {
-			// TODO log
-		}
-		
 		// comprobar si es getAll o getById
-		if (id==Persona.ID_NULL){
+		if (id == Persona.ID_NULL) {
 			getAll(request);
-		}else{
+		} else {
 			getById(request);
 		}
 		dispatcher.forward(request, response);
@@ -99,20 +98,106 @@ public class PersonaServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
+		// recoger la operacion a ejecutar
+		String operacion = request.getParameter(Constantes.OP_KEY);
+		// mirar que funcion se ejecuta
+		if (Constantes.OP_UPDATE.equals(operacion)) {
+			update(request);
+		} else if (Constantes.OP_DELETE.equals(operacion)) {
+			delete(request);
+		} else if (Constantes.OP_CREATE.equals(operacion)) {
+			create(request);
+		} else {
+			opNotSuported(request);
+		}
+		request.setAttribute(Constantes.MSG_KEY, msg);
+		dispatcher.forward(request, response);
+	}
+
+	/**
+	 * Si no existe la operacion a realizar mensaje y forward al list.jsp
+	 * 
+	 * @param request
+	 */
+	private void opNotSuported(HttpServletRequest request) {
+		// dispatcher = request
+		// .getRequestDispatcher(Constantes.JSP_BACK_PERSONA_LIST);
+		getAll(request);
+		msg = Constantes.MSG_NOT_ALLOWED;
+
+	}
+
+	/**
+	 * 
+	 * @param request
+	 */
+	private void create(HttpServletRequest request) {
 		// recoger parametros y validar
 		Persona p = getParametros(request);
 
+		if (p != null) {
+			// insertarlo
+			// TODO comprobar la inserccion
+			model.insert(p);
+			msg = Constantes.MSG_REG_CREATE;
+		} else {
+			msg = Constantes.MSG_ERR_PARAMETERS;
+		}
 		// enviar atributos
-		request.setAttribute(Constantes.MSG_KEY, msg);
 		request.setAttribute(Constantes.ATT_PERSONA, p);
-
-		// insertarlo
-		model.insert(p);
 
 		// forward vista
 		dispatcher = request
 				.getRequestDispatcher(Constantes.JSP_BACK_PERSONA_FORM);
-		dispatcher.forward(request, response);
+
+	}
+
+	/**
+	 * Recoger el id de la Persona a eliminar y borrarla de la lista
+	 * 
+	 * @param request
+	 */
+	private void delete(HttpServletRequest request) {
+		// obtener el ID de la Persona
+		// id = Integer.parseInt(request.getParameter("id"));
+		// borrar a la Persona con ese ID de la lista
+		if (model.delete(id)) {
+			msg = Constantes.MSG_REG_DELETE;
+		} else {
+			msg = Constantes.MSG_ERR_REG_DELETE;
+		}
+		getAll(request);
+
+		// forward vista
+		// dispatcher = request
+		// .getRequestDispatcher(Constantes.JSP_BACK_PERSONA_LIST);
+
+	}
+
+	/**
+	 * Actualizar los datos de una persona, forward a form.jsp
+	 * 
+	 * @param request
+	 */
+	private void update(HttpServletRequest request) {
+		// recoger parametros y validar
+		Persona p = getParametros(request);
+		if (p != null) {
+			p.setId(id);
+			// TODO comprobar que realmente se ha modificado
+			// actualizarlo
+			model.update(p);
+			msg = Constantes.MSG_REG_UPDATE;
+		} else {
+			msg = Constantes.MSG_ERR_PARAMETERS;
+		}
+		// enviar atributos
+		request.setAttribute(Constantes.ATT_PERSONA, p);
+
+		// forward vista
+		dispatcher = request
+				.getRequestDispatcher(Constantes.JSP_BACK_PERSONA_FORM);
+
 	}
 
 	/**
@@ -127,13 +212,15 @@ public class PersonaServlet extends HttpServlet {
 		Persona p = null;
 
 		try {
+
 			p = new Persona("");
 			p.setNombre(request.getParameter("name"));
 			p.setEdad(Integer.parseInt(request.getParameter("edad")));
-			msg = "Persona creada";
+			// TODO obtener ROL
+			// msg = "Persona creada";
 		} catch (Exception e) {
 			p = null;
-			msg = "Error creando Persona";
+			// msg = "Error creando Persona";
 			e.printStackTrace();
 		}
 		return p;
