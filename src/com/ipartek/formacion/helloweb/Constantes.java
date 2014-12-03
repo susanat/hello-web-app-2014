@@ -34,9 +34,11 @@ public class Constantes {
     public static final String MSG_REG_UPDATED = "Registro actualizado con exito";
     public static final String MSG_ERROR_PARAMETERS = "Error recogiendo parametros";
     public static final String MSG_REG_NOT_DELETED = "Error borrando registro";
+    public static final String MSG_NOT_UPDATED = "Error modificando registro";
 
     public static final String ATT_PERSONAS = "personas";
     public static final String ATT_PERSONA = "persona";
+    public static final String ATT_MENSAJE = "mensaje";
 
     public static final String OP_KEY = "op";
     public static final String OP_UPDATE = "0";
@@ -48,4 +50,8 @@ public class Constantes {
     public static final String LETRERO_CREAR = "Crear";
     public static final String LETRERO_BORRAR = "Borrar";
     public static final String LETRERO_DETALLE = "Detalle";
+
+    public static final String ALERT_TYPE_SUCCESS = "alert-success";
+    public static final String ALERT_TYPE_DANGER = "alert-danger";
+
 }

@@ -9,6 +9,7 @@
   <title>Log-in</title>
 
   <link rel='stylesheet' href='http://codepen.io/assets/libs/fullpage/jquery-ui.css'>
+  <link href="<%=request.getContextPath() + "/" + Constantes.JSP_BACKOFFICE %>/css/bootstrap.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
 
@@ -30,9 +31,10 @@
   </div>
 </div>
 
-<!-- <div id="error"><img src="https://dl.dropboxusercontent.com/u/23299152/Delete-icon.png" /> Your caps-lock is on.</div> -->
+ 
 
   <script src='http://codepen.io/assets/libs/fullpage/jquery_and_jqueryui.js'></script>
+  <script src="<%=request.getContextPath() + "/" + Constantes.JSP_BACKOFFICE %>js/bootstrap.min.js"></script>
 
 </body>
 

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.helloweb.Constantes;
+import com.ipartek.formacion.helloweb.bean.Message;
 import com.ipartek.formacion.helloweb.bean.Persona;
 import com.ipartek.formacion.helloweb.model.ModeloPersona;
 
@@ -146,25 +147,29 @@ public class PersonaServlet extends HttpServlet {
      */
     private void create(HttpServletRequest request) {
 	// recoger parametros, validarlos y crear persona
-
+	Message mes = new Message();
 	Persona p = getParametros(request);
 	if (p != null) {
 	    // insertarlo
 	    // TODO: Comprobar si se ha insertado correctamente
 	    model.insert(p);
-	    msg = Constantes.MSG_REG_CREATED;
+	    mes.setMsg(Constantes.MSG_REG_CREATED);
+	    mes.setType(Constantes.ALERT_TYPE_SUCCESS);
 
 	} else {
 	    msg = Constantes.MSG_ERROR_PARAMETERS;
+	    mes.setMsg(Constantes.MSG_ERROR_PARAMETERS);
+	    mes.setType(Constantes.ALERT_TYPE_DANGER);
 	}
 
 	// enviar atributos
+	ArrayList<Persona> personas = model.getAll();
 	request.setAttribute("accion", Constantes.LETRERO_DETALLE);
-	msg = Constantes.MSG_REG_CREATED;
+	request.setAttribute(Constantes.ATT_MENSAJE, mes);
 	request.setAttribute(Constantes.ATT_PERSONA, p);
-
+	request.setAttribute(Constantes.ATT_PERSONAS, personas);
 	dispatcher = request
-		.getRequestDispatcher(Constantes.JSP_BACKOFFICE_PERSONA_FORM);
+		.getRequestDispatcher(Constantes.JSP_BACKOFFICE_PERSONA_LIST);
 
     }
 
@@ -175,16 +180,22 @@ public class PersonaServlet extends HttpServlet {
      */
     private void delete(HttpServletRequest request) {
 	id = Integer.parseInt(request.getParameter("id"));
+	Message mes = new Message();
 	if (model.delete(id)) {
 	    // borrado correcto
 	    msg = Constantes.MSG_REG_DELETED;
+	    mes.setMsg(Constantes.MSG_REG_DELETED);
+	    mes.setType(Constantes.ALERT_TYPE_SUCCESS);
 
 	} else {
 	    // borrado no realizado
 	    msg = Constantes.MSG_REG_NOT_DELETED;
+	    mes.setMsg(Constantes.MSG_REG_NOT_DELETED);
+	    mes.setType(Constantes.ALERT_TYPE_DANGER);
 	}
 	ArrayList<Persona> personas = model.getAll();
 	request.setAttribute(Constantes.ATT_PERSONAS, personas);
+	request.setAttribute(Constantes.ATT_MENSAJE, mes);
 	dispatcher = request
 		.getRequestDispatcher(Constantes.JSP_BACKOFFICE_PERSONA_LIST);
 
@@ -196,21 +207,26 @@ public class PersonaServlet extends HttpServlet {
      * @param request
      */
     private void update(HttpServletRequest request) {
-
+	Message mes = new Message();
 	Persona p = getParametros(request);
 	if (p != null) {
 	    p.setId(id);
 	    model.update(p);
 	    msg = Constantes.MSG_REG_UPDATED;
+	    mes.setMsg(Constantes.MSG_REG_UPDATED);
+	    mes.setType(Constantes.ALERT_TYPE_SUCCESS);
 
 	} else {
 	    msg = Constantes.MSG_ERROR_PARAMETERS;
+	    mes.setMsg(Constantes.MSG_NOT_UPDATED);
+	    mes.setType(Constantes.ALERT_TYPE_DANGER);
 	}
 	ArrayList<Persona> personas = model.getAll();
 	request.setAttribute(Constantes.ATT_PERSONAS, personas);
 	request.setAttribute(Constantes.ATT_PERSONA, p);
+	request.setAttribute(Constantes.ATT_MENSAJE, mes);
 	dispatcher = request
-		.getRequestDispatcher(Constantes.JSP_BACKOFFICE_PERSONA_FORM);
+		.getRequestDispatcher(Constantes.JSP_BACKOFFICE_PERSONA_LIST);
 
     }
 
