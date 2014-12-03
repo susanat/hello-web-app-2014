@@ -4,16 +4,15 @@
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Listado Personas</title>
-</head>
-<body>
-		<%@include file="/include/alerts.jsp" %>
+    
+<%@include file="../includes/head.jsp" %>
+<%@include file="../includes/nav.jsp" %>
+<%@include file="/include/alerts.jsp" %>
+	<br>
+	<br>
 	<h1>Listado Personas</h1>
-	<h2><a href="<%=request.getContextPath() + "/" + Constantes.PATH_LOGIN %>">Volver</a></h2>
+	
+	<br>
 	<%
 		ArrayList<Persona> personas = (ArrayList<Persona>)request.getAttribute(Constantes.ATT_PERSONAS);
 		if(personas == null){
@@ -23,20 +22,56 @@
 		    	<p><a href=<%=Constantes.JSP_BACKOFFICE_PERSONA_FORM %>>Crear</a> una nueva persona</p>
 		    <%
 		}else{
+		    %>
+		    <table id="miTabla" class="display" cellspacing="0" width="100%">
+		     <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Rol</th>
+                <th>Detalle</th>
+                <th>Eliminar</th>
+                
+            </tr>
+        </thead>
+ 
+        <tfoot>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Rol</th>
+                <th>Detalle</th>
+                <th>Eliminar</th>
+                
+            </tr>
+        </tfoot>
+         <tbody>
+		    <%
 		    for(int i =0; i<personas.size(); i++){
-				out.print(personas.get(i).toString());
-				%>
-				<a href=<%=Constantes.CONTROLLER_PERSONA +"?id=" +personas.get(i).getId()+ "&accion=" + Constantes.LETRERO_DETALLE %>>Detalle</a>
-				<a href=<%=Constantes.CONTROLLER_PERSONA +"?id=" +personas.get(i).getId()+"&accion=" + Constantes.LETRERO_BORRAR %>>Eliminar</a>
-				<br>
-				<br>
+			%>
+				<tr><td><a href=<%=Constantes.CONTROLLER_PERSONA +"?id=" +personas.get(i).getId()+ "&accion=" + Constantes.LETRERO_DETALLE %>><%out.print(personas.get(i).getId()); %></a>
+				</td><td><%out.print(personas.get(i).getNombre()); %></td><td><%out.print(personas.get(i).getRol()); %></td>
+				<td><a href=<%=Constantes.CONTROLLER_PERSONA +"?id=" +personas.get(i).getId()+ "&accion=" + Constantes.LETRERO_DETALLE %>>Detalle</a>
+				</td>
+				<td>
+				
+				<a href=<%=Constantes.CONTROLLER_PERSONA +"?id=" +personas.get(i).getId()+"&accion=" + Constantes.LETRERO_BORRAR %> class="btn btn-xs btn-danger">Eliminar</a></td>
+				</tr>
+				
+				
+				
 				<%
 		    }
 		    %>
-		    <p><a href=<%=Constantes.JSP_BACKOFFICE_PERSONA_FORM +"?accion=" + Constantes.LETRERO_CREAR %>>Crear</a> una nueva persona</p>
+		      </tbody>
+    		</table>
+		    <p><a href=<%=Constantes.JSP_BACKOFFICE_PERSONA_FORM +"?accion=" + Constantes.LETRERO_CREAR %> class="btn btn-primary"><i class="fa fa-plus fa-fw"></i> Crear</a>
+		    </p>
+		    <br>
+			<a href="<%=request.getContextPath() + "/" + Constantes.PATH_LOGIN %>" class="btn btn-primary"><i class="fa fa-arrow-left fa-fw"></i>Volver</a>
 		    <%
 		}
+		
 	%>
 	
-</body>
-</html>
+<%@include file="../includes/footer.jsp" %>
