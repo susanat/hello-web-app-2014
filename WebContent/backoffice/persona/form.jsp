@@ -8,40 +8,46 @@
 	pageEncoding="UTF-8"%>
 	
 <%
-	Persona p = (Persona) request.getAttribute(Constantes.ATTR_PERSONA);
+	Persona persona = (Persona) request.getAttribute(Constantes.ATTR_PERSONA);
 	String cabecera = "Crear nueva Persona";
 	String buttonValue ="Crear";
 	int op = Constantes.OP_UPDATE;
 	boolean isNew = false;
 	
 	// Nueva Persona
-	if (p == null) {
-		p = new Persona("");
+	if (persona == null) {
+		persona = new Persona("");
 		isNew = true;
 		op = Constantes.OP_INSERT;
 	// Modificar Persona
 	} else {
-		cabecera = "Modificar " + p.getNombre();
+		cabecera = "Modificar " + persona.getNombre();
 		buttonValue = "Modificar";
 	}
 %>
 
-
-	<h1><%=cabecera%></h1>
+	<!-- <h1><%=cabecera%></h1> -->
 	<a href="<%=request.getContextPath() + "/" + Constantes.CONTROLLER_PERSONA%>" 
 	   title="ir a la lista de personas">Lista Personas</a>
 	<%@include file="/includes/alert.jsp"%>
 
 	<form action="<%=request.getContextPath() + "/" + Constantes.CONTROLLER_PERSONA%>" method="post">
 		<input type='hidden' name='op' value=<%=op%>>
-		<input type='text' name='id' readonly value='<%=p.getId()%>'>
+		<input type='text' name='id' readonly value='<%=persona.getId()%>'>
 		<br> 
-		<input type='text' name='name' value="<%=p.getNombre()%>">
+		<input type='text' name='nombre' value="<%=persona.getNombre()%>">
 		<br> 
-		<input type='number' name='edad' value="<%=p.getEdad()%>">
+		<input type='number' name='edad' value="<%=persona.getEdad()%>">
 		<br> 
 		<input type='radio' name='rol' value='<%=Rol.ADMINISTRADOR%>'/>Administrador
 		<input type='radio' name='rol' checked value='<%=Rol.USUARIO%>'/>Usuario
+	
+	  	<%if(persona.getRol() == Rol.ADMINISTRADOR){%>
+
+		<%} else if(persona.getRol() == Rol.USUARIO){%>
+		
+		<%}%>
+	
 		<br>
 		<input type='submit' value='<%=buttonValue%>'>
 		

@@ -1,7 +1,6 @@
 package com.ipartek.formacion.helloweb.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -13,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.bean.Persona;
 import com.ipartek.formacion.helloweb.model.ModeloPersona;
+import com.ipartek.formacion.helloweb.util.Mensaje;
 import com.ipartek.formacion.helloweb.util.Rol;
 
 /**
@@ -24,7 +24,8 @@ public class PersonaServlet extends HttpServlet {
 
 	RequestDispatcher dispatcher = null;
 	ModeloPersona modelo = null;
-	String msg = "";
+	Mensaje msg;
+	// String msg = "";
 	int id = Persona.ID_NULL;
 
 	@Override
@@ -59,7 +60,7 @@ public class PersonaServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-	IOException {
+			IOException {
 		// Comprobar si es getAll o getById
 		if (id == Persona.ID_NULL) {
 			getAll(request);
@@ -112,9 +113,11 @@ public class PersonaServlet extends HttpServlet {
 		if (p != null) {
 			modelo.insert(p);
 			// TODO comprobar la inserción
-			msg = Constantes.MSG_REG_INSERTED;
+			// msg = Constantes.MSG_REG_INSERTED;
+			msg = new Mensaje("alert alert-success", Constantes.MSG_REG_INSERTED);
 		} else {
-			msg = Constantes.MSG_ERR_PARAMETERS;
+			// msg = Constantes.MSG_ERR_PARAMETERS;
+			msg = new Mensaje("alert alert-danger", Constantes.MSG_ERR_PARAMETERS);
 		}
 
 		request.setAttribute(Constantes.ATTR_PERSONA, p);
@@ -133,9 +136,11 @@ public class PersonaServlet extends HttpServlet {
 			p.setId(id);
 			// TODO comprobar que realmente se ha modificado
 			modelo.update(p);
-			msg = Constantes.MSG_REG_UPDATED;
+			// msg = Constantes.MSG_REG_UPDATED;
+			msg = new Mensaje("alert alert-success", Constantes.MSG_REG_UPDATED);
 		} else {
-			msg = Constantes.MSG_ERR_PARAMETERS;
+			// msg = Constantes.MSG_ERR_PARAMETERS;
+			msg = new Mensaje("alert alert-danger", Constantes.MSG_ERR_PARAMETERS);
 		}
 
 		request.setAttribute(Constantes.ATTR_PERSONA, p);
@@ -149,9 +154,11 @@ public class PersonaServlet extends HttpServlet {
 	 */
 	private void delete(final HttpServletRequest request) {
 		if (modelo.delete(id)) {
-			msg = Constantes.MSG_REG_DELETED;
+			// msg = Constantes.MSG_REG_DELETED;
+			msg = new Mensaje("alert alert-success", Constantes.MSG_REG_DELETED);
 		} else {
-			msg = Constantes.MSG_ERR_DELETE;
+			// msg = Constantes.MSG_ERR_DELETE;
+			msg = new Mensaje("alert alert-danger", Constantes.MSG_ERR_DELETE);
 		}
 
 		getAll(request);
@@ -165,7 +172,8 @@ public class PersonaServlet extends HttpServlet {
 	 */
 	private void opNotSupported(final HttpServletRequest request) {
 		getAll(request);
-		msg = Constantes.MSG_OP_NOT_SUPPORTED;
+		// msg = Constantes.MSG_OP_NOT_SUPPORTED;
+		msg = new Mensaje("alert alert-danger", Constantes.MSG_OP_NOT_SUPPORTED);
 	}
 
 	/**
@@ -180,7 +188,7 @@ public class PersonaServlet extends HttpServlet {
 
 		try {
 			p = new Persona("");
-			p.setNombre(request.getParameter("name"));
+			p.setNombre(request.getParameter("nombre"));
 			p.setEdad(Integer.parseInt(request.getParameter("edad")));
 			p.setRol(Rol.valueOf(request.getParameter("rol")));
 		} catch (final Exception e) {
@@ -207,8 +215,7 @@ public class PersonaServlet extends HttpServlet {
 	 * @param request
 	 */
 	private void getAll(final HttpServletRequest request) {
-		final ArrayList<Persona> personas = modelo.getAll();
-		request.setAttribute(Constantes.ATTR_PERSONAS, personas);
+		request.setAttribute(Constantes.ATTR_PERSONAS, modelo.getAll());
 		dispatcher = request.getRequestDispatcher(Constantes.JSP_BACKOFFICE_PERSONA_LIST);
 	}
 
