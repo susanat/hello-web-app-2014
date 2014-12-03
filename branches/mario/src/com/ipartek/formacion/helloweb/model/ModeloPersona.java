@@ -149,7 +149,7 @@ public class ModeloPersona implements IModeloPersona {
 	try {
 	    if (personas != null) {
 		if (getById(id) != null) {
-		    personas.set((id - 1), null);
+		    personas.set(id, null);
 		    resul = true;
 		}
 	    }
