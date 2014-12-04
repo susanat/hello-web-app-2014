@@ -1,14 +1,15 @@
+
 <%@include file="../includes/head.jsp" %>
 <%@include file="../includes/nav.jsp" %>
 
+<%@page import="com.ipartek.formacion.helloweb.bean.Persona.Rol"%>
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
     
 <%
 		//recoger attributo de Persona		
 		Persona p = (Persona)request.getAttribute(Constantes.ATT_PERSONA);
-		//inicializar variables para el formulario
-		String cabecera = "Crear nueva Persona";
+		//inicializar variables para el formulario		
 		String buttonValue = "Crear";
 		String op = Constantes.OP_UPDATE;
 		boolean isNew = false;
@@ -19,40 +20,58 @@
 			isNew = true;
 			op = Constantes.OP_CREATE;
 		//modificar persona	
-		}else{
-			cabecera = "Modificar " + p.getNombre();
+		}else{			
 			buttonValue = "Modificar";
 		}
 %>    
     
 
-
-	<%@include file="/includes/alerts.jsp" %>
-
-	<h1><%=cabecera%></h1>
-	<h2><a href="<%=request.getContextPath()+"/"+Constantes.CONTROLLER_PERSONA%>">volver</a></h2>
+<div class="col-lg-6">
+	<form action="<%=request.getContextPath()+"/"+Constantes.CONTROLLER_PERSONA%>" method="post" role="form">
 	
-	<form action="<%=request.getContextPath()+"/"+Constantes.CONTROLLER_PERSONA%>" method="post">
-	
-		<input type="text"    name="id" readonly value="<%=p.getId()%>">
-		<br>		
-		<input type="text"    name="name" value="<%=p.getNombre()%>">
-		<br>
-		<input type="number" name="edad" value="<%=p.getEdad()%>">
-		<br>
-		<input type="text"    name="rol" disabled value="<%=p.getRol()%>">
-		<br>		
-		<input type="hidden" name="<%=Constantes.OP_KEY%>" value="<%=op%>">	
+		<div class="form-group">			
+			<input type="text" name="id" readonly value="<%=p.getId()%>" class="form-control">
+		</div>	
 		
-		<input type="submit" value="<%=buttonValue%>" >	
+		<div class="form-group">
+			<label>Nombre</label>	
+			<input type="text"    name="name" value="<%=p.getNombre()%>" class="form-control">
+		</div>	
+		
+		<div class="form-group">			
+			<label>Edad</label>
+			<input type="number" name="edad" value="<%=p.getEdad()%>" class="form-control">
+		</div>		
+			
+		<div class="form-group">
+			<label>Rol</label>
+			<select name="rol">
+			<% for ( Rol rol : Rol.values() ) { 
+				if ( rol == p.getRol() ){
+					out.print("<option selected value="+rol+" >"+rol+"</option>");	
+				}else{
+					out.print("<option value="+rol+" >"+rol+"</option>");
+				}				
+			 } %>				
+			</select>				
+		</div>
+			
+		<div class="form-group">		
+			<input type="hidden" name="<%=Constantes.OP_KEY%>" value="<%=op%>" class="form-control">
+		</div>		
+		
+		<div class="form-group">
+			<input type="submit" value="<%=buttonValue%>" class="btn btn-outline btn-primary">
+		</div>		
 	
 	</form>
+</div>	
 	
 	<% if ( !isNew) { %>	
 		<form action="<%=request.getContextPath()+"/"+Constantes.CONTROLLER_PERSONA%>" method="post">
 			<input type="hidden"  name="id"  value="<%=p.getId()%>">
 			<input type="hidden" name="<%=Constantes.OP_KEY%>" value="<%=Constantes.OP_DELETE%>">
-			<input type="submit" value="Eliminar" >	
+			<input type="submit" value="Eliminar" class="btn btn-outline btn-danger">	
 		</form>
 	<% } %>	
 
