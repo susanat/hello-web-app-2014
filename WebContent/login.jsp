@@ -9,17 +9,17 @@
   <title>Log-in</title>
 
   <link rel='stylesheet' href='http://codepen.io/assets/libs/fullpage/jquery-ui.css'>
-
+  <link href="<%=Constantes.BACKOFFICE_FOLDER %>css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
-  
+   
   
 	
 </head>
 
 <body>
-	
-  <div class="login-card">
-  <%@include file="includes/alerts.jsp" %>
+	<%@include file="includes/alerts.jsp" %>
+  <div class="login-card ">
+  
     <h1>Log-in</h1><br>
   <form action="<%=Constantes.PATH_LOGIN %>" method="post"> 
     <input type="text" name="<%=Constantes.PARAMETRO_USER %>" placeholder="Username">
@@ -36,6 +36,9 @@
 
   <script src='http://codepen.io/assets/libs/fullpage/jquery_and_jqueryui.js'></script>
 
+    <!-- Bootstrap Core JavaScript -->
+    <script src="<%=Constantes.BACKOFFICE_FOLDER %>js/bootstrap.min.js"></script>
 </body>
+
 
 </html>

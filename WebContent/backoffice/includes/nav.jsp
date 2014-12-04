@@ -21,14 +21,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Backoffice  <%= p.getNombre() %> </a>
+                <a class="navbar-brand" href="<%=Constantes.JSP_BACK_INDEX %>">Backoffice  <%= p.getNombre() %> </a>
             </div>
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
                 <li >
-                    <a href="<%=Constantes.PATH_LOGOUT %>" title="Cierra tu sesión">
-                         [x] Cerrar sesión
+                     <a href="<%=Constantes.PATH_LOGOUT %>" title="Cierra tu sesión">
+                   	 	<i class="fa fa-sign-out fa-fw"></i>
+                     	Cerrar sesión
                     </a>
                 </li>
                 <!-- /.dropdown -->
@@ -51,3 +52,7 @@
         </nav>
 
         <div id="page-wrapper">
+        	<div class="row">
+        		<%@include file="/includes/alerts.jsp" %>
+        	</div>
+        

@@ -18,6 +18,8 @@
     <meta name="author" content="">
 
     <title>Backoffice</title>
+    
+    <!-- Ruta para todas nuestras URLs relativas -->
 	<base href="<%=request.getContextPath()+"/" %>">
     <!-- Bootstrap Core CSS -->
     <link href="<%=Constantes.BACKOFFICE_FOLDER %>css/bootstrap.min.css" rel="stylesheet">

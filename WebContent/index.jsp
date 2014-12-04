@@ -9,7 +9,8 @@
   <title>The HTML5 Herald</title>
   <meta name="description" content="">
   <meta name="author" content="">
-
+	<!-- Bootstrap Core CSS -->
+ 
   
 
   <!--[if lt IE 9]>
