@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ipartek.formacion.helloweb.bean.CargasTemporales;
 import com.ipartek.formacion.helloweb.bean.Message;
 import com.ipartek.formacion.helloweb.bean.Persona;
 import com.ipartek.formacion.helloweb.bean.Roles;
@@ -41,12 +42,11 @@ public class UtilsTemp {
 				str.append(role.getId());
 				str.append("'");
 				
-				//si coincide con el pasado, selected
-				if(!idRole.equals(String.valueOf(Persona.ROL_NULL))) {
-					if(String.valueOf(role.getId()) == idRole) {
-						str.append("selected");
-					}
+				//si coincide con el pasado, selected				
+				if (idRole.equals(String.valueOf(role.getId()))) {
+					str.append("selected");
 				}
+				
 				
 				str.append(">"); //cierre de la apertura del option
 				str.append(role.getNombre());
@@ -68,11 +68,17 @@ public class UtilsTemp {
 	{		
 		List<Roles> roles = null;
 			
+		/**
 		if (request.getAttribute(Constantes.ATTR_ROLES_LIST) != null) 
 		{
 			roles = (List<Roles>) request.getAttribute(Constantes.ATTR_ROLES_LIST);
 			
 		}
+		*/
+		
+		//TODO: hardcodeado
+		roles = CargasTemporales.getListRoles();
+		
 		return getComboRoles(roles, idRole);
 	}
 
@@ -89,7 +95,7 @@ public class UtilsTemp {
 		if(roles != null) {
 			for(Roles role : roles) {
 				if(role.getId() == idRole) {
-					
+					res = role.getNombre();
 				}
 			}
 		}			
@@ -123,11 +129,12 @@ public class UtilsTemp {
 		List<Roles> roles = null;		
 				
 		try {
-			if (request.getAttribute(Constantes.ATTR_ROLES_LIST) != null) 
-			{
-				roles = (List<Roles>) request.getAttribute(Constantes.ATTR_ROLES_LIST);				
-			}
-			intIdRole = Integer.parseInt(idRole);
+				//TODO: hardcodeado
+				roles = CargasTemporales.getListRoles();
+				//paso a int
+				intIdRole = Integer.parseInt(idRole);
+				//llamo a la versión list, int
+				return getNameFromRole(roles, idRole);
 		} catch (Exception ex) {
 			//TODO: logger con el error
 		}
@@ -227,6 +234,12 @@ public class UtilsTemp {
 		return false;		
 	}
 	
+	/**
+	 * Redirige a la página de login
+	 * 
+	 * @param response
+	 * @throws IOException
+	 */
 	public static void goToLogin(HttpServletResponse response) throws IOException {
 		
 		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

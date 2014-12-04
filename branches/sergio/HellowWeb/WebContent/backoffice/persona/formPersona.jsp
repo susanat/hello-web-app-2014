@@ -125,7 +125,7 @@
 								<label class="control-label" for="cont1">Id</label>
 								<input class="form-control" type="text" name="<%=Constantes.PARAM_PERSONAS_ID%>" id="cont1" 
 									value="<%=id%>" 
-								 	placeholder="" disabled>
+								 	placeholder="" readonly="readonly">
 								</div>
 							<%
 							}						
@@ -151,7 +151,7 @@
 								<label class="control-label" for="cont4">Rol</label>
 								<%
 									if (accion == EModeloAccion.UPDATE) {
-										out.print(UtilsTemp.getComboRoles(request, role));
+										out.print(UtilsTemp.getComboRoles(CargasTemporales.getListRoles(), role));
 									} else {
 										out.print(UtilsTemp.getComboRoles(CargasTemporales.getListRoles(), role));
 									}																

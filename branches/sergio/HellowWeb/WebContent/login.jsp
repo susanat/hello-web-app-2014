@@ -101,7 +101,7 @@
 											</div>
 											
 											<!-- Path de referencia para redirigir -->
-											<input type="hidden" name="<%=Constantes.PARAM_SESSION_LAST_URL%>" value="<%= fromPath %>">
+											<input type="hidden" name="<%=Constantes.PARAM_URL_TO%>" value="<%= fromPath %>">
 											
 											<div class="col-xs-12 text-right">
 													<input form="frm_login" class="btn btn-success btn-lg" 
@@ -131,8 +131,8 @@
 										</div>
 										<div class="row">
 											<form class="" role="form" method="post" id="frm_login" action="logout">
-												<!-- Path de referencia para redirigir -->
-												<input type="hidden" name="<%=Constantes.PARAM_SESSION_LAST_URL%>" value="<%= fromPath %>">
+												<!-- Path de referencia para redirigir (actualmente decidimos index) -->
+												<input type="hidden" name="<%=Constantes.PARAM_URL_TO%>" value="<%= Constantes.JSP_INDEX %>">
 												
 												<!-- Invalidamos la sesión, no borramos los datos nada más -->
 												<input type="hidden" name="<%=Constantes.PARAM_SESSION_INVALIDATE%>" value="true">
@@ -164,34 +164,12 @@
 	</div>
 	
 	<% 
-	if (request.getAttribute(Constantes.ATTR_LOGOUT_ACTION) != null && 
-			(Boolean)request.getAttribute(Constantes.ATTR_LOGOUT_ACTION) == true) {
+	if (request.getAttribute(Constantes.ATTR_LOGOUT_ACTION) != null) {
 			
 	%>		
 				<script>
 				$(document).ready(function(){						
 					lanzarToast();					
-					function lanzarToast(){
-						//http://codeseven.github.io/toastr/demo.html
-						toastr.options = {
-								  "closeButton": true,
-								  "debug": false,
-								  "progressBar": false,
-								  "positionClass": "toast-bottom-right",
-								  "onclick": null,
-								  "showDuration": "200",
-								  "hideDuration": "1000",
-								  "timeOut": "3000",
-								  "extendedTimeOut": "1000",
-								  "showEasing": "swing",
-								  "hideEasing": "linear",
-								  "showMethod": "slideDown",
-								  "hideMethod": "fadeOut"
-								}
-						
-						// Display an info toast with no title
-						toastr.info('<%=Constantes.general_login_desconect_msj%>');
-					}
 				
 				});	
 				</script>	

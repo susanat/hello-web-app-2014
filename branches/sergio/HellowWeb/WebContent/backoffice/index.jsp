@@ -1,4 +1,10 @@
 <% 
+	//carga la última página visitada en session dentro del parámetro PARAM_SESSION_LAST_URL
+	UtilsTemp.cargaHistorial(request, session);
+%>
+
+
+<% 
 	//comprueba autentificacion y autorización
 	Persona p = UtilsTemp.getAuthenticated(session);
 	if ( p == null || ! UtilsTemp.havePermiso("ACCESO_ADMINISTRACION", p)) {

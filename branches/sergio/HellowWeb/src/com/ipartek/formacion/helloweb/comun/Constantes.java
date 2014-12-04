@@ -1,14 +1,13 @@
 package com.ipartek.formacion.helloweb.comun;
 
 public final class Constantes {
-
 	
 	static {
 		//request.getSession().getServletContext().getRealPath("/");
 	}
 
 	/**
-	 * Empty constructo to avoid instanciate class
+	 * Empty constructor to avoid instanciate class
 	 */
 	private Constantes() {
 
@@ -18,6 +17,15 @@ public final class Constantes {
 	/**
 	 * Numeración para acciones en los Modelos
 	 * de manejo de datos.
+	 * 
+	 * Ejemplo de uso:
+	 * - Mandar a request
+	 * 		EModeloAccion accion = EModeloAccion.GET; 
+	 * 		accion.getValue()
+	 * 
+	 * - Obtener de request
+	 * 		EModeloAccion accion = EModeloAccion.getEnumNameForValue(request.getParameter(Constantes.PARAM_ACTION));
+	 * 
 	 * 
 	 * @author Sergio Rubio Nieto
 	 *
@@ -71,34 +79,43 @@ public final class Constantes {
 	/**
 	 * path del sitio
 	 */
-	//public final static  String PATH_SITE = "http://localhost:8080/HelloWeb/";
-	public final static  String PATH_SITE = "http://localhost:8090/HelloWeb/";
+	public final static  String PATH_SITE = "http://localhost:8080/HelloWeb/";
+	//public final static  String PATH_SITE = "http://localhost:8090/HelloWeb/";
 	
 	
 
 	//*** ARBOL DE LA PARTE BACKOFFICE
-	public final static String PATH_BACK = "backoffice/";
+	public final static String NAME_FOLDER_BACK = "backoffice/";
 
 	//** INCLUDES
-	public final static String PATH_BACK_REL_INCLUDE = PATH_BACK + "include/";
+	public final static String NAME_FOLDER_BACK_INC = "include/";
+	
+	public final static String PATH_BACK_REL_INCLUDE = NAME_FOLDER_BACK + NAME_FOLDER_BACK_INC;
 	public final static String PATH_BACK_ABS_INCLUDE = PATH_SITE + PATH_BACK_REL_INCLUDE;
 		
 	//** THEMES
+	public final static String NAME_FOLDER_BACK_THEMES = "themes/";
+	
+	
 	private final static String theme_prueba = "st-admin-2/";
 	private final static String theme_default = "default/";
+		
 	
-	public final static  String PATH_BACK_REL_THEME = "backoffice/themes/" + theme_default;
+	public final static  String PATH_BACK_REL_THEME = NAME_FOLDER_BACK + NAME_FOLDER_BACK_THEMES + theme_default;
 	public final static  String PATH_BACK_ABS_THEME = PATH_SITE + PATH_BACK_REL_THEME;
 	
 
-	
-
-
 	//*************** Ã�rbol de Servlet
+	
+	//nombre
 	public final static  String CONTROLLER_PERSONA = "persona";
 	public final static  String CONTROLLER_LOGIN = "login";
 	public final static  String CONTROLLER_LOG_OUT = "logout";
 	
+	//path_completo
+	public final static  String CONTROLLER_ABS_PERSONA = PATH_SITE + CONTROLLER_PERSONA;
+	public final static  String CONTROLLER_ABS_LOGIN = PATH_SITE + CONTROLLER_LOGIN;
+	public final static  String CONTROLLER_ABS_LOG_OUT = PATH_SITE + CONTROLLER_LOG_OUT;
 	
 
 	//*************** JSP'S
@@ -131,34 +148,32 @@ public final class Constantes {
 	public final static String JSP_BACK_NAV_SIDEBAR = "nav_sidebar.jsp";
 
 
-	//***************NAMES FORMULARIOS
-
+	//***************************************** PARÁMETROS Y ATRIBUTOS
 	//*** Formulario login
 	public final static  String PARAMETRO_USER = "cont1";
 	public final static  String PARAMETRO_PASSWORD = "cont2";      
 
 
 	//**************Session
-
 	//*** general
 	/**
-	 * ContendrÃ¡ la Ãºltima url visitada (String)
+	 * Contendra la Ãºltima url visitada (String)
 	 */
 	public final static  String PARAM_SESSION_LAST_URL = "lasturl";
 
 	/**
-	 * ContendrÃ¡ un mensaje
+	 * Contendra un mensaje
 	 */
 	public final static  String PARAM_SESSION_MSJ = "msj";
 
 	/**
-	 * ContendrÃ¡ el usuario  (Persona)
+	 * Contendra el usuario  (Persona)
 	 */
 	public final static  String PARAM_SESSION_USER = "user_session";
 
 	//*** login
 	/**
-	 * ContendrÃ¡ si se ha autentificado un usuario    
+	 * Contendra si se ha autentificado un usuario    
 	 */
 	public final static  String PARAM_SESSION_AUTHENTICATED = "authenticated";
 
@@ -170,25 +185,39 @@ public final class Constantes {
 
 	//*** Servlet General
 	//*Atributtes
+	/**
+	 * Contendrá el mensaje de tipo <code>Message</code> a devolver por el servlet
+	 */
 	public final static  String ATTR_ERROR = "isError";
-	public final static  String ATTR_ERROR_MSJ = "msj_error";
-	public final static  String ATTR_ERROR_EXCEPTION = "ex_error";
+	
 
-	//*** Servlet Personas
+	//*** Servlets
 	//*General
+	/**
+	 * Accion a realizar dentro de los modelos de datos (update, insert, delete, get, etc) 
+	 */
 	public final static  String PARAM_ACTION = "accion";
+	
+	/**
+	 * Url de la que proviene la petición
+	 */
 	public final static  String PARAM_URL_FROM = "url_from";
+	
+	/**
+	 * Url para redirigir la petición al servlet
+	 */
 	public final static  String PARAM_URL_TO = "url_to";
 
-	//*Params (jsp to servlet)
+	//*Params Personas (jsp to servlet)
 	public final static  String PARAM_PERSONAS_ID = "id";
 	public final static  String PARAM_PERSONAS_NOMBRE = "nombre";
 	public final static  String PARAM_PERSONAS_EDAD = "edad";    
 	public final static  String PARAM_PERSONAS_ROLE = "role";
 
-	//*Attributtes (servlet to jsp)    
+	//*Attributtes Personas (servlet to jsp)    
 	public final static  String ATTR_PERSONAS_LIST = "personas";
-	public final static  String ATTR_PERSONA = "persona";
+	
+	//TODO: esto tendría que desaparecer
 	public final static  String ATTR_ROLES_LIST = "list_roles";
 
 	

@@ -8,16 +8,12 @@
 <%@page import="com.ipartek.formacion.helloweb.comun.Constantes"%>
 
 
-<!-- Funciones generales -->
-<%
-	//carga la última página visitada en session dentro del parámetro PARAM_SESSION_LAST_URL
-	UtilsTemp.cargaHistorial(request, session);
-%>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
 
-	<!-- Obtenemos la base de la aplicación -->
+	<!-- Obtenemos la base de la aplicación NO UTILIZADA PARA MULTITHEME -->
 	<base href="<%= request.getContextPath() %>">
 
 

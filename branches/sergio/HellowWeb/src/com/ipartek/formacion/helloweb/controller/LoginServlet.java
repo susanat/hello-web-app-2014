@@ -42,7 +42,7 @@ public class LoginServlet extends HttpServlet {
 	/**
 	 * Actual resquest para cada petici�n de servicio
 	 */
-	HttpServletRequest actualRequest = null;
+	//HttpServletRequest actualRequest = null;
 		
 	/**
 	 * Contador accesos
@@ -129,25 +129,34 @@ public class LoginServlet extends HttpServlet {
 		//obtenemos los par�metros del login
 		String username = request.getParameter(Constantes.PARAMETRO_USER);
 	    String password = request.getParameter(Constantes.PARAMETRO_PASSWORD);
-	    String fromPath = request.getParameter(Constantes.PARAM_SESSION_LAST_URL);
-				
+	    //String fromPath = request.getParameter(Constantes.PARAM_SESSION_LAST_URL);
+	    
 		//validamos los par�metros del login
-		if(username.equals("")) {
-			validado = false;
+	    if(username == null || password == null) {
+	    	validado = false;
 			
 			msg.setError(true);
 			msg.setText("Usuario o contraseña vacíos");
 			msg.setType(ETypeAlert.WARNING);
-			
-		}
-		
-		if (password.equals("")) {
-			validado = false;
+	    } else {	    
 
-			msg.setError(true);
-			msg.setText("Usuario o contraseña vacíos");
-			msg.setType(ETypeAlert.WARNING);
-		}
+			if(username.equals("")) {
+				validado = false;
+				
+				msg.setError(true);
+				msg.setText("Usuario o contraseña vacíos");
+				msg.setType(ETypeAlert.WARNING);
+				
+			}
+			
+			if (password.equals("")) {
+				validado = false;
+	
+				msg.setError(true);
+				msg.setText("Usuario o contraseña vacíos");
+				msg.setType(ETypeAlert.WARNING);
+			}
+	    }
 		
 		//buscamos por nombre el usuario
 		if (validado) {			
@@ -176,7 +185,7 @@ public class LoginServlet extends HttpServlet {
 		request.setAttribute(Constantes.PARAM_SESSION_AUTHENTICATED, autentificado);
 		
 		//de regalo, la lista de roles
-		request.setAttribute(Constantes.ATTR_ROLES_LIST, CargasTemporales.getListRoles());
+		//request.setAttribute(Constantes.ATTR_ROLES_LIST, CargasTemporales.getListRoles());
 		
 		//añadimos el error
 		request.setAttribute(Constantes.ATTR_ERROR, msg);
@@ -185,7 +194,10 @@ public class LoginServlet extends HttpServlet {
 		//preparamos la session
 		session.setAttribute(Constantes.PARAM_SESSION_USER, perSesion);		
 		session.setAttribute(Constantes.PARAM_SESSION_AUTHENTICATED, autentificado);
-		
+		//si no ha habido fallo, modificamos la última url visitada con el login
+		if(!msg.isError()){
+			session.setAttribute(Constantes.PARAM_SESSION_LAST_URL, Constantes.JSP_LOGIN);
+		}
 		
 		
 		//redirigimos necesario
@@ -206,7 +218,7 @@ public class LoginServlet extends HttpServlet {
 		//super.service(req, resp);
 		//guardamos el httpServletRequest actual, siempre pasa por aquí, por lo que cada
 		//petición tendrá su propio request.
-		actualRequest = req;
+		//actualRequest = req;
 
 		//nuevo mensaje de error
 		msg = new Message();

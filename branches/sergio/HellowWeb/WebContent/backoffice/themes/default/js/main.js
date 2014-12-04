@@ -26,3 +26,26 @@ $(function() {
         }
     })
 })
+
+
+function lanzarToast(){
+	//http://codeseven.github.io/toastr/demo.html
+	toastr.options = {
+			  "closeButton": true,
+			  "debug": false,
+			  "progressBar": false,
+			  "positionClass": "toast-bottom-right",
+			  "onclick": null,
+			  "showDuration": "200",
+			  "hideDuration": "1000",
+			  "timeOut": "3000",
+			  "extendedTimeOut": "1000",
+			  "showEasing": "swing",
+			  "hideEasing": "linear",
+			  "showMethod": "slideDown",
+			  "hideMethod": "fadeOut"
+			}
+
+// Display an info toast with no title
+toastr.info('<%=Constantes.general_login_desconect_msj%>');
+					}
