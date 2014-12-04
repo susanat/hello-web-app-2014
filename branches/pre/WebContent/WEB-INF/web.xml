@@ -34,6 +34,5 @@
     <servlet-name>PersonaServlet</servlet-name>
     <url-pattern>/persona</url-pattern>
   </servlet-mapping>
-  
  
 </web-app>

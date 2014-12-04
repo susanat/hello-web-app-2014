@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.helloweb.Constantes;
+import com.ipartek.formacion.helloweb.bean.Mensaje;
 import com.ipartek.formacion.helloweb.bean.Persona;
 
 /**
@@ -94,7 +95,8 @@ public class LoginServlet extends HttpServlet {
 		}else{	
 			//incorrecto: enviar de nuevo a login.jsp
 			dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
-			request.setAttribute( Constantes.MSG_KEY, Constantes.MSG_LOGIN_INCORRECT );
+			Mensaje msg = new Mensaje( Constantes.MSG_LOGIN_INCORRECT, Mensaje.MSG_TYPE_DANGER );
+			request.setAttribute( Constantes.MSG_KEY,  msg );
 		}	
 		
 	}

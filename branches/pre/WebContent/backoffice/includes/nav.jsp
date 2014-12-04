@@ -1,5 +1,6 @@
- <!-- Navigation -->
-        <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
+ <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
+ 
+ <!-- Navigation -->      
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -36,11 +37,20 @@
         
         
        <div id="page-wrapper">
+       
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Dashboard</h1>
+                    <h1 class="page-header">CAmbiar titulo</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+            
+            
+            <!--  Mensajes para el Usuario -->
+       		<div class="row">       			
+				<%@include file="/includes/alerts.jsp" %>
+       		</div>
+            
+            
             <!-- /.row -->
             <div class="row">
