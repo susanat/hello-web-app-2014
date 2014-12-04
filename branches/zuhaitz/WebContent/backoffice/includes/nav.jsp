@@ -2,8 +2,6 @@
         <%@page import="com.ipartek.formacion.helloweb.util.Rol"%>
 		<%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 		<%@page import="com.ipartek.formacion.helloweb.Constantes"%>
-        
-        <!-- <%@include file="/includes/alert.jsp"%> -->
 	
 		<%
 			String root = request.getContextPath() + "/";
@@ -48,7 +46,6 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                	<%@include file="/includes/alert.jsp"%>
                     <h1 class="page-header" id="contentHeader">Index</h1>
                 </div>
                 <!-- /.col-lg-12 -->
