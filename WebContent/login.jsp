@@ -7,10 +7,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Log-in - CodePen</title>
-<link rel='stylesheet'
-	href='http://codepen.io/assets/libs/fullpage/jquery-ui.css'>
-<link rel="stylesheet" href="css/style.css" media="screen"
-	type="text/css" />
+<link rel='stylesheet' href='http://codepen.io/assets/libs/fullpage/jquery-ui.css'>
+<link rel="stylesheet" href="css/style.css" media="screen" type="text/css">
+<!-- Bootstrap Core CSS -->
+<link href="<%=Constantes.JSP_BACKOFFICE%>css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
