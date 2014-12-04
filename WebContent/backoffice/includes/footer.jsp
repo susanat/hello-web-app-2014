@@ -1,4 +1,5 @@
-     		</div>
+     		<%@page import="com.ipartek.formacion.helloweb.Constantes"%>
+			</div>
             <!-- /.row -->
 		</div>
         <!-- /#page-wrapper -->

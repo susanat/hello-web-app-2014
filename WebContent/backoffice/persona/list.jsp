@@ -5,11 +5,6 @@
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
-	<!-- <h1>Listado Personas</h1> -->
-	<%@include file="/includes/alert.jsp"%>
 	
 	<%
 		ArrayList<Persona> personas = (ArrayList<Persona>) request.getAttribute(Constantes.ATTR_PERSONAS);
@@ -33,18 +28,10 @@
 						<th>Nombre</th>
 						<th>Edad</th>
 						<th>Rol</th>
+						<th></th>
 					</tr>
 				</thead>
-		
-				<tfoot>
-					<tr>
-						<th>ID</th>
-						<th>Nombre</th>
-						<th>Edad</th>
-						<th>Rol</th>
-					</tr>
-				</tfoot>
-			
+
 				<tbody>
 			
 				<% for (Persona persona : personas) { %>
@@ -56,7 +43,13 @@
 						<td><%=persona.getNombre()%></td>
 						<td><%=persona.getEdad()%></td>
 						<td><%=persona.getRol()%></td>
-			
+						<td>
+							<form action="<%=Constantes.CONTROLLER_PERSONA %>" method="post">
+								<input type="hidden" name="id" value="<%=persona.getId()%>">
+								<input type="hidden" name="op" value="<%=Constantes.OP_DELETE%>">
+								<input type="submit" class="btn btn-danger" value="Eliminar">
+							</form>
+						</td>
 					</tr>
 				<% } %>
 
