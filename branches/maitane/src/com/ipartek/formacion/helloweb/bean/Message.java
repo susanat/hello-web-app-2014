@@ -11,13 +11,18 @@ public class Message {
 
 	// Atributos
 
+	public static final String MSG_TYPE_SUCCESS = "success";
+	public static final String MSG_TYPE_INFO = "info";
+	public static final String MSG_TYPE_WARNING = "warning";
+	public static final String MSG_TYPE_DANGER = "danger";
+
 	private String msg;
-	private AlertType type;
+	private String type;
 	private int code;
 
 	// Constructores
 
-	public Message(String msg, AlertType type) {
+	public Message(String msg, String type) {
 		super();
 		this.msg = msg;
 		this.type = type;
@@ -25,6 +30,20 @@ public class Message {
 
 	public Message() {
 		super();
+		this.type = MSG_TYPE_SUCCESS;
+	}
+
+	public Message(String msg, String type, int code) {
+		super();
+		this.msg = msg;
+		this.type = type;
+		this.code = code;
+	}
+
+	public Message(String msg) {
+		super();
+		this.msg = msg;
+		this.type = MSG_TYPE_SUCCESS;
 	}
 
 	// Getters and setters
@@ -37,11 +56,11 @@ public class Message {
 		this.msg = msg;
 	}
 
-	public AlertType getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(AlertType type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 

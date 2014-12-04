@@ -12,7 +12,7 @@
 	Persona p=(Persona)request.getAttribute(Constantes.ATT_PERSONA);
     
     //inicializar variables para el formulario
-    String cabecera="Crear nueva persona";
+    
     String buttonValue="Crear";
     String op=Constantes.OP_UPDATE;
     boolean isNew=false;
@@ -26,35 +26,56 @@
 	}
 	//modificar persona
 	else{
-		cabecera="Modificar" + p.getNombre();
+		
 		buttonValue="Modificar";
 	}
 	%>
 
 
-	<h1><%=cabecera%></h1>
-	<h2><a href="<%=request.getContextPath()+"/"+Constantes.CONTROLLER_PERSONA%>">volver</a></h2>
 	
-		<%@include file="/includes/alerts.jsp" %>
+	
+
 		
 	<form action="<%=request.getContextPath()+"/"+Constantes.CONTROLLER_PERSONA%>" method="post">
 	
 		
-		<br>
-		<input type="text" name="id" readonly value="<%=p.getId()%>"> 
-		<br>
-		<input type="text" name="name" value="<%=p.getNombre()%>">
-		<br> 
-		<input type="numeric" name="edad" value="<%=p.getEdad()%>">
-		<br> 
+		<div class="form-group">
+		<label>Id</label>
+		<input type="text" name="id" readonly value="<%=p.getId()%>" class="form-control"> 
+		</div>
 		
-		<input type="radio" name="rol" value="<%=Rol.valueOf("ADMINISTRADOR")%>" >Administrador
+		<div class="form-group">
+		<label>Nombre</label>
+		<input type="text" name="name" value="<%=p.getNombre()%>"class="form-control">
+		</div> 
+		<div class="form-group">
+		<label>Edad</label>
+		<input type="numeric" name="edad" value="<%=p.getEdad()%>"class="form-control">
+		</div>
 		
-		<input type="radio" name="rol" value="<%=Rol.valueOf("USER")%>">Usuario
-		<br>
+		<div class="form-group"> 
+		<label>Rol</label>
+			<select name="rol">
+			<%
+				//Importa a rol todos los valores de Rol
+				for (Rol rol:Rol.values()){
+				
+					if(rol==p.getRol()){
+						out.print("<option selected value="+rol+">"+rol+" </option>");
+					}
+					else{
+						out.print("<option value="+rol+ ">"+rol+" </option>");	
+					}
+				
+				}
+			%>
+		
+			</select>
+		</div>
 		
 		<input type="hidden" name="<%=Constantes.OP_KEY %>" value="<%=op%>">
-		<input type="submit" value="<%= buttonValue%>"> 
+		<input type="submit" class="btn btn-primary" value="<%= buttonValue%>"> 
+		
 	</form>
 	
 	<% if(!isNew){ %>
@@ -63,7 +84,7 @@
 	<form action="<%=request.getContextPath()+"/"+Constantes.CONTROLLER_PERSONA%>" method="post">
 		<input type="hidden" name="id" disabled value="<%=p.getId()%>"> 		
 		<input type="hidden" name="<%=Constantes.OP_KEY %>" value="<%=Constantes.OP_DELETE%>">
-		<input type="submit" value="borrar"> 
+		<input type="submit" class="btn btn-danger" value="borrar"> 
 	</form>
 	<%}%>
 <%@include file="/includes/footer.jsp" %>
