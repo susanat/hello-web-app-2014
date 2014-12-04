@@ -14,8 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.helloweb.bean.CargasTemporales;
+import com.ipartek.formacion.helloweb.bean.Message;
 import com.ipartek.formacion.helloweb.bean.Persona;
 import com.ipartek.formacion.helloweb.bean.Roles;
+import com.ipartek.formacion.helloweb.bean.Message.ETypeAlert;
 import com.ipartek.formacion.helloweb.comun.Constantes;
 import com.ipartek.formacion.helloweb.comun.Constantes.EModeloAccion;
 import com.ipartek.formacion.helloweb.comun.Utils;
@@ -35,13 +37,19 @@ public class PersonaServlet extends HttpServlet {
 	 * Modelo de la persona
 	 */
 	private ModeloPersona model = null;	
+	
 	RequestDispatcher dispatcher = null;	
-	HttpServletRequest actualRequest = null;
+	
 		
 	/**
 	 * Contador accesos
 	 */
 	ShutdownExample contador = null;
+	
+	/**
+	 * Mensaje de error
+	 */
+	Message msg = null;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {		
@@ -62,9 +70,11 @@ public class PersonaServlet extends HttpServlet {
 	
 	public void onModelException(Persona obj, Exception ex) {
 		
-		actualRequest.setAttribute(Constantes.ATTR_ERROR, true);
-		actualRequest.setAttribute(Constantes.ATTR_ERROR_MSJ, "Error en el modelo.");
-		actualRequest.setAttribute(Constantes.ATTR_ERROR_EXCEPTION, ex);
+		//cumplimentamos el error		
+		msg.setError(true);
+		msg.setText("LoginServlet.java: Error en el modelo de datos de persona.");
+		msg.setException(ex);
+		msg.setType(ETypeAlert.DANGER);
 	}
 	
 	@Override
@@ -88,9 +98,7 @@ public class PersonaServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		actualRequest = request;
-		
+			
 		//recoger parámetros
 		
 		//comprobar si es getAll o getById
@@ -102,6 +110,8 @@ public class PersonaServlet extends HttpServlet {
 		request.setAttribute(Constantes.ATTR_PERSONAS_LIST, personas);
 		
 		//fordward a la vista
+		//dispatcher = this.getServletContext().getRequestDispatcher(path)
+		
 		dispatcher = request.getRequestDispatcher(Utils.getUriFile(Constantes.JSP_BACK_PERSONA_LIST));
 		dispatcher.forward(request, response);
 	}
@@ -110,13 +120,7 @@ public class PersonaServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			
-		
-		//Siempre: Inicializamos el error
-		request.setAttribute(Constantes.ATTR_ERROR, false);
-		request.setAttribute(Constantes.ATTR_ERROR_MSJ, "");
-		request.setAttribute(Constantes.ATTR_ERROR_EXCEPTION, null);
-					
+							
 		///////////////// Obtención de urls
 		//obtenemos la url de referencia y de destino. Asumimos destino igual a referencia si no se dice lo contrario.
 		String urlReferer = (String) request.getSession().getAttribute(Constantes.PARAM_SESSION_LAST_URL);
@@ -157,10 +161,11 @@ public class PersonaServlet extends HttpServlet {
 				case DELETE:
 					try {						
 						delete(request, response);
-					} catch (Exception e) {
-						request.setAttribute(Constantes.ATTR_ERROR, true);
-						request.setAttribute(Constantes.ATTR_ERROR_MSJ, "Error");
-						request.setAttribute(Constantes.ATTR_ERROR_EXCEPTION, e);
+					} catch (Exception e) {						
+						msg.setError(true);
+						msg.setText("Error en el delete.");
+						msg.setException(e);
+						msg.setType(ETypeAlert.DANGER);
 					}
 					break;
 
@@ -194,8 +199,12 @@ public class PersonaServlet extends HttpServlet {
 		return res;
 	}
 	
-	
-	
+	/**
+	 * Inserta una persona 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	private Persona insert (HttpServletRequest request, HttpServletResponse response) {
 		Persona p = null;
 		
@@ -230,16 +239,17 @@ public class PersonaServlet extends HttpServlet {
 			
 			//Error propio controlado
 			if( isError ) {
-				request.setAttribute(Constantes.ATTR_ERROR, true);
-				request.setAttribute(Constantes.ATTR_ERROR_MSJ, "Error personalizado.");
-				request.setAttribute(Constantes.ATTR_ERROR_EXCEPTION, null);
+				msg.setError(true);
+				msg.setText("Error Personalizado.");				
+				msg.setType(ETypeAlert.DANGER);
 				
 			}
 			
 		} catch (Exception e) {
-			request.setAttribute(Constantes.ATTR_ERROR, true);
-			request.setAttribute(Constantes.ATTR_ERROR_MSJ, "Error con excepción.");
-			request.setAttribute(Constantes.ATTR_ERROR_EXCEPTION, e);
+			msg.setError(true);
+			msg.setText("Error Personalizado.");
+			msg.setException(e);
+			msg.setType(ETypeAlert.DANGER);
 		}
 		
 		//de regalo incluimos los roles (habitualmente será para obtener datos para modificar)
@@ -272,8 +282,9 @@ public class PersonaServlet extends HttpServlet {
 				
 				//error, no existe
 				if(p == null) {
-					request.setAttribute(Constantes.ATTR_ERROR, true);
-					request.setAttribute(Constantes.ATTR_ERROR_MSJ, "No existe persona con ese identificador");
+					msg.setError(true);
+					msg.setText("No existe persona con ese identificador.");					
+					msg.setType(ETypeAlert.DANGER);
 				} else {
 					lstPersona = new ArrayList<Persona>();
 					lstPersona.add(p);
@@ -294,14 +305,14 @@ public class PersonaServlet extends HttpServlet {
 		} catch (Exception ex) {
 			//mandamos el error para el peticionario. Aqui no nos interesa saber por qué.
 			//TODO: meterlo en log también
-			request.setAttribute(Constantes.ATTR_ERROR, true);
-			request.setAttribute(Constantes.ATTR_ERROR_MSJ, "Accion Get Persona: " + ex.getMessage());
-			request.setAttribute(Constantes.ATTR_ERROR_EXCEPTION, ex);
+			msg.setError(true);
+			msg.setText("Accion Get Persona: " + ex.getMessage());
+			msg.setException(ex);
+			msg.setType(ETypeAlert.DANGER);			
 		} 
 				
 	}
-	
-	
+		
 	private Persona getPersonaFromRequest(HttpServletRequest request) throws Exception {
 		
 		Persona  per = null;
@@ -363,7 +374,8 @@ public class PersonaServlet extends HttpServlet {
 		//super.service(req, resp);
 		//guardamos el httpServletRequest actual, siempre pasa por aquí, por lo que cada
 		//petición tendrá su propio request.
-		actualRequest = req;
+		//nuevo mensaje de error
+		msg = new Message();
 		
 		contador.enteringServiceMethod();	
 		
@@ -377,13 +389,12 @@ public class PersonaServlet extends HttpServlet {
 		//TODO comprobar Autorización del usuario		
 	}
 
-
 	@Override
 	public void service(ServletRequest req, ServletResponse res)
 			throws ServletException, IOException {		
 		super.service(req, res);
 	}
 	
-	
+	//public void processRequestHttp(ServletRequest request, HttpServletResponse response, Peticion get/post) 
 
 }

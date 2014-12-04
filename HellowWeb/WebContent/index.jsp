@@ -1,9 +1,18 @@
+
+<%@page import="com.ipartek.formacion.helloweb.temp.UtilsTemp"%>
 <%@page import="com.ipartek.formacion.helloweb.comun.Constantes"%>
 <%@page import="java.util.Enumeration"%>
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <%@page pageEncoding="UTF-8" %>
 
+<%@page errorPage="error.jsp" %>
+
 <!doctype html>
+
+<% 
+	//carga la última página visitada en session dentro del parámetro PARAM_SESSION_LAST_URL
+	UtilsTemp.cargaHistorial(request, session);
+%>
 
 <html lang="en">
 <head>
@@ -24,6 +33,8 @@
 
 	<%
 		String path = request.getRequestURL().toString();
+	
+		int i = 2/0;
 	
 	%>
 
