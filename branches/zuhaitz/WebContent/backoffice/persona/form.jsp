@@ -1,15 +1,13 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@include file="../includes/head.jsp" %>
 <%@include file="../includes/nav.jsp" %>
 
 <%@page import="com.ipartek.formacion.helloweb.util.Rol"%>
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
 	
 <%
 	Persona persona = (Persona) request.getAttribute(Constantes.ATTR_PERSONA);
-	String cabecera = "Crear nueva Persona";
 	String buttonValue ="Crear";
 	int op = Constantes.OP_UPDATE;
 	boolean isNew = false;
@@ -21,42 +19,56 @@
 		op = Constantes.OP_INSERT;
 	// Modificar Persona
 	} else {
-		cabecera = "Modificar " + persona.getNombre();
 		buttonValue = "Modificar";
 	}
 %>
 
-	<!-- <h1><%=cabecera%></h1> -->
 	<a href="<%=request.getContextPath() + "/" + Constantes.CONTROLLER_PERSONA%>" 
 	   title="ir a la lista de personas">Lista Personas</a>
-	<%@include file="/includes/alert.jsp"%>
 
 	<form action="<%=request.getContextPath() + "/" + Constantes.CONTROLLER_PERSONA%>" method="post">
-		<input type='hidden' name='op' value=<%=op%>>
-		<input type='text' name='id' readonly value='<%=persona.getId()%>'>
-		<br> 
-		<input type='text' name='nombre' value="<%=persona.getNombre()%>">
-		<br> 
-		<input type='number' name='edad' value="<%=persona.getEdad()%>">
-		<br> 
-		<input type='radio' name='rol' value='<%=Rol.ADMINISTRADOR%>'/>Administrador
-		<input type='radio' name='rol' checked value='<%=Rol.USUARIO%>'/>Usuario
-	
-	  	<%if(persona.getRol() == Rol.ADMINISTRADOR){%>
-
-		<%} else if(persona.getRol() == Rol.USUARIO){%>
+		<div class="form-group"><input type='hidden' name='op' value=<%=op%>></div>
 		
-		<%}%>
-	
+		<div class="form-group">
+			<input class="form-control" type='text' name='id' readonly value='<%=persona.getId()%>'>
+		</div>
+		
+		<div class="form-group">
+			<label>Nombre</label>
+			<input class="form-control" type='text' name='nombre' value="<%=persona.getNombre()%>">
+		</div>
+		
+		<div class="form-group">
+			<label>Nombre</label>
+			<input class="form-control" type='number' name='edad' value="<%=persona.getEdad()%>">
+		</div> 
+		
 		<br>
-		<input type='submit' value='<%=buttonValue%>'>
+		
+		<div class="form-group">
+			<label>Rol</label>
+			<!-- <label class="radio-inline"><input type='radio' name='rol' value='<%=Rol.ADMINISTRADOR%>'/>Administrador</label>
+			<label class="radio-inline"><input type='radio' name='rol' checked value='<%=Rol.USUARIO%>'/>Usuario</label> -->
+			<select class="form-control" name='rol'>
+				<% for(Rol rol : Rol.values()){ 
+					if(rol == persona.getRol()){
+						out.println("<option selected value=" + rol + ">" + rol + "</option>");
+					} else {
+						out.println("<option value=" + rol + ">" + rol + "</option>");
+					}
+				}%>
+			</select>
+		</div>
+
+		<input type='submit' class="btn btn-primary" value='<%=buttonValue%>'>
 		
 	</form>
 	
 	<% if(!isNew) { %>
 		<form action='<%=request.getContextPath() + "/" + Constantes.CONTROLLER_PERSONA%>' method='post'>
-			<input type='hidden' name='op' value=<%=Constantes.OP_DELETE %>>
-			<input type='submit' value='Eliminar'>
+			<input type="hidden" name="id" value="<%=persona.getId()%>">
+			<input type='hidden' name='op' value='<%=Constantes.OP_DELETE %>'>
+			<input type='submit' class="btn btn-danger" value='Eliminar'>
 		</form>
 	<% } %>
 

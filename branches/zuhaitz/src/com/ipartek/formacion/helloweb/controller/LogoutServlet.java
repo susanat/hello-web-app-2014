@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.helloweb.Constantes;
+import com.ipartek.formacion.helloweb.util.Mensaje;
 
 /**
  * Servlet implementation class LogoutServlet
@@ -34,12 +35,14 @@ public class LogoutServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-			IOException {
+	IOException {
 		session = request.getSession();
 		session.setAttribute(Constantes.USER_SESSION, null);
 
 		dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
-		request.setAttribute(Constantes.MSG_KEY, Constantes.MSG_LOGOUT);
+		final Mensaje msg = new Mensaje("alert alert-info", Constantes.MSG_LOGOUT);
+		request.setAttribute(Constantes.MSG_KEY, msg);
+		// request.setAttribute(Constantes.MSG_KEY, Constantes.MSG_LOGOUT);
 
 		dispatch.forward(request, response);
 	}
