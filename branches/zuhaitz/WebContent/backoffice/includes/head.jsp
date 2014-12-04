@@ -1,8 +1,15 @@
 <!DOCTYPE html>
-<%@page import="com.ipartek.formacion.helloweb.Constantes"%>
+
+<%@ page import="com.ipartek.formacion.helloweb.Constantes"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page errorPage="includes/error.jsp" %>
+
 <html lang="en">
 
 <head>
+
+	<%Object o =null; 
+	o.toString();%>
 
 	<base href="<%=request.getContextPath() + "/"%>"/>
     <meta charset="utf-8">
