@@ -1,7 +1,13 @@
-package com.ipartek.formacion.helloweb.util;
+package com.ipartek.formacion.helloweb.bean;
 
 public class Mensaje {
 
+	public static final String MSG_TYPE_SUCCESS = "success";
+	public static final String MSG_TYPE_INFO = "info";
+	public static final String MSG_TYPE_WARNING = "warning";
+	public static final String MSG_TYPE_DANGER = "danger";
+
+	// TODO hacer códigos de mensaje
 	private String type;
 	private String msg;
 

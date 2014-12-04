@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.helloweb.Constantes;
+import com.ipartek.formacion.helloweb.bean.Mensaje;
 import com.ipartek.formacion.helloweb.bean.Persona;
-import com.ipartek.formacion.helloweb.util.Mensaje;
 import com.ipartek.formacion.helloweb.util.Rol;
 
 /**
@@ -41,7 +41,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-			IOException {
+	IOException {
 		session = request.getSession();// Recuperar session
 
 		getParameters(request);// Recoger parámetros del login
@@ -102,10 +102,8 @@ public class LoginServlet extends HttpServlet {
 		} else {
 			// Incorrecto: enviar de nuevo a login.jsp
 			dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
-			final Mensaje msg = new Mensaje("alert alert-warning", Constantes.MSG_LOGIN_INCORRECT);
+			final Mensaje msg = new Mensaje(Mensaje.MSG_TYPE_WARNING, Constantes.MSG_LOGIN_INCORRECT);
 			request.setAttribute(Constantes.MSG_KEY, msg);
-			// request.setAttribute(Constantes.MSG_KEY,
-			// Constantes.MSG_LOGIN_INCORRECT);
 		}
 	}
 }

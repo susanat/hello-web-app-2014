@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.helloweb.Constantes;
+import com.ipartek.formacion.helloweb.bean.Mensaje;
 import com.ipartek.formacion.helloweb.bean.Persona;
 import com.ipartek.formacion.helloweb.model.ModeloPersona;
-import com.ipartek.formacion.helloweb.util.Mensaje;
 import com.ipartek.formacion.helloweb.util.Rol;
 
 /**
@@ -25,7 +25,6 @@ public class PersonaServlet extends HttpServlet {
 	RequestDispatcher dispatcher = null;
 	ModeloPersona modelo = null;
 	Mensaje msg;
-	// String msg = "";
 	int id = Persona.ID_NULL;
 
 	@Override
@@ -114,10 +113,10 @@ public class PersonaServlet extends HttpServlet {
 			modelo.insert(p);
 			// TODO comprobar la inserción
 			// msg = Constantes.MSG_REG_INSERTED;
-			msg = new Mensaje("alert alert-success", Constantes.MSG_REG_INSERTED);
+			msg = new Mensaje(Mensaje.MSG_TYPE_SUCCESS, Constantes.MSG_REG_INSERTED);
 		} else {
 			// msg = Constantes.MSG_ERR_PARAMETERS;
-			msg = new Mensaje("alert alert-danger", Constantes.MSG_ERR_PARAMETERS);
+			msg = new Mensaje(Mensaje.MSG_TYPE_DANGER, Constantes.MSG_ERR_PARAMETERS);
 		}
 
 		request.setAttribute(Constantes.ATTR_PERSONA, p);
@@ -136,11 +135,9 @@ public class PersonaServlet extends HttpServlet {
 			p.setId(id);
 			// TODO comprobar que realmente se ha modificado
 			modelo.update(p);
-			// msg = Constantes.MSG_REG_UPDATED;
-			msg = new Mensaje("alert alert-success", Constantes.MSG_REG_UPDATED);
+			msg = new Mensaje(Mensaje.MSG_TYPE_WARNING, Constantes.MSG_REG_UPDATED);
 		} else {
-			// msg = Constantes.MSG_ERR_PARAMETERS;
-			msg = new Mensaje("alert alert-danger", Constantes.MSG_ERR_PARAMETERS);
+			msg = new Mensaje(Mensaje.MSG_TYPE_DANGER, Constantes.MSG_ERR_PARAMETERS);
 		}
 
 		request.setAttribute(Constantes.ATTR_PERSONA, p);
@@ -154,11 +151,9 @@ public class PersonaServlet extends HttpServlet {
 	 */
 	private void delete(final HttpServletRequest request) {
 		if (modelo.delete(id)) {
-			// msg = Constantes.MSG_REG_DELETED;
-			msg = new Mensaje("alert alert-success", Constantes.MSG_REG_DELETED);
+			msg = new Mensaje(Mensaje.MSG_TYPE_SUCCESS, Constantes.MSG_REG_DELETED);
 		} else {
-			// msg = Constantes.MSG_ERR_DELETE;
-			msg = new Mensaje("alert alert-danger", Constantes.MSG_ERR_DELETE);
+			msg = new Mensaje(Mensaje.MSG_TYPE_DANGER, Constantes.MSG_ERR_DELETE);
 		}
 
 		getAll(request);
@@ -172,8 +167,7 @@ public class PersonaServlet extends HttpServlet {
 	 */
 	private void opNotSupported(final HttpServletRequest request) {
 		getAll(request);
-		// msg = Constantes.MSG_OP_NOT_SUPPORTED;
-		msg = new Mensaje("alert alert-danger", Constantes.MSG_OP_NOT_SUPPORTED);
+		msg = new Mensaje(Mensaje.MSG_TYPE_DANGER, Constantes.MSG_OP_NOT_SUPPORTED);
 	}
 
 	/**
