@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.helloweb.Constantes;
+import com.ipartek.formacion.helloweb.bean.Mensaje;
 import com.ipartek.formacion.helloweb.bean.Persona;
 import com.ipartek.formacion.helloweb.model.ModeloPersona;
 
@@ -21,7 +22,7 @@ public class PersonaServlet extends HttpServlet {
 
 	ModeloPersona model;
 	RequestDispatcher dispatcher;
-	String msg = "";
+	Mensaje msg;
 	int id = Persona.ID_NULL; // Identificador persona
 
 	@Override
@@ -123,7 +124,7 @@ public class PersonaServlet extends HttpServlet {
 		// dispatcher = request
 		// .getRequestDispatcher(Constantes.JSP_BACK_PERSONA_LIST);
 		getAll(request);
-		msg = Constantes.MSG_NOT_ALLOWED;
+		msg = new Mensaje(Constantes.MSG_NOT_ALLOWED, Mensaje.MSG_TYPE_DANGER);
 
 	}
 
@@ -139,9 +140,11 @@ public class PersonaServlet extends HttpServlet {
 			// insertarlo
 			// TODO comprobar la inserccion
 			model.insert(p);
-			msg = Constantes.MSG_REG_CREATE;
+			msg = new Mensaje(Constantes.MSG_REG_CREATE,
+					Mensaje.MSG_TYPE_SUCCESS);
 		} else {
-			msg = Constantes.MSG_ERR_PARAMETERS;
+			msg = new Mensaje(Constantes.MSG_ERR_PARAMETERS,
+					Mensaje.MSG_TYPE_DANGER);
 		}
 		// enviar atributos
 		request.setAttribute(Constantes.ATT_PERSONA, p);
@@ -162,9 +165,11 @@ public class PersonaServlet extends HttpServlet {
 		// id = Integer.parseInt(request.getParameter("id"));
 		// borrar a la Persona con ese ID de la lista
 		if (model.delete(id)) {
-			msg = Constantes.MSG_REG_DELETE;
+			msg = new Mensaje(Constantes.MSG_REG_DELETE,
+					Mensaje.MSG_TYPE_SUCCESS);
 		} else {
-			msg = Constantes.MSG_ERR_REG_DELETE;
+			msg = new Mensaje(Constantes.MSG_ERR_REG_DELETE,
+					Mensaje.MSG_TYPE_DANGER);
 		}
 		getAll(request);
 
@@ -187,9 +192,10 @@ public class PersonaServlet extends HttpServlet {
 			// TODO comprobar que realmente se ha modificado
 			// actualizarlo
 			model.update(p);
-			msg = Constantes.MSG_REG_UPDATE;
+			msg = new Mensaje(Constantes.MSG_REG_UPDATE, Mensaje.MSG_TYPE_INFO);
 		} else {
-			msg = Constantes.MSG_ERR_PARAMETERS;
+			msg = new Mensaje(Constantes.MSG_ERR_PARAMETERS,
+					Mensaje.MSG_TYPE_DANGER);
 		}
 		// enviar atributos
 		request.setAttribute(Constantes.ATT_PERSONA, p);
@@ -216,6 +222,7 @@ public class PersonaServlet extends HttpServlet {
 			p = new Persona("");
 			p.setNombre(request.getParameter("name"));
 			p.setEdad(Integer.parseInt(request.getParameter("edad")));
+			p.setRol(Persona.Rol.valueOf(request.getParameter("rol")));
 			// TODO obtener ROL
 			// msg = "Persona creada";
 		} catch (Exception e) {

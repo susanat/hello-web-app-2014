@@ -1,4 +1,5 @@
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
+<%@page import="com.ipartek.formacion.helloweb.bean.Persona.Rol"%>
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -19,23 +20,22 @@
 	}
 %>
 
-<!DOCTYPE html>
-<html>
-<head>
-<title>Editar Persona</title>
 
 
 <%@include file="/includes/head.jsp"%>
 <%@include file="/includes/nav.jsp"%>
 
+<!-- 
 <div id="page-wrapper">
 
 	<!-- TITULO -->
+	<!-- 
 	<div class="row">
 		<div class="col-lg-12">
 			<h1 class="page-header"><%=cabecera%></h1>
 		</div>
 		<!-- class="col-lg-12" -->
+	<!-- 	
 	</div>
 	<!-- class="row" -->
 
@@ -84,12 +84,13 @@
 
 								<div class="form-group">
 									<label>Rol</label> 
-									<select id="selectRol" class="form-control" display="none">
-										
-										<option <%=Persona.Rol.USER.equals(p.getRol()) ? "selected" : ""%>><%=Persona.Rol.USER%></option>
-										<option
-											<%=Persona.Rol.ADMINISTRADOR.equals(p.getRol()) ? "selected"
-					: ""%>><%=Persona.Rol.ADMINISTRADOR%></option>
+									<select name="rol" class="form-control" display="none">
+										<%for (Rol rol:Rol.values()){
+											%>
+											<option value ="<%=rol%>" <%=rol.equals(p.getRol()) ? "selected" : ""%>><%=rol%></option>
+											<%
+										}
+										%>
 									</select>
 									<!-- 
                                             <label>Rol</label>
@@ -105,31 +106,15 @@
                                             </div>
                                          -->
 								</div>
+								<!--
 								<input name="rol" type="text" readonly value="<%=p.getRol()%>">
+								 -->
 								<input type="hidden" name="<%=Constantes.OP_KEY%>"
 									value="<%=op%>">
-								<button class="btn btn-default" type="submit"><%=buttonValue%></button>
+								<button class="btn btn-outline btn-primary" type="submit"><%=buttonValue%></button>
 
 							</form>
 							<!-- Form INSERT/UPDATE -->
-
-							<%
-								if (!isNew) {
-							%>
-
-							<form role="form"
-								action="<%=request.getContextPath() + "/"
-						+ Constantes.CONTROLLER_PERSONA%>"
-								method="post">
-								<input type="hidden" name="id" disabled value="<%=p.getId()%>">
-								<input type="hidden" name="<%=Constantes.OP_KEY%>"
-									value="<%=Constantes.OP_DELETE%>">
-								<button class="btn btn-default" type="submit">eliminar</button>
-							</form>
-							<!-- Form DELETE -->
-							<%
-								}
-							%>
 
 						</div>
 						<!-- class="col-lg-6" -->

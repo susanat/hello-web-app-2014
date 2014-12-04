@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.helloweb.Constantes;
+import com.ipartek.formacion.helloweb.bean.Mensaje;
 
 /**
  * Servlet implementation class LogoutServlet
@@ -28,6 +29,7 @@ public class LogoutServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// recuperar session del usuario
@@ -38,7 +40,8 @@ public class LogoutServlet extends HttpServlet {
 		// session.invalidate();
 
 		// frowar a login
-		request.setAttribute(Constantes.MSG_KEY, Constantes.MSG_LOGOUT);
+		Mensaje msg = new Mensaje(Constantes.MSG_LOGOUT, Mensaje.MSG_TYPE_INFO);
+		request.setAttribute(Constantes.MSG_KEY, msg);
 		request.getRequestDispatcher(Constantes.JSP_LOGIN).forward(request,
 				response);
 
@@ -48,6 +51,7 @@ public class LogoutServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub

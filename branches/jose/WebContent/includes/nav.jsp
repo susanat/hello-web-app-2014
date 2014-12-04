@@ -15,3 +15,19 @@
 </div>
 <!-- /.navbar-static-side -->
 </nav>
+
+<div id="page-wrapper">
+
+	<!-- TITULO -->
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header">Cambiar titulo</h1>
+		</div>
+		<!-- class="col-lg-12" -->
+	</div>
+	<!-- class="row" -->
+	<div class="row">
+		<div class="col-lg-12">
+			<%@include file="/includes/alerts.jsp"%>
+		</div>
+	</div>

@@ -18,22 +18,9 @@
 <script
 	src="<%=Constantes.JSP_BACKOFFICE%>/js/plugins/dataTables/jquery.dataTables.js"></script>
 
-<script type="text/javascript">
-$(document).ready(function() {
-		$('#idPersonas').dataTable();
-		
-		$('input[name=rol]').val($("#selectRol option:selected").text());
-		
-	    $('#selectRol').change(function() {
-	    	 $('input[name=rol]').val($("#selectRol option:selected").text());
-	      });  
+<script
+	src="<%=Constantes.JSP_BACKOFFICE%>/js/main.js"></script>
 
-	});
-
-	// For demo to fit into DataTables site builder...
-	$('#idPersonas').removeClass('display').addClass(
-			'table table-striped table-bordered');
-</script>
 </body>
 
 </html>

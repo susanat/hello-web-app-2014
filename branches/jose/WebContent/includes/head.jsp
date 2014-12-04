@@ -1,4 +1,13 @@
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
+<%@page errorPage="includes/error.jsp" %>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<title>BackOffice</title>
+
+<!--  base para todos nuestros paths -->
+<base href="<%=request.getContextPath() + "/"%>">
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,27 +16,21 @@
 <meta name="author" content="">
 
 <!-- Bootstrap Core CSS -->
-<link
-	href="<%=request.getContextPath() + "/"
-					+ Constantes.JSP_BACKOFFICE%>css/bootstrap.min.css"
+<link href="<%=Constantes.JSP_BACKOFFICE%>css/bootstrap.min.css"
 	rel="stylesheet">
 
 <!-- Custom CSS -->
-<link
-	href="<%=request.getContextPath() + "/"
-					+ Constantes.JSP_BACKOFFICE%>css/sb-admin-2.css"
+<link href="<%=Constantes.JSP_BACKOFFICE%>css/sb-admin-2.css"
 	rel="stylesheet">
 
 <!-- Custom Fonts -->
 <link
-	href="<%=request.getContextPath() + "/"
-					+ Constantes.JSP_BACKOFFICE%>font-awesome-4.1.0/css/font-awesome.min.css"
+	href="<%=Constantes.JSP_BACKOFFICE%>font-awesome-4.1.0/css/font-awesome.min.css"
 	rel="stylesheet" type="text/css">
 
 <!-- dataTables -->
 <link
-	href="<%=request.getContextPath() + "/"
-					+ Constantes.JSP_BACKOFFICE%>css/plugins/dataTables.bootstrap.css"
+	href="<%=Constantes.JSP_BACKOFFICE%>css/plugins/dataTables.bootstrap.css"
 	rel="stylesheet" type="text/css">
 
 
