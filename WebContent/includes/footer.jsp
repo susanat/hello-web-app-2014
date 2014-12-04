@@ -16,18 +16,14 @@
     <!-- Custom Theme JavaScript -->
     <script src="<%=Constantes.JSP_BACKOFFICE %>/js/sb-admin-2.js"></script>
     <script src="<%=Constantes.JSP_BACKOFFICE %>js/jquery-1.11.0.js" type="text/javascript"></script>
+    
+    <!-- DataTable @see: http://www.datatables.net/ -->
 	<script src="<%=Constantes.JSP_BACKOFFICE %>js/plugins/dataTables/jquery.dataTables.js" type="text/javascript"></script>
 	<script src="<%=Constantes.JSP_BACKOFFICE %>js/plugins/dataTables/dataTables.bootstrap.js" type="text/javascript"></script>
-	<script>
-	$(document).ready(function() {
-	    $('#example').DataTable();
-	} );
-	</script>
+	<script src="<%=Constantes.JSP_BACKOFFICE %>js/main.js" type="text/javascript"></script>
+	
 	<script type="text/javascript">
-	// For demo to fit into DataTables site builder...
-	$('#example')
-		.removeClass( 'display' )
-		.addClass('table table-striped table-bordered');
+	
 	</script>
 
 </body>

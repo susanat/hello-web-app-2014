@@ -39,11 +39,19 @@
         </nav>
         
          <div id="page-wrapper">
+         
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Contenido</h1>
+                    <h1 class="page-header">Cambiar titulo</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+            
+            <!-- Mensajes para usuario -->
+          <div class="row">
+         	<%@include file="/includes/alerts.jsp" %>
+         </div>
             <!-- /.row -->
+            
+            
             <div class="row">
