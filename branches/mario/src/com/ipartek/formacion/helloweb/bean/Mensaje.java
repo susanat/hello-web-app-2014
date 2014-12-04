@@ -2,10 +2,25 @@ package com.ipartek.formacion.helloweb.bean;
 
 import com.ipartek.formacion.helloweb.TipoMensaje;
 
+/**
+ * Clase para mostrar los mensajes o alertas durante la apliación.
+ *
+ * @author Mario Alvaro
+ *
+ */
 public class Mensaje {
 
+    /**
+     * Descripción del mensaje
+     */
     private String msg;
+    /**
+     * Tipo del mensaje: Success, Info, Warning, Danger
+     */
     private TipoMensaje type;
+    /**
+     * Código http
+     */
     int code;
 
     public Mensaje(String msg, TipoMensaje type, int code) {

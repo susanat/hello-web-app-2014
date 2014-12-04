@@ -26,7 +26,6 @@
 		    buttonValue = "Modificar";
 		}
 	%>
-	<%@include file="/includes/alerts.jsp" %>
 	<p class="top-margin">
 		<a href="<%=request.getContextPath()+"/"+Constantes.CONTROLLER_PERSONA %>" class="btn btn-default btn-ms" title="volver" >
 			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Volver
@@ -39,20 +38,41 @@
 	  <div class="panel-body">
 
 		<form action="<%= request.getContextPath()+"/"+ Constantes.CONTROLLER_PERSONA %>" method="post">
+			<div class="form-group">
+				
+				<input type="text" name="id" readonly value="<%= per.getId() %>" class="form-control">
+			</div>
+			<div class="form-group">
+				<label>Nombre</label>
+				<input type="text" name="nombre" value="<%= per.getNombre()%>" class="form-control">
+			</div>
+			<div class="form-group">
+				<label>Edad</label>
+				<input type="number" name="edad" value="<%= per.getEdad()%>" min="0" class="form-control">
+			</div>
 			
-			<input type="text" name="id" readonly value="<%= per.getId() %>">
-			<br>
-			<input type="text" name="nombre" value="<%= per.getNombre()%>">
-			<br>
-			<input type="number" name="edad" value="<%= per.getEdad()%>">
-			<br>
-			<input type="radio" name="rol" value="<%= Rol.ADMINISTRADOR %>" <%= (per.getRol()==Rol.ADMINISTRADOR)?"checked":"false"%> ><%= Rol.ADMINISTRADOR %>
-			<input type="radio" name="rol" value="<%= Rol.USUARIO %>"  <%= (per.getRol()==Rol.USUARIO)?"checked":"false"%> ><%= Rol.USUARIO %>
-
-			<br>
-			<input type="hidden" name="<%=Constantes.OP_KEY %>" value="<%= op %>">
+			<div class="form-group">
 			
-			<input type="submit" value="<%=buttonValue %>">
+				<label>Rol</label>
+				<select name="rol">
+					<%
+						for(Rol rol: Rol.values()){ 
+							if(rol == per.getRol()){
+							    out.print(" <option selected value="+rol+">"+rol+"</option>");
+							}else{
+							    out.print(" <option value="+rol+">"+rol+"</option>");
+							}
+						%>					
+					<%  }
+					%>
+				</select>
+				
+			</div>
+			<input type="hidden" name="<%=Constantes.OP_KEY %>" value="<%= op %>" >			
+			
+			<div class="form-group">
+				<input type="submit" value="<%=buttonValue %>" class="btn btn-primary btn-outline btn-xs">
+			</div>
 		</form>
 		
         </div>
@@ -61,7 +81,9 @@
 			
 			<input type="hidden" name="id" value="<%= per.getId() %>">
 			<input type="hidden" name="<%=Constantes.OP_KEY %>" value="<%=Constantes.OP_DELETE%>">
-			<input type="submit" value="Eliminar">
+			<div class="form-group">
+				<input type="submit" value="Eliminar" class="btn btn-danger btn-outline btn-xs">
+			</div>
 		</form>
 		<%} %>	 
 	
