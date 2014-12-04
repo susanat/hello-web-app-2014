@@ -20,6 +20,7 @@ import com.ipartek.formacion.helloweb.comun.Constantes;
 import com.ipartek.formacion.helloweb.comun.Constantes.EModeloAccion;
 import com.ipartek.formacion.helloweb.comun.Utils;
 import com.ipartek.formacion.helloweb.model.ModeloPersona;
+import com.ipartek.formacion.helloweb.model.interfaces.IModeloPersona;
 import com.ipartek.formacion.helloweb.model.interfaces.IModeloPersona.onModelPersonaError;
 import com.ipartek.formacion.helloweb.temp.ShutdownExample;
 
@@ -131,22 +132,12 @@ public class PersonaServlet extends HttpServlet {
 		if(request.getParameter(Constantes.PARAM_URL_TO) != null) {
 			urlTo = request.getParameter(Constantes.PARAM_URL_TO);
 		}
-				
-		
-		//orígenes:
-		
-		//- solicita datos
-		//	- solicita el listado		
-		//	- solicita una persona
-		
-		//- solicita un insert		
-		//- solicita un update		
-		//- solicita un delete
-		
+
 		
 		//comprobamos si nos llega el parámetro de acción
 		if(request.getParameter(Constantes.PARAM_ACTION) != null) {			
 			//lo obtenemos
+			//TODO: Control de errores
 			EModeloAccion accion = EModeloAccion.getEnumNameForValue(request.getParameter(Constantes.PARAM_ACTION));
 			if(accion != null) 
 			{				
@@ -164,7 +155,13 @@ public class PersonaServlet extends HttpServlet {
 					break;
 					
 				case DELETE:
-					
+					try {						
+						delete(request, response);
+					} catch (Exception e) {
+						request.setAttribute(Constantes.ATTR_ERROR, true);
+						request.setAttribute(Constantes.ATTR_ERROR_MSJ, "Error");
+						request.setAttribute(Constantes.ATTR_ERROR_EXCEPTION, e);
+					}
 					break;
 
 				default:
@@ -185,12 +182,16 @@ public class PersonaServlet extends HttpServlet {
 		
 	}
 	
-	private int delete (HttpServletRequest request, HttpServletResponse response) {
-		int res = 0;
+	private Boolean delete (HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Boolean res = false;
+		int id = Persona.ID_NULL;
 		
-		
+		if(request.getParameter(Constantes.PARAM_PERSONAS_ID) != null) {
+			id = Integer.valueOf(request.getParameter(Constantes.PARAM_PERSONAS_ID));
+			res = model.delete(id, IModeloPersona.EBorrado.FISICA);
+		}
+				
 		return res;
-		
 	}
 	
 	

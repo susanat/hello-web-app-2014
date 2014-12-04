@@ -51,31 +51,31 @@
 						    </thead>
 						    <tbody>
 					<%
-						for (Persona per : personas ) {
-									
+						for (Persona per : personas ) {									
 									out.println("<tr>");
-									out.println("<td>" + "PNG" + "</td>");
+									out.println("<td>" + "<i class='fa fa-user fa-fw'>" + "</td>");
 									out.println("<td>" + per.getId() + "</td>");
 									out.println("<td>" + per.getNombre() + "</td>");
 									out.println("<td>" + per.getEdad() + "</td>");
 									out.println("<td>" + UtilsTemp.getNameFromRole(request, String.valueOf(per.getRol()) ) + "</td>");						
 									out.println("<td>");
 					%>						
-							<form action="<%=Constantes.CONTROLLER_PERSONA%>" method="post">							
+							<form action="<%=Constantes.PATH_SITE +  Constantes.CONTROLLER_PERSONA%>" method="post">							
 								<input type='hidden' value='<%=Constantes.EModeloAccion.GET.getValue()%>' name='<%=Constantes.PARAM_ACTION%>' />
 							    <input type='hidden' value='<%=per.getId()%>' name='<%=Constantes.PARAM_PERSONAS_ID%>' />
 							    <input type='hidden' value='<%=Constantes.JSP_BACK_PERSONA_FORM%>' name='<%=Constantes.PARAM_URL_TO%>' />
-							    <input type='submit' name="submit" value='Editar' class='btn btn-success btn-lg'>
+							    <input type='submit' name="submit" value='Editar' class='btn btn-outline btn-success'>
 							</form>
 						<%
 							out.println("</td>");
 										
 										out.println("<td>");
 						%>						
-							<form action="<%=Constantes.CONTROLLER_PERSONA%>" method="post">							
+							<form action="<%=Constantes.PATH_SITE + Constantes.CONTROLLER_PERSONA%>" method="post">							
 								<input type='hidden' value='<%=Constantes.EModeloAccion.DELETE.getValue()%>' name='<%=Constantes.PARAM_ACTION%>' />
-							    <input type='hidden' value='<%=per.getId()%>' name='<%=Constantes.PARAM_PERSONAS_ID%>' />							    
-							    <input type='submit' name="submit" value='Eliminar' class='btn btn-success btn-lg'>
+							    <input type='hidden' value='<%=per.getId()%>' name='<%=Constantes.PARAM_PERSONAS_ID%>' />
+							    <input type='hidden' value='<%=Constantes.JSP_BACK_PERSONA_LIST%>' name='<%=Constantes.PARAM_URL_TO%>' />							    
+							    <input type='submit' name="submit" value='Eliminar' class='btn btn-outline btn-danger'>
 							</form>
 						<%
 							out.println("</td>");										
