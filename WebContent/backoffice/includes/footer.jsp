@@ -17,10 +17,8 @@
     <!--  Datatables plugin -->
     <script src="<%=request.getContextPath() + "/" + Constantes.JSP_BACKOFFICE %>js/plugins/dataTables/jquery.dataTables.js"></script>
 	<script src="<%=request.getContextPath() + "/" + Constantes.JSP_BACKOFFICE %>js/plugins/dataTables/dataTables.bootstrap.js"></script>
+	<script src="<%=request.getContextPath() + "/" + Constantes.JSP_BACKOFFICE %>js/main.js"></script>
 	
-	<script type="text/javascript">
-	    $('#miTabla').DataTable();
-</script>
 	
 	
 </html>

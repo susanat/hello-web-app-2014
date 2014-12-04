@@ -8,8 +8,8 @@
 <%@include file="../includes/head.jsp" %>
 <%@include file="../includes/nav.jsp" %>
 <%@include file="/include/alerts.jsp" %>
-	<br>
-	<br>
+	
+	
 	<h1>Listado Personas</h1>
 	
 	<br>
@@ -19,7 +19,8 @@
 		    %>
 		    
 		    	<h2>No existe ninguna persona</h2>
-		    	<p><a href=<%=Constantes.JSP_BACKOFFICE_PERSONA_FORM %>>Crear</a> una nueva persona</p>
+		    	<br>
+		    	<p><a href=<%=Constantes.JSP_BACKOFFICE_PERSONA_FORM +"?accion=" + Constantes.LETRERO_CREAR %> class="btn btn-primary"><i class="fa fa-plus fa-fw"></i> Crear</a>
 		    <%
 		}else{
 		    %>
@@ -28,8 +29,9 @@
             <tr>
                 <th>Id</th>
                 <th>Nombre</th>
+                <th>Edad</th>
                 <th>Rol</th>
-                <th>Detalle</th>
+            
                 <th>Eliminar</th>
                 
             </tr>
@@ -39,8 +41,9 @@
             <tr>
                 <th>Id</th>
                 <th>Nombre</th>
+                <th>Edad</th>
                 <th>Rol</th>
-                <th>Detalle</th>
+              
                 <th>Eliminar</th>
                 
             </tr>
@@ -50,11 +53,13 @@
 		    for(int i =0; i<personas.size(); i++){
 			%>
 				<tr><td><a href=<%=Constantes.CONTROLLER_PERSONA +"?id=" +personas.get(i).getId()+ "&accion=" + Constantes.LETRERO_DETALLE %>><%out.print(personas.get(i).getId()); %></a>
-				</td><td><%out.print(personas.get(i).getNombre()); %></td><td><%out.print(personas.get(i).getRol()); %></td>
-				<td><a href=<%=Constantes.CONTROLLER_PERSONA +"?id=" +personas.get(i).getId()+ "&accion=" + Constantes.LETRERO_DETALLE %>>Detalle</a>
-				</td>
-				<td>
 				
+				</td>
+				<td><%out.print(personas.get(i).getNombre()); %></td>
+				<td><%out.print(personas.get(i).getEdad()); %></td>
+				<td><%out.print(personas.get(i).getRol()); %></td>
+				
+				<td>
 				<a href=<%=Constantes.CONTROLLER_PERSONA +"?id=" +personas.get(i).getId()+"&accion=" + Constantes.LETRERO_BORRAR %> class="btn btn-xs btn-danger">Eliminar</a></td>
 				</tr>
 				
@@ -67,8 +72,7 @@
     		</table>
 		    <p><a href=<%=Constantes.JSP_BACKOFFICE_PERSONA_FORM +"?accion=" + Constantes.LETRERO_CREAR %> class="btn btn-primary"><i class="fa fa-plus fa-fw"></i> Crear</a>
 		    </p>
-		    <br>
-			<a href="<%=request.getContextPath() + "/" + Constantes.PATH_LOGIN %>" class="btn btn-primary"><i class="fa fa-arrow-left fa-fw"></i>Volver</a>
+		    
 		    <%
 		}
 		
