@@ -24,7 +24,7 @@ public class Mensaje {
 	/**
 	 * @return the type
 	 */
-	public String geType() {
+	public String getType() {
 		return type;
 	}
 
