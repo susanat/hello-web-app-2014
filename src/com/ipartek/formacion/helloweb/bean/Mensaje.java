@@ -9,7 +9,7 @@ import com.ipartek.formacion.helloweb.TipoMensaje;
  *
  */
 public class Mensaje {
-
+    
     /**
      * Descripción del mensaje
      */
