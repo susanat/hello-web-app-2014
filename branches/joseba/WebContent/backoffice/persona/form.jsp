@@ -35,19 +35,40 @@
 		
 		
 		
-		<form action="<%=request.getContextPath() + "/" + Constantes.CONTROLLER_PERSONA %>" method="post">
-			<input type="text" name="id" readonly="readonly" value="<%=p1.getId()%>">
+		<form action="<%=request.getContextPath() + "/" + Constantes.CONTROLLER_PERSONA %>" method="post" role="form">
+			<div class="form-group">
+				<label>Id</label>
+				<input type="text" name="id" readonly="readonly" value="<%=p1.getId()%>" class="form-control">
+			</div>
+			
+			<div class="form-group">
+				<label>Nombre</label>
+				<input type="text" name="name" value="<%=p1.getNombre()%>" class="form-control">
+			</div>
+			
+			<div class="form-group">
+				<label>Edad</label>
+				<input type="number" name="edad" value="<%=p1.getEdad()%>" class="form-control">
+			<div>
+			
 			<br>
-			<input type="text" name="name" value="<%=p1.getNombre()%>">
-			<br>
-			<input type="number" name="edad" value="<%=p1.getEdad()%>">
-			<br>
-			<input type="radio" name="rol" value=<%=Persona.Rol.ADMINISTRADOR %>>Administrador<br>
-			<input type="radio" name="rol" value=<%=Persona.Rol.USER %>>Usuario
-			<br>
+			<label>Rol</label>
+			<div class="radio">
+				<label>
+					<input type="radio" name="rol" value=<%=Persona.Rol.ADMINISTRADOR %> checked>
+					Administrador
+				</label>
+			</div>
+			<div class="radio">
+				<label>
+					<input type="radio" name="rol" value=<%=Persona.Rol.USER %>>
+					Usuario
+				</label>
+			</div>		
 			<input type="hidden" name="op" value=<%= op %>>
 			<br>
 			<input type="submit" value=<%=buttonValue %> class="btn btn-primary">
+			<br>
 		</form>
 		<!-- TODO: Formulario eliminar -->
 		
