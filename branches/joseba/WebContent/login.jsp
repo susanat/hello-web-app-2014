@@ -1,5 +1,6 @@
-<!DOCTYPE html>
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
+<!DOCTYPE html>
+
 <html>
 
 <head>

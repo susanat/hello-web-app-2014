@@ -38,9 +38,7 @@
 </head>
 
 <body>
-		<% Object o = null;
-			o.toString();
-			%>
+		
 	<%
 		//recuperar usuario de sesion
 		Persona p = (Persona)session.getAttribute(Constantes.USER_SESSION);
