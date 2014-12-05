@@ -91,6 +91,8 @@ public class LoginServlet extends HttpServlet {
 			dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
 			request.setAttribute(Constantes.MSG_KEY,
 					Constantes.MSG_LOGIN_INCORRECT);
+			// new Mensaje(Constantes.MSG_NOT_ALLOWED,
+			// Mensaje.MSG_TYPE_WARNING);
 		}
 
 	}
