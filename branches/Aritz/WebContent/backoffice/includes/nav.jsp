@@ -34,8 +34,12 @@
             <!-- /.navbar-static-side -->
         </nav>
 
-        <div id="page-wrapper">
+        <div id="page-wrapper">        	
             <div class="row">
                 <div class="col-lg-12">
-                  <!--  <h1 class="page-header">Contenido</h1>  -->
+                  <h1 class="page-header">Cambiar titulo</h1>
                
+               <!-- Mensajes para el usuario -->
+        	<div class="row">
+        		<%@include file="/includes/alert.jsp" %>
+        	</div>
