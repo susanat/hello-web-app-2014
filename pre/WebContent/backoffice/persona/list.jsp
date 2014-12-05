@@ -65,9 +65,44 @@
 		}//end:persona not null
 	%>
 	
+	<table id="tabla2" cellspacing="0" width="100%">
+		        <thead>
+		            <tr>
+		                <th>id</th>
+		                <th>Nombre</th>
+		                <th>Edad</th>
+		                <th>Rol</th>
+		                <th><!-- Operacion para Eliminar --></th>                
+		            </tr>
+		        </thead>
+		 
+				<tbody>
 	
 	
-                   
+	
+	<c:forEach var="p" items="${requestScope.personas}">
+		<tr>
+		               
+		               
+		               <td>
+		               		${p.id}
+		               </td> 
+		               
+		               <td><a href="persona?id=${p.id}">${p.nombre}</a></td>
+		               <td>${p.edad}</td>
+		               <td>${p.rol}</td> 
+		               <td>
+		                	<form action="persona" method="post">
+		                		<input type="hidden" name="id" value="${p.id}%>">
+		                		<input type="hidden" name="op" value="1">
+		                		<input type="submit" class="btn btn-outline btn-danger btn-xs" value="Eliminar">
+		                	</form>		                	
+		                </td>                     
+		            </tr>   
+		            
+	</c:forEach>
+    	</tbody>
+    	</table> 
        
 	
 	
