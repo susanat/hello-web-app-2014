@@ -20,6 +20,8 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="<%= Constantes.JSP_BACKOFFICE %>/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link href="<%= Constantes.JSP_BACKOFFICE %>/css/misEstilos.css" rel="stylesheet">
 
     
 
@@ -49,3 +51,5 @@
 <body>
 
     <div id="wrapper">
+    
+    
