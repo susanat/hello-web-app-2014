@@ -2,12 +2,8 @@
 <%@page import="com.ipartek.formacion.helloworld.util.Util"%>
 <%@page import="java.util.Map"%>
 <%@page import="com.ipartek.formacion.helloworld.util.Constante"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
-<!DOCTYPE html>
 <%@page import="com.ipartek.formacion.helloworld.bean.Persona"%>
+<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
@@ -25,7 +21,7 @@
 	
 %>
 	<h1>Bienvenida</h1>
-<p>${persona.userName} <p/><a title="Cierra tu sesion" href="<%= Constante.SERVLET_LOGOUT %>">[x]Logout</a>
+<a title="Cierra tu sesion" href="<%= Constante.SERVLET_LOGOUT %>">[x]Logout</a>
 	<div>Hola bienvenido al primer programa  <%=persona.getUserName() %><c:out value="${persona.userName}"/></div>
 	
 
@@ -34,10 +30,7 @@
 	<div><c:out value="<br>  Nombre: ${persona.nombre}" escapeXml="false" default="la expresión fallo"/></div>	
 	<div>Hola bienvenido a la parte de backoffice </div>
 	
-	<c:if test="${persona != null}">
-  		<p>Welcome, ${persona.nombre}</p>
-  		
-	</c:if>
+
 	<h2>Request Headers</h2>
 	<ol>
 	

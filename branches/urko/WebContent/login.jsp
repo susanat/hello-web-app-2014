@@ -1,9 +1,5 @@
 <%@page import="com.ipartek.formacion.helloworld.util.Constante"%>
 <%@page import="com.ipartek.formacion.helloworld.bean.Persona"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +12,6 @@
 
   <div class="login-card">
     <h1>Log-in</h1>
-    	<c:out value="${Constante.PARAMETRO_USER}"/>
   <form action="<%=Constante.SERVLET_LOGIN %>" method="post">
   	<%@ include file="includes/alerts.jsp" 	%>
     <input type="text" name="<%= Constante.PARAMETRO_USER %>" placeholder="Username">
