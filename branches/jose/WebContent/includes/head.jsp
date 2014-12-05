@@ -1,5 +1,5 @@
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
-<%@page errorPage="includes/error.jsp" %>
+<%@page errorPage="/includes/error.jsp" %>
 
 <!DOCTYPE html>
 <html lang="es">

@@ -1,10 +1,12 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
 <%@page import="com.ipartek.formacion.helloweb.bean.Mensaje"%>
 
-<div class="alert alert-${requestScope.msg.type}" role="alert">
-	${requestScope.msg.msg}
-	</div>
+<c:if test="${requestScope.msg != null }">
+	<div class="alert alert-${requestScope.msg.type}" role="alert">
+		${requestScope.msg.msg}</div>
+</c:if>
 
 <%
 	//mostrar mensaje si existe

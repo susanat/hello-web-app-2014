@@ -9,7 +9,6 @@
 
 
 
-<jsp:useBean id="Constantes" class="com.ipartek.formacion.helloweb.Constantes" scope = "application"/>
 <!-- BOTON -->
 <div class="row">
 	<div class="col-lg-12">
@@ -35,8 +34,7 @@
 		%>
 		<h2>No existe ninguna persona</h2>
 		<%
-			}
-			else {
+			}else {
 		%>
 
 		<div class="panel panel-default">
@@ -53,26 +51,30 @@
 									<th>Nombre</th>
 									<th>Edad</th>
 									<th>Rol</th>
-									<th><c:out value="${Constantes.ATT_PERSONAS}"/></th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="persona" begin="0" items="${requestScope.personas}">
-								
+
+								<%
+									Persona p = null;
+										for (int i = 0; i < personas.size(); i++) {
+											p = personas.get(i); //detalle persona
+											//out.println("<ol>");
+								%>
 								<tr>
 									<td><a
-										href="Persona?id=<c:out value="${persona.id}"/>">
-											${persona.id}
+										href="<%=Constantes.CONTROLLER_PERSONA + "?id="+ p.getId()%>">
+											<%=p.getId()%>
 									</a></td>
-									 <td>${persona.nombre}</td>
-									 <td>${persona.edad}</td>
-									 <td>${persona.rol}</td>
-									 
+									<td><%=p.getNombre()%></td>
+									<td><%=p.getEdad()%></td>
+									<td><%=p.getRol()%></td>
 									<td>
 										<form action="<%=Constantes.CONTROLLER_PERSONA%>"
 											method="post">
 											<input type="hidden" name="id"
-												value="${persona.id}"> <input type="hidden"
+												value="<%=p.getId()%>"> <input type="hidden"
 												name="<%=Constantes.OP_KEY%>"
 												value="<%=Constantes.OP_DELETE%>">
 
@@ -86,7 +88,11 @@
 									</td>
 								</tr>
 
-								</c:forEach>
+								<%
+									//out.println(personas.get(i).toString() + "</li>");
+											//out.println("</ol>");
+										}
+										 %>
 							</tbody>
 						</table>
 						</div>
