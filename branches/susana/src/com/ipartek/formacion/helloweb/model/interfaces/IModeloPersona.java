@@ -5,59 +5,53 @@ import java.util.ArrayList;
 import com.ipartek.formacion.helloweb.bean.Persona;
 
 /**
- * Modelo para getionar el bean de <code>persona</code>
- * 
- * @author Curso
+ * Modelo para gestionar el bean de <code>Persona</code>
+ * @author ur00
+ *
  */
-
 public interface IModeloPersona {
 
-    /**
-     * Retorna todas las personas de la BBDD alfabeticamente
-     * 
-     * @return Listado <code>persona</code>, sino existe null
-     */
+	/**
+	 * Retorna todas las perosnas de la BBDD alfabeticamente
+	 * @return listado <code>Persona</code>, si no existen null
+	 */
+	ArrayList<Persona> getAll();
+	
+	/**
+	 * Recuperar <code>Persona</code> por su identificador
+	 * @param id identificador <code>Persona</code>
+	 * @return <code>Persona</code>, si no existe null 
+	 */
+	Persona getById( int id );
+	
 
-    ArrayList<Persona> getAll();
+	/**
+	 * Insertar nueva  <code>Persona</code>
+	 * @param p  <code>Persona</code> a insertar
+	 * @return identificador de la  <code>Persona</code>, -1 si error 
+	 */
+	int insert ( Persona p );
+	
+	/**
+	 * Modifica una  <code>Persona</code>
+	 * @param p  <code>Persona</code> a insertar
+	 * @return identificador de la  <code>Persona</code>, -1 si error
+	 */
+	int update ( Persona p );
 
-    /**
-     * Recuperar <code>persona</code> por su identificador
-     * 
-     * @param id
-     *            identificador de <code>persona</code>
-     * @return <code>persona</code>, si no existe null
-     */
-    Persona getByID(int id);
-
-    /**
-     * Operaciones Basicas CRUD CREATE
-     * 
-     * Insertamos nueva <code>persona</code>
-     * 
-     * @param p
-     *            <code>persona</code> a insertar
-     * @return identificador de la <code>persona</code>, -1 si error
-     */
-    int insert(Persona p);
-
-    /**
-     * UPDATE
-     * 
-     * Modifica una <code>persona</code>
-     * 
-     * @param p
-     *            <code>persona</code> a insertar
-     * @return identificador de la <code>persona</code>, -1 si error
-     */
-    int update(Persona p);
-
-    /**
-     * Eliminamos logicamente <code>persona</code> por su identificador
-     * 
-     * @param id
-     *            identificador <code>persona</code>
-     * @return true si eliminado, false en caso contrario
-     */
-    boolean delete(int id);
-
+	
+	/**
+	 * Eliminamos logicamente <code>Persona</code> por su identificador
+	 * @param id identificador <code>Persona</code>
+	 * @return true si eliminado, false en caso contrario
+	 */
+	boolean delete( int id );
+	
 }
+
+
+
+
+
+
+

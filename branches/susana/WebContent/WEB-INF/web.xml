@@ -15,7 +15,7 @@
     <url-pattern>/login</url-pattern>
   </servlet-mapping>
   <servlet>
-    <description>Control de cerrar Session de usuario</description>
+    <description>Control de Cerrar Session del Usuario</description>
     <display-name>LogoutServlet</display-name>
     <servlet-name>LogoutServlet</servlet-name>
     <servlet-class>com.ipartek.formacion.helloweb.controller.LogoutServlet</servlet-class>
@@ -34,4 +34,5 @@
     <servlet-name>PersonaServlet</servlet-name>
     <url-pattern>/persona</url-pattern>
   </servlet-mapping>
+ 
 </web-app>

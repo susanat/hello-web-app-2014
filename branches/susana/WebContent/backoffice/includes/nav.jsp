@@ -1,5 +1,6 @@
- <!-- Navigation -->
-        <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
+ <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
+ 
+ <!-- Navigation -->      
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -8,13 +9,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="<%=Constantes.JSP_BACK_INDEX%>">Usuario Backoffices</a>
+                <a class="navbar-brand" href="#">${sessionScope.user_session.nombre} | ${sessionScope.user_session.rol}</a>
             </div>
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
                 <li>
-                    <a href="<%=Constantes.PATH_LOGOUT%>">[x] Desconectar</a>
+                    <a href="#">[x] Desconectar</a>
                 </li>
                 <!-- /.dropdown -->
             </ul>
@@ -25,7 +26,7 @@
                     <ul class="nav" id="side-menu">                        
                         <li>
                             <a class="active" href="<%=Constantes.CONTROLLER_PERSONA%>" title="Gestionar Personas"><i class="fa fa-dashboard fa-fw"></i> Personas</a>
-                        </li>                      
+                        </li>                       
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
@@ -36,11 +37,20 @@
         
         
        <div id="page-wrapper">
-           
+       
             <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Cambiar titulo</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
             
-            <div class="alert alert-success" role="alert">Aqui se veran los mensajes</div>
+            
+            <!--  Mensajes para el Usuario -->
+       		<div class="row">       			
+				<%@include file="/includes/alerts.jsp" %>
+       		</div>
             
             
-            
-            
+            <!-- /.row -->
+            <div class="row">
