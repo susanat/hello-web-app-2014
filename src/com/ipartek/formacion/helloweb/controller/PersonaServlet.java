@@ -59,7 +59,7 @@ public class PersonaServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-			IOException {
+	IOException {
 		// Comprobar si es getAll o getById
 		if (id == Persona.ID_NULL) {
 			getAll(request);
@@ -183,8 +183,12 @@ public class PersonaServlet extends HttpServlet {
 		try {
 			p = new Persona("");
 			p.setNombre(request.getParameter("nombre"));
-			p.setEdad(Integer.parseInt(request.getParameter("edad")));
-			p.setRol(Rol.valueOf(request.getParameter("rol")));
+			if (request.getParameter("edad") != null) {
+				p.setEdad(Integer.parseInt(request.getParameter("edad")));
+			}
+			if (request.getParameter("rol") != null) {
+				p.setRol(Rol.valueOf(request.getParameter("rol")));
+			}
 		} catch (final Exception e) {
 			p = null;
 			e.printStackTrace();

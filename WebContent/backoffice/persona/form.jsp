@@ -5,7 +5,7 @@
 <%@page import="com.ipartek.formacion.helloweb.util.Rol"%>
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
-	
+	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 	Persona persona = (Persona) request.getAttribute(Constantes.ATTR_PERSONA);
 	String buttonValue ="Crear";
@@ -30,7 +30,8 @@
 		<div class="form-group"><input type='hidden' name='op' value=<%=op%>></div>
 		
 		<div class="form-group">
-			<input class="form-control" type='text' name='id' readonly value='<%=persona.getId()%>'>
+			<input class="form-control" type='text' name='id' readonly 
+				   value="<fmt:formatNumber type="number" minIntegerDigits="3" value="${persona.id}"/>"/>
 		</div>
 		
 		<div class="form-group">
@@ -39,7 +40,7 @@
 		</div>
 		
 		<div class="form-group">
-			<label>Nombre</label>
+			<label>Edad</label>
 			<input class="form-control" type='number' name='edad' value="<%=persona.getEdad()%>">
 		</div> 
 		
@@ -47,8 +48,6 @@
 		
 		<div class="form-group">
 			<label>Rol</label>
-			<!-- <label class="radio-inline"><input type='radio' name='rol' value='<%=Rol.ADMINISTRADOR%>'/>Administrador</label>
-			<label class="radio-inline"><input type='radio' name='rol' checked value='<%=Rol.USUARIO%>'/>Usuario</label> -->
 			<select class="form-control" name='rol'>
 				<% for(Rol rol : Rol.values()){ 
 					if(rol == persona.getRol()){
@@ -60,7 +59,7 @@
 			</select>
 		</div>
 
-		<input type='submit' class="btn btn-primary" value='<%=buttonValue%>'>
+		<input type='submit' class="btn btn-primary pull-left" value='<%=buttonValue%>'>
 		
 	</form>
 	
@@ -68,7 +67,7 @@
 		<form action='<%=request.getContextPath() + "/" + Constantes.CONTROLLER_PERSONA%>' method='post'>
 			<input type="hidden" name="id" value="<%=persona.getId()%>">
 			<input type='hidden' name='op' value='<%=Constantes.OP_DELETE %>'>
-			<input type='submit' class="btn btn-danger" value='Eliminar'>
+			<input type='submit' class="btn btn-danger pull-right" value='Eliminar'>
 		</form>
 	<% } %>
 

@@ -1,3 +1,4 @@
+<%@page import="com.ipartek.formacion.helloweb.Constantes"%>
 <%@ page isErrorPage="true" %>
     
 <html lang="en"><head>
@@ -8,7 +9,7 @@
     <meta name="author" content="">
 
     <!-- Le styles -->
-    <link href="css/error.css" rel="stylesheet">
+    <link href="<%=Constantes.JSP_BACKOFFICE%>css/error.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -19,9 +20,9 @@
     <link rel="shortcut icon" href="favicon.ico">
 	
 	<!-- Javascript -->
-	<script type="text/javascript" src="js/jquery.js"></script>
-	<script type="text/javascript" src="js/custom.js"></script>
-	<script src="js/rotate.js"></script>
+	<script type="text/javascript" src="<%=Constantes.JSP_BACKOFFICE%>js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="<%=Constantes.JSP_BACKOFFICE%>js/error.js"></script>
+	<script src="<%=Constantes.JSP_BACKOFFICE%>js/errorRotate.js"></script>
   </head>
 
   <body jhjlijpomuhn_m="l">
@@ -31,31 +32,31 @@
 	<div id="container" style="display: block;">
 	<div class="background">
 		<div class="wrapper">
-			<div class="monster"><img src="images/monster.png" alt=""></div>
+			<div class="monster"><img src="<%=Constantes.JSP_BACKOFFICE%>images/monster.png" alt=""></div>
 			<div class="ooops">
 				<p>What have you done?<br>
-				You broke it! but don’t worry<br>
-				I’m here to fix it.</p>
+				You broke it! but don't worry<br>
+				I'm here to fix it.</p>
 			</div>
 			<div class="sprockets">
 				<div class="frame"></div>
-				<img id="img1" src="images/sprocket-orange.png" class="s1" alt="" style="-webkit-transform: rotate(133deg);">
+				<img id="img1" src="<%=Constantes.JSP_BACKOFFICE%>images/sprocket-orange.png" class="s1" alt="" style="-webkit-transform: rotate(133deg);">
 				<script>rotateAnimation("img1",90);</script>
-				<img id="img2" src="images/sprocket-red.png" class="s2" alt="" style="-webkit-transform: rotate(134deg);">
+				<img id="img2" src="<%=Constantes.JSP_BACKOFFICE%>images/sprocket-red.png" class="s2" alt="" style="-webkit-transform: rotate(134deg);">
 				<script>rotateAnimation("img2",90);</script>
-				<img id="img3" src="images/sprocket-green.png" class="s3" alt="" style="-webkit-transform: rotate(132deg);">
+				<img id="img3" src="<%=Constantes.JSP_BACKOFFICE%>images/sprocket-green.png" class="s3" alt="" style="-webkit-transform: rotate(132deg);">
 				<script>rotateAnimation("img3",150);</script>
 			</div>
 			
 			<div class="social">
-				<a href="#"><img src="images/fb.png" alt=""></a>
-				<a href="#"><img src="images/tw.png" alt=""></a>
-				<a href="#"><img src="images/yt.png" alt=""></a>
-				<a href="#"><img src="images/rss.png" alt=""></a>
+				<a href="#"><img src="<%=Constantes.JSP_BACKOFFICE%>images/fb.png" alt=""></a>
+				<a href="#"><img src="<%=Constantes.JSP_BACKOFFICE%>images/tw.png" alt=""></a>
+				<a href="#"><img src="<%=Constantes.JSP_BACKOFFICE%>images/yt.png" alt=""></a>
+				<a href="#"><img src="<%=Constantes.JSP_BACKOFFICE%>images/rss.png" alt=""></a>
 			</div>
 			
 			<footer>
-				<span>© Little Repair Monster.</span> All right reserved.
+				<span>© Akerbetz</span>
 			</footer>
 		</div>
 	</div>
