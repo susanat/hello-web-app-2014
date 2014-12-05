@@ -348,6 +348,12 @@ table.dataTable thead .sorting:after {
     color: #df8a13;
 }
 
+/*Personales*/
+
 .top-margin {
 	margin-top:20px; 
 }
+.left-margin {
+	margin-left:16px;
+}
+

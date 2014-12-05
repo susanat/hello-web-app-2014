@@ -1,7 +1,11 @@
-<!DOCTYPE html>
-<%@page import="com.ipartek.formacion.helloweb.Constantes"%>
-<html>
 
+<%@page import="com.ipartek.formacion.helloweb.Constantes"%>
+
+
+<!DOCTYPE html>
+
+<html>
+ 
 <head>
 
   <meta charset="UTF-8">
@@ -17,7 +21,7 @@
 </head>
 
 <body>
-	<%@include file="includes/alerts.jsp" %>
+	<%@include file="includes/alerts.jsp" %> 
   <div class="login-card ">
   
     <h1>Log-in</h1><br>

@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.Rol;
-import com.ipartek.formacion.helloweb.TipoMensaje;
 import com.ipartek.formacion.helloweb.bean.Mensaje;
 import com.ipartek.formacion.helloweb.bean.Persona;
 import com.ipartek.formacion.helloweb.model.ModeloPersona;
@@ -147,7 +146,7 @@ public class PersonaServlet extends HttpServlet {
      */
     private void opNotSuported(HttpServletRequest request) {
 	getAll(request);
-	msg = new Mensaje(Constantes.MSG_NOT_ALLOWED, TipoMensaje.WARNING, 3);
+	msg = new Mensaje(Constantes.MSG_NOT_ALLOWED, Constantes.MSG_WARNING, 3);
 	;
 
     }
@@ -163,10 +162,11 @@ public class PersonaServlet extends HttpServlet {
 	    // instertalo
 	    // TODO comprobar la inserccion
 	    model.insert(p);
-	    msg = new Mensaje(Constantes.MSG_REG_CREATE, TipoMensaje.SUCCESS, 1);
+	    msg = new Mensaje(Constantes.MSG_REG_CREATE,
+		    Constantes.MSG_SUCCESS, 1);
 	} else {
 	    msg = new Mensaje(Constantes.MSG_ERR_PARAMETERS,
-		    TipoMensaje.DANGER, 4);
+		    Constantes.MSG_DANGER, 4);
 	}
 
 	// enviar atributos
@@ -190,10 +190,11 @@ public class PersonaServlet extends HttpServlet {
 	    // TODO comprobar que realmente se ha modificado
 	    model.update(p);
 	    // enviar atributos
-	    msg = new Mensaje(Constantes.MSG_REG_UPDATE, TipoMensaje.SUCCESS, 1);
+	    msg = new Mensaje(Constantes.MSG_REG_UPDATE,
+		    Constantes.MSG_SUCCESS, 1);
 	} else {
 	    msg = new Mensaje(Constantes.MSG_ERR_PARAMETERS,
-		    TipoMensaje.DANGER, 4);
+		    Constantes.MSG_DANGER, 4);
 	}
 
 	request.setAttribute(Constantes.ATT_PERSONA, p);
@@ -212,10 +213,11 @@ public class PersonaServlet extends HttpServlet {
     private void delete(HttpServletRequest request) {
 
 	if (model.delete(id)) {
-	    msg = new Mensaje(Constantes.MSG_REG_DELETE, TipoMensaje.SUCCESS, 1);
+	    msg = new Mensaje(Constantes.MSG_REG_DELETE,
+		    Constantes.MSG_SUCCESS, 1);
 	} else {
 	    msg = new Mensaje(Constantes.MSG_ERR_PARAMETERS,
-		    TipoMensaje.DANGER, 4);
+		    Constantes.MSG_DANGER, 4);
 	}
 	getAll(request);
     }

@@ -1,6 +1,5 @@
 package com.ipartek.formacion.helloweb.bean;
 
-import com.ipartek.formacion.helloweb.TipoMensaje;
 
 /**
  * Clase para mostrar los mensajes o alertas durante la apliación.
@@ -9,7 +8,7 @@ import com.ipartek.formacion.helloweb.TipoMensaje;
  *
  */
 public class Mensaje {
-    
+
     /**
      * Descripción del mensaje
      */
@@ -17,13 +16,13 @@ public class Mensaje {
     /**
      * Tipo del mensaje: Success, Info, Warning, Danger
      */
-    private TipoMensaje type;
+    private String type;
     /**
      * Código http
      */
     int code;
 
-    public Mensaje(String msg, TipoMensaje type, int code) {
+    public Mensaje(String msg, String type, int code) {
 	super();
 	setMsg(msg);
 	setType(type);
@@ -39,11 +38,11 @@ public class Mensaje {
 
     }
 
-    public TipoMensaje getType() {
+    public String getType() {
 	return type;
     }
 
-    public void setType(TipoMensaje type) {
+    public void setType(String type) {
 	this.type = type;
     }
 

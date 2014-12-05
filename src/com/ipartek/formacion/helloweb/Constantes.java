@@ -18,6 +18,7 @@ public class Constantes {
     // JSPs
     public static final String JSP_SALUDO = "/saludo.jsp";
     public static final String JSP_LOGIN = "/login.jsp";
+    public static final String JSP_LOGOUT = "/logout.jsp";
 
     // JSPs Backoffice
     public static final String BACKOFFICE_FOLDER = "backoffice/";
@@ -41,6 +42,12 @@ public class Constantes {
     public static final String MSG_REG_UPDATE = "Registro modificado con éxito";
     public static final String MSG_ERR_PARAMETERS = "Error recogiendo parametros";
     public static final String MSG_ERR_DELETE = "Error eliminando registro";
+
+    // Tipo Mensajes
+    public static final String MSG_SUCCESS = "success";
+    public static final String MSG_INFO = "info";
+    public static final String MSG_WARNING = "warning";
+    public static final String MSG_DANGER = "danger";
 
     // Atributos
     public static final String ATT_PERSONAS = "personas";
