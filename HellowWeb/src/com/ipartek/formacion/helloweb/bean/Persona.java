@@ -38,6 +38,11 @@ public class Persona {
 	public int getRol() {
 		return idRol;
 	}
+	
+	//TODO: temporal para el <c:if...
+	public int getIdRol() {
+		return idRol;
+	}
 
 	public void setRol(int idRol) {
 		this.idRol = idRol;

@@ -34,7 +34,7 @@
 	<%
 		String path = request.getRequestURL().toString();
 	
-		int i = 2/0;
+		//int i = 2/0;
 	
 	%>
 
@@ -99,9 +99,7 @@
             String name = (String)e.nextElement();
             String value = session.getAttribute(name).toString();
             out.println("<li>" + name + " = " + value + "</li>");
-        }
-		
-		
+        }		
 		%>
 	</ol>
 	

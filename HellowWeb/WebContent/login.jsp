@@ -5,6 +5,9 @@
 <%@page pageEncoding="UTF-8" %>
 
 
+<!-- https://jstl.java.net/ -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <%//*************************** Autentificación usuario
 
 	//Obtenemos la persona autentificada
@@ -153,12 +156,26 @@
 				</div> <!-- fin panel primary -->
 			
 			<!-- Mostramos el error si hay  -->
-			<%				
+			<%			
 				Message msg = UtilsTemp.getMessage(request);
 				if(msg != null && msg.isError()){
 					out.print(msg.getShowDivAlert());
 				}
+			
 			%>
+			
+			
+			
+						
+			<c:if test="${requestScope.isError.error != false}">
+				<div class="alert alert-${requestScope.isError.type} " role="alert">
+					Alerta: ${requestScope.isError.text}
+				</div>			
+			</c:if>
+			
+			
+			<c:out value="<% msg.getText(); %>"/> 
+			
 			</div>
 		</div>
 	</div>
