@@ -1,7 +1,7 @@
-<!DOCTYPE html>
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
-<html>
 
+<!DOCTYPE html>
+<html>
 <head>
 
   <meta charset="UTF-8">
@@ -11,6 +11,8 @@
   <link rel='stylesheet' href='http://codepen.io/assets/libs/fullpage/jquery-ui.css'>
 
     <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
+    
+        <link href="<%=Constantes.JSP_BACKOFFICE%>/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
 

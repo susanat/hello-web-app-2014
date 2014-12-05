@@ -1,10 +1,17 @@
-<!DOCTYPE html>
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
+<%@page  errorPage="includes/error.jsp"  %>
+<!DOCTYPE html>
+
 <html lang="es">
 
 <head>
 
+	<!-- Este es para las pruebas para que casque y se carga includes/error.jsp   -->
+	<!-- int x  = 2/0; -->
+
+	<!-- Ruta Base para todas nuestras url relativas -->
 	<base href="<%=request.getContextPath()+"/"%>">
+	
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,20 +21,16 @@
     <title>BackOffice</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="<%=Constantes.JSP_BACKOFFICE%>css/bootstrap.min.css" rel="stylesheet">
+    <link href="<%=Constantes.JSP_BACKOFFICE%>/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="<%=Constantes.JSP_BACKOFFICE%>css/sb-admin-2.css" rel="stylesheet">
-
+    <link href="<%=Constantes.JSP_BACKOFFICE%>/css/sb-admin-2.css" rel="stylesheet">
    
     <!-- Custom Fonts -->
-    <link href="<%=Constantes.JSP_BACKOFFICE%>font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-	<!-- Enlaces para datatable de Jquery -->
-	    <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.4/css/jquery.dataTables.css">
-	<!-- FIN - Enlaces para datatable de Jquery -->
-	
-	
+    <link href="<%=Constantes.JSP_BACKOFFICE%>/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    <!-- DataTable -->
+    <link href="<%=Constantes.JSP_BACKOFFICE%>css/plugins/dataTables.bootstrap.css" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
