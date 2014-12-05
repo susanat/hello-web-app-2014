@@ -36,10 +36,15 @@
 		
 		
 		<form action="<%=request.getContextPath() + "/" + Constantes.CONTROLLER_PERSONA %>" method="post" role="form">
+			<%
+				if(!isNew){
+			%>
 			<div class="form-group">
 				<label>Id</label>
 				<input type="text" name="id" readonly="readonly" value="<%=p1.getId()%>" class="form-control">
 			</div>
+			
+			<%} %>
 			
 			<div class="form-group">
 				<label>Nombre</label>
@@ -55,20 +60,29 @@
 			<label>Rol</label>
 			<div class="radio">
 				<label>
-					<input type="radio" name="rol" value=<%=Persona.Rol.ADMINISTRADOR %> checked>
+					<input type="radio" name="rol" value=<%=Persona.Rol.ADMINISTRADOR %>>
 					Administrador
 				</label>
 			</div>
 			<div class="radio">
 				<label>
-					<input type="radio" name="rol" value=<%=Persona.Rol.USER %>>
+					<input type="radio" name="rol" value=<%=Persona.Rol.USER %> checked>
 					Usuario
 				</label>
 			</div>		
 			<input type="hidden" name="op" value=<%= op %>>
 			<br>
+			<%
+				if(buttonValue.equals("Modificar") || buttonValue.equals("Crear")){
+				    if(!Constantes.LETRERO_BORRAR.equals(request.getParameter("accion"))){
+			%>
 			<input type="submit" value=<%=buttonValue %> class="btn btn-primary">
 			<br>
+			<%
+				
+				    }
+				}
+			%>
 		</form>
 		<!-- TODO: Formulario eliminar -->
 		
@@ -78,7 +92,6 @@
 		<form action="<%=request.getContextPath() + "/" + Constantes.CONTROLLER_PERSONA %>" method="post">
 			<input type="hidden" name="id" value="<%=p1.getId() %>">
 			<input type="hidden" name=<%=Constantes.OP_KEY %> value=<%=Constantes.OP_DELETE %>>
-			<br>
 			<input type="submit" value="Eliminar" class="btn btn-danger">
 		</form>
 		<%} %>

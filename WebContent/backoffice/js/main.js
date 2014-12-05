@@ -4,4 +4,11 @@
 
 //Enganche de datatables
 
-$('#miTabla').DataTable();
+$('#miTabla').DataTable({
+	"language": {
+		   "url": "backoffice/js/plugins/dataTables/lang/lang_ES.json" 
+	}
+	
+});
+
+

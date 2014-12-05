@@ -19,7 +19,8 @@
                 <h2>
                     This is an error, bitch</h2>
                 <div class="error-details">
-                  <h3>  <%= %></h3>
+                  <h2>  <%=exception.getMessage() %>
+                  </h2>
                 </div>
                 <div class="error-actions">
                     <a href="#" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
@@ -28,4 +29,4 @@
             </div>
         </div>
     </div>
-</div>
+</div>	

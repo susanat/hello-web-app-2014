@@ -70,6 +70,7 @@
 		    %>
 		      </tbody>
     		</table>
+
 		    <p><a href=<%=Constantes.JSP_BACKOFFICE_PERSONA_FORM +"?accion=" + Constantes.LETRERO_CREAR %> class="btn btn-primary"><i class="fa fa-plus fa-fw"></i> Crear</a>
 		    </p>
 		    

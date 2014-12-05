@@ -71,6 +71,7 @@ public class LoginServlet extends HttpServlet {
 	    sesion.setAttribute(Constantes.USER_SESSION, p);
 	} else {
 	    // Incorrecto: Enviar de nuevo a login.jsp
+	    // TODO: Mirar si el login es vacio
 	    msg.setMsg(Constantes.MSG_LOGIN_INCORRECT);
 	    msg.setType(Constantes.ALERT_TYPE_DANGER);
 	    dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
