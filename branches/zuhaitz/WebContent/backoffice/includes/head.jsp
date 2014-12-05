@@ -8,8 +8,8 @@
 
 <head>
 
-	<%Object o =null; 
-	o.toString();%>
+	<%//Object o =null; 
+	//o.toString();%>
 
 	<base href="<%=request.getContextPath() + "/"%>"/>
     <meta charset="utf-8">
@@ -23,10 +23,10 @@
     <!-- Bootstrap Core CSS -->
     <link href="<%=Constantes.JSP_BACKOFFICE%>css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
+    <!-- sb-admin-2 Custom CSS -->
     <link href="<%=Constantes.JSP_BACKOFFICE%>css/sb-admin-2.css" rel="stylesheet">
 
-    <!-- Custom Fonts -->
+    <!-- font-awesome Fonts -->
     <link href="<%=Constantes.JSP_BACKOFFICE%>font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     
     <!-- DataTables CSS -->
