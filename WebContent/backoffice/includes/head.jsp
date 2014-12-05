@@ -1,5 +1,8 @@
-<!DOCTYPE html>
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
+<%@page errorPage="includes/error.jsp" %>
+
+<!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -38,5 +41,12 @@
 </head>
 
 <body>
+
+	<% 
+	//Object o =null; 
+	//o.toString();
+	
+	%>
+	
 
     <div id="wrapper">

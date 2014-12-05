@@ -18,18 +18,23 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="<%= Constantes.JSP_BACKOFFICE %>js/bootstrap.min.js"></script>
+    
+    <!-- sb-admin-2 Core JavaScript -->
+    <script src="<%= Constantes.JSP_BACKOFFICE %>js/sb-admin-2.js"></script>
        
     <!-- datatables -->
     <script type="text/javascript" language="javascript" src="<%= Constantes.JSP_BACKOFFICE %>js/plugins/dataTables/jquery.dataTables.js"></script>
 	<script type="text/javascript" language="javascript" src="<%= Constantes.JSP_BACKOFFICE %>js/plugins/dataTables/dataTables.bootstrap.js"></script>
-    <script type="text/javascript">
-	$(document).ready(function() {
-		$('#listaPersonas').dataTable();
-	} );
-	// For demo to fit into DataTables site builder...
-	$('#listaPersonas')
-		.removeClass( 'display' )
-		.addClass('table table-striped table-bordered');
+    
+    <script type="text/javascript">	
+    	$(document).ready(function() {
+			$('#listaPersonas').dataTable();
+		} );
+    	
+		// For demo to fit into DataTables site builder...
+		$('#listaPersonas')
+			.removeClass( 'display' )
+			.addClass('table table-striped table-bordered');
 	</script>
 
 </html>
