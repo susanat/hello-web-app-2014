@@ -218,7 +218,7 @@ public class ModeloPersona implements IModeloPersona {
 				
 				int contador = 0;
 				while ( CargasTemporales.personas.size() >  contador ) {
-				//comparamos ignorando mayúsculas y minúsculas
+				//comparamos ignorando mayï¿½sculas y minï¿½sculas
 		          if (CargasTemporales.personas.get(contador).getNombre().equalsIgnoreCase(username)) {
 		        	  existe = true;
 		        	  
@@ -260,7 +260,7 @@ public class ModeloPersona implements IModeloPersona {
 		if (CargasTemporales.personas != null) {			
 			int contador = 0;
 			while ( CargasTemporales.personas.size() >  contador ) {
-			//comparamos ignorando mayúsculas y minúsculas
+			//comparamos ignorando mayï¿½sculas y minï¿½sculas
 	          if (CargasTemporales.personas.get(contador).getNombre().equalsIgnoreCase(username)) {
 	        	  res = CargasTemporales.personas.get(contador);
 	        	  
@@ -270,6 +270,12 @@ public class ModeloPersona implements IModeloPersona {
 	          contador ++;
 		    }
 		}		
+		
+		//no ha encontrado el objeto
+		if(res == null) {
+			onError(null, new Exception("No se ha encontrado el usuario"));
+		}
+		
 		
 		return res;
 	}

@@ -83,12 +83,6 @@ public class LoginServlet extends HttpServlet {
 		msg.setText("LoginServlet.java: Error en el modelo de datos de persona.");
 		msg.setException(ex);
 		msg.setType(ETypeAlert.DANGER);
-		
-		
-		
-		//actualRequest.setAttribute(Constantes.ATTR_ERROR, true);
-		//actualRequest.setAttribute(Constantes.ATTR_ERROR_MSJ, "LoginServlet.java: Error en el modelo de datos de persona.");
-		//actualRequest.setAttribute(Constantes.ATTR_ERROR_EXCEPTION, ex);
 	}
 	
 	@Override
@@ -98,23 +92,72 @@ public class LoginServlet extends HttpServlet {
 		//destruimos el objeto al finalizar el ciclo de vida del servlet
 		model = null;
 	}
+	
+	/**
+	 * Realizamos el proceso de validación y obtención de la autentificación del usuario
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	private Message doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//obtenemos la sesion
+		HttpSession session = request.getSession();
+
+		Message lMsg = new Message();
+		
+		//Inicializamos las variables necesarias
+		Boolean validado = false;
+		boolean autentificado = false;
+		Persona perSesion = null;
+				
+		
+		//obtenemos los par�metros del login
+		String username = request.getParameter(Constantes.PARAMETRO_USER);
+	    String password = request.getParameter(Constantes.PARAMETRO_PASSWORD);
+	    	    
+	    //si el usuario es válido, obtenemos el  por nombre el usuario
+  		if (validarUsuario(username, password)) {
+  			
+  			//obtenemos el usuario del origen de datos
+  			perSesion = model.getByName(username);			
+  						
+  			//TODO: falta campo de password en el usuario
+  			//usuario autentificado 
+  			if(perSesion != null) {				
+  				autentificado = true;				
+  			} else {				
+  				validado = false;
+  				
+  				lMsg.setError(true);
+  				lMsg.setText("Usuario o contraseña incorrecto");
+  				lMsg.setType(ETypeAlert.DANGER);  								
+  				
+  			}
+  		}	
+
+						
+		//Preparamos la respuesta:
+		// añadimos el error (exista o no)
+		request.setAttribute(Constantes.ATTR_ERROR, msg);		
+		
+		//Preparamos la sesion:
+		// usuario (puede ser null)		
+		session.setAttribute(Constantes.PARAM_SESSION_USER, perSesion);
+		// autentificación (true o false)
+		session.setAttribute(Constantes.PARAM_SESSION_AUTHENTICATED, autentificado);
+	
+		return lMsg;
+		
+	}
 	  
     
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
 		HttpSession session = request.getSession();
-		
-		//Inicializamos las variables necesarias
-		Boolean validado = true;
-		boolean autentificado = false;
-		Persona perSesion = null;
-				
-		//inicializamos si ha sido autentificado (en inicio, false)
-		request.setAttribute(Constantes.PARAM_SESSION_AUTHENTICATED, autentificado);
 		
 		//obtenemos la redireccion por defecto
 		String urlToDefault = Constantes.JSP_LOGIN;
@@ -126,11 +169,68 @@ public class LoginServlet extends HttpServlet {
 			urlTo = request.getParameter(Constantes.PARAM_URL_TO);
 		}
 		
-		//obtenemos los par�metros del login
-		String username = request.getParameter(Constantes.PARAMETRO_USER);
-	    String password = request.getParameter(Constantes.PARAMETRO_PASSWORD);
-	    //String fromPath = request.getParameter(Constantes.PARAM_SESSION_LAST_URL);
-	    
+		if(!isAlreadyAutentificado(request)) {
+			msg = doProcess(request, response);
+			
+			if(msg.isError()) {
+				urlTo = urlToDefault;
+			}
+		}
+		
+		//si no ha habido fallo, modificamos la última url visitada con el login (evitamos problemas de redirección)
+		if(!msg.isError()){
+			session.setAttribute(Constantes.PARAM_SESSION_LAST_URL, Constantes.JSP_LOGIN);
+		}
+		
+		
+		//redirigimos necesario
+		dispatcher = request.getRequestDispatcher(Utils.getUriFile(urlTo));	    
+		dispatcher.forward(request, response);			
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
+	
+	
+	/**
+	 * Comprueba si un usuario ya está autentificado siempre que le pasemos el usuario y el password
+	 * 
+	 * @param request petición
+	 * @return
+	 */
+	
+	private boolean isAlreadyAutentificado(HttpServletRequest request) 
+	{
+		Boolean isAutentificado = false;
+		HttpSession session = request.getSession();		
+		
+		//comprobamos si ya está logueado	    
+	    if(session.getAttribute(Constantes.PARAM_SESSION_USER) != null){	    	
+	    		isAutentificado = true;
+	    		
+	    		//TODO: log en el server de como ha llegado de nuevo al login estando autentificado, posible problema
+	    		    	
+	    }
+	
+		return isAutentificado;		
+	}
+	
+	
+	
+	
+	/**
+	 * Comprueba si son válidos el dato usuario y el dato password
+	 * @param username nombre de usuario
+	 * @param password contraseña
+	 * @return true si pasa la validacion, false en caso contrario
+	 */
+	private boolean validarUsuario (String username, String password) {
+		Boolean validado = true;
+		
 		//validamos los par�metros del login
 	    if(username == null || password == null) {
 	    	validado = false;
@@ -158,59 +258,11 @@ public class LoginServlet extends HttpServlet {
 			}
 	    }
 		
-		//buscamos por nombre el usuario
-		if (validado) {			
-			//obtenemos el usuario del origen de datos
-			perSesion = model.getByName(username);			
-						
-			//TODO: falta campo de password en el usuario
-			//usuario autentificado 
-			if(perSesion != null) {				
-				autentificado = true; 
-				
-			} else {				
-				validado = false;
-				
-				msg.setError(true);
-				msg.setText("Usuario o contraseña incorrecto");
-				msg.setType(ETypeAlert.DANGER);
-								
-				//devolvemos al login
-				urlTo = urlToDefault;
-			}
-		}		
-		
-		//preparamos la respuesta
-		request.setAttribute(Constantes.PARAM_SESSION_USER, perSesion);		
-		request.setAttribute(Constantes.PARAM_SESSION_AUTHENTICATED, autentificado);
-		
-		//de regalo, la lista de roles
-		//request.setAttribute(Constantes.ATTR_ROLES_LIST, CargasTemporales.getListRoles());
-		
-		//añadimos el error
-		request.setAttribute(Constantes.ATTR_ERROR, msg);
-		
-		
-		//preparamos la session
-		session.setAttribute(Constantes.PARAM_SESSION_USER, perSesion);		
-		session.setAttribute(Constantes.PARAM_SESSION_AUTHENTICATED, autentificado);
-		//si no ha habido fallo, modificamos la última url visitada con el login
-		if(!msg.isError()){
-			session.setAttribute(Constantes.PARAM_SESSION_LAST_URL, Constantes.JSP_LOGIN);
-		}
-		
-		
-		//redirigimos necesario
-		dispatcher = request.getRequestDispatcher(Utils.getUriFile(urlTo));	    
-		dispatcher.forward(request, response);			
+		return validado;
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}
+	
+	
+	
 	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp)
@@ -235,11 +287,12 @@ public class LoginServlet extends HttpServlet {
 		//TODO comprobar Autorizacion del usuario en el servlet tambi�n		
 	}
 
-
+	/*
 	@Override
 	public void service(ServletRequest req, ServletResponse res)
 			throws ServletException, IOException {		
 		super.service(req, res);
 	}
+	*/
 
 }

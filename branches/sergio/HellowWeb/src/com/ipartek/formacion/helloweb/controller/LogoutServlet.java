@@ -46,12 +46,10 @@ public class LogoutServlet extends HttpServlet {
 		contador = new ShutdownExample();
 	}
 	
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+	
+	
+	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		HttpSession session = null;
 		
 		//obtenemos la redireccion por defecto
@@ -71,7 +69,9 @@ public class LogoutServlet extends HttpServlet {
 		
 		//obtenemos la sesión
 		session = request.getSession();
+				
 		
+		/*
 		//obtenemos los datos
 		if (session != null) {
 			
@@ -88,6 +88,15 @@ public class LogoutServlet extends HttpServlet {
 			}
 						
 		}
+		*/
+		
+		
+		//Invalido siempre (TODO: ver si cambiar y solo borrar usuario o por defecto invalidar)
+		session.invalidate();
+		//casca si no la obtenemos de nuevo
+		session = request.getSession();
+		
+		
 		
 		//creamos una nueva session si está invalidada
 		
@@ -102,7 +111,16 @@ public class LogoutServlet extends HttpServlet {
 		
 		//redirigimos necesario
 		dispatcher = request.getRequestDispatcher(Utils.getUriFile(urlTo));	    
-		dispatcher.forward(request, response);			
+		dispatcher.forward(request, response);		
+	}
+	
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doProcess(request, response);
+			
 		
 	}
 
@@ -110,7 +128,7 @@ public class LogoutServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		doProcess(request, response);
 	}
 	
 	@Override

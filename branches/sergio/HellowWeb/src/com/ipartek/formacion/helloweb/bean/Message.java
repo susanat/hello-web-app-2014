@@ -35,6 +35,11 @@ public class Message
 	public Boolean isError() {
 		return error;
 	}
+	
+	public Boolean getError() {
+		return error;
+	}
+	
 	public void setError(Boolean error) {
 		this.error = error;
 	}

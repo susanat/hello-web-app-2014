@@ -123,7 +123,7 @@ public final class Constantes {
 
 	public final static  String JSP_SALUDO = PATH_SITE + "saludo.jsp";
 
-	public final static  String JSP_LOGIN = PATH_SITE + "login.jsp";
+	public final static  String JSP_LOGIN = PATH_SITE + "login_jstl.jsp";
 	public final static  String JSP_LOGOUT = PATH_SITE + "logout.jsp";
 
 

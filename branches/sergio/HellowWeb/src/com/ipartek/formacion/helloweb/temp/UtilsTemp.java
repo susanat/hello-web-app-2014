@@ -153,7 +153,7 @@ public class UtilsTemp {
 		}
 		
 		//añadimos el último path visitado
-		session.setAttribute(Constantes.PARAM_SESSION_LAST_URL, path);		
+		session.setAttribute(Constantes.PARAM_SESSION_LAST_URL, path);	
 		
 	}
 	
@@ -197,6 +197,12 @@ public class UtilsTemp {
 	}
 	
 	
+	/**
+	 * Obtiene el objeto del usuario autentificado
+	 * 
+	 * @param session Sesión actual
+	 * @return null si no existe usuario o Objeto de tipo usuario
+	 */
 	public static Persona getAuthenticated(HttpSession session) {
 		
 		Persona p = null;		
