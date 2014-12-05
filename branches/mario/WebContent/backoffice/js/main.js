@@ -4,5 +4,15 @@
 *
 */
 $( document ).ready(function() {
-     $('#tabla').DataTable();
+    
+     $('#tabla').dataTable( {
+         "language": {
+        	 "lengthMenu": "Muestra _MENU_ registros por pantalla",
+             "zeroRecords": "No hay datos para mostrar",
+             "info": "Mostrando pagina _PAGE_ de _PAGES_",
+             "infoEmpty": "No hay datos",
+             "infoFiltered": " ( filtrados de _MAX_ registro(s) )"
+         }
+     } );
 });
+

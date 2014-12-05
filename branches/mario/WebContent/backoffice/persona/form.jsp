@@ -5,7 +5,7 @@
 	<%@page import="com.ipartek.formacion.helloweb.Rol"%>
 	<%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 	<%@page import="com.ipartek.formacion.helloweb.Constantes"%>
-	
+	 
 	<%
 		//Crear Persona nueva
 		Persona per =(Persona) request.getAttribute(Constantes.ATT_PERSONA);
@@ -54,7 +54,7 @@
 			<div class="form-group">
 			
 				<label>Rol</label>
-				<select name="rol">
+				<select name="rol" class="form-control ">
 					<%
 						for(Rol rol: Rol.values()){ 
 							if(rol == per.getRol()){
@@ -71,7 +71,7 @@
 			<input type="hidden" name="<%=Constantes.OP_KEY %>" value="<%= op %>" >			
 			
 			<div class="form-group">
-				<input type="submit" value="<%=buttonValue %>" class="btn btn-primary btn-outline btn-xs">
+				<input type="submit" value="<%=buttonValue %>" class="btn btn-primary btn-outline">
 			</div>
 		</form>
 		
@@ -82,7 +82,7 @@
 			<input type="hidden" name="id" value="<%= per.getId() %>">
 			<input type="hidden" name="<%=Constantes.OP_KEY %>" value="<%=Constantes.OP_DELETE%>">
 			<div class="form-group">
-				<input type="submit" value="Eliminar" class="btn btn-danger btn-outline btn-xs">
+				<input type="submit" value="Eliminar" class="btn btn-danger btn-outline left-margin">
 			</div>
 		</form>
 		<%} %>	 

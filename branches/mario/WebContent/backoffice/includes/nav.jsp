@@ -53,6 +53,6 @@
 
         <div id="page-wrapper">
         	<div class="row">
-        		<%@include file="/includes/alerts.jsp" %>
+        		<%@include file="/includes/alerts.jsp" %> 
         	</div>
         

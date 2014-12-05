@@ -20,7 +20,7 @@
 	
     <!-- DataTable javasCript -->
     <script src="<%=Constantes.BACKOFFICE_FOLDER %>js/plugins/dataTables/jquery.dataTables.js"></script>
-    <script src="<%=Constantes.BACKOFFICE_FOLDER %>js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    
   
     <script src="<%=Constantes.BACKOFFICE_FOLDER %>js/main.js"></script>
 	

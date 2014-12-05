@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.helloweb.Constantes;
-import com.ipartek.formacion.helloweb.TipoMensaje;
 import com.ipartek.formacion.helloweb.bean.Mensaje;
 
 /**
@@ -44,7 +43,8 @@ public class LogoutServlet extends HttpServlet {
 
 	// forward a login
 	dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
-	Mensaje msg = new Mensaje(Constantes.MSG_LOGOUT, TipoMensaje.SUCCESS, 1);
+	Mensaje msg = new Mensaje(Constantes.MSG_LOGOUT,
+		Constantes.MSG_SUCCESS, 1);
 	request.setAttribute(Constantes.MSG_KEY, msg);
 	dispatch.forward(request, response);
 

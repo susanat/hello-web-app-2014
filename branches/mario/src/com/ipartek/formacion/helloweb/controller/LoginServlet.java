@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.Rol;
-import com.ipartek.formacion.helloweb.TipoMensaje;
 import com.ipartek.formacion.helloweb.bean.Mensaje;
 import com.ipartek.formacion.helloweb.bean.Persona;
 
@@ -95,7 +94,7 @@ public class LoginServlet extends HttpServlet {
 	    // incorrecto: enviar de nuevo a login.jsp
 	    dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
 	    Mensaje msg = new Mensaje(Constantes.MSG_LOGIN_INCORRECT,
-		    TipoMensaje.DANGER, 4);
+		    Constantes.MSG_DANGER, 4);
 	    request.setAttribute(Constantes.MSG_KEY, msg);
 
 	}
