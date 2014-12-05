@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
+<%@page errorPage="backoffice/includes/error.jsp" %>
+
+
 <html>
 
 <head>
@@ -15,6 +18,11 @@
 </head>
 
 <body>
+
+<% // para probar pagina de error.
+
+//int i = 1/0;%>
+
 
   <div class="login-card">
     <h1>Log-in</h1><br>
