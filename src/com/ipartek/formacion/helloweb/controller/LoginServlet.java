@@ -41,6 +41,9 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request,
 	    HttpServletResponse response) throws ServletException, IOException {
+	// cargar fichero de mensajes
+	loadMessages();
+
 	// recuperar sesion
 	session = request.getSession();
 
@@ -120,4 +123,11 @@ public class LoginServlet extends HttpServlet {
 	doGet(request, response);
     }
 
+    /**
+     * Carga los mensajes con el idioma establecido
+     */
+    private void loadMessages() {
+	// TODO Terminar de implementar
+
+    }
 }
