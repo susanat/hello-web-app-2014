@@ -1,3 +1,5 @@
+<%@page import="com.ipartek.formacion.helloweb.comun.Utils"%>
+<%@page import="java.util.Locale"%>
 <%@page import="com.ipartek.formacion.helloweb.bean.Message"%>
 <%@page import="com.ipartek.formacion.helloweb.temp.UtilsTemp"%>
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
@@ -7,40 +9,42 @@
 
 <!-- https://jstl.java.net/ -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-<% 
-	//session.removeAttribute(Constantes.PARAM_SESSION_AUTHENTICATED);
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 
-	//session.setAttribute(Constantes.PARAM_SESSION_AUTHENTICATED, null);
+<!-- Lenguage -->
+<c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
 
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="com.ipartek.formacion.helloweb.i18n.lang" />
 
-%>
 
 <!-- Autentificado o no -->
 <c:set var="isAuthenticated" scope="page" value="${sessionScope.authenticated == null ? false : true}"/>
 
+<c:choose>
+  <c:when test="${sessionScope.authenticated == null}">
+    <c:set var="isAuthenticated" scope="page" value="${false}"/>
+  </c:when>
+  <c:when test="${sessionScope.authenticated == false}">
+    <c:set var="isAuthenticated" scope="page" value="${false}"/>
+  </c:when>
+  <c:when test="${sessionScope.authenticated == true}">
+    <c:set var="isAuthenticated" scope="page" value="${true}"/>
+  </c:when>								  
+</c:choose>	
+
+
 <!-- url origen al login (vacía si ha entrado directamente -->
 <c:set var="lastUrl" scope="page" value="${sessionScope.lasturl}"/>
 
-<div class="alert alert-success">
-Autentificado: ${isAuthenticated}
-<br>
-Pagina: ${lastUrl}
-<br>
-Rol: ${sessionScope.user_session.idRol}
-</div>
 
-<fmt:message key="MQ2009" var="val" >
-   <fmt:param value="${valueComingFromSomeParameter}"/>
-</fmt:message>
 
-<c:out value="${val}"/>
 
 
 <!doctype html>
 
-<html lang="en">
+<html lang="${language}">
 <head>
   <meta charset="utf-8">
 
@@ -72,12 +76,12 @@ Rol: ${sessionScope.user_session.idRol}
 </head>
 
 <body>
-
-	<div class="container row-centered">				
+	<div class="container row-centered">	
+				
 		
 		<div class="col-xs-4 col-centered">		
 			<div class="row row-centered sombra" style="border: 1px solid; border-radius: 4px; margin-bottom: 20px; border-color: #428BCA; background-color: #428BCA; color: white;">				
-				<h1><%=Constantes.general_login %></h1>				
+				<h1><fmt:message key="login.login" /></h1>				
 			</div>
 		
 			<div class="row">
@@ -87,26 +91,30 @@ Rol: ${sessionScope.user_session.idRol}
 			      		
 			      			<c:choose>
 							  <c:when test="${isAuthenticated == false}">
-							    <%= Constantes.general_login_insert %>
+							    <fmt:message key="login.help.insert" />
 							  </c:when>
 							  <c:when test="${isAuthenticated == true}">
-							    <%= Constantes.general_login_wellcome %>
+							    <fmt:message key="login.help.wellcome" />
 							  </c:when>							  
 							</c:choose>			      					      		
 			      		</h3>
 			    	</div>			    	
-			    	<div class="panel-body">		
-			    	
+			    	<div class="panel-body">
+			    		<!-- Si no está autentificado, mostramos el formulario de login -->			    	
 						<c:if test="${isAuthenticated == false}">
 							<form class="" role="form" method="post" id="frm_login" action="login">
 								<div class="form-group form-group-install col-md-12">
-									<label class="control-label" for="cont1"><%=Constantes.general_login_username %> * </label>
-									<input class="form-control" type="text" name="<%=Constantes.PARAMETRO_USER%>" id="cont1" value="" required="required" placeholder="Enter the username">
+									<label class="control-label" for="cont1"><fmt:message key="login.label.username" /> * </label>
+									<input class="form-control" type="text" name="<%=Constantes.PARAMETRO_USER%>" id="cont1" value="" required="required" 
+									placeholder="<fmt:message key="login.placeholder.username" />">
 								</div>
 								
+								
+								
 								<div class="form-group form-group-install col-md-12">
-									<label class="control-label" for="cont2"><%=Constantes.general_login_password %> * </label>
-									<input class="form-control" type="password" name="<%=Constantes.PARAMETRO_PASSWORD%>" id="cont2" required="required" placeholder="Enter password">
+									<label class="control-label" for="cont2"><fmt:message key="login.label.password" /> * </label>
+									<input class="form-control" type="password" name="<%=Constantes.PARAMETRO_PASSWORD%>" id="cont2" required="required" 
+									placeholder="<fmt:message key="login.placeholder.password" />">
 								</div>
 								
 								<!-- Path de referencia para redirigir -->
@@ -114,12 +122,14 @@ Rol: ${sessionScope.user_session.idRol}
 								
 								<div class="col-xs-12 text-right">
 										<input form="frm_login" class="btn btn-success btn-lg" 
-											type="submit" name="save" value="Sign In" 
-											title="Save" />				  		
+											type="submit" name="save" 
+											title="Save" 
+											value="<fmt:message key="login.button.login" />" />				  		
 								</div>						
 							</form>	
 						</c:if>
 						
+						<!-- Si está autentificado, mostramos la ficha del usuario -->
 						<c:if test="${isAuthenticated == true}">
 							<div class="row">
 								<ul>
@@ -147,13 +157,34 @@ Rol: ${sessionScope.user_session.idRol}
 									
 									<div class="col-xs-12 text-right">
 											<input form="frm_login" class="btn btn-active btn-lg" 
-												type="submit" name="save" value="Logo out" 
-												title="Logo out" />				  		
-									</div>						
-								</form>	
+												type="submit" name="save" 
+												title="Logo out" 
+												value="<fmt:message key="login.button.logout" />" />				  		
+									</div>														
+								</form>
 							</div>
 						</c:if>
-											
+										
+						<!-- http://silviomoreto.github.io/bootstrap-select/ -->
+						<div class="col-md-12">															
+							<form>
+								<label class="control-label" for="cont1"><fmt:message key="login.label.combolang" /></label>							
+								<select class="form-control" id="language" name="language" onchange="submit()">		                      
+			            		
+			            				<option value="es_ES" ${language == 'es_ES' ? 'selected' : ''}>Español</option>             
+			            				<option value="en_GB" ${language == 'en_GB' ? 'selected' : ''}>English</option>		   	  											  
+								
+								<% 
+									//recorrer archivos properties
+								
+								
+								%>
+								
+								
+								
+								</select>	
+							</form>									
+						</div>	<!-- http://silviomoreto.github.io/bootstrap-select/ -->	
 						
 					</div> <!--  panel-body -->				
 				</div> <!-- fin panel primary -->
@@ -197,7 +228,7 @@ Rol: ${sessionScope.user_session.idRol}
 							}
 
 				// Display an info toast with no title
-				toastr.info('<%=Constantes.general_login_desconect_msj%>');
+				toastr.info('<fmt:message key="login.button.logout" />');
 									}
 				</script>	
 	<% 	
@@ -211,5 +242,31 @@ Rol: ${sessionScope.user_session.idRol}
 	
 	<script src="bootstrap/js/vendor/bootstrap.min.js"></script>
 	<script src="bootstrap/js/main.js"></script>
+	
+	<!--  Temporal, para visualizar los datos -->
+	<div class="alert alert-success">
+		Autentificado: ${isAuthenticated}
+	<br>
+		Pagina: ${lastUrl}
+	<br>
+		Rol: ${sessionScope.user_session.idRol}
+	</div>
+	
+	<% 
+		String userLocale = request.getHeader("Accept-Language");
+	 	//Locale locale = request.getLocale();
+	 	out.print("Header lang:" + userLocale + "<br>");
+	 	
+	 	//Returns the preferred Locale that the client will accept content in, based on the Accept-Language header. If the 
+ 		//client request doesn't provide an Accept-Language header, this method returns the default locale for the server. 
+	 	out.print("Request lang:" + request.getLocale().toString() + "<br>");
+	 		 	
+  	%>
+		${language}
+		
+		
+
+	
+	
 </body>
 </html>

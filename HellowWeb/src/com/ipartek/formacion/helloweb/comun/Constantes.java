@@ -149,6 +149,11 @@ public final class Constantes {
 
 
 	//***************************************** PARÁMETROS Y ATRIBUTOS
+	//************** URL GET
+	public final static String PARAMETRO_URL_GET_LANGUAGE = "language";
+	
+	
+	
 	//*** Formulario login
 	public final static  String PARAMETRO_USER = "cont1";
 	public final static  String PARAMETRO_PASSWORD = "cont2";      
@@ -170,6 +175,11 @@ public final class Constantes {
 	 * Contendra el usuario  (Persona)
 	 */
 	public final static  String PARAM_SESSION_USER = "user_session";
+	
+	/**
+	 * Contendrá el locale del usuario
+	 */
+	public final static  String PARAM_SESSION_LOCALE = "locale_user";
 
 	//*** login
 	/**
@@ -183,20 +193,20 @@ public final class Constantes {
 	 */
 	public final static  String PARAM_SESSION_INVALIDATE = "invalidate";
 
-	//*** Servlet General
+	////************** Servlet General
 	//*Atributtes
 	/**
 	 * Contendrá el mensaje de tipo <code>Message</code> a devolver por el servlet
 	 */
-	public final static  String ATTR_ERROR = "isError";
+	public final static  String ATTR_ERROR = "object_msg_error";
 	
 
-	//*** Servlets
+	////************** Servlets
 	//*General
 	/**
 	 * Accion a realizar dentro de los modelos de datos (update, insert, delete, get, etc) 
 	 */
-	public final static  String PARAM_ACTION = "accion";
+	public final static  String PARAM_ACTION = "EModeloAccion_accion";
 	
 	/**
 	 * Url de la que proviene la petición
@@ -226,22 +236,6 @@ public final class Constantes {
 	public final static String ATTR_LOGOUT_ACTION = "logout";
 	
 	
-	//*** LANG
-	public final static String LANG_LOGIN_INCORRECT = "Usuario o contraseña incorrectos.";    
-	public final static String LANG_LOG_OFF = "Usuario o contraseña incorrectos.";
-
-	//*LANG administracion
-	//strings a sacar de aquí o que son de idioma
-	public final static String adm_index_desc = "Administración del sitio";
-	public final static String adm_index_title = "Administración";
 	
-	public final static String general_login = "Login";	
-	public final static String general_login_insert = "Please, insert username and password.";
 	
-	public final static String general_login_wellcome = "Wellcome %s";
-	
-	public final static String general_login_password = "Password";
-	public final static String general_login_username = "Username";
-	
-	public final static String general_login_desconect_msj = "Usuario desconectado correctamente.";
 }
