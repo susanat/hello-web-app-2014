@@ -1,6 +1,8 @@
 package com.ipartek.formacion.helloweb.controller;
 
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +14,8 @@ import javax.servlet.http.HttpSession;
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.bean.Message;
 import com.ipartek.formacion.helloweb.bean.Persona;
+import com.ipartek.formacion.helloweb.i18n.I18n;
+import com.ipartek.formacion.helloweb.i18n.Idioma;
 
 /**
  * Servlet implementation class LoginServlet
@@ -27,6 +31,8 @@ public class LoginServlet extends HttpServlet {
 
 	String pUser = null;
 	String pPass = null;
+	String pIdioma = Idioma.INGLES.getLocale();
+	ResourceBundle messages = null;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -42,6 +48,8 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		// cargar ficher de mensajes
+
 		/*
 		 * COMO REDIRIGIR UN JSP:************************************
 		 */
@@ -51,6 +59,13 @@ public class LoginServlet extends HttpServlet {
 		// recoger parametros del login
 
 		getParameters(request);
+
+		// session.getAttribute("idioma");
+		// session.setAttribute(pIdioma, "idioma");
+		pIdioma = I18n.getBrowserLocale(request.getLocale());
+
+		loadMensajes();
+
 		// validar el usuario
 
 		if (validarUserAdmin()) {
@@ -72,12 +87,19 @@ public class LoginServlet extends HttpServlet {
 		// incorrecto: enviar de nuevo a login.jsp
 		else {
 			dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
-			Message msg = new Message(Constantes.MSG_LOGIN_INCORRECT,
+			Message msg = new Message(
+					messages.getString("msg.login.incorrect"),
 					Message.MSG_TYPE_DANGER);
 			request.setAttribute(Constantes.MSG_KEY, msg);
 		}
 		// despachar o servir JSP
 		dispatch.forward(request, response);
+
+	}
+
+	private void loadMensajes() {
+		Locale locale = new Locale(pIdioma.split("_")[0], pIdioma.split("_")[1]);
+		messages = ResourceBundle.getBundle(Constantes.PROPERTY_I18N, locale);
 
 	}
 
@@ -89,6 +111,7 @@ public class LoginServlet extends HttpServlet {
 	private void getParameters(HttpServletRequest request) {
 		pUser = request.getParameter(Constantes.PARAMETRO_USER);
 		pPass = request.getParameter(Constantes.PARAMETRO_PASS);
+		pIdioma = request.getParameter(Constantes.PARAMETRO_IDIOMA);
 
 	}
 
