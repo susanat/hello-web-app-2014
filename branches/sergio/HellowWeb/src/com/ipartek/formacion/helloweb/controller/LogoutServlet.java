@@ -106,12 +106,15 @@ public class LogoutServlet extends HttpServlet {
 		}
 		
 		
-		request.setAttribute(Constantes.ATTR_LOGOUT_ACTION, true);
+		//request.setAttribute(Constantes.ATTR_LOGOUT_ACTION, true);
+		
+		//redirigimos con redirect
+		response.sendRedirect(Constantes.JSP_LOGIN);
 		
 		
-		//redirigimos necesario
-		dispatcher = request.getRequestDispatcher(Utils.getUriFile(urlTo));	    
-		dispatcher.forward(request, response);		
+		
+		//dispatcher = request.getRequestDispatcher(Utils.getUriFile(urlTo));	    
+		//dispatcher.forward(request, response);		
 	}
 	
 
