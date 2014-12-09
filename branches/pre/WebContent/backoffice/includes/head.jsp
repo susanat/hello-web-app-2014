@@ -1,8 +1,13 @@
-<!DOCTYPE html>
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
+<%@page errorPage="includes/error.jsp" %>
+
+<!DOCTYPE html>
+
 <html lang="es">
 
 <head>
+
+	
 
 	<!-- Ruta Base para todas nuestras url relativas -->
 	<base href="<%=request.getContextPath()+"/"%>">
@@ -37,5 +42,7 @@
 </head>
 
 <body>
+
+
 
     <div id="wrapper">
