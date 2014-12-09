@@ -38,7 +38,17 @@ public class I18n {
     }
 
     public static final Locale getStringLocale(final String lang) {
-	Locale loc = new Locale(lang);
+	Locale loc = new Locale(Idioma.INGLES.getLenguaje(),
+		Idioma.INGLES.getPais());
+	if (lang != null) {
+	    if (lang.equalsIgnoreCase(Idioma.CASTELLANO.getLenguaje())) {
+		loc = new Locale(Idioma.CASTELLANO.getLenguaje(),
+			Idioma.CASTELLANO.getPais());
+	    } else {
+		loc = new Locale(Idioma.EUSKERA.getLenguaje(),
+			Idioma.EUSKERA.getPais());
+	    }
+	}
 	return loc;
 
     }

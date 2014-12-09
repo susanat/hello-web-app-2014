@@ -32,6 +32,8 @@ public class Constante {
     public static final String SERVLET_LOGOUT = "logout";
     public static final String CONTROLER_PERSONA = "persona";
 
+    public static final String PROPERTI_I18N = "com.ipartek.formacion.helloweb.i18n.i18nmesages";
+
     public static final String PARAMETRO_USER = "user";
     public static final String PARAMETRO_PASS = "pass";
     public static final String PARAMETRO_ID = "codigo";

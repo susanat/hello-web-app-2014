@@ -1,6 +1,8 @@
 package com.ipartek.formacion.helloworld.controler;
 
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.Servlet;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.helloweb.bean.Mensaje;
+import com.ipartek.formacion.helloweb.i18n.Idioma;
 import com.ipartek.formacion.helloworld.bean.Persona;
 import com.ipartek.formacion.helloworld.service.UserService;
 import com.ipartek.formacion.helloworld.util.Constante;
@@ -24,10 +27,11 @@ public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private String pUser = null;
     private String pPass = null;
-    private String pIdioma = null;
+    private String pIdioma = Idioma.INGLES.getLocale();
     private Persona user = null;
     private RequestDispatcher dispatch = null;
     private HttpSession session = null;
+    private ResourceBundle messages = null;
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -79,16 +83,19 @@ public class LoginServlet extends HttpServlet {
 
 	} else {
 	    dispatch = request.getRequestDispatcher(Constante.JSP_LOGIN);
+
 	    Mensaje mensaje = new Mensaje(Constante.MSG_LOGIN_INCORRECT,
 		    Mensaje.MSG_TYPE_WARNING);
+	    mensaje = new Mensaje(
+		    messages.getString(Constante.MSG_LOGIN_INCORRECT));
 	    request.setAttribute(Constante.LANG_SESSION, mensaje);
 	    request.setAttribute(Constante.MSG_KEY, mensaje);
 	}
     }
 
     private void loadMessages() {
-	// TODO terminar de implementar
-
+	Locale locale = new Locale(pIdioma);
+	messages = ResourceBundle.getBundle(Constante.PROPERTI_I18N, locale);
     }
 
     private void validateUser(final HttpServletRequest request) {

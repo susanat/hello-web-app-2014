@@ -4,16 +4,18 @@
 <%@page import="com.ipartek.formacion.helloworld.bean.Persona"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:set var="language" value="eu_ES" />
   <c:set var="language" value="<%=I18n.getBrowserLocale(response.getLocale())  %>" />
   <c:set var="localeCode" value="${pageContext.response.locale}" />
 <fmt:setLocale value="${languaje}"/>
-<fmt:setBundle basename="com.ipartek.formacion.helloweb.i18n.i18nmesages"/>
+<fmt:setBundle basename="<%=Constante.PROPERTI_I18N %>"/>
 <!DOCTYPE html>
 <html lang="${languaje} }">
 <head>
 	<meta charset="utf-8">
 	<link rel='stylesheet' href='http://codepen.io/assets/libs/fullpage/jquery-ui.css'>
+    <link rel="stylesheet" href="backoffice/css/bootstrap.min.css" media="screen" type="text/css" />
     <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
 	<title>Login</title>
 </head>
@@ -21,16 +23,23 @@
 	
   <div class="login-card">
     <h1><fmt:message key="login.titulo"></fmt:message></h1>
-   <h2><c:out value="${localeCode }"/></h2>
+   <h2><c:out value="${language }"/></h2>
   <form action="<%=Constante.SERVLET_LOGIN %>" method="post">
   	<%@ include file="includes/alerts.jsp" 	%>
 
     <input type="text" name="<%= Constante.PARAMETRO_USER %>" placeholder="<fmt:message key="login.form.username"></fmt:message>">
     <input type="password" name="<%=Constante.PARAMETRO_PASS %>" placeholder="<fmt:message key="login.form.password"></fmt:message>">
-    <div class="forgroup">
+    <div class="form-control">
     <select name="<%=Constante.PARAMETRO_IDIOMA%>">
   	<c:forEach items="<%=Idioma.getNames() %>" var="idioma">
-  		<option value="${idioma.key}">${idioma.value}</option>
+  		<c:choose>
+  		<c:when test="${fn:containsIgnoreCase(idioma.key, language)}">
+  			<option selected="selected" value="${idioma.key}">${idioma.value}</option>
+  		</c:when>
+  		<c:otherwise>
+  			<option value="${idioma.key}">${idioma.value}</option>
+  		</c:otherwise>
+  		</c:choose>
   	</c:forEach>
   	</select>
   	</div>
