@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.helloweb.bean.Mensaje;
+import com.ipartek.formacion.helloweb.i18n.I18n;
 import com.ipartek.formacion.helloweb.i18n.Idioma;
 import com.ipartek.formacion.helloworld.bean.Persona;
 import com.ipartek.formacion.helloworld.service.UserService;
@@ -94,7 +95,7 @@ public class LoginServlet extends HttpServlet {
     }
 
     private void loadMessages() {
-	Locale locale = new Locale(pIdioma);
+	Locale locale = I18n.getStringLocale(pIdioma);
 	messages = ResourceBundle.getBundle(Constante.PROPERTI_I18N, locale);
     }
 
