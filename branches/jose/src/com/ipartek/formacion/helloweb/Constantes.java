@@ -27,9 +27,13 @@ public class Constantes {
 	public static final String JSP_BACK_PERSONA_FORM = JSP_BACKOFFICE
 			+ "persona/form.jsp";
 
+	// Properties
+	public static final String PROPERTI_I18N = "com.ipartek.formacion.helloweb.i18n.i18nmesages";
+
 	// Parametros
 	public static final String PARAMETRO_USER = "user";
 	public static final String PARAMETRO_PASS = "pass";
+	public static final String PARAMETRO_IDIOMA = "idioma";
 
 	// Mensajes
 	public static final String MSG_KEY = "msg";
@@ -56,4 +60,14 @@ public class Constantes {
 	public static final String OP_LIST = "2"; // Listar todos los Registros
 	public static final String OP_DETAIL = "3"; // Mostrar Detalle Registro
 	public static final String OP_CREATE = "4"; // Crear o insertar Registro
+
+	// Idiomas
+	/*
+	 * public static final String IDIOMA_KEY = "Idioma"; public static final
+	 * String IDIOMA_ES = "es"; public static final String IDIOMA_EU = "eu";
+	 * public static final String IDIOMA_EN = "en"; public static final String
+	 * LOCALE_ES = "es_ES"; public static final String LOCALE_EU = "eu_ES";
+	 * public static final String LOCALE_EN = "en_EN";
+	 */
+
 }

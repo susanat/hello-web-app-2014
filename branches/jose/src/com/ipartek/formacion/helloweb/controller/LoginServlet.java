@@ -1,6 +1,8 @@
 package com.ipartek.formacion.helloweb.controller;
 
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.bean.Mensaje;
 import com.ipartek.formacion.helloweb.bean.Persona;
+import com.ipartek.formacion.helloweb.i18n.Idioma;
 
 /**
  * Servlet implementation class LoginServlet
@@ -26,6 +29,8 @@ public class LoginServlet extends HttpServlet {
 	// parametros
 	String pUser = null;
 	String pPass = null;
+	String pIdioma = Idioma.INGLES.getLocale();
+	ResourceBundle messages = null;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -42,11 +47,15 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
+
 		// recuperar session
 		session = request.getSession();
 
 		// recoger parametros del login
 		getParameters(request);
+
+		// Cargar fichero de mensajes
+		LoadMensajes(request);
 
 		// validar el usuario
 		validateUser(request);
@@ -54,6 +63,22 @@ public class LoginServlet extends HttpServlet {
 		// despachar o servir JSP
 		dispatch.forward(request, response);
 
+	}
+
+	private void LoadMensajes(HttpServletRequest request) {
+		// TODO Terminar de implementarlo
+		/*
+		 * String idioma = request.getParameter(Constantes.IDIOMA_KEY); String
+		 * valorIdioma = Constantes.IDIOMA_ES; if (idioma != null) { if
+		 * (Constantes.IDIOMA_ES.equals(idioma) ||
+		 * Constantes.IDIOMA_EU.equals(idioma) ||
+		 * Constantes.IDIOMA_EN.equals(idioma)) { valorIdioma = idioma; } }
+		 * request.getSession().setAttribute(Constantes.IDIOMA_KEY,
+		 * valorIdioma);
+		 */
+		Locale locale = new Locale(pIdioma.split("_")[0], pIdioma.split("_")[1]);
+		messages = ResourceBundle.getBundle(
+				Constantes.PROPERTI_I18N, locale);
 	}
 
 	/**
@@ -108,6 +133,7 @@ public class LoginServlet extends HttpServlet {
 	private void getParameters(HttpServletRequest request) {
 		pUser = request.getParameter(Constantes.PARAMETRO_USER);
 		pPass = request.getParameter(Constantes.PARAMETRO_PASS);
+		pIdioma = request.getParameter(Constantes.PARAMETRO_IDIOMA);
 	}
 
 	/**
@@ -117,7 +143,7 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+			doGet(request, response);
 	}
 
 }
