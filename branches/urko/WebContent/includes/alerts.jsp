@@ -3,9 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@page import="com.ipartek.formacion.helloworld.util.Constante"%>
-
-<c:set var="language" value="<%=session.getAttribute(Constante.LANG_SESSION)  %>" />
-<fmt:setLocale value="${languaje}"/>
+<%=session.getAttribute(Constante.LANG_SESSION)  %>
+<c:set var="lang" value="<%=session.getAttribute(Constante.LANG_SESSION)  %>" />
+<fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="com.ipartek.formacion.helloweb.i18n.i18nmesages"/>
 <c:set var="mensaje" value="<%=request.getAttribute(Constante.MSG_KEY)  %>" />
 <%

@@ -75,12 +75,13 @@ public class LoginServlet extends HttpServlet {
 
     private void validateLanguaje(final HttpServletRequest request) {
 	if (pIdioma != null) {
-	    session.setAttribute(Constante.LANG_SESSION, user);
+	    session.setAttribute(Constante.LANG_SESSION, pIdioma);
+
 	} else {
 	    dispatch = request.getRequestDispatcher(Constante.JSP_LOGIN);
 	    Mensaje mensaje = new Mensaje(Constante.MSG_LOGIN_INCORRECT,
 		    Mensaje.MSG_TYPE_WARNING);
-	    System.out.println(mensaje.getMsg());
+	    request.setAttribute(Constante.LANG_SESSION, mensaje);
 	    request.setAttribute(Constante.MSG_KEY, mensaje);
 	}
     }
@@ -99,7 +100,7 @@ public class LoginServlet extends HttpServlet {
 	    dispatch = request.getRequestDispatcher(Constante.JSP_LOGIN);
 	    Mensaje mensaje = new Mensaje(Constante.MSG_LOGIN_INCORRECT,
 		    Mensaje.MSG_TYPE_WARNING);
-	    System.out.println(mensaje.getMsg());
+	    // System.out.println(mensaje.getMsg());
 	    request.setAttribute(Constante.MSG_KEY, mensaje);
 	}
     }
