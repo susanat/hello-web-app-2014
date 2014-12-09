@@ -49,5 +49,18 @@
 	    %></ol> <%
 	}
 	%>
+	<table>
+		<thead>
+		</thead>
+		<tbody>
+		<c:forEach var="persona" items="${requestScope.personas}">
+			<tr>
+				<td>${persona.nombre}</td>
+				<td>${persona.userName}</td>
+				<td>${persona.codigo}</td>
+			</tr>
+		</c:forEach>
+	</tbody>
+	</table>
 	 <p><a href="<%=Constante.JSP_BACKOFFICE_PERSONA_FORM%>">Crear persona</a></p>
 <%@include file="../includes/footer.jsp" %>
