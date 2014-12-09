@@ -16,9 +16,6 @@ import javax.servlet.http.HttpSession;
 import com.ipartek.formacion.helloweb.comun.Constantes;
 
 public class langFilter implements Filter {
-
-	
-
 	
 	public void init(FilterConfig filterConfig) throws ServletException {
 		
@@ -27,7 +24,8 @@ public class langFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
-				
+			
+		/*
 		
 		//if the ServletRequest is an instance of HttpServletRequest  
         if(request instanceof HttpServletRequest) {  
@@ -51,29 +49,34 @@ public class langFilter implements Filter {
                 	//redirecciono indicando el idioma
                 	Locale locale = request.getLocale();
                 	
-                	//compruebo si dispongo del idioma, si no, pongo el de defecto
+                	//TODO compruebo si dispongo del idioma, si no, pongo el de defecto
                 	
-                	
-                	
-                	
-                	
+                	//Lo incluimos en la sesión
                 	session.setAttribute(Constantes.PARAM_SESSION_LOCALE, request.getLocale());
-                	if(httpReq.getRequestURL().indexOf("?") > 0) {
-                    	httpRes.sendRedirect(httpReq.getRequestURL()+"&" + Constantes.PARAMETRO_URL_GET_LANGUAGE + "="+locale.toString());
-        			} else {
-        				httpRes.sendRedirect(httpReq.getRequestURL()+"?" + Constantes.PARAMETRO_URL_GET_LANGUAGE + "="+locale.toString());
-        			}
+                	
+                	
+                	
+                	
+                	//if(httpReq.getRequestURL().indexOf("?") > 0) {
+                    //	httpRes.sendRedirect(httpReq.getRequestURL()+"&" + Constantes.PARAMETRO_URL_GET_LANGUAGE + "="+locale.toString());
+        			//} else {
+        			//	httpRes.sendRedirect(httpReq.getRequestURL()+"?" + Constantes.PARAMETRO_URL_GET_LANGUAGE + "="+locale.toString());
+        			//}
+        			
                 }
                 
                 
         	}catch (Exception ex) {
-        		chain.doFilter(request, response); 
+        		//TODO marcar log
         	}
         	
         	
+        	
         } else {
-        	chain.doFilter(request, response);
-        }          
+        	
+        }  
+        */
+        chain.doFilter(request, response);
 
 	}
 

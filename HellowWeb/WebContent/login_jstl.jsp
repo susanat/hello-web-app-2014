@@ -15,6 +15,18 @@
 <!-- Lenguage -->
 <c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
 
+
+<!-- 
+<c:choose>
+  <c:when test="${sessionScope.locale_user != null}">
+    <c:set var="language" value="${sessionScope.locale_user}"/>
+  </c:when>
+  <c:when test="${sessionScope.authenticated == false}">
+    <c:set var="language" value="${pageContext.request.locale}"/>
+  </c:when>  						  
+</c:choose>	
+ -->
+
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="com.ipartek.formacion.helloweb.i18n.lang" />
 
@@ -37,10 +49,6 @@
 
 <!-- url origen al login (vacía si ha entrado directamente -->
 <c:set var="lastUrl" scope="page" value="${sessionScope.lasturl}"/>
-
-
-
-
 
 <!doctype html>
 
@@ -108,9 +116,7 @@
 									<input class="form-control" type="text" name="<%=Constantes.PARAMETRO_USER%>" id="cont1" value="" required="required" 
 									placeholder="<fmt:message key="login.placeholder.username" />">
 								</div>
-								
-								
-								
+									
 								<div class="form-group form-group-install col-md-12">
 									<label class="control-label" for="cont2"><fmt:message key="login.label.password" /> * </label>
 									<input class="form-control" type="password" name="<%=Constantes.PARAMETRO_PASSWORD%>" id="cont2" required="required" 
@@ -167,21 +173,12 @@
 										
 						<!-- http://silviomoreto.github.io/bootstrap-select/ -->
 						<div class="col-md-12">															
-							<form>
-								<label class="control-label" for="cont1"><fmt:message key="login.label.combolang" /></label>							
-								<select class="form-control" id="language" name="language" onchange="submit()">		                      
-			            		
-			            				<option value="es_ES" ${language == 'es_ES' ? 'selected' : ''}>Español</option>             
-			            				<option value="en_GB" ${language == 'en_GB' ? 'selected' : ''}>English</option>		   	  											  
-								
-								<% 
-									//recorrer archivos properties
-								
-								
-								%>
-								
-								
-								
+							<form role="form" method="post">
+								<label class="control-label" for="language"><fmt:message key="login.label.combolang" /></label>							
+								<select class="form-control" id="language" name="language" onchange="submit()">		                      			            		
+			            			<option value="es_ES" ${language == 'es_ES' ? 'selected' : ''}>Español</option>             
+			            			<option value="en_GB" ${language == 'en_GB' ? 'selected' : ''}>English</option>										
+			            			<option value="es_EU" ${language == 'es_EU' ? 'selected' : ''}>Euskera</option>										
 								</select>	
 							</form>									
 						</div>	<!-- http://silviomoreto.github.io/bootstrap-select/ -->	
