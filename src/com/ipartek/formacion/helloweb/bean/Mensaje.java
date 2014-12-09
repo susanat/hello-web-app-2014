@@ -14,9 +14,9 @@ public class Mensaje {
 	
 	//TODO contantes para los Codigos HTTP
 	
-	String msg; //literal del mensaje
-	String type; //tipo de mensaje [success,info,warning,danger]
-	int code; // codigo http
+	private String msg; //literal del mensaje
+	private String type; //tipo de mensaje [success,info,warning,danger]
+	private int code; // codigo http
 	
 	public Mensaje(String msg) {
 		super();
