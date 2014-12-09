@@ -36,4 +36,10 @@ public class I18n {
 	}
 	return result;
     }
+
+    public static final Locale getStringLocale(final String lang) {
+	Locale loc = new Locale(lang);
+	return loc;
+
+    }
 }

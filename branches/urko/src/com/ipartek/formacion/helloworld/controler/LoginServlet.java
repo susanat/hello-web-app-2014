@@ -23,6 +23,7 @@ public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private String pUser = null;
     private String pPass = null;
+    private String pIdioma = null;
     private Persona user = null;
     private RequestDispatcher dispatch = null;
     private HttpSession session = null;
@@ -60,12 +61,25 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(final HttpServletRequest request,
 	    final HttpServletResponse response) throws ServletException,
 	    IOException {
-	loadMessages();
+
 	getParameters(request);
+	// loadMessages();
 	session = request.getSession();
 	user = UserService.find(pUser, pPass);
+	validateLanguaje(request);
 	validateUser(request);
+
 	dispatch.forward(request, response);
+    }
+
+    private void validateLanguaje(final HttpServletRequest request) {
+	if (pIdioma != null) {
+	    session.setAttribute(Constante.LANG_SESSION, user);
+	} else {
+	    dispatch = request.getRequestDispatcher(Constante.JSP_LOGIN);
+	    request.setAttribute(Constante.MSG_KEY,
+		    Constante.MSG_LOGIN_INCORRECT);
+	}
     }
 
     private void loadMessages() {
@@ -88,5 +102,6 @@ public class LoginServlet extends HttpServlet {
     private void getParameters(final HttpServletRequest request) {
 	pUser = request.getParameter(Constante.PARAMETRO_USER);
 	pPass = request.getParameter(Constante.PARAMETRO_PASS);
+	pIdioma = request.getParameter(Constante.PARAMETRO_IDIOMA);
     }
 }

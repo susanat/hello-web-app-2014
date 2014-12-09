@@ -1,3 +1,4 @@
+<%@page import="com.ipartek.formacion.helloweb.i18n.Idioma"%>
 <%@page import="com.ipartek.formacion.helloworld.util.Constante"%>
 <%@page import="com.ipartek.formacion.helloweb.i18n.I18n"%>
 <%@page import="com.ipartek.formacion.helloworld.bean.Persona"%>
@@ -23,8 +24,16 @@
    <h2><c:out value="${localeCode }"/></h2>
   <form action="<%=Constante.SERVLET_LOGIN %>" method="post">
   	<%@ include file="includes/alerts.jsp" 	%>
+
     <input type="text" name="<%= Constante.PARAMETRO_USER %>" placeholder="<fmt:message key="login.form.username"></fmt:message>">
     <input type="password" name="<%=Constante.PARAMETRO_PASS %>" placeholder="<fmt:message key="login.form.password"></fmt:message>">
+    <div class="forgroup">
+    <select name="<%=Constante.PARAMETRO_IDIOMA%>">
+  	<c:forEach items="<%=Idioma.getNames() %>" var="idioma">
+  		<option value="${idioma.key}">${idioma.value}</option>
+  	</c:forEach>
+  	</select>
+  	</div>
     <input type="submit" name="enviar" class="login login-submit" value="<fmt:message key="login.form.submit"></fmt:message>">
   </form>
 

@@ -3,6 +3,7 @@ package com.ipartek.formacion.helloworld.util;
 public class Constante {
 
     public static final String USER_SESSION = "user_session";
+    public static final String LANG_SESSION = "lang_session";
 
     public static final String USER_ADMIN_CODE = "0";
     public static final String USER_ADMIN_NAME = "admin";
@@ -35,6 +36,7 @@ public class Constante {
     public static final String PARAMETRO_PASS = "pass";
     public static final String PARAMETRO_ID = "codigo";
     public static final String PARAMETRO_ACCION = "codigo";
+    public static final String PARAMETRO_IDIOMA = "idioma";
 
     public static final String MSG_KEY = "msg";
     public static final String MSG_LOGIN_INCORRECT = "Nombre de Usuario o Contraseña incorrecta";

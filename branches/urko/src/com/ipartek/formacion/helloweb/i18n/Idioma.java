@@ -1,5 +1,7 @@
 package com.ipartek.formacion.helloweb.i18n;
 
+import java.util.HashMap;
+
 /**
  * Idiomas soportados por nuesta App
  *
@@ -7,16 +9,19 @@ package com.ipartek.formacion.helloweb.i18n;
  *
  */
 public enum Idioma {
-    CASTELLANO("es_ES", "es", "ES"), EUSKERA("eu_ES", "eu", "EU"), INGLES(
-	    "en_EN", "en", "EN");
+    CASTELLANO("es_ES", "es", "ES", "castellano"), EUSKERA("eu_ES", "eu", "EU",
+	    "euskera"), INGLES("en_EN", "en", "EN", "english");
     private String locale;
     private String lenguaje;
     private String pais;
+    private String iName;
 
-    private Idioma(final String locale, final String lenguaje, final String pais) {
+    private Idioma(final String locale, final String lenguaje,
+	    final String pais, final String piName) {
 	this.locale = locale;
 	this.lenguaje = lenguaje;
 	this.pais = pais;
+	this.iName = piName;
     }
 
     public String getLocale() {
@@ -43,4 +48,19 @@ public enum Idioma {
 	this.pais = pais;
     }
 
+    public String getiName() {
+	return iName;
+    }
+
+    public void setiName(final String iName) {
+	this.iName = iName;
+    }
+
+    public static HashMap<String, String> getNames() {
+	HashMap<String, String> idiomas = new HashMap<String, String>();
+	idiomas.put(CASTELLANO.locale, CASTELLANO.getiName());
+	idiomas.put(INGLES.locale, INGLES.getiName());
+	idiomas.put(EUSKERA.locale, EUSKERA.getiName());
+	return idiomas;
+    }
 }
