@@ -60,11 +60,17 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(final HttpServletRequest request,
 	    final HttpServletResponse response) throws ServletException,
 	    IOException {
+	loadMessages();
 	getParameters(request);
 	session = request.getSession();
 	user = UserService.find(pUser, pPass);
 	validateUser(request);
 	dispatch.forward(request, response);
+    }
+
+    private void loadMessages() {
+	// TODO terminar de implementar
+
     }
 
     private void validateUser(final HttpServletRequest request) {

@@ -1,8 +1,15 @@
 <%@page import="com.ipartek.formacion.helloworld.util.Constante"%>
+<%@page import="com.ipartek.formacion.helloweb.i18n.I18n"%>
 <%@page import="com.ipartek.formacion.helloworld.bean.Persona"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<c:set var="language" value="eu_ES" />
+  <c:set var="language" value="<%=I18n.getBrowserLocale(response.getLocale())  %>" />
+  <c:set var="localeCode" value="${pageContext.response.locale}" />
+<fmt:setLocale value="${languaje}"/>
+<fmt:setBundle basename="com.ipartek.formacion.helloweb.i18n.i18nmesages"/>
 <!DOCTYPE html>
-<html>
+<html lang="${languaje} }">
 <head>
 	<meta charset="utf-8">
 	<link rel='stylesheet' href='http://codepen.io/assets/libs/fullpage/jquery-ui.css'>
@@ -10,15 +17,15 @@
 	<title>Login</title>
 </head>
 <body>
-
+	
   <div class="login-card">
-    <h1>Log-in</h1>
-    <c:out value="prueba" default="La expresion fallo"/> 
+    <h1><fmt:message key="login.titulo"></fmt:message></h1>
+   <h2><c:out value="${localeCode }"/></h2>
   <form action="<%=Constante.SERVLET_LOGIN %>" method="post">
   	<%@ include file="includes/alerts.jsp" 	%>
-    <input type="text" name="<%= Constante.PARAMETRO_USER %>" placeholder="Username">
-    <input type="password" name="<%=Constante.PARAMETRO_PASS %>" placeholder="Password">
-    <input type="submit" name="enviar" class="login login-submit" value="login">
+    <input type="text" name="<%= Constante.PARAMETRO_USER %>" placeholder="<fmt:message key="login.form.username"></fmt:message>">
+    <input type="password" name="<%=Constante.PARAMETRO_PASS %>" placeholder="<fmt:message key="login.form.password"></fmt:message>">
+    <input type="submit" name="enviar" class="login login-submit" value="<fmt:message key="login.form.submit"></fmt:message>">
   </form>
 
   <div class="login-help">
