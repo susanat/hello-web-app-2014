@@ -43,6 +43,9 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		//cargar fichero de mensajes
+		loadMessages();
+		
 		//recuperar session
 		session = request.getSession();
 		
@@ -56,6 +59,7 @@ public class LoginServlet extends HttpServlet {
 		dispatch.forward(request, response);	
 			
 	}
+
 
 	/**
 	 * Comprobar los datos del Login y mirar si el rol es "administrador" o "usuario"
@@ -118,4 +122,11 @@ public class LoginServlet extends HttpServlet {
 		doGet(request, response);
 	}
 
+	
+	private void loadMessages() {
+		// TODO terminar de implementarlo
+		
+	}
+
+	
 }
