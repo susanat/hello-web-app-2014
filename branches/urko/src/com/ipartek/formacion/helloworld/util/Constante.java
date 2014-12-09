@@ -39,7 +39,7 @@ public class Constante {
     public static final String PARAMETRO_IDIOMA = "idioma";
 
     public static final String MSG_KEY = "msg";
-    public static final String MSG_LOGIN_INCORRECT = "Nombre de Usuario o Contraseña incorrecta";
+    public static final String MSG_LOGIN_INCORRECT = "mensaje.loginIncorrect";
     public static final String MSG_LOGOUT = "Hasta la vista vuelve pronto WE MISS YOU";
     public static final String MSG_CREATE = "Registro creado";
     public static final String MSG_REMOVE = "Registro eliminado";

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ipartek.formacion.helloweb.bean.Mensaje;
 import com.ipartek.formacion.helloworld.bean.Persona;
 import com.ipartek.formacion.helloworld.service.UserService;
 import com.ipartek.formacion.helloworld.util.Constante;
@@ -77,8 +78,10 @@ public class LoginServlet extends HttpServlet {
 	    session.setAttribute(Constante.LANG_SESSION, user);
 	} else {
 	    dispatch = request.getRequestDispatcher(Constante.JSP_LOGIN);
-	    request.setAttribute(Constante.MSG_KEY,
-		    Constante.MSG_LOGIN_INCORRECT);
+	    Mensaje mensaje = new Mensaje(Constante.MSG_LOGIN_INCORRECT,
+		    Mensaje.MSG_TYPE_WARNING);
+	    System.out.println(mensaje.getMsg());
+	    request.setAttribute(Constante.MSG_KEY, mensaje);
 	}
     }
 
@@ -94,8 +97,10 @@ public class LoginServlet extends HttpServlet {
 	    dispatch = request.getRequestDispatcher(ruta);
 	} else {
 	    dispatch = request.getRequestDispatcher(Constante.JSP_LOGIN);
-	    request.setAttribute(Constante.MSG_KEY,
-		    Constante.MSG_LOGIN_INCORRECT);
+	    Mensaje mensaje = new Mensaje(Constante.MSG_LOGIN_INCORRECT,
+		    Mensaje.MSG_TYPE_WARNING);
+	    System.out.println(mensaje.getMsg());
+	    request.setAttribute(Constante.MSG_KEY, mensaje);
 	}
     }
 
