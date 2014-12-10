@@ -36,6 +36,7 @@ public class LogoutServlet extends HttpServlet {
 		// Recuperar session
 		session = request.getSession();
 		session.setAttribute(Constantes.USER_SESSION, null);
+		session.setAttribute(Constantes.USER_SESSION_IDIOMA, null);
 
 		rd = request.getRequestDispatcher(Constantes.JSP_LOGIN);
 		rd.forward(request, response);

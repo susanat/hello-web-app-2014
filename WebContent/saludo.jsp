@@ -1,6 +1,13 @@
 <%@page import="java.util.Enumeration"%>
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <%@page import="com.ipartek.formacion.helloweb.constantes.Constantes"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<c:set var="language" value="<%=session.getAttribute(Constantes.USER_SESSION_IDIOMA)%>" />
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="com.ipartek.formacion.helloweb.i18n.i18nmesages" /> 
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -20,7 +27,7 @@
 		}
 	%>
 
-	<h1>Ongi Etorri <%=p.getNombre()%></h1>
+	<h1><fmt:message key="index.saludo"></fmt:message><%=" " + p.getNombre()%></h1>
 
 	<form action="<%=Constantes.PATH_LOGOUT%>" method="post">
 		<button>Logout</button>

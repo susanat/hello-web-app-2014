@@ -2,6 +2,7 @@ package com.ipartek.formacion.helloweb.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -24,6 +25,7 @@ public class PersonaServlet extends HttpServlet {
 	// private String msg = "";
 	private RequestDispatcher dispatcher;
 	private Mensaje objMensaje;
+	private ResourceBundle messages;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -71,6 +73,11 @@ public class PersonaServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		messages = ResourceBundle
+				.getBundle("com.ipartek.formacion.helloweb.i18n.i18nmesages_"
+						+ request.getSession().getAttribute(
+								Constantes.USER_SESSION_IDIOMA));
+
 		if (Constantes.OP_INSERT
 				.equals(request.getParameter(Constantes.OP_KEY))) {
 			insertar(request);
@@ -94,7 +101,8 @@ public class PersonaServlet extends HttpServlet {
 		// Recargar la lista
 		getAll(request);
 		// Mensaje despues por si acaso el método crea otro mensaje
-		objMensaje = new Mensaje(Constantes.MSG_NOT_ALLOWED,
+		objMensaje = new Mensaje(messages.getString("mensaje.not_allowed"),
+		// Constantes.MSG_NOT_ALLOWED,
 				Mensaje.MsgType.LOG, Constantes.COD_NOT_ALLOWED);
 		// msg = Constantes.MSG_NOT_ALLOWED;
 	}
@@ -139,11 +147,13 @@ public class PersonaServlet extends HttpServlet {
 		int id = Integer.parseInt(request.getParameter("id"));
 
 		if (model.delete(id)) {
-			objMensaje = new Mensaje(Constantes.MSG_REG_DELETE,
+			objMensaje = new Mensaje(messages.getString("mensaje.reg_delete"),
+			// Constantes.MSG_REG_DELETE,
 					Mensaje.MsgType.REG, Constantes.COD_REG_DELETE);
 			// msg = Constantes.MSG_REG_DELETE;
 		} else {
-			objMensaje = new Mensaje(Constantes.MSG_ERR_DELETE,
+			objMensaje = new Mensaje(messages.getString("mensaje.err_delete"),
+			// Constantes.MSG_ERR_DELETE,
 					Mensaje.MsgType.ERR, Constantes.COD_ERR_DELETE);
 			// msg = Constantes.MSG_ERR_DELETE;
 		}
@@ -164,11 +174,13 @@ public class PersonaServlet extends HttpServlet {
 
 		if (p != null) {
 			model.update(p);
-			objMensaje = new Mensaje(Constantes.MSG_REG_UPDATE,
+			objMensaje = new Mensaje(messages.getString("mensaje.reg_update"),
+			// Constantes.MSG_REG_UPDATE,
 					Mensaje.MsgType.REG, Constantes.COD_REG_UPDATE);
 			// msg = Constantes.MSG_REG_UPDATE;
 		} else {
-			objMensaje = new Mensaje(Constantes.MSG_ERR_PARAM,
+			objMensaje = new Mensaje(messages.getString("mensaje.err_param"),
+			// Constantes.MSG_ERR_PARAM,
 					Mensaje.MsgType.ERR, Constantes.COD_ERR_PARAM);
 			// msg = Constantes.MSG_ERR_PARAM;
 		}
@@ -193,11 +205,13 @@ public class PersonaServlet extends HttpServlet {
 		if (p != null) {
 			// insertarlo
 			model.insert(p);
-			objMensaje = new Mensaje(Constantes.MSG_REG_CREATE,
+			objMensaje = new Mensaje(messages.getString("mensaje.reg_create"),
+			// Constantes.MSG_REG_CREATE,
 					Mensaje.MsgType.REG, Constantes.COD_REG_CREATE);
 			// msg = Constantes.MSG_REG_CREATE;
 		} else {
-			objMensaje = new Mensaje(Constantes.MSG_ERR_PARAM,
+			objMensaje = new Mensaje(messages.getString("mensaje.err_param"),
+			// Constantes.MSG_ERR_PARAM,
 					Mensaje.MsgType.ERR, Constantes.COD_ERR_PARAM);
 			// msg = Constantes.MSG_ERR_PARAM;
 		}
@@ -223,11 +237,7 @@ public class PersonaServlet extends HttpServlet {
 			p.setId(Integer.parseInt(request.getParameter("id")));
 			p.setNombre(request.getParameter("nombre"));
 			p.setEdad(Integer.parseInt(request.getParameter("edad")));
-			if ("0".equals(request.getParameter("rol"))) {
-				p.setRole(Persona.Rol.ADMINISTRADOR);
-			} else if ("1".equals(request.getParameter("rol"))) {
-				p.setRole(Persona.Rol.USER);
-			}
+			p.setRole(Persona.Rol.valueOf(request.getParameter("rol")));
 		} catch (Exception e) {
 			p = null;
 			e.printStackTrace();

@@ -13,14 +13,14 @@
             <!-- /.navbar-header -->
 
 			<div class="nav navbar-right">
-                <a href="<%=Constantes.PATH_LOGOUT%>">[x] - Cerrar</a>
+                <a href="<%=Constantes.PATH_LOGOUT%>">[x] - <fmt:message key="menu.logout"></fmt:message></a>
             </div>
 
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a class="active" href="<%=Constantes.CONTROLLER_PERSONA%>">Persona</a>
+                            <a class="active" href="<%=Constantes.CONTROLLER_PERSONA%>"><fmt:message key="backoffice.nav.persona"></fmt:message></a>
                         </li>
                     </ul>
                 </div>
@@ -36,4 +36,3 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-            <div class="row">
