@@ -72,9 +72,9 @@ public class LoginServlet extends HttpServlet {
 	// loadMessages();
 	session = request.getSession();
 	user = UserService.find(pUser, pPass);
-	validateLanguaje(request);
-	validateUser(request);
 
+	validateUser(request);
+	validateLanguaje(request);
 	dispatch.forward(request, response);
     }
 
