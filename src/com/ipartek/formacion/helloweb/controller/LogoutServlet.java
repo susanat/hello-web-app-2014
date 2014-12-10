@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.helloweb.Constantes;
+import com.ipartek.formacion.helloweb.bean.Mensaje;
 
 /**
  * Servlet implementation class LogoutServlet
@@ -46,7 +47,11 @@ public class LogoutServlet extends HttpServlet {
 		request.setAttribute(Constantes.MSG_KEY, Constantes.MSG_LOGOUT_CORRECT);
 
 		// despachar o servir jsp
-		dispatch.forward(request, response);
+		Mensaje msg = new Mensaje(Constantes.MSG_LOGOUT_CORRECT,
+				Mensaje.MSG_TYPE_INFO);
+		request.setAttribute(Constantes.MSG_KEY, msg);
+		request.getRequestDispatcher(Constantes.JSP_LOGIN).forward(request,
+				response);
 	}
 
 	/**

@@ -9,13 +9,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="<%= Constantes.JSP_BACK_INDEX %>">Backoffice</a>
+                <a class="navbar-brand" href="<%= Constantes.JSP_BACK_INDEX %>"><fmt:message key="Backoffice"></fmt:message></a>
             </div>
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
-                	<a href="<%=Constantes.PATH_LOGOUT %>" title="Cierra tu sesion">[x]Desconectar</a>                
+                	<a href="<%=Constantes.PATH_LOGOUT %>" title="Cierra tu sesion">[x]<fmt:message key="logout"></fmt:message> </a>                
                 </li>
                 <!-- /.dropdown -->
             </ul>

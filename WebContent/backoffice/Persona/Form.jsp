@@ -70,17 +70,19 @@
 		</form>
 	</div>
 	
-	<% if (!isnew){ %>
-		
-	
-	<div class="col-lg-6">
-		<form action="<%= Constantes.CONTROLLER_PERSONA %>" method="post">
-			<input type="hidden"name="id" value="<%= p.getId() %>">
-			<input type="hidden"name="<%= Constantes.OP_KEY %>" value="<%=Constantes.OP_DELETE %>">
-			<input type="submit" value="Eliminar">	
-		</form>
-	</div>
-	<% } %>
+	<% 
+		if (!isnew){ 
+	%>		
+			<div class="col-lg-6">
+				<form action="<%= Constantes.CONTROLLER_PERSONA %>" method="post">
+					<input type="hidden"name="id" value="<%= p.getId() %>">
+					<input type="hidden"name="<%= Constantes.OP_KEY %>" value="<%=Constantes.OP_DELETE %>">
+					<input type="submit" value="Eliminar">	
+				</form>
+			</div>
+	<% 
+		} 
+	%>
 	
 	
 <%@include file="/backoffice/includes/footer.jsp" %>

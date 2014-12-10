@@ -1,12 +1,21 @@
+<%@page import="com.ipartek.formacion.helloweb.i18n.I18n"%>
 <%@page import="java.util.Enumeration"%>
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+
+<c:set var="language" value =" <%= I18n.getBrowserLocale(request.getLocale()) %>" />
+<fmt:setLocale value="${language}" />
+
+<fmt:setBundle basename="com.ipartek.formacion.helloweb.i18n.i18nmesages" /> 
+
+<!DOCTYPE html>
+<html lang="${language}">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Saludo</title>
+<title><fmt:message key="index.saludo"></fmt:message></title>
 </head>
 <body>
 	
@@ -25,7 +34,7 @@
 	
 	%>
 
-	<h1>Mongi etorri <%= p.getNombre() %></h1>
+	<h1><fmt:message key="index.saludo"></fmt:message> <%= p.getNombre() %></h1>
 	
 	<a href="<%=Constantes.PATH_LOGOUT %>" title="Cierra tu sesion">Logout</a>	
 	
@@ -76,8 +85,6 @@
         }    
        %>
 	</ol>
-	
-	
-	
+		
 </body>
 </html>

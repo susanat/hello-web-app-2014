@@ -1,6 +1,8 @@
 package com.ipartek.formacion.helloweb.controller;
 
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,25 +12,30 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.helloweb.Constantes;
+import com.ipartek.formacion.helloweb.bean.Mensaje;
 import com.ipartek.formacion.helloweb.bean.Persona;
+import com.ipartek.formacion.helloweb.i18n.Idioma;
 
 /**
  * Servlet implementation class LoginServlet
  */
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
 	RequestDispatcher dispatch = null;
 	HttpSession sesion = null;
+
+	ResourceBundle messages = null;
+
 	private String pUser = null;
 	private String pPass = null;
-	private String pRoll = null;
+	private String pIdioma = Idioma.INGLES.getLocale();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public LoginServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -44,6 +51,9 @@ public class LoginServlet extends HttpServlet {
 
 		// parametros del login.jsp
 		getParameters(request);
+
+		// cargar ficheros de mensajes
+		loadMessages();
 
 		// validar usuario
 		validarUser(request, response);
@@ -89,10 +99,10 @@ public class LoginServlet extends HttpServlet {
 		} else {
 			// incorrecto : volver a login.jsp
 			dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
-			request.setAttribute(Constantes.MSG_KEY,
-					Constantes.MSG_LOGIN_INCORRECT);
-			// new Mensaje(Constantes.MSG_NOT_ALLOWED,
-			// Mensaje.MSG_TYPE_WARNING);
+			Mensaje msg = new Mensaje(
+					messages.getString("msg.login.incorrect"),
+					Mensaje.MSG_TYPE_DANGER);
+			request.setAttribute(Constantes.MSG_KEY, msg);
 		}
 
 	}
@@ -105,7 +115,7 @@ public class LoginServlet extends HttpServlet {
 
 		pUser = request.getParameter(Constantes.PARAMETRO_USER);
 		pPass = request.getParameter(Constantes.PARAMETRO_PASS);
-		pRoll = request.getParameter(Constantes.PARAMETRO_ROLL);
+		pIdioma = request.getParameter(Constantes.PARAMETRO_IDIOMA);
 
 	}
 
@@ -126,6 +136,16 @@ public class LoginServlet extends HttpServlet {
 		 */
 
 		doGet(request, response);
+	}
+
+	private void loadMessages() {
+
+		Locale locale = new Locale(pIdioma.split("_")[0], pIdioma.split("_")[1]);
+		messages = ResourceBundle.getBundle(Constantes.PROPERTY_I18N, locale);
+
+		// guardar en sesiion el lenguage
+		sesion.setAttribute(Constantes.USER_LANGUAGE, pIdioma);
+
 	}
 
 }
