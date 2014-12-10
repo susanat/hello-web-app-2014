@@ -31,10 +31,9 @@
 <body>
 
    <%@ taglib prefix="hello" uri="tagHello"%>
-   <hello:Hello />
-
+   
   <div class="login-card">
-    <h1><fmt:message key="login.titulo"></fmt:message></h1><br>
+    <h1><fmt:message key="login.titulo"  ></fmt:message></h1><br>
   <form action="<%=Constantes.PATH_LOGIN%>" method="post">
   
   	<%@include file="includes/alerts.jsp" %>
