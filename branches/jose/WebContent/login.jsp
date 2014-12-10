@@ -7,6 +7,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+
+
 <c:set var="language"
 	value="<%=(session.getAttribute(Constantes.USER_LANGUAGE)!=null)?session.getAttribute(Constantes.USER_LANGUAGE):i18n.getBrowserLocale(request.getLocale())%>" />
 	
@@ -32,6 +34,11 @@
 </head>
 
 <body>
+
+	<%@ taglib prefix="hello" uri="http://www.formacion.ipartek.com"%>
+	<hello:saluda/>
+	<hello:saluda2/>
+	<hello:saluda2 nombre="Pepe"/>
 	<div class="login-card">
 		<h1>
 			<fmt:message key="login.titulo"></fmt:message>
@@ -58,6 +65,9 @@
 			}
 			%>
 			</select>
+			<br>
+			<%@ taglib prefix="utilidades" uri="http://www.formacion.ipartek.com/tags/util"%>
+			<utilidades:select nameSelect="prueba" valuesOptions="<%=Idioma.CASTELLANO.getLenguajesArrays()%>"/>
 			<br>
 			<input type="submit" name="login" class="login login-submit"
 				value="<fmt:message key="login.form.submit"></fmt:message>">

@@ -1,5 +1,7 @@
 package com.ipartek.formacion.helloweb.i18n;
 
+import java.util.ArrayList;
+
 /**
  * Idiomas soportados por nuestra App
  * 
@@ -32,6 +34,23 @@ public enum Idioma {
 
 	public String getPais() {
 		return pais;
+	}
+
+	public ArrayList<String> getLenguajesArrays() {
+		ArrayList<String> lista = new ArrayList<String>();
+		for (Idioma idioma : Idioma.values()) {
+			lista.add(idioma.lenguaje);
+		}
+		return lista;
+	}
+
+	public ArrayList<String> getLocaleArrays() {
+		ArrayList<String> lista = new ArrayList<String>();
+		for (Idioma idioma : Idioma.values()) {
+			lista.add(idioma.locale);
+		}
+		return lista;
+
 	}
 
 }
