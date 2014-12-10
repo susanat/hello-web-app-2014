@@ -25,12 +25,12 @@ public class LoginServlet extends HttpServlet {
 
 	RequestDispatcher dispatch = null;
 	HttpSession session = null;
+	ResourceBundle messages = null;
 
 	// parametros
 	String pUser = null;
 	String pPass = null;
 	String pIdioma = Idioma.INGLES.getLocale();
-	ResourceBundle messages = null;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -55,7 +55,7 @@ public class LoginServlet extends HttpServlet {
 		getParameters(request);
 
 		// Cargar fichero de mensajes
-		LoadMensajes(request);
+		LoadMensajes();
 
 		// validar el usuario
 		validateUser(request);
@@ -65,7 +65,7 @@ public class LoginServlet extends HttpServlet {
 
 	}
 
-	private void LoadMensajes(HttpServletRequest request) {
+	private void LoadMensajes() {
 		// TODO Terminar de implementarlo
 		/*
 		 * String idioma = request.getParameter(Constantes.IDIOMA_KEY); String
@@ -79,6 +79,9 @@ public class LoginServlet extends HttpServlet {
 		Locale locale = new Locale(pIdioma.split("_")[0], pIdioma.split("_")[1]);
 		messages = ResourceBundle.getBundle(
 				Constantes.PROPERTI_I18N, locale);
+		// guardar en session el language
+		session.setAttribute(Constantes.USER_LANGUAGE, pIdioma);
+
 	}
 
 	/**
@@ -120,7 +123,12 @@ public class LoginServlet extends HttpServlet {
 		} else {
 			// incorrecto: enviar de nuevo a login.jsp
 			dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
-			Mensaje msg = new Mensaje(Constantes.MSG_LOGIN_INCORRECTO,
+			/*
+			 * Mensaje msg = new Mensaje(Constantes.MSG_LOGIN_INCORRECTO,
+			 * Mensaje.MSG_TYPE_DANGER);
+			 */
+			Mensaje msg = new Mensaje(
+					messages.getString("msg.login.incorrect"),
 					Mensaje.MSG_TYPE_DANGER);
 			request.setAttribute(Constantes.MSG_KEY, msg);
 		}

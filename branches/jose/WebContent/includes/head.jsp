@@ -1,5 +1,13 @@
+<%@page import="com.ipartek.formacion.helloweb.i18n.Idioma"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
 <%@page errorPage="/includes/error.jsp" %>
+
+<c:set var="language" value="<%= (session.getAttribute(Constantes.USER_LANGUAGE)!=null)?session.getAttribute(Constantes.USER_LANGUAGE):Idioma.INGLES.getLocale()%>" />
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="<%=Constantes.PROPERTI_I18N%>" /> 
 
 <!DOCTYPE html>
 <html lang="es">
@@ -48,23 +56,3 @@
 
 	<div id="wrapper">
 
-		<!-- Navigation -->
-		<nav class="navbar navbar-default navbar-static-top" role="navigation"
-			style="margin-bottom: 0">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target=".navbar-collapse">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="index.html">BackOffice</a>
-			</div>
-			<!-- /.navbar-header -->
-
-			<ul class="nav navbar-top-links navbar-right">
-				<li><a href="<%=Constantes.PATH_LOGOUT%>"
-					title="Cierra tu session"> <i class="fa fa-sign-out fa-fw"></i>
-						Logout
-				</a></li>
-			</ul>

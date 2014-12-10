@@ -3,6 +3,8 @@ package com.ipartek.formacion.helloweb;
 public class Constantes {
 	// Seguridad
 	public static final String USER_SESSION = "user_session";
+	public static final String USER_LANGUAGE = "user_language";
+
 	public static final String USER_ADMIN_NAME = "admin";
 	public static final String USER_ADMIN_PASS = "admin";
 
@@ -60,14 +62,4 @@ public class Constantes {
 	public static final String OP_LIST = "2"; // Listar todos los Registros
 	public static final String OP_DETAIL = "3"; // Mostrar Detalle Registro
 	public static final String OP_CREATE = "4"; // Crear o insertar Registro
-
-	// Idiomas
-	/*
-	 * public static final String IDIOMA_KEY = "Idioma"; public static final
-	 * String IDIOMA_ES = "es"; public static final String IDIOMA_EU = "eu";
-	 * public static final String IDIOMA_EN = "en"; public static final String
-	 * LOCALE_ES = "es_ES"; public static final String LOCALE_EU = "eu_ES";
-	 * public static final String LOCALE_EN = "en_EN";
-	 */
-
 }

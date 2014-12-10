@@ -8,8 +8,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <c:set var="language"
-	value="<%=i18n.getBrowserLocale(request.getLocale())%>" />
-<!-- <c:set var="language" value="en_EN" /> -->
+	value="<%=(session.getAttribute(Constantes.USER_LANGUAGE)!=null)?session.getAttribute(Constantes.USER_LANGUAGE):i18n.getBrowserLocale(request.getLocale())%>" />
+	
 <fmt:setLocale value="${language}" />
 <fmt:setBundle
 	basename="<%=Constantes.PROPERTI_I18N %>" />
@@ -18,8 +18,7 @@
 <html lang="${language}">
 <html>
 <head>
-<h1>
-	Locale:<%=request.getLocale()%></h1>
+
 <!--  
   <meta charset="UTF-8">
 -->
@@ -59,6 +58,7 @@
 			}
 			%>
 			</select>
+			<br>
 			<input type="submit" name="login" class="login login-submit"
 				value="<fmt:message key="login.form.submit"></fmt:message>">
 		</form>
