@@ -1,6 +1,7 @@
 package com.ipartek.formacion.helloworld.service;
 
 import com.ipartek.formacion.helloworld.bean.Persona;
+import com.ipartek.formacion.helloworld.bean.Persona.Rol;
 import com.ipartek.formacion.helloworld.util.Constante;
 
 public class UserService {
@@ -15,10 +16,10 @@ public class UserService {
 
 	    if (Constante.USER_USER_NAME.equals(userName)) {
 		p = new Persona(Integer.parseInt(Constante.USER_USER_CODE), "",
-			userName, userPass);
+			userName, userPass, Rol.USUARIO);
 	    } else {
 		p = new Persona(Integer.parseInt(Constante.USER_ADMIN_CODE),
-			"", userName, userPass);
+			"", userName, userPass, Rol.ADMINISTRADOR);
 	    }
 	}
 	return p;
