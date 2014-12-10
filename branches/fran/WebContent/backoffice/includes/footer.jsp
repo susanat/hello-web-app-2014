@@ -1,5 +1,4 @@
 <%@page import="com.ipartek.formacion.helloweb.constantes.Constantes"%>
-            </div>
         </div>
         <!-- /#page-wrapper -->
 </div>
@@ -20,8 +19,8 @@
 			$('#listapersonas').dataTable();
 		} );
 			
-		$('#listapersonas')
-			.removeClass( 'display' )
-			.addClass('table table-striped table-bordered');
+		//$('#listapersonas')
+	    //	.removeClass( 'display' )
+	   //	.addClass('table table-striped table-bordered');
 	</script>
 </html>

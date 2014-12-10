@@ -1,22 +1,27 @@
 <%@page import="com.ipartek.formacion.helloweb.bean.Mensaje"%>
 <%@page import="com.ipartek.formacion.helloweb.constantes.Constantes"%>
-<%
-	//Mostrar mensaje si existe
-	if (null != request.getAttribute(Constantes.MSG_KEY)) {
-		//out.print(request.getAttribute(Constantes.MSG_KEY));
-		String clase = "alert-warning";
-		Mensaje mensaje = (Mensaje)request.getAttribute(Constantes.MSG_KEY);
-		if (mensaje.getType() == Mensaje.MsgType.ERR) {
-			clase = "alert-danger";
-		} else if (mensaje.getType() == Mensaje.MsgType.REG) {
-			clase = "alert-success";
-		} else if (mensaje.getType() == Mensaje.MsgType.LOG) {
-			clase = "alert-info";
-		} 
-%>
-		<div class="alert <%=clase%>" role="alert">
-			<%=mensaje.getMsg()%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+
+<c:if test="${requestScope.msg != null}">
+
+	<c:if test="${requestScope.msg.type == 'ERR' }"> 
+		 <c:set var="clase" value="alert-danger"></c:set>
+	 </c:if>
+
+	<c:if test="${requestScope.msg.type == 'REG' }"> 
+		 <c:set var="clase" value="alert-success"></c:set>
+	 </c:if>
+	 
+	 <c:if test="${requestScope.msg.type == 'LOG' }"> 
+		 <c:set var="clase" value="alert-info"></c:set>
+	 </c:if>
+<div class="row">
+	<div class="col-lg-4">
+		<div class="alert ${clase}" role="alert">
+			${requestScope.msg.msg}
 		</div>
-<%
-	}
-%>
+	</div>
+</div>
+
+</c:if>

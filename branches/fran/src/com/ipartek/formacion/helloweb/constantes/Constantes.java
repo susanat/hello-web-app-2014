@@ -10,6 +10,7 @@ public class Constantes {
 	public static final String ROLE_USER = "user";
 	public static final String USER_SESSION = "user_session";
 	public static final String USER_ROLE = "user_role";
+	public static final String USER_SESSION_IDIOMA = "user_session_idioma";
 
 	// JSPs púbicas
 	public static final String JSP_SALUDO = "/saludo.jsp";
@@ -31,6 +32,7 @@ public class Constantes {
 	// Parámetros
 	public static final String PARAMETRO_USER = "user";
 	public static final String PARAMETRO_PASS = "pass";
+	public static final String PARAMETRO_IDIOMA = "idioma";
 
 	// Mensajes
 	public static final String MSG_KEY = "msg";
@@ -60,4 +62,7 @@ public class Constantes {
 	public static final String OP_LIST = "2";
 	public static final String OP_DETAIL = "3";
 	public static final String OP_INSERT = "4";
+
+	// Properties
+	public static final String PROPERTI_I18N = "com.ipartek.formacion.helloweb.i18n.i18nmesages";
 }
