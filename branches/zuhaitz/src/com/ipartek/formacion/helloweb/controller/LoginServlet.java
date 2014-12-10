@@ -1,6 +1,7 @@
 package com.ipartek.formacion.helloweb.controller;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpSession;
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.bean.Mensaje;
 import com.ipartek.formacion.helloweb.bean.Persona;
+import com.ipartek.formacion.helloweb.i18n.Idioma;
+import com.ipartek.formacion.helloweb.util.MensajesIdiomas;
 import com.ipartek.formacion.helloweb.util.Rol;
 
 /**
@@ -23,10 +26,12 @@ public class LoginServlet extends HttpServlet {
 
 	RequestDispatcher dispatch = null;
 	HttpSession session = null;
+	ResourceBundle messages = null;
 
 	// Parámetros
 	String pUser = null;
 	String pPass = null;
+	String pIdioma = Idioma.INGLES.getLocale();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -41,8 +46,9 @@ public class LoginServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-	IOException {
+			IOException {
 		session = request.getSession();// Recuperar session
+		messages = MensajesIdiomas.loadMessages(pIdioma, session);
 
 		getParameters(request);// Recoger parámetros del login
 		validateUser(request);// Validar el usuario
@@ -61,16 +67,17 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	/**
-	 * Recoger parametros de request
+	 * Recoger parámetros de request.
 	 */
 	private void getParameters(final HttpServletRequest request) {
 		pUser = request.getParameter(Constantes.PARAMETRO_USER);
 		pPass = request.getParameter(Constantes.PARAMETRO_PASS);
+		pIdioma = request.getParameter(Constantes.PARAMETRO_LANG);
 	}
 
 	/**
 	 * Comprobar los datos del login y comprobar si el rol es "administrador" o
-	 * "usuario"
+	 * "usuario".
 	 * <ol>
 	 * <li>Usuario: ir a saluda</li>
 	 * <li>Aministrador: va al Backoffice</li>
@@ -102,8 +109,9 @@ public class LoginServlet extends HttpServlet {
 		} else {
 			// Incorrecto: enviar de nuevo a login.jsp
 			dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
-			final Mensaje msg = new Mensaje(Mensaje.MSG_TYPE_WARNING, Constantes.MSG_LOGIN_INCORRECT);
+			final Mensaje msg = new Mensaje(Mensaje.MSG_TYPE_WARNING, messages.getString("msg.login_incorrect"));
 			request.setAttribute(Constantes.MSG_KEY, msg);
 		}
 	}
+
 }

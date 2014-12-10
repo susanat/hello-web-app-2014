@@ -22,12 +22,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="backoffice/index.jsp">BackOffice - <%=pUser.getNombre()%></a>
+                <a class="navbar-brand" href="backoffice/index.jsp">${sessionScope.user_session.nombre} | ${sessionScope.user_session.rol}</a>
             </div>
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
-            	<li><a href="<%=root + Constantes.CONTROLLER_LOGOUT%>"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+            	<li><a href="<%=root + Constantes.CONTROLLER_LOGOUT%>"><i class="fa fa-sign-out fa-fw"></i><fmt:message key="menu.logout"></fmt:message></a></li>
             </ul>
             <!-- /.navbar-top-links -->
 
@@ -48,7 +48,7 @@
             
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header" id="contentHeader">Cambiar Título</h1>
+                    <h1 class="page-header" id="contentHeader">Título</h1><!-- <fmt:message key='//(Integer.parseInt(request.getParameter("id"))!=Persona.ID_NULL)?"content.header.form":"content.header.list"'></fmt:message> -->
                 </div>
                 <!-- /.col-lg-12 -->
             </div>

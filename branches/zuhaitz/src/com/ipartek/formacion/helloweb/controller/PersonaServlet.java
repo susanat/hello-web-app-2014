@@ -1,6 +1,7 @@
 package com.ipartek.formacion.helloweb.controller;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -8,11 +9,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.bean.Mensaje;
 import com.ipartek.formacion.helloweb.bean.Persona;
+import com.ipartek.formacion.helloweb.i18n.I18n;
+import com.ipartek.formacion.helloweb.i18n.Idioma;
 import com.ipartek.formacion.helloweb.model.ModeloPersona;
+import com.ipartek.formacion.helloweb.util.MensajesIdiomas;
 import com.ipartek.formacion.helloweb.util.Rol;
 
 /**
@@ -23,9 +28,14 @@ public class PersonaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	RequestDispatcher dispatcher = null;
+	HttpSession session = null;
+	ResourceBundle messages = null;
+
 	ModeloPersona modelo = null;
 	Mensaje msg;
+
 	int id = Persona.ID_NULL;
+	String pIdioma = Idioma.INGLES.getLocale();
 
 	@Override
 	public void init(final ServletConfig config) throws ServletException {
@@ -36,6 +46,8 @@ public class PersonaServlet extends HttpServlet {
 	@Override
 	protected void service(final HttpServletRequest request, final HttpServletResponse response)
 			throws ServletException, IOException {
+
+		pIdioma = I18n.getBrowserLocale(request.getLocale());
 
 		// Recoger el id de Persona
 		try {
@@ -59,7 +71,10 @@ public class PersonaServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-	IOException {
+			IOException {
+		session = request.getSession();// Recuperar session
+		messages = MensajesIdiomas.loadMessages(pIdioma, session);
+
 		// Comprobar si es getAll o getById
 		if (id == Persona.ID_NULL) {
 			getAll(request);
@@ -77,9 +92,8 @@ public class PersonaServlet extends HttpServlet {
 	@Override
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response)
 			throws ServletException, IOException {
-		final Persona p = getParametersPersona(request);
 
-		switch (Integer.parseInt(request.getParameter("op"))) {
+		switch (Integer.parseInt(request.getParameter(Constantes.OP_CRUD))) {
 
 		case Constantes.OP_INSERT:
 			insert(request);
@@ -113,10 +127,10 @@ public class PersonaServlet extends HttpServlet {
 			modelo.insert(p);
 			// TODO comprobar la inserción
 			// msg = Constantes.MSG_REG_INSERTED;
-			msg = new Mensaje(Mensaje.MSG_TYPE_SUCCESS, Constantes.MSG_REG_INSERTED);
+			msg = new Mensaje(Mensaje.MSG_TYPE_SUCCESS, messages.getString("msg.reg.inserted"));
 		} else {
 			// msg = Constantes.MSG_ERR_PARAMETERS;
-			msg = new Mensaje(Mensaje.MSG_TYPE_DANGER, Constantes.MSG_ERR_PARAMETERS);
+			msg = new Mensaje(Mensaje.MSG_TYPE_DANGER, messages.getString("msg.err.parameters"));
 		}
 
 		request.setAttribute(Constantes.ATTR_PERSONA, p);
@@ -133,11 +147,10 @@ public class PersonaServlet extends HttpServlet {
 
 		if (p != null) {
 			p.setId(id);
-			// TODO comprobar que realmente se ha modificado
 			modelo.update(p);
-			msg = new Mensaje(Mensaje.MSG_TYPE_WARNING, Constantes.MSG_REG_UPDATED);
+			msg = new Mensaje(Mensaje.MSG_TYPE_WARNING, messages.getString("msg.reg.updated"));
 		} else {
-			msg = new Mensaje(Mensaje.MSG_TYPE_DANGER, Constantes.MSG_ERR_PARAMETERS);
+			msg = new Mensaje(Mensaje.MSG_TYPE_DANGER, messages.getString("msg.err.parameters"));
 		}
 
 		request.setAttribute(Constantes.ATTR_PERSONA, p);
@@ -151,9 +164,9 @@ public class PersonaServlet extends HttpServlet {
 	 */
 	private void delete(final HttpServletRequest request) {
 		if (modelo.delete(id)) {
-			msg = new Mensaje(Mensaje.MSG_TYPE_SUCCESS, Constantes.MSG_REG_DELETED);
+			msg = new Mensaje(Mensaje.MSG_TYPE_SUCCESS, messages.getString("msg.reg.deleted"));
 		} else {
-			msg = new Mensaje(Mensaje.MSG_TYPE_DANGER, Constantes.MSG_ERR_DELETE);
+			msg = new Mensaje(Mensaje.MSG_TYPE_DANGER, messages.getString("msg.err.delete"));
 		}
 
 		getAll(request);
@@ -167,7 +180,7 @@ public class PersonaServlet extends HttpServlet {
 	 */
 	private void opNotSupported(final HttpServletRequest request) {
 		getAll(request);
-		msg = new Mensaje(Mensaje.MSG_TYPE_DANGER, Constantes.MSG_OP_NOT_SUPPORTED);
+		msg = new Mensaje(Mensaje.MSG_TYPE_DANGER, messages.getString("msg.op.not_supported"));
 	}
 
 	/**
