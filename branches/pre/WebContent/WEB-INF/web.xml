@@ -35,4 +35,11 @@
     <url-pattern>/persona</url-pattern>
   </servlet-mapping>
  
+ 
+   <display-name>Prueba TagLib</display-name>
+	<taglib>
+	   <taglib-uri>tagHello</taglib-uri>
+       <taglib-location>/WEB-INF/tag/tag_hello.tld</taglib-location>
+	</taglib>
+ 
 </web-app>
