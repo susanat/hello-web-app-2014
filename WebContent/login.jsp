@@ -3,8 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-
-
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
 
 <c:set var="language" value="<%= I18n.getBrowserLocale(request.getLocale())%>" />
@@ -29,9 +27,19 @@
 </head>
 
 <body>
-
-<!-- %<@ taglib prefix="hello" uri="tagHello"%>
-   <hello:Hello /> -->
+	<!--Estos datos se recogen del tld // short-name y uri
+	%<@ taglib prefix="hello" uri="http://www.formacion.ipartek.com"%>
+   <hello:saluda />
+   <hello:saluda2 />--><!-- Saludo 
+   <hello:saluda2  nombre="pepe"/>--><!-- Saludo Pepe -->
+   
+   <%
+   String[] idiomasList = { "es_ES", "eu_ES", "en_EN" };
+   %>
+   
+   <!-- Tld para el selectOption -->
+   <%@taglib prefix="util" uri="http://www.formacion.ipartek.com"%>
+   <util:selectoptions/>
 
  <div class="login-card">
     <h1><fmt:message key="login.titulo"></fmt:message></h1><br>
