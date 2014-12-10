@@ -16,11 +16,7 @@ public class TagHello2 extends TagSupport {
 	public int doEndTag() throws JspException {
 		try{
 			JspWriter out = pageContext.getOut();
-			if ( nombre == null ){
-				out.print("saluda desconocido");
-			}else{
-				out.print("saluda " + nombre );
-			}	
+			out.print("saluda " + nombre );			
 		}catch( Exception e){
 			e.printStackTrace();
 		}

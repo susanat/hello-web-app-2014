@@ -1,3 +1,4 @@
+<%@page import="java.util.Arrays"%>
 <%@page import="com.ipartek.formacion.helloweb.i18n.Idioma"%>
 <%@page import="com.ipartek.formacion.helloweb.i18n.I18n"%>
 
@@ -34,14 +35,13 @@
 <body>
 
    
+   <%
+		String[] opValues  =   {"Cheese", "Pepperoni", "Black Olives"};
+   %>
    
-   
-   <%@ taglib prefix="hello" uri="http://www.formacion.ipartek.com"%>
-   <hello:saluda/>
-   
-   <hello:saluda2 /> <!--  Saludo -->
-   <hello:saluda2 nombre="pepe"/> <!--  Saludo Pepe -->
-   
+  <%@ taglib prefix="util" uri="http://www.formacion.ipartek.com/tags/util"%>
+  <util:selecoptions opValues="<%=opValues%>"/>
+  
    
    
    
