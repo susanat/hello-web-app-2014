@@ -1,6 +1,8 @@
 package com.ipartek.formacion.helloweb.controller;
 
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.bean.Message;
 import com.ipartek.formacion.helloweb.bean.Persona;
+import com.ipartek.formacion.helloweb.i18n.Idioma;
 
 /**
  * Servlet implementation class LoginServlet
@@ -25,6 +28,8 @@ public class LoginServlet extends HttpServlet {
     // Parametros
     String pUser = null;
     String pPass = null;
+    String pIdioma = Idioma.INGLES.getLocale();
+    ResourceBundle messages = null;
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -41,6 +46,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request,
 	    HttpServletResponse response) throws ServletException, IOException {
+
 	response.setContentType("text/html");
 	msg = new Message();
 	// recuperar sesion
@@ -48,6 +54,9 @@ public class LoginServlet extends HttpServlet {
 
 	// recoger parametros del login
 	getParameters(request);
+
+	// cargar fichero de mensajes
+	loadMensajes();
 	// Validar el usuario
 
 	// TODO: Meterlo en funcion
@@ -72,7 +81,10 @@ public class LoginServlet extends HttpServlet {
 	} else {
 	    // Incorrecto: Enviar de nuevo a login.jsp
 	    // TODO: Mirar si el login es vacio
-	    msg.setMsg(Constantes.MSG_LOGIN_INCORRECT);
+
+	    msg.setMsg(messages.getString("msg.login.incorrect"));
+	    // msg.setMsg(Constantes.MSG_LOGIN_INCORRECT);
+
 	    msg.setType(Constantes.ALERT_TYPE_DANGER);
 	    dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
 	    request.setAttribute(Constantes.ATT_MENSAJE, msg);
@@ -83,6 +95,16 @@ public class LoginServlet extends HttpServlet {
 	dispatch.forward(request, response);
     }
 
+    private void loadMensajes() {
+
+	Locale locale = new Locale(pIdioma.split("_")[0], pIdioma.split("_")[1]);
+	messages = ResourceBundle.getBundle(Constantes.PROPERTY_I18N, locale);
+
+	// guardar en sesion el idioma
+	sesion.setAttribute(Constantes.USER_LANGUAGE, pIdioma);
+
+    }
+
     /**
      * Recoger parametros de request
      *
@@ -91,6 +113,7 @@ public class LoginServlet extends HttpServlet {
     private void getParameters(HttpServletRequest request) {
 	pUser = request.getParameter(Constantes.PARAMETRO_USER);
 	pPass = request.getParameter(Constantes.PARAMETRO_PASS);
+	pIdioma = request.getParameter(Constantes.PARAMETRO_IDIOMA);
     }
 
     /**

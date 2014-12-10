@@ -14,7 +14,7 @@
             <ul class="nav navbar-top-links navbar-right">
                <li>
                		<form action="${pageContext.request.contextPath}/LogoutServlet" method="post">
-   					 	<input type="submit" value="Cerrar Sesión" class="btn btn-lg btn-danger"/>
+   					 	<input type="submit" value="<fmt:message key="menu.logout"></fmt:message>" class="btn btn-lg btn-danger"/>
 					</form>
                </li>
             </ul>
@@ -25,10 +25,10 @@
                     <ul class="nav" id="side-menu">
                         
                         <li>
-                            <a class="active" href="<%= Constantes.CONTROLLER_PERSONA %>" title="Gestionar personas"><i class="fa fa-user fa-fw"></i> Personas</a>
+                            <a class="active" href="<%= Constantes.CONTROLLER_PERSONA %>" title="Gestionar personas"><i class="fa fa-user fa-fw"></i><fmt:message key="nav.personas"></fmt:message></a>
                         </li>
                         <li>
-                            <a class="active" href="" title="Gestionar personas"><i class="fa fa-cog fa-fw"></i> Ajustes</a>
+                            <a class="active" href="" title="Gestionar personas"><i class="fa fa-cog fa-fw"></i><fmt:message key="nav.ajustes"></fmt:message></a>
                         </li>                    
                        
                        
