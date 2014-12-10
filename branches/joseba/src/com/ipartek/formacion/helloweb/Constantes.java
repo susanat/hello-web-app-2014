@@ -4,6 +4,7 @@ public class Constantes {
     public static final String USER_ADMIN_NAME = "admin";
     public static final String USER_ADMIN_PASS = "admin";
     public static final String USER_SESSION = "user_session";
+    public static final String USER_LANGUAGE = "user_language";
 
     public static final String USUARIO = "usuario";
     public static final String USUARIO_PASS = "pass";
@@ -24,7 +25,7 @@ public class Constantes {
 
     public static final String PARAMETRO_USER = "user";
     public static final String PARAMETRO_PASS = "pass";
-
+    public static final String PARAMETRO_IDIOMA = "idioma";
     public static final String MSG_KEY = "msg";
     public static final String MSG_LOGIN_INCORRECT = "Usuario o contraseña incorrecta";
     public static final String MSG_LOGOUT = "Hasta la vista";
@@ -53,5 +54,7 @@ public class Constantes {
 
     public static final String ALERT_TYPE_SUCCESS = "alert-success";
     public static final String ALERT_TYPE_DANGER = "alert-danger";
+
+    public static final String PROPERTY_I18N = "com.ipartek.formacion.helloweb.i18n.i18nmesages";
 
 }

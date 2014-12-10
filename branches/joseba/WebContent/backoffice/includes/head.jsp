@@ -1,12 +1,19 @@
 <!DOCTYPE html>
+<%@page import="com.ipartek.formacion.helloweb.i18n.Idioma"%>
+<%@page import="com.ipartek.formacion.helloweb.i18n.I18n"%>
 <%@page errorPage="includes/error.jsp"  %>
 <%@page import="com.ipartek.formacion.helloweb.util.Rol"%>
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<html lang="es">
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<c:set var="language" value="<%= (session.getAttribute(Constantes.USER_LANGUAGE)!=null)?session.getAttribute(Constantes.USER_LANGUAGE):Idioma.INGLES.getLocale()%>" />
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="<%=Constantes.PROPERTY_I18N%>" /> 
+<html lang="${language }">
 <head>
 	
     <meta charset="utf-8">
