@@ -35,27 +35,18 @@ public class Constantes {
 	// Parámetros
 	public static final String PARAMETRO_USER = "user";
 	public static final String PARAMETRO_PASS = "pass";
+	public static final String PARAMETRO_LANG = "lang";
 
 	// Mensajes
 	public static final String MSG_KEY = "msg";
-	public static final String MSG_LOGIN_INCORRECT = "Usuario o contraseña incorrecta";
-	public static final String MSG_LOGOUT = "Usuario deslogueado";
 	public static final String MSG_NO_AUTORIZADO = "No tienes permisos para acceder a esta página";
-
-	public static final String MSG_REG_INSERTED = "Registro creado con éxito";
-	public static final String MSG_REG_DELETED = "Registro eliminado con éxito";
-	public static final String MSG_REG_UPDATED = "Registro modificado con éxito";
-
-	public static final String MSG_ERR_PARAMETERS = "Error recogiendo parámetros";
-	public static final String MSG_ERR_DELETE = "Error eliminando registro";
-
-	public static final String MSG_OP_NOT_SUPPORTED = "Operación no permitida";
 
 	// Atributos
 	public static final String ATTR_PERSONAS = "personas";
 	public static final String ATTR_PERSONA = "persona";
 
 	// Operaciones CRUD
+	public static final String OP_CRUD = "op";
 	/**
 	 * Actualizar registro.
 	 */
@@ -76,5 +67,8 @@ public class Constantes {
 	 * Crear registro.
 	 */
 	public static final int OP_INSERT = 4;
+
+	// Packages
+	public static final String PROPERTY_I18N = "com.ipartek.formacion.helloweb.i18n.i18nmessages";
 
 }

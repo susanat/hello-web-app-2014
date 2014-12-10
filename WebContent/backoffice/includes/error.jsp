@@ -56,7 +56,7 @@
 			</div>
 			
 			<footer>
-				<span>© Akerbetz</span>
+				<span>Akerbetz</span>
 			</footer>
 		</div>
 	</div>
