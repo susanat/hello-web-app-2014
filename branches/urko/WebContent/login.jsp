@@ -5,9 +5,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <c:set var="language" value="eu_ES" />
-  <c:set var="language" value="<%=I18n.getBrowserLocale(response.getLocale())  %>" />
-  <c:set var="localeCode" value="${pageContext.response.locale}" />
+<c:set var="language" value="<%=I18n.getBrowserLocale(response.getLocale())  %>" />
+<c:set var="localeCode" value="${pageContext.response.locale}" />
 <fmt:setLocale value="${languaje}"/>
 <fmt:setBundle basename="<%=Constante.PROPERTI_I18N %>"/>
 <!DOCTYPE html>
