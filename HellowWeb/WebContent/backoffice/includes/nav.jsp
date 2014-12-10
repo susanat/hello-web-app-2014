@@ -16,7 +16,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="<%=Constantes.JSP_BACK_ADMIN %>">
-                	<%=Constantes.adm_index_title %>                	
+                	<%= "Falta poner algo" %>                	
                 </a>
                 
             </div>

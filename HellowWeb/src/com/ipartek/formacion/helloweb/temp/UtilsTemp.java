@@ -142,7 +142,7 @@ public class UtilsTemp {
 		return getNameFromRole(roles, intIdRole); 
 	}
 
-	public static void cargaHistorial(HttpServletRequest request, HttpSession session) 
+	public static String cargaHistorial(HttpServletRequest request, HttpSession session) 
 	{
 		//obtenemos el actual path
 		String path = request.getRequestURL().toString();
@@ -153,7 +153,9 @@ public class UtilsTemp {
 		}
 		
 		//añadimos el último path visitado
-		session.setAttribute(Constantes.PARAM_SESSION_LAST_URL, path);	
+		session.setAttribute(Constantes.PARAM_SESSION_LAST_URL, path);
+		
+		return path;
 		
 	}
 	
