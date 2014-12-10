@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@page import="com.ipartek.formacion.helloweb.comun.Utils"%>
 <%@page import="java.util.Locale"%>
 <%@page import="com.ipartek.formacion.helloweb.bean.Message"%>
@@ -12,11 +14,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 
-<!-- Lenguage -->
+<!-- Lenguage 
 <c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
+-->
 
 
-<!-- 
 <c:choose>
   <c:when test="${sessionScope.locale_user != null}">
     <c:set var="language" value="${sessionScope.locale_user}"/>
@@ -25,10 +27,14 @@
     <c:set var="language" value="${pageContext.request.locale}"/>
   </c:when>  						  
 </c:choose>	
- -->
+
 
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="com.ipartek.formacion.helloweb.i18n.lang" />
+
+<c:set var="locale_user" value="${language}" scope="session" />
+
+
 
 
 <!-- Autentificado o no -->
@@ -232,6 +238,13 @@
 	} //fin condicion logout		
 	%>
 	
+	
+	<%@ taglib uri="/WEB-INF/tag/tag_hello.tld" prefix="hello" %>
+	<%@ taglib uri="/WEB-INF/tag/tag_utils.tld" prefix="utils" %>
+	
+	<hello:saluda />
+	<br>
+	<hello:saluda nombre="Sergio"/>
 
   	<!-- Añadimos los javascript -->
 	<link href="<%=Constantes.PATH_SITE%>bootstrap/js/vendor/toastr/toastr.css" rel="stylesheet"/>
@@ -261,7 +274,24 @@
   	%>
 		${language}
 		
+	<% 
+		List<String> lstValues = new ArrayList<String>();
+		List<String> lstTexts = new ArrayList<String>();
+	
+		lstValues.add("es_ES");
+		lstValues.add("en_EN");
+		lstValues.add("eu_ES");
 		
+		lstTexts.add("Castellano");
+		lstTexts.add("Ingles");
+		lstTexts.add("Euskera");
+			
+	%>
+		
+	
+		
+	<utils:selectOptions valores="<%=lstValues %>" texts="<%=lstTexts %>" selectedValue="eu_ES" />
+
 
 	
 	

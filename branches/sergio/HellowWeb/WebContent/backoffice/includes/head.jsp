@@ -1,29 +1,69 @@
 
-<!-- Directiva codificación de la página -->
-<%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
-<%@page import="com.ipartek.formacion.helloweb.temp.UtilsTemp"%>
-<%@ page pageEncoding="UTF-8" %>
-
 <!-- Includes generales -->
-<%@page import="com.ipartek.formacion.helloweb.comun.Constantes"%>
+	<%@page import="com.ipartek.formacion.helloweb.comun.Constantes"%>
+	<%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
+	<%@page import="com.ipartek.formacion.helloweb.temp.UtilsTemp"%>
 
+<!-- Directiva codificación de la página -->
+	<%@page pageEncoding="UTF-8" %>
+
+<!-- https://jstl.java.net/ -->
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<!-- Lenguage -->
+	<% 
+		//intentamos obtener de sesion el lang del usuario activo
+		Object lang = session.getAttribute(Constantes.PARAM_SESSION_LOCALE);
+	
+		//si no existe, obtenemos el del navegador
+		if(lang == null) {
+			session.setAttribute(Constantes.PARAM_SESSION_LOCALE, request.getLocale().toString());	
+		} 
+	%>
+	<c:set var="language" value="<%= session.getAttribute(Constantes.PARAM_SESSION_LOCALE) %>" scope="session" />
+	
+	<fmt:setLocale value="${language}" />
+	<fmt:setBundle basename="com.ipartek.formacion.helloweb.i18n.lang" />
+<!-- FIN Lenguage -->
+
+
+<!-- Titulo de la pagina -->
+	<c:set var="title" value="Indefinido" />
+<!-- FIN Titulo de la pagina -->
+
+
+<!-- Autentificado -->
+	<c:set var="isAuthenticated" scope="page" value="${sessionScope.authenticated == null ? false : true}"/>
+	
+	<c:choose>
+	  <c:when test="${sessionScope.authenticated == null}">
+	    <c:set var="isAuthenticated" scope="page" value="${false}"/>
+	  </c:when>
+	  <c:when test="${sessionScope.authenticated == false}">
+	    <c:set var="isAuthenticated" scope="page" value="${false}"/>
+	  </c:when>
+	  <c:when test="${sessionScope.authenticated == true}">
+	    <c:set var="isAuthenticated" scope="page" value="${true}"/>
+	  </c:when>								  
+	</c:choose>	
+<!-- FIN Autentificado -->
+
+<!-- URL actual -->
+	<c:set var="lastUrl" scope="page" value="<%= UtilsTemp.cargaHistorial(request, session) %>"/>
 
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="${language}">
 <head>
-
-	<!-- Obtenemos la base de la aplicación NO UTILIZADA PARA MULTITHEME -->
-	<base href="<%= request.getContextPath() %>">
-
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="<%= Constantes.adm_index_desc %>">
+    <meta name="description" content="<%= "ADMINISTRACION" %>">
     <meta name="author" content="">
 
-    <title><%=Constantes.adm_index_title %></title>
+    <title>${title}</title>
 	
 	<% //TODO Pasar a theme-head %>
 	 <!-- Bootstrap Core CSS -->
