@@ -3,8 +3,11 @@
 <%@page import="com.ipartek.formacion.helloweb.i18n.I18n"%>
 <%@page import="com.ipartek.formacion.helloworld.bean.Persona"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="util" uri="http://www.formacion.ipartek.com/tags/util"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="hello" uri="http://www.formacion.ipartek.com"%>
+<%@ taglib prefix="saluda2" uri="http://www.formacion.ipartek.com"%>
 
 <c:set var="language" value="eu_ES" />
 <c:set var="language" value="<%=I18n.getBrowserLocale(response.getLocale())  %>" />
@@ -21,7 +24,9 @@
 	<title>Login</title>
 </head>
 <body>
-	
+<saluda2:saluda2 nombre="Urko"/>
+<saluda2:saluda2 />
+<hello:saludo />	
   <div class="login-card">
     <h1><fmt:message key="login.titulo"></fmt:message></h1>
    <h2><c:out value="${language }"/></h2>
@@ -44,6 +49,7 @@
   	</c:forEach>
   	</select>
   	</div>
+  	<util:selectoroptinos cname=""/>
     <input type="submit" name="enviar" class="login login-submit" value="<fmt:message key="login.form.submit"></fmt:message>">
   </form>
 

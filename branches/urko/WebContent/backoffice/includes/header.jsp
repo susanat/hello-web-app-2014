@@ -1,6 +1,5 @@
 <%@page import="com.ipartek.formacion.helloworld.util.Constante"%>
-<%@page errorPage="includes/error.jsp" %>
-
+<%@page errorPage="../includes/error.jsp" %>
 <!DOCTYPE html>
 
 <html lang="es">

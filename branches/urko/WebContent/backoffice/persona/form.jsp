@@ -46,15 +46,17 @@
 		<div class="form-group">
 			<label>Rol</label>
 			<select name="rol">
-			<%  
-			for ( Rol rol : Rol.values() ) { 
+			<%
+			
+			for ( Rol rol: Rol.values() ) { 
 				if ( rol.toString().equalsIgnoreCase(p.getRol().toString()) ){
 					out.print("<option selected value="+rol+" >"+rol+"</option>");	
 				}else{
 					out.print("<option value="+rol+" >"+rol+"</option>");
 				}				
-			 } 
-			%>				
+			 }
+			
+			 %>			
 			</select>				
 		</div>
 			
