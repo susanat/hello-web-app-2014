@@ -13,6 +13,7 @@ public class Constantes {
 	public static final String USER_ROL = "user";
 
 	public static final String USER_SESSION = "user_session";
+	public static final String USER_LANGUAGE = "user_language";
 
 	// Paths para Servlets
 	public static final String PATH_LOGIN = "login";

@@ -7,18 +7,28 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Backoffice </a>
+                <a class="navbar-brand" href="#">${sessionScope.user_session.nombre } | ${sessionScope.user_session.rol }</a>
             </div>
-           
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    <a href="#"><fmt:message key="menu.logout"></fmt:message></a>
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+            
+               <!-- /.navbar-header -->
+<!-- 
+            <ul class="nav navbar-top-links navbar-right">
                 <li >
-                 <a href="<%=Constantes.PATH_LOGOUT%>" title="Cierra tu seccion" class= navbar-right> [x] Cerrar Session </a>
+                 <a href="<%=Constantes.PATH_LOGOUT%>" title="Cierra tu seccion" class= navbar-right>  <fmt:message key="menu.logout"></fmt:message></a>
                 </li>
             </ul>
-            
+             -->
             <!-- /.navbar-top-links -->
+         
 
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">

@@ -14,7 +14,6 @@ import javax.servlet.http.HttpSession;
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.bean.Message;
 import com.ipartek.formacion.helloweb.bean.Persona;
-import com.ipartek.formacion.helloweb.i18n.I18n;
 import com.ipartek.formacion.helloweb.i18n.Idioma;
 
 /**
@@ -60,10 +59,6 @@ public class LoginServlet extends HttpServlet {
 
 		getParameters(request);
 
-		// session.getAttribute("idioma");
-		// session.setAttribute(pIdioma, "idioma");
-		pIdioma = I18n.getBrowserLocale(request.getLocale());
-
 		loadMensajes();
 
 		// validar el usuario
@@ -100,6 +95,9 @@ public class LoginServlet extends HttpServlet {
 	private void loadMensajes() {
 		Locale locale = new Locale(pIdioma.split("_")[0], pIdioma.split("_")[1]);
 		messages = ResourceBundle.getBundle(Constantes.PROPERTY_I18N, locale);
+
+		// guardar en session el language
+		session.setAttribute(Constantes.USER_LANGUAGE, pIdioma);
 
 	}
 
