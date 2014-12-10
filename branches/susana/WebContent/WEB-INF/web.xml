@@ -34,5 +34,23 @@
     <servlet-name>PersonaServlet</servlet-name>
     <url-pattern>/persona</url-pattern>
   </servlet-mapping>
+  
+  <!-- Para los tld
+   <display-name>Prueba TagLib</display-name>
+   <jsp-config>
+		<taglib>
+		   <taglib-uri>http://www.formacion.ipartek.com</taglib-uri>
+	       <taglib-location>/WEB-INF/tag/tag_hello.tld</taglib-location>
+		</taglib>
+	</jsp-config> -->
+	
+	 <!-- Para los tld -->
+	<display-name>TagLib SelectOption</display-name>
+   <jsp-config>
+		<taglib>
+		   <taglib-uri>http://www.formacion.ipartek.com</taglib-uri>
+	       <taglib-location>/WEB-INF/tag/tag_select.tld</taglib-location>
+		</taglib>
+	</jsp-config>
  
 </web-app>
