@@ -12,15 +12,25 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
 	</description>
 
 	<tag>
-		<name>Hello</name>
+		<name>saluda</name>
 		<tag-class>com.ipartek.formacion.helloweb.tag.TagHello</tag-class>
 		<body-content>empty</body-content>
 		<description>
 			Muestra un mensaje "Hello TAG"
-		</description>
-		<attribute>
-			<name>variable</name>
-			<required>false</required>
-		</attribute>
+		</description>		
 	</tag>
+	
+	<tag>
+		<name>saluda2</name>
+		<tag-class>com.ipartek.formacion.helloweb.tag.TagHello2</tag-class>
+		<body-content>empty</body-content>
+		<description>
+			Muestra un mensaje  "Saluda" si usamos el parametro opcional "nombre", saludara "Saluda 'nombre'"
+		</description>
+		<attribute> 
+			<name>nombre</name>
+			<required>false</required> 
+		</attribute>		
+	</tag>
+	
 </taglib>

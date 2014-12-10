@@ -1,7 +1,10 @@
 <%@page import="com.ipartek.formacion.helloweb.i18n.Idioma"%>
 <%@page import="com.ipartek.formacion.helloweb.i18n.I18n"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+
 
 
 
@@ -30,7 +33,17 @@
 
 <body>
 
-   <%@ taglib prefix="hello" uri="tagHello"%>
+   
+   
+   
+   <%@ taglib prefix="hello" uri="http://www.formacion.ipartek.com"%>
+   <hello:saluda/>
+   
+   <hello:saluda2 /> <!--  Saludo -->
+   <hello:saluda2 nombre="pepe"/> <!--  Saludo Pepe -->
+   
+   
+   
    
   <div class="login-card">
     <h1><fmt:message key="login.titulo"  ></fmt:message></h1><br>
