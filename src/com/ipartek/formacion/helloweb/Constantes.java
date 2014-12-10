@@ -4,6 +4,7 @@ public class Constantes {
 
 	//Usuarios
 	public static final String USER_SESSION = "user_session";
+	public static final String USER_LANGUAGE = "user_language";
 	
 	public static final String USER_ADMIN_NAME = "admin";
 	public static final String USER_ADMIN_PASS = "admin";
@@ -28,11 +29,13 @@ public class Constantes {
 	public static final String JSP_BACK_PERSONA_LIST = JSP_BACKOFFICE + "persona/list.jsp";
 	public static final String JSP_BACK_PERSONA_FORM = JSP_BACKOFFICE + "persona/form.jsp";
 	 
-	
+	//Properties
+	public static final String PROPERTI_I18N = "com.ipartek.formacion.helloweb.i18n.i18nmesages";
 	
 	//Parametros
 	public static final String PARAMETRO_USER = "user";
 	public static final String PARAMETRO_PASS = "pass";
+	public static final String PARAMETRO_IDIOMA = "idioma";
 	 
 	//Mensajes
 	public static final String MSG_KEY = "msg";
