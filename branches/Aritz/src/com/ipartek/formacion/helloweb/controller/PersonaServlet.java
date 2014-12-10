@@ -48,6 +48,7 @@ public class PersonaServlet extends HttpServlet {
 
 		// TODO comprobar autorizaciones del usuario
 
+		// recoger paramtro identificador Persona
 		try {
 			id = Integer.parseInt(req.getParameter("id"));
 
@@ -74,7 +75,6 @@ public class PersonaServlet extends HttpServlet {
 		}
 
 		// forward a la vista
-
 		dispatcher.forward(request, response);
 	}
 
@@ -94,11 +94,9 @@ public class PersonaServlet extends HttpServlet {
 	private void getAll(HttpServletRequest request) {
 
 		// acceder al modelo
-
 		ArrayList<Persona> personas = model.getAll();
 
 		// pasamos los atributos
-
 		request.setAttribute(Constantes.ATT_PERSONAS, personas);
 
 		dispatcher = request
@@ -115,7 +113,6 @@ public class PersonaServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		// chek operacion
-
 		String op = request.getParameter(Constantes.OP_KEY);
 		if (Constantes.OP_UPDATE.equals(op)) {
 			update(request);
@@ -141,7 +138,7 @@ public class PersonaServlet extends HttpServlet {
 	private void opNotSuported(HttpServletRequest request) {
 
 		getAll(request);
-		msg = new Mensaje(Constantes.MSG_NOT_ALLOWED, Mensaje.MSG_TYPE_WARNING);
+		msg = new Mensaje(Constantes.MSG_NOT_ALLOWED, Mensaje.MSG_TYPE_DANGER);
 
 	}
 
@@ -159,7 +156,7 @@ public class PersonaServlet extends HttpServlet {
 			// TODO comprobar insert
 			model.insert(p);
 
-			msg = new Mensaje(Constantes.MSG_REG_CREADO,
+			msg = new Mensaje(Constantes.MSG_REG_CREATE,
 					Mensaje.MSG_TYPE_SUCCESS);
 		} else {
 			msg = new Mensaje(Constantes.MSG_ERROR_PARAMETERS,
@@ -167,7 +164,6 @@ public class PersonaServlet extends HttpServlet {
 		}
 
 		// enviar atributos
-		request.setAttribute(Constantes.MSG_KEY, msg);
 		request.setAttribute(Constantes.ATT_PERSONA, p);
 
 		// forward
@@ -185,17 +181,17 @@ public class PersonaServlet extends HttpServlet {
 
 		if (model.delete(id)) {
 			msg = new Mensaje(Constantes.MSG_REG_DELETE,
-					Mensaje.MSG_TYPE_SUCCESS);
+					Mensaje.MSG_TYPE_WARNING);
 		} else {
 			msg = new Mensaje(Constantes.MSG_REG_NOT_DELETE,
 					Mensaje.MSG_TYPE_DANGER);
 		}
 
 		getAll(request);
-		request.setAttribute(Constantes.MSG_KEY, msg);
+		// request.setAttribute(Constantes.MSG_KEY, msg);
 		// forward
-		dispatcher = request
-				.getRequestDispatcher(Constantes.JSP_BACK_PERSONA_LIST);
+		// dispatcher =
+		// request.getRequestDispatcher(Constantes.JSP_BACK_PERSONA_LIST);
 
 	}
 
@@ -209,8 +205,10 @@ public class PersonaServlet extends HttpServlet {
 		Persona p = getParametrosPersona(request);
 
 		if (p != null) {
-			p.setId(id);
+
 			// modificar
+			p.setId(id);
+			// TODO comprobar que realmente se a modificado
 			model.update(p);
 
 			msg = new Mensaje(Constantes.MSG_REG_UPDATE,
@@ -244,9 +242,7 @@ public class PersonaServlet extends HttpServlet {
 			p = new Persona("");
 			p.setNombre(request.getParameter("nombre"));
 			p.setEdad(Integer.parseInt(request.getParameter("edad")));
-			// TODO obtener roll
-			msg = new Mensaje(Constantes.MSG_REG_CREADO,
-					Mensaje.MSG_TYPE_SUCCESS);
+			p.setRoll(Persona.Roll.valueOf(request.getParameter("roll")));
 
 		} catch (Exception e) {
 

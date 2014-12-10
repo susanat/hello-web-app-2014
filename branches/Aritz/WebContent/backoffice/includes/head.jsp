@@ -1,9 +1,20 @@
+<%@page import="com.ipartek.formacion.helloweb.i18n.I18n"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
+
+
+<c:set var="language" value =" <%= session.getAttribute(Constantes.USER_LANGUAGE) %>" />
+<fmt:setLocale value="${language}" />
+
+<fmt:setBundle basename="<%= Constantes.PROPERTY_I18N %>" /> 
+ 
 <%@page errorPage="includes/error.jsp" %>
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="${language}">
 
 <head>
 
@@ -13,7 +24,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title><fmt:message key="index.saludo"></fmt:message></title>
     
     <base href="<%= request.getContextPath()%>/">
 

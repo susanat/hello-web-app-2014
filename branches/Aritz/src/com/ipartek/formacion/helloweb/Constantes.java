@@ -14,10 +14,13 @@ public interface Constantes {
 	public static final String JSP_BACK_PERSONA_FORM = JSP_BACKOFFICE
 			+ "Persona/Form.jsp";
 
+	// properties
+	public static final String PROPERTY_I18N = "com.ipartek.formacion.helloweb.i18n.i18nmesages";
+
 	// parametros
 	public static final String PARAMETRO_USER = "user";
 	public static final String PARAMETRO_PASS = "pass";
-	public static final String PARAMETRO_ROLL = "roll";
+	public static final String PARAMETRO_IDIOMA = "idioma";
 
 	// seguridad
 	public static final String USER_ADMIN = "admin";
@@ -27,6 +30,7 @@ public interface Constantes {
 	public static final String PASS = "aritz";
 	public static final String ROLL = "user";
 	public static final String USER_SESSION = "user_session";
+	public static final String USER_LANGUAGE = "user_language";
 
 	// Paths para servlet
 	public static final String PATH_LOGIN = "login";
@@ -41,7 +45,7 @@ public interface Constantes {
 	public static final String MSG_NOT_ALLOWED = "No tienes permisos";
 	public static final String MSG_ERROR_PARAMETERS = "Error recogiendo parametros";
 
-	public static final String MSG_REG_CREADO = "Registro creado con exito";
+	public static final String MSG_REG_CREATE = "Registro creado con exito";
 	public static final String MSG_REG_UPDATE = "Registro Modificado con exito";
 	public static final String MSG_REG_DELETE = "Registro eliminado con exito";
 	public static final String MSG_REG_NOT_DELETE = "Registro NO eliminado";
@@ -55,7 +59,7 @@ public interface Constantes {
 	public static final String OP_UPDATE = "0";// Actualizar registro
 	public static final String OP_DELETE = "1";// eliminar registro
 	public static final String OP_LIST = "2";// listar todos los registros
-	public static final String OP_DETAIL = "3";// mostrar detalle registros
+	public static final String OP_DETAIL = "4";// mostrar detalle registros
 	public static final String OP_CREATE = "3";// crea nuevo registros
 
 }
