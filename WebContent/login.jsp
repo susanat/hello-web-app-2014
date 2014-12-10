@@ -37,9 +37,7 @@
    String[] idiomasList = { "es_ES", "eu_ES", "en_EN" };
    %>
    
-   <!-- Tld para el selectOption -->
-   <%@taglib prefix="util" uri="http://www.formacion.ipartek.com"%>
-   <util:selectoptions/>
+  
 
  <div class="login-card">
     <h1><fmt:message key="login.titulo"></fmt:message></h1><br>
@@ -56,8 +54,13 @@
     >
     
     
+     <!-- Tld para el selectOption -->
+   <%@taglib prefix="util" uri="http://www.formacion.ipartek.com"%>
+   <util:selectoptions/>
+    
+    <!--  
     <select name="<%=Constantes.PARAMETRO_IDIOMA%>" class="form-control">
-    <%
+    %
     	String languageBrowser = I18n.getBrowserLocale(request.getLocale());
     	for ( Idioma idioma : Idioma.values() ){
     		StringBuffer op = new StringBuffer();
@@ -71,7 +74,7 @@
     		op.append("</option>");    	
     		out.print(op.toString());    		
     	}
-    %>
+    %-->
     </select>
     <br>
     
