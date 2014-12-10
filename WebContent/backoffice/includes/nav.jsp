@@ -15,7 +15,7 @@
 
             <ul class="nav navbar-top-links navbar-right">
                 <li>
-                    <a href="#">[x] Desconectar</a>
+                    <a href="#">[x] <fmt:message key="menu.logout"></fmt:message></a>
                 </li>
                 <!-- /.dropdown -->
             </ul>
