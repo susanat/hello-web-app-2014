@@ -1,0 +1,74 @@
+http://startbootstrap.com/bootstrap-resources/
+http://bootsnipp.com/
+
+
+
+Estructura src
+
+es.srn.srncodesnippet.bean
+	- ObjComun.java
+
+	es.srn.srncodesnippet.bean.object
+	
+	es.srn.srncodesnippet.bean.aux
+		- Message.java
+
+es.srn.srncodesnippet.comun
+	- Constantes.java
+	- Utils.java
+	- UtilsProgram.java
+	- UtilsJSP.java
+
+es.srn.srncodesnippet.controller
+	- LoginServlet.java
+	- LogoutServlet.java
+	- UserServlet.java
+
+es.srn.srncodesnippet.model
+	- UserModel.java
+	es.srn.srncodesnippet.model.interfaces
+		- IUserModel.java
+
+es.srn.srncodesnippet.filters
+
+es.srn.srncodesnippet.i18n
+
+es.srn.srncodesnippet.tag
+
+
+
+Estructura JSP
+
+WebContent
+	backoffice
+		- index.jsp
+		includes
+			- footer.jsp
+			- head.jsp
+			- nav.jsp
+		themes
+			XXXXXX
+				css
+				fonts
+				js
+		user
+			
+
+	frontoffice
+		- index.jsp
+		includes
+			- footer.jsp
+			- head.jsp
+			- nav.jsp
+		themes
+			XXXXXX
+				css
+				fonts
+				js
+
+	includes
+		- login.jsp
+		- logout.jsp
+		- error.jsp
+	
+	- index.jsp
