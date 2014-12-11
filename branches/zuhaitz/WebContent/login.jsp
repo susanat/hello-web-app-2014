@@ -30,10 +30,6 @@
 </head>
 
 <body>
-
-	<hello:saluda/>
-	<hello:saluda2/>
-	<hello:saluda2 nombre="zu"/>
 	
 	<div class="login-card">
 		<h1><fmt:message key="login.titulo"></fmt:message></h1>
@@ -43,7 +39,11 @@
 			<%@include file="includes/alert.jsp"%>
 
 			<div class="form-group">
-				<util:selectoptions tagName="idiomas" tagClass="form-control" opValues="<%=new ArrayList<Object>(Arrays.asList(Idioma.values()))%>" selectedValue="<%=I18n.getBrowserLocale(request.getLocale())%>"/>
+				<util:selectoptions tagName="idiomas" 
+									tagClass="form-control" 
+									opValues="<%=Idioma.getLocalesList()%>" 
+									opTextos="<%=Idioma.getIdiomaTextoList() %>" 
+									selectedValue="<%=I18n.getBrowserLocale(request.getLocale())%>"/>
 			</div>
 
 			<input type="text" name="<%=Constantes.PARAMETRO_USER%>"

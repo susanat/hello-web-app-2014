@@ -22,26 +22,37 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
 			<name>tagName</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
+			<description>Name del select options</description>
 		</attribute>
 		<attribute>
 			<name>tagId</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
+			<description>Id del select options</description>
 		</attribute>
 		<attribute>
 			<name>tagClass</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
+			<description>Clase del select options</description>
 		</attribute>
 		<attribute>
 			<name>opValues</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
+			<description>Values para los options</description>
+		</attribute>
+		<attribute> 
+			<name>opTextos</name>			
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>Textos para los options</description>
 		</attribute>
 		<attribute>
 			<name>selectedValue</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
+			<description>Valor seleccionado por defecto en los options</description>
 		</attribute>
 	</tag>
 </taglib>
