@@ -4,6 +4,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="util" uri="http://www.formacion.ipartek.com/tags/util"%>
 
 
 
@@ -33,19 +34,6 @@
 </head>
 
 <body>
-
-   
-   <%
-		String[] opValues  =   {"Cheese", "Pepperoni", "Black Olives"};
-   %>
-   
-  <%@ taglib prefix="util" uri="http://www.formacion.ipartek.com/tags/util"%>
-  <util:selecoptions opValues="<%=Idioma.getLocalesList()%>"   
-  					 opTexts="<%=Idioma.getIdiomLenguageList()%>"
-  					 idValue="selectIdioma"
-  					 />
-  
-   
    
    
   <div class="login-card">
@@ -62,24 +50,13 @@
     	   placeholder="<fmt:message key="login.form.password"></fmt:message>"
     >
     
-    
-    <select name="<%=Constantes.PARAMETRO_IDIOMA%>" class="form-control">
-    <%
-    	String languageBrowser = I18n.getBrowserLocale(request.getLocale());
-    	for ( Idioma idioma : Idioma.values() ){
-    		StringBuffer op = new StringBuffer();
-    		op.append("<option ");
-    		//is seleted
-    		if( languageBrowser.equals(idioma.getLocale()) ){
-    			op.append( " selected ");
-    		}
-    		op.append( "value='" +idioma.getLocale() + "' >");
-    		op.append(idioma);
-    		op.append("</option>");    	
-    		out.print(op.toString());    		
-    	}
-    %>
-    </select>
+    <util:selecoptions opValues="<%=Idioma.getLocalesList()%>" 
+                       opTexts="<%=Idioma.getTextosList()%>"
+                       selectedValue="<%=I18n.getBrowserLocale(request.getLocale())%>"
+                       parameterName="<%=Constantes.PARAMETRO_IDIOMA%>"
+                       
+                       />
+    			  
     <br>
     
     <input type="submit" name="login" class="login login-submit" 
