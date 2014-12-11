@@ -28,7 +28,7 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
 			Muestra un mensaje  "Saluda" si usamos el parametro opcional "nombre", saludara "Saluda 'nombre'"
 		</description>
 		<attribute> 
-			<name>nombre</name>
+			<name>persona</name>
 			<required>false</required> 
 		</attribute>		
 	</tag>
