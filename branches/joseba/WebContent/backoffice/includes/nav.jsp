@@ -28,6 +28,9 @@
                             <a class="active" href="<%= Constantes.CONTROLLER_PERSONA %>" title="Gestionar personas"><i class="fa fa-user fa-fw"></i><fmt:message key="nav.personas"></fmt:message></a>
                         </li>
                         <li>
+                            <a class="active" href="<%= Constantes.CONTROLLER_ROLE %>" title="Gestionar roles"><i class="fa fa-user fa-fw"></i>Roles</a>
+                        </li>
+                        <li>
                             <a class="active" href="" title="Gestionar personas"><i class="fa fa-cog fa-fw"></i><fmt:message key="nav.ajustes"></fmt:message></a>
                         </li>                    
                        

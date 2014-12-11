@@ -22,7 +22,7 @@ public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request,
 	    HttpServletResponse response) throws ServletException, IOException {
-	request.getSession().setAttribute(Constantes.USER_SESSION, null);
+	request.getSession().removeAttribute(Constantes.USER_SESSION);
 
 	// Otra opcion
 	// request.getSession().invalidate();

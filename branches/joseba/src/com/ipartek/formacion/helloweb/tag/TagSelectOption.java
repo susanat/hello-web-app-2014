@@ -44,7 +44,7 @@ public class TagSelectOption extends TagSupport {
     public int doEndTag() throws JspException {
 	try {
 	    JspWriter out = pageContext.getOut();
-	    out.print("<select name=' " + name + "' id='" + id + " class='"
+	    out.print("<select name='" + name + "' id='" + id + "' class='"
 		    + clase + "'>");
 	    for (int i = 0; i < opvalues.size(); i++) {
 		if (opvalues.get(i).equals(selectedvalue)) {
