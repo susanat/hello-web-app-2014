@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.bean.Mensaje;
 import com.ipartek.formacion.helloweb.bean.Persona;
+import com.ipartek.formacion.helloweb.listener.InitListener;
 import com.ipartek.formacion.helloweb.model.ModeloPersona;
 
 /**
@@ -22,21 +23,21 @@ public class PersonaServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	RequestDispatcher dispatcher = null;
-	ModeloPersona model = null;
+	//ModeloPersona model = null;
 	Mensaje msg = null;
 	int id = Persona.ID_NULL; // identificador Persona
       
 	@Override
 	public void init(ServletConfig config) throws ServletException {		
 		super.init(config);
-		model = new ModeloPersona();
+		//model = new ModeloPersona();
 	}
 	
 	
 	@Override
 	public void destroy() {	
 		super.destroy();
-		model=null;
+		//model=null;
 	}
 	
     
@@ -81,7 +82,8 @@ public class PersonaServlet extends HttpServlet {
 	
 
 	private void getById(HttpServletRequest request) {
-		Persona p = model.getById(id);
+		//Persona p = model.getById(id);
+		Persona p = InitListener.modelPersona.getById(id);
 		//pasamos los atributos
 		request.setAttribute( Constantes.ATT_PERSONA , p );
 		//forward a la vista del formulario
@@ -91,7 +93,8 @@ public class PersonaServlet extends HttpServlet {
 
 
 	private void getAll(HttpServletRequest request) {
-		ArrayList<Persona> personas = model.getAll();		
+		//ArrayList<Persona> personas = model.getAll();		
+		ArrayList<Persona> personas = InitListener.modelPersona.getAll();
 		//pasamos los atributos
 		request.setAttribute( Constantes.ATT_PERSONAS , personas );		
 		//forward a la vista
@@ -132,7 +135,8 @@ public class PersonaServlet extends HttpServlet {
 			//modificar
 			p.setId(id);
 			//TODO comprobar que realmente se a modificado
-			model.update(p);					
+			//model.update(p);
+			InitListener.modelPersona.update(p);
 			//enviar atributos
 			msg =  new Mensaje(Constantes.MSG_REG_UPDATE , Mensaje.MSG_TYPE_SUCCESS);			
 		}else{
@@ -153,7 +157,8 @@ public class PersonaServlet extends HttpServlet {
 	 */
 	private void delete(HttpServletRequest request) {
 				
-		if (model.delete(id) ){
+		//if (model.delete(id) ){
+		if ( InitListener.modelPersona.delete(id) ){
 			msg = new Mensaje( Constantes.MSG_REG_DELETE, Mensaje.MSG_TYPE_WARNING);
 		}else{
 			msg = new Mensaje( Constantes.MSG_ERR_REG_DELETE, Mensaje.MSG_TYPE_DANGER);
@@ -184,7 +189,8 @@ public class PersonaServlet extends HttpServlet {
 		if ( p != null ){
 			//insertarlo
 			//TODO comprobar la inserccion
-			model.insert(p);					
+			//model.insert(p);					
+			InitListener.modelPersona.insert(p);
 			//enviar atributos
 			msg = new Mensaje( Constantes.MSG_REG_CREATE, Mensaje.MSG_TYPE_SUCCESS);	
 		}else{
