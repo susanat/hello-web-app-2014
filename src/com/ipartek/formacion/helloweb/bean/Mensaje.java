@@ -1,6 +1,5 @@
 package com.ipartek.formacion.helloweb.bean;
 
-
 /**
  * Clase para mostrar los mensajes o alertas durante la apliación.
  *
@@ -9,6 +8,10 @@ package com.ipartek.formacion.helloweb.bean;
  */
 public class Mensaje {
 
+    public static final String MSG_TYPE_SUCCESS = "success";
+    public static final String MSG_TYPE_INFO = "info";
+    public static final String MSG_TYPE_WARNING = "warning";
+    public static final String MSG_TYPE_DANGER = "danger";
     /**
      * Descripción del mensaje
      */
@@ -21,6 +24,18 @@ public class Mensaje {
      * Código http
      */
     int code;
+
+    public Mensaje(String msg) {
+	super();
+	this.msg = msg;
+	this.type = MSG_TYPE_SUCCESS;
+    }
+
+    public Mensaje(String msg, String type) {
+	super();
+	this.msg = msg;
+	this.type = type;
+    }
 
     public Mensaje(String msg, String type, int code) {
 	super();

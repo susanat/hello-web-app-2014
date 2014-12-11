@@ -3,6 +3,7 @@ package com.ipartek.formacion.helloweb;
 public class Constantes {
     // Usuarios
     public static final String USER_SESSION = "user_session";
+    public static final String USER_LANGUAGE = "user_language";
 
     public static final String USER_ADMIN = "admin";
     public static final String PASS_ADMIN = "admin";
@@ -28,9 +29,13 @@ public class Constantes {
     public static final String JSP_BACK_PERSONA_FORM = BACKOFFICE_FOLDER
 	    + "persona/form.jsp";
 
+    // Properties
+    public static final String PROPERTY_I18N = "com.ipartek.formacion.helloweb.i18n.i18nmesages";
+
     // Parametros login
     public static final String PARAMETRO_USER = "user";
     public static final String PARAMETRO_PASS = "pass";
+    public static final String PARAMETRO_IDIOMA = "idioma";
 
     // Mensajes
     public static final String MSG_KEY = "msg";
