@@ -12,19 +12,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.helloweb.Constantes;
+import com.ipartek.formacion.helloweb.bean.Calificacion;
 import com.ipartek.formacion.helloweb.bean.Mensaje;
-import com.ipartek.formacion.helloweb.bean.Persona;
 import com.ipartek.formacion.helloweb.i18n.I18n;
 import com.ipartek.formacion.helloweb.i18n.Idioma;
 import com.ipartek.formacion.helloweb.listener.InitListener;
-import com.ipartek.formacion.helloweb.model.ModeloPersona;
+import com.ipartek.formacion.helloweb.model.ModeloCalificacion;
 import com.ipartek.formacion.helloweb.util.MensajesIdiomas;
-import com.ipartek.formacion.helloweb.util.Rol;
 
 /**
- * Servlet implementation class PersonaServlet.
+ * Servlet implementation class CalificacionServlet.
  */
-public class PersonaServlet extends HttpServlet {
+public class CalificacionServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
@@ -32,17 +31,15 @@ public class PersonaServlet extends HttpServlet {
 	HttpSession session = null;
 	ResourceBundle messages = null;
 
-	// ModeloPersona modelo = null;
 	Mensaje msg;
 
-	int id = Persona.ID_NULL;
+	int id = Calificacion.ID_NULL;
 	String pIdioma = Idioma.INGLES.getLocale();
 
 	@Override
 	public void init(final ServletConfig config) throws ServletException {
 		super.init(config);
-		// modelo = new ModeloPersona();
-		InitListener.modeloPersona = new ModeloPersona();
+		InitListener.modeloCalificacion = new ModeloCalificacion();
 	}
 
 	@Override
@@ -54,7 +51,7 @@ public class PersonaServlet extends HttpServlet {
 		try {
 			id = Integer.parseInt(request.getParameter("id"));
 		} catch (final Exception e) {
-			id = Persona.ID_NULL;
+			id = Calificacion.ID_NULL;
 		}
 
 		super.service(request, response);
@@ -63,8 +60,7 @@ public class PersonaServlet extends HttpServlet {
 	@Override
 	public void destroy() {
 		super.destroy();
-		// modelo = null;
-		InitListener.modeloPersona = null;
+		InitListener.modeloCalificacion = null;
 	}
 
 	/**
@@ -73,12 +69,12 @@ public class PersonaServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-			IOException {
+	IOException {
 		session = request.getSession();
 		messages = MensajesIdiomas.loadMessages(pIdioma, session);
 
 		// Comprobar si es getAll o getById, para ir a list.jsp o form.jsp
-		if (id == Persona.ID_NULL) {
+		if (id == Calificacion.ID_NULL) {
 			getAll(request);
 		} else {
 			getById(request);
@@ -123,57 +119,55 @@ public class PersonaServlet extends HttpServlet {
 	 * @param request
 	 */
 	private void insert(final HttpServletRequest request) {
-		final Persona p = getParametersPersona(request);
+		final Calificacion c = getParametersCalificacion(request);
 
-		if (p != null) {
-			// modelo.insert(p);
-			InitListener.modeloPersona.insert(p);
+		if (c != null) {
+			InitListener.modeloCalificacion.insert(c);
 			// TODO comprobar la inserción
 			msg = new Mensaje(Mensaje.MSG_TYPE_SUCCESS, messages.getString("msg.reg.inserted"));
 		} else {
 			msg = new Mensaje(Mensaje.MSG_TYPE_DANGER, messages.getString("msg.err.parameters"));
 		}
 
-		request.setAttribute(Constantes.ATTR_PERSONA, p);
-		dispatcher = request.getRequestDispatcher(Constantes.JSP_BACKOFFICE_PERSONA_FORM);
+		request.setAttribute(Constantes.ATTR_CALIFICACION, c);
+		dispatcher = request.getRequestDispatcher(Constantes.JSP_BACKOFFICE_CALIFICACION_FORM);
 	}
 
 	/**
-	 * Modifica los datos de una Persona y forward a list.jsp.
+	 * Modifica los datos de una <code>Calificacion</code> y forward a list.jsp.
 	 *
 	 * @param request
 	 */
 	private void update(final HttpServletRequest request) {
-		final Persona p = getParametersPersona(request);
+		final Calificacion c = getParametersCalificacion(request);
 
-		if (p != null) {
-			p.setId(id);
-			// modelo.update(p);
-			InitListener.modeloPersona.update(p);
+		if (c != null) {
+			c.setId(id);
+			InitListener.modeloCalificacion.update(c);
 			msg = new Mensaje(Mensaje.MSG_TYPE_WARNING, messages.getString("msg.reg.updated"));
 		} else {
 			msg = new Mensaje(Mensaje.MSG_TYPE_DANGER, messages.getString("msg.err.parameters"));
 		}
 
-		request.setAttribute(Constantes.ATTR_PERSONA, p);
-		dispatcher = request.getRequestDispatcher(Constantes.JSP_BACKOFFICE_PERSONA_FORM);
+		request.setAttribute(Constantes.ATTR_CALIFICACION, c);
+		dispatcher = request.getRequestDispatcher(Constantes.JSP_BACKOFFICE_CALIFICACION_FORM);
 	}
 
 	/**
-	 * Elimina la Persona por su ID y retorna al list.jsp.
+	 * Elimina la <code>Calificacion</code> por su ID y retorna al list.jsp.
 	 *
 	 * @param request
 	 */
 	private void delete(final HttpServletRequest request) {
 		// if (modelo.delete(id)) {
-		if (InitListener.modeloPersona.delete(id)) {
+		if (InitListener.modeloCalificacion.delete(id)) {
 			msg = new Mensaje(Mensaje.MSG_TYPE_SUCCESS, messages.getString("msg.reg.deleted"));
 		} else {
 			msg = new Mensaje(Mensaje.MSG_TYPE_DANGER, messages.getString("msg.err.delete"));
 		}
 
 		getAll(request);
-		dispatcher = request.getRequestDispatcher(Constantes.JSP_BACKOFFICE_PERSONA_LIST);
+		dispatcher = request.getRequestDispatcher(Constantes.JSP_BACKOFFICE_CALIFICACION_LIST);
 	}
 
 	/**
@@ -187,52 +181,47 @@ public class PersonaServlet extends HttpServlet {
 	}
 
 	/**
-	 * Recoger parámetros de la request y crear <code>Persona</code>.
+	 * Recoger parámetros de la request y crear <code>Calificacion</code>.
 	 *
 	 * @param request
 	 * @return p <code>Persona</code> inicializada con los parámetros de la
 	 *         request, en caso de fallo null
 	 */
-	private Persona getParametersPersona(final HttpServletRequest request) {
-		Persona p = null;
+	private Calificacion getParametersCalificacion(final HttpServletRequest request) {
+		Calificacion c = null;
 
 		try {
-			p = new Persona("");
-			p.setNombre(request.getParameter("nombre"));
-			if (request.getParameter("edad") != null) {
-				p.setEdad(Integer.parseInt(request.getParameter("edad")));
+			c = new Calificacion(0, "");
+			if (request.getParameter("valor") != null) {
+				c.setValor(Integer.parseInt(request.getParameter("valor")));
 			}
-			if (request.getParameter("rol") != null) {
-				p.setRol(Rol.valueOf(request.getParameter("rol")));
-			}
+			c.setTexto(request.getParameter("texto"));
 		} catch (final Exception e) {
-			p = null;
+			c = null;
 			e.printStackTrace();
 		}
 
-		return p;
+		return c;
 	}
 
 	/**
-	 * Si hay una id va al detalle de la <code>Persona</code>.
+	 * Si hay una id va al detalle de la <code>Calificacion</code>.
 	 *
 	 * @param request
 	 */
 	private void getById(final HttpServletRequest request) {
-		// request.setAttribute(Constantes.ATTR_PERSONA, modelo.getById(id));
-		request.setAttribute(Constantes.ATTR_PERSONA, InitListener.modeloPersona.getById(id));
-		dispatcher = request.getRequestDispatcher(Constantes.JSP_BACKOFFICE_PERSONA_FORM);
+		request.setAttribute(Constantes.ATTR_CALIFICACION, InitListener.modeloCalificacion.getById(id));
+		dispatcher = request.getRequestDispatcher(Constantes.JSP_BACKOFFICE_CALIFICACION_FORM);
 	}
 
 	/**
-	 * Si no hay id va a la lista de Personas.
+	 * Si no hay id va a la lista de <code>Calificacion</code>.
 	 *
 	 * @param request
 	 */
 	private void getAll(final HttpServletRequest request) {
-		// request.setAttribute(Constantes.ATTR_PERSONAS, modelo.getAll());
-		request.setAttribute(Constantes.ATTR_PERSONAS, InitListener.modeloPersona.getAll());
-		dispatcher = request.getRequestDispatcher(Constantes.JSP_BACKOFFICE_PERSONA_LIST);
+		request.setAttribute(Constantes.ATTR_CALIFICACIONES, InitListener.modeloCalificacion.getAll());
+		dispatcher = request.getRequestDispatcher(Constantes.JSP_BACKOFFICE_CALIFICACION_LIST);
 	}
 
 }

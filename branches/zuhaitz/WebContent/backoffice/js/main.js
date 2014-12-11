@@ -5,4 +5,11 @@ $(document).ready(function() {
 			"bSearchable" : false
 		}, null, null, null, null ]
 	});
+
+	$('#calificacionesList').dataTable({
+		"aoColumns" : [ {
+			"bSearchable" : false
+		}, null, null, null ]
+	});
+
 });

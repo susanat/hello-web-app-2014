@@ -15,15 +15,21 @@ public class Constantes {
 	public static final String CONTROLLER_LOGIN = "login";
 	public static final String CONTROLLER_LOGOUT = "logout";
 	public static final String CONTROLLER_PERSONA = "persona";
+	public static final String CONTROLLER_CALIFICACION = "calificacion";
 
 	// JSPs
 	public static final String JSP_SALUDO = "saludo.jsp";
 	public static final String JSP_LOGIN = "login.jsp";
+
 	public static final String JSP_PERSONA_LIST = "list.jsp";
 	public static final String JSP_PERSONA_FORM = "form.jsp";
-
 	public static final String JSP_TITLE_PERSONA_LIST = "Lista de Personas";
-	public static final String JSP_TITLE_PERSONA_FORM = "Formulario de Personas";
+	public static final String JSP_TITLE_PERSONA_FORM = "Formulario de Persona";
+
+	public static final String JSP_CALIFICACION_LIST = "list.jsp";
+	public static final String JSP_CALIFICACION_FORM = "form.jsp";
+	public static final String JSP_TITLE_CALIFICACION_LIST = "Lista de Calificaciones";
+	public static final String JSP_TITLE_CALIFICACION_FORM = "Formulario de Calificacion";
 
 	// JSPs Backoffice
 	public static final String JSP_BACKOFFICE = "backoffice/";
@@ -31,6 +37,9 @@ public class Constantes {
 
 	public static final String JSP_BACKOFFICE_PERSONA_LIST = JSP_BACKOFFICE + "persona/list.jsp";
 	public static final String JSP_BACKOFFICE_PERSONA_FORM = JSP_BACKOFFICE + "persona/form.jsp";
+
+	public static final String JSP_BACKOFFICE_CALIFICACION_LIST = JSP_BACKOFFICE + "calificacion/list.jsp";
+	public static final String JSP_BACKOFFICE_CALIFICACION_FORM = JSP_BACKOFFICE + "calificacion/form.jsp";
 
 	// Parámetros
 	public static final String PARAMETRO_USER = "user";
@@ -44,6 +53,9 @@ public class Constantes {
 	// Atributos
 	public static final String ATTR_PERSONAS = "personas";
 	public static final String ATTR_PERSONA = "persona";
+
+	public static final String ATTR_CALIFICACIONES = "calificaciones";
+	public static final String ATTR_CALIFICACION = "calificacion";
 
 	// Operaciones CRUD
 	public static final String OP_CRUD = "op";

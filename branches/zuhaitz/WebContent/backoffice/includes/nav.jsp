@@ -36,7 +36,10 @@
                     <ul class="nav" id="side-menu">
                         <li>
                             <a class="active" href="<%=Constantes.CONTROLLER_PERSONA%>" title="Gestionar Personas"><i class="fa fa-dashboard fa-fw"></i> Personas</a>
-                        </li>                                     
+                        </li>
+                         <li>
+                            <a class="active" href="<%=Constantes.CONTROLLER_CALIFICACION%>" title="Gestionar Calificaciones"><i class="fa fa-dashboard fa-fw"></i> Calificaciones</a>
+                        </li>                                      
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

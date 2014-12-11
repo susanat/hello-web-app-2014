@@ -39,7 +39,7 @@
 			<%@include file="includes/alert.jsp"%>
 
 			<div class="form-group">
-				<util:selectoptions tagName="idiomas" 
+				<util:selectoptions tagName="lang" 
 									tagClass="form-control" 
 									opValues="<%=Idioma.getLocalesList()%>" 
 									opTextos="<%=Idioma.getIdiomaTextoList() %>" 
