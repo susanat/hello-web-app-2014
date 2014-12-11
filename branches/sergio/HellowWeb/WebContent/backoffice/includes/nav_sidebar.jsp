@@ -26,8 +26,7 @@
 					<i class="fa fa-users fa-fw"></i>
 					Personas
 					<span class="fa arrow"></span>
-				</a>
-				
+				</a>				
 				<ul class="nav nav-second-level">
 					<li><a href="<%=Constantes.JSP_BACK_PERSONA_LIST %>">
 						<i class="fa fa-user fa-fw"></i>
@@ -35,7 +34,24 @@
 						</a>
 					</li>
 					<li><a href="<%=Constantes.JSP_BACK_PERSONA_FORM %>">Crear</a></li>
-				</ul> <!-- /.nav-second-level --></li>
+				</ul> <!-- /.nav-second-level -->
+			</li>
+			
+			<li>
+				<a href="#">
+					<i class="fa fa-users fa-fw"></i>
+					Roles
+					<span class="fa arrow"></span>
+				</a>				
+				<ul class="nav nav-second-level">
+					<li><a href="<%=Constantes.JSP_BACK_ROLES_LIST %>">
+						<i class="fa fa-user fa-fw"></i>
+						Listar
+						</a>
+					</li>
+					<li><a href="<%=Constantes.JSP_BACK_ROLES_FORM %>">Crear</a></li>
+				</ul> <!-- /.nav-second-level -->
+			</li>
 			
 		</ul>
 	</div>

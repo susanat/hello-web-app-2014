@@ -126,7 +126,11 @@
 						<!-- http://silviomoreto.github.io/bootstrap-select/ -->
 						<div class="col-md-12">															
 							<form role="form" method="post">
-								<label class="control-label" for="language"><fmt:message key="login.label.combolang" /></label>							
+								<label class="control-label" for="language">
+									<fmt:message key="login.label.combolang" >
+										<fmt:param value="prueba" />
+									</fmt:message>
+								</label>							
 								<select class="form-control" id="language" name="language" onchange="submit()">		                      			            		
 			            			<option value="es_ES" ${language == 'es_ES' ? 'selected' : ''}>Español</option>             
 			            			<option value="en_GB" ${language == 'en_GB' ? 'selected' : ''}>English</option>										
