@@ -59,7 +59,7 @@ public interface Constantes {
 	public static final String OP_UPDATE = "0";// Actualizar registro
 	public static final String OP_DELETE = "1";// eliminar registro
 	public static final String OP_LIST = "2";// listar todos los registros
-	public static final String OP_DETAIL = "4";// mostrar detalle registros
-	public static final String OP_CREATE = "3";// crea nuevo registros
+	public static final String OP_DETAIL = "3";// mostrar detalle registros
+	public static final String OP_CREATE = "4";// crea nuevo registros
 
 }
