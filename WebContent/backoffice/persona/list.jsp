@@ -18,7 +18,7 @@
 			<%
 		}else{
 			%>
-			<table id="tabla" cellspacing="0" width="100%">
+			<table id="tabla" cellspacing="0" width="100%" class="table table-bordered table-hover table-striped">
 		        <thead>
 		            <tr>
 		                <th>id</th>
