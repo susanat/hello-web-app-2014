@@ -4,12 +4,15 @@ import java.util.ArrayList;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.tagext.BodyTagSupport;
+import javax.servlet.jsp.tagext.TagSupport;
 
-import com.ipartek.formacion.helloweb.i18n.Idioma;
-import com.ipartek.formacion.helloweb.util.Rol;
-
-public class SelectOptionsTag extends BodyTagSupport {
+/**
+ * Librería de tags para implementar un combo de html Select Options.
+ *
+ * @author Curso
+ *
+ */
+public class SelectOptionsTag extends TagSupport {
 
 	/**
 	 *
@@ -19,7 +22,8 @@ public class SelectOptionsTag extends BodyTagSupport {
 	private String tagName;
 	private String tagId;
 	private String tagClass;
-	private ArrayList<Object> opValues;
+	ArrayList<String> opValues = null;
+	ArrayList<String> opTextos = null;
 	private String selectedValue;
 
 	/**
@@ -27,11 +31,7 @@ public class SelectOptionsTag extends BodyTagSupport {
 	 *            the tagName to set
 	 */
 	public void setTagName(final String tagName) {
-		if (tagName != null) {
-			this.tagName = tagName;
-		} else {
-			this.tagName = "";
-		}
+		this.tagName = tagName;
 	}
 
 	/**
@@ -39,11 +39,7 @@ public class SelectOptionsTag extends BodyTagSupport {
 	 *            the tagId to set
 	 */
 	public void setTagId(final String tagId) {
-		if (tagId != null) {
-			this.tagId = tagId;
-		} else {
-			this.tagId = "";
-		}
+		this.tagId = tagId;
 	}
 
 	/**
@@ -51,20 +47,30 @@ public class SelectOptionsTag extends BodyTagSupport {
 	 *            the tagClass to set
 	 */
 	public void setTagClass(final String tagClass) {
-		if (tagClass != null) {
-			this.tagClass = tagClass;
-		} else {
-			this.tagClass = "";
-		}
+		this.tagClass = tagClass;
 	}
 
 	/**
 	 * @param values
 	 *            the values to set
 	 */
-	public void setOpValues(final ArrayList<Object> opValues) {
+	public void setOpValues(final ArrayList<String> opValues) {
 		if (opValues != null && opValues.size() > 0) {
 			this.opValues = opValues;
+		} else {
+			this.opValues = new ArrayList<String>();
+		}
+	}
+
+	/**
+	 * @param opTexts
+	 *            the opTexts to set
+	 */
+	public void setOpTextos(final ArrayList<String> opTextos) {
+		if (opTextos != null && opTextos.size() > 0) {
+			this.opTextos = opTextos;
+		} else {
+			this.opTextos = new ArrayList<String>();
 		}
 	}
 
@@ -79,22 +85,29 @@ public class SelectOptionsTag extends BodyTagSupport {
 	@Override
 	public int doEndTag() throws JspException {
 		try {
-			final JspWriter out = pageContext.getOut();
-			out.print("<select name = '" + tagName + "' id = '" + tagId + "' class= '" + tagClass + "'>");
+			if ((opValues != null) && (opTextos != null) && (opTextos.size() == opValues.size())) {
+				final JspWriter out = pageContext.getOut();
+				out.print("<select ");
+				out.print((tagName != null) ? " name='" + tagName + "'" : "");
+				out.print((tagId != null) ? " id='" + tagId + "'" : "");
+				out.print((tagClass != null) ? " class='" + tagClass + "'" : "");
+				out.print(">");
 
-			for (final Object opValue : opValues) {
-				if (opValue instanceof Idioma) {
-					out.print("<option value = '" + ((Idioma) opValue).getLocale() + "'>" + opValue + "</option>");
-				} else if (opValue instanceof Rol) {
-					out.print("<option value = '" + opValue + "'>" + opValue + "</option>");
+				for (int i = 0; i < opValues.size(); i++) {
+					if (opValues.get(i).equals(selectedValue)) {
+						out.print("<option selected value=" + opValues.get(i) + ">");
+					} else {
+						out.print("<option value=" + opValues.get(i) + ">");
+					}
+					out.print(opTextos.get(i));
+					out.print("</option>");
 				}
-			}
 
-			out.print("</select>");
+				out.print("</select>");
+			}
 		} catch (final Exception e) {
 			e.printStackTrace();
 		}
 		return EVAL_PAGE;
 	}
-
 }
