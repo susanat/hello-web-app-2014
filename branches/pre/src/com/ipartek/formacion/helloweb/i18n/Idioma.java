@@ -9,18 +9,21 @@ import java.util.ArrayList;
  */
 public enum Idioma {
 	
-	CASTELLANO("es_ES","es","ES"), 
-	EUSKERA("eu_ES","eu","ES"), 
-	INGLES("en_EN","en","EN");
+	CASTELLANO("es_ES","es","ES","Castellano"), 
+	EUSKERA("eu_ES","eu","ES","Euskara"), 
+	INGLES("en_EN","en","EN","English");
 	
 	private String locale;
 	private String lenguaje;
 	private String pais;
+	private String texto;
 	
-	private Idioma(String locale, String lenguaje, String pais) {
+	private Idioma(String locale, String lenguaje, String pais, String texto) {
 		this.locale = locale;
 		this.lenguaje = lenguaje;
 		this.pais = pais;
+		this.texto = texto;
+		
 	}
 
 	public String getLocale() {
@@ -33,6 +36,10 @@ public enum Idioma {
 
 	public String getPais() {
 		return pais;
+	}
+	
+	public String getTexto() {
+		return texto;
 	}
 	
 	
@@ -53,7 +60,13 @@ public enum Idioma {
 	}
 
 		
-	
+	public static ArrayList<String> getTextosList(){
+		ArrayList<String> resul = new ArrayList<String>();
+		for (int i=0; i < Idioma.values().length ; i++){
+			resul.add( Idioma.values()[i].getTexto() );
+		}
+		return resul;
+	}
 	
 	
 	
