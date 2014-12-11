@@ -40,7 +40,10 @@
    %>
    
   <%@ taglib prefix="util" uri="http://www.formacion.ipartek.com/tags/util"%>
-  <util:selecoptions opValues="<%=opValues%>"/>
+  <util:selecoptions opValues="<%=Idioma.getLocalesList()%>"   
+  					 opTexts="<%=Idioma.getIdiomLenguageList()%>"
+  					 idValue="selectIdioma"
+  					 />
   
    
    
