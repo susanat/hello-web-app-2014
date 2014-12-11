@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+ <%@ taglib prefix="util" uri="http://www.formacion.ipartek.com/tag/util"%>
+
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
 
 <c:set var="language" value="<%= I18n.getBrowserLocale(request.getLocale())%>" />
@@ -27,18 +29,12 @@
 </head>
 
 <body>
-	<!--Estos datos se recogen del tld // short-name y uri
-	%<@ taglib prefix="hello" uri="http://www.formacion.ipartek.com"%>
+	<!--Estos datos se recogen del tld // short-name y uri-->
+	<%@ taglib prefix="hello" uri="http://www.formacion.ipartek.com"%>
    <hello:saluda />
-   <hello:saluda2 />--><!-- Saludo 
-   <hello:saluda2  nombre="pepe"/>--><!-- Saludo Pepe -->
+   <hello:saluda2 /><!-- Saludo -->
+   <hello:saluda2  nombre="pepe"/><!-- Saludo Pepe -->
    
-   <%
-   String[] idiomasList = { "es_ES", "eu_ES", "en_EN" };
-   %>
-   
-  
-
  <div class="login-card">
     <h1><fmt:message key="login.titulo"></fmt:message></h1><br>
   <form action="<%=Constantes.PATH_LOGIN%>" method="post">
@@ -55,11 +51,16 @@
     
     
      <!-- Tld para el selectOption -->
-   <%@taglib prefix="util" uri="http://www.formacion.ipartek.com"%>
-   <util:selectoptions/>
-    
-    <!--  
-    <select name="<%=Constantes.PARAMETRO_IDIOMA%>" class="form-control">
+  <util:selectoptions opValues="<%=Idioma.getLocalesList()%>"   
+  					 opTexts="<%=Idioma.getTextosList()%>"
+  					 selectedValue="I18n.getBrowserLocale(request.getLocale()"
+  					 parameterName="<%=Constantes.PARAMETRO_IDIOMA%>"
+  					 
+  	 />
+  	 
+  	 
+ <!--  
+    <select name="<=Constantes.PARAMETRO_IDIOMA%>" class="form-control">
     %
     	String languageBrowser = I18n.getBrowserLocale(request.getLocale());
     	for ( Idioma idioma : Idioma.values() ){
