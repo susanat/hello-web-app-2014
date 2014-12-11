@@ -27,6 +27,7 @@
 			if( request.getAttribute(Constantes.ATTR_ROLES_LIST) == null) {
 				
 				response.sendRedirect(Constantes.PATH_SITE + Constantes.CONTROLLER_ROLES + "?" + Constantes.PARAM_ACTION + "=" + Constantes.EModeloAccion.GET.getValue() );
+				
 			} else {
 				List<Roles> lstObj = (List<Roles>) request.getAttribute(Constantes.ATTR_ROLES_LIST);
 				if (lstObj == null) {
@@ -57,8 +58,8 @@
 									out.println("<td>" + "<i class='fa fa-user fa-fw'>" + "</td>");
 									out.println("<td>" + obj.getId() + "</td>");
 									out.println("<td>" + obj.getAlias() + "</td>");
-									out.println("<td>" + obj.getNombre() + "</td>");
-									out.println("<td>" + obj.getDescripcion() + "</td>");						
+									out.println("<td>" + UtilsTemp.getTextLang(obj, obj.getNombre(),session) + "</td>");
+									out.println("<td>" + UtilsTemp.getTextLang(obj, obj.getDescripcion(),session) + "</td>");						
 									out.println("<td>");
 					%>						
 							<form action="<%=Constantes.PATH_SITE +  Constantes.CONTROLLER_ROLES%>" method="post">							

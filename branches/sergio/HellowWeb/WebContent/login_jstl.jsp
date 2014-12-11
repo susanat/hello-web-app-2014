@@ -1,60 +1,39 @@
-<%@include file="frontoffice/includes/head.jsp" %>
-	<%@include file="frontoffice/includes/nav.jsp" %>
-	
-
 <!-- https://jstl.java.net/ -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-	
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.List"%>
+<!-- Includes -->
 <%@page import="com.ipartek.formacion.helloweb.comun.Utils"%>
-<%@page import="java.util.Locale"%>
 <%@page import="com.ipartek.formacion.helloweb.bean.Message"%>
 <%@page import="com.ipartek.formacion.helloweb.temp.UtilsTemp"%>
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <%@page import="com.ipartek.formacion.helloweb.comun.Constantes"%>
 
-
-
-
-<!-- Autentificado o no -->
-<c:set var="isAuthenticated" scope="page" value="${sessionScope.authenticated == null ? false : sessionScope.authenticated}"/>
-
-<c:choose>
-  <c:when test="${sessionScope.authenticated == null}">
-    <c:set var="isAuthenticated" scope="page" value="${false}"/>
-  </c:when>
-  <c:when test="${sessionScope.authenticated == false}">
-    <c:set var="isAuthenticated" scope="page" value="${false}"/>
-  </c:when>
-  <c:when test="${sessionScope.authenticated == true}">
-    <c:set var="isAuthenticated" scope="page" value="${true}"/>
-  </c:when>								  
-</c:choose>	
-
+<%@include file="frontoffice/includes/head.jsp" %>
+	<%@include file="frontoffice/includes/nav.jsp" %>
 
 <!-- url origen al login (vacía si ha entrado directamente -->
-<c:set var="lastUrl" scope="page" value="${sessionScope.lasturl}"/>
-		
+	<c:set var="lastUrl" scope="page" value="${sessionScope.lasturl}"/>		
+	
 	<div class="col-md-12">
-		<div class="col-xs-4 col-xs-offset-4">		
-			<div class="row text-center" style="border: 1px solid; border-radius: 4px; margin-bottom: 20px; border-color: #428BCA; background-color: #428BCA; color: white;">				
-				<h1><fmt:message key="login.login" /></h1>				
-			</div>
+		<div class="col-xs-4 col-xs-offset-4">
+				
+			<c:if test="${isAuthenticated == false}">	
+				<div class="row text-center" style="border: 1px solid; border-radius: 4px; margin-bottom: 20px; border-color: #428BCA; background-color: #428BCA; color: white;">			
+					<h1><fmt:message key="login.page.title" /></h1>				
+				</div>
+			</c:if>
 		
 			<div class="row">
 				<div class="panel panel-primary sombra ">
 			    	<div class="panel-heading">
-			      		<h3 class="panel-title">
-			      		
+			      		<h3 class="panel-title">			      		
 			      			<c:choose>
 							  <c:when test="${isAuthenticated == false}">
-							    <fmt:message key="login.help.insert" />
+							    <fmt:message key="login.page.form.title.insert" />
 							  </c:when>
 							  <c:when test="${isAuthenticated == true}">
-							    <fmt:message key="login.help.wellcome" />
+							    <fmt:message key="login.page.form.title.wellcome" />
 							  </c:when>							  
 							</c:choose>			      					      		
 			      		</h3>
@@ -64,15 +43,15 @@
 						<c:if test="${isAuthenticated == false}">
 							<form class="" role="form" method="post" id="frm_login" action="login">
 								<div class="form-group form-group-install col-md-12">
-									<label class="control-label" for="cont1"><fmt:message key="login.label.username" /> * </label>
+									<label class="control-label" for="cont1"><fmt:message key="login.page.label.username" /> * </label>
 									<input class="form-control" type="text" name="<%=Constantes.PARAMETRO_USER%>" id="cont1" value="" required="required" 
-									placeholder="<fmt:message key="login.placeholder.username" />">
+									placeholder="<fmt:message key="login.page.placeholder.username" />">
 								</div>
 									
 								<div class="form-group form-group-install col-md-12">
-									<label class="control-label" for="cont2"><fmt:message key="login.label.password" /> * </label>
+									<label class="control-label" for="cont2"><fmt:message key="login.page.label.password" /> * </label>
 									<input class="form-control" type="password" name="<%=Constantes.PARAMETRO_PASSWORD%>" id="cont2" required="required" 
-									placeholder="<fmt:message key="login.placeholder.password" />">
+									placeholder="<fmt:message key="login.page.placeholder.password" />">
 								</div>
 								
 								<!-- Path de referencia para redirigir -->
@@ -82,7 +61,7 @@
 										<input form="frm_login" class="btn btn-success btn-lg" 
 											type="submit" name="save" 
 											title="Save" 
-											value="<fmt:message key="login.button.login" />" />				  		
+											value="<fmt:message key="login.page.button.login" />" />				  		
 								</div>						
 							</form>	
 						</c:if>
@@ -97,10 +76,9 @@
 										<c:if test="${sessionScope.user_session.idRol == 2}">
 											<li>
 												<a href='<%=Constantes.JSP_BACK_ADMIN %>' title='Administracion'>
-													Administracion
+													<fmt:message key="page.admin" />
 												</a>
-											</li>
-										
+											</li>										
 										</c:if>	
 									</c:if>																
 								</ul>
@@ -117,13 +95,13 @@
 											<input form="frm_login" class="btn btn-active btn-lg" 
 												type="submit" name="save" 
 												title="Logo out" 
-												value="<fmt:message key="login.button.logout" />" />				  		
+												value="<fmt:message key="login.page.button.logout" />" />				  		
 									</div>														
 								</form>
 							</div>
 						</c:if>
 										
-						<!-- http://silviomoreto.github.io/bootstrap-select/ -->
+						<!-- http://silviomoreto.github.io/bootstrap-select/ 
 						<div class="col-md-12">															
 							<form role="form" method="post">
 								<label class="control-label" for="language">
@@ -137,8 +115,8 @@
 			            			<option value="es_EU" ${language == 'es_EU' ? 'selected' : ''}>Euskera</option>										
 								</select>	
 							</form>									
-						</div>	<!-- http://silviomoreto.github.io/bootstrap-select/ -->	
-						
+						</div>		
+						-->						
 					</div> <!--  panel-body -->				
 				</div> <!-- fin panel primary -->
 			
@@ -147,8 +125,7 @@
 					<div class="alert alert-${requestScope.isError.type}" role="alert">
 						Alerta: ${requestScope.isError.text}
 					</div>			
-				</c:if>
-			
+				</c:if>			
 			</div>
 		</div>
 	</div> <!-- clas container -->
@@ -179,7 +156,7 @@
 							  "showMethod": "slideDown",
 							  "hideMethod": "fadeOut"
 							}
-
+	
 				// Display an info toast with no title
 				toastr.info('<fmt:message key="login.button.logout" />');
 									}
@@ -187,20 +164,6 @@
 	<% 	
 	} //fin condicion logout		
 	%>
-	
-	
-	
-
-  	
-	
-
-	
-	
-		
-	
-	
-
-	
 	
 		
 <%@include file="frontoffice/includes/footer.jsp" %>

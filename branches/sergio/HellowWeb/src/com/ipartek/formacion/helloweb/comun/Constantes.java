@@ -73,6 +73,13 @@ public final class Constantes {
 			return res;
 		}
 	}
+	
+	//*************** PROPIEDADES DEL PROGRAMA
+	public final static String SITE_DEFAULT_LANG = "es_ES";
+	
+	public final static String PACKAGE_LANG = "com.ipartek.formacion.helloweb.i18n.lang.properties";
+	
+	///tengo que obtener el archivo properties
 
 	//*************** Arbol de PATHS
 	
@@ -86,6 +93,9 @@ public final class Constantes {
 
 	//*** ARBOL DE LA PARTE BACKOFFICE
 	public final static String NAME_FOLDER_BACK = "backoffice/";
+	public final static String NAME_FOLDER_FRONT = "frontoffice/";
+	
+	
 
 	//** INCLUDES
 	public final static String NAME_FOLDER_BACK_INC = "include/";
@@ -95,14 +105,21 @@ public final class Constantes {
 		
 	//** THEMES
 	public final static String NAME_FOLDER_BACK_THEMES = "themes/";
+	public final static String NAME_FOLDER_FRONT_THEMES = "themes/";
 	
 	
-	private final static String theme_prueba = "st-admin-2/";
-	private final static String theme_default = "default/";
+	private final static String theme_back_prueba = "st-admin-2/";
+	private final static String theme_back_default = "default/";
+
+	private final static String theme_front_prueba = "blog-post/";
+	private final static String theme_front_default = "default/";
 		
 	
-	public final static  String PATH_BACK_REL_THEME = NAME_FOLDER_BACK + NAME_FOLDER_BACK_THEMES + theme_default;
+	public final static  String PATH_BACK_REL_THEME = NAME_FOLDER_BACK + NAME_FOLDER_BACK_THEMES + theme_back_default;
 	public final static  String PATH_BACK_ABS_THEME = PATH_SITE + PATH_BACK_REL_THEME;
+	
+	public final static  String PATH_FRONT_REL_THEME = NAME_FOLDER_FRONT + NAME_FOLDER_FRONT_THEMES + theme_front_prueba;
+	public final static  String PATH_FRONT_ABS_THEME = PATH_SITE + PATH_FRONT_REL_THEME;
 	
 
 	//*************** Ã�rbol de Servlet

@@ -1,3 +1,6 @@
+
+<%@page import="java.io.File"%>
+<%@page import="com.ipartek.formacion.helloweb.temp.ClsUtilsFicheros"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@include file="frontoffice/includes/head.jsp" %>
@@ -28,6 +31,42 @@
 	%>
 	<%@ taglib uri="/WEB-INF/tag/tag_utils.tld" prefix="utils" %>	
 	<utils:selectOptions valores="<%=lstValues %>" texts="<%=lstTexts %>" selectedValue="eu_ES" />
+            
+        
+    Prueba de paths 1: <br>    
+    <% 
+    
+    	ServletContext sc = this.getServletContext();
+    	String path = new File(sc.getRealPath("/")).getAbsolutePath();
+    	List<String> files =  ClsUtilsFicheros.ListResursiveFolder(path);
+    	for(String str : files) {
+    		out.print(str + "<br>");
+    	}
+    
+    %>
+    
+    <br><br>
+    Prueba de paths 2: <br>  
+    <% 
+    	files =  ClsUtilsFicheros.ListResursiveFolder(request.getContextPath());
+    	for(String str : files) {
+    		out.print(str + "<br>");
+    	}
+    
+    %>
+    
+    <br><br>
+    Prueba de paths 3: <br>  
+    <% 
+    	String relativeWebPath = "pruebas.jsp";
+    	String absoluteDiskPath = getServletContext().getRealPath(relativeWebPath);
+    
+    	files =  ClsUtilsFicheros.ListResursiveFolder(absoluteDiskPath);
+    	for(String str : files) {
+    		out.print(str + "<br>");
+    	}
+    
+    %>
             
 
 </div>
