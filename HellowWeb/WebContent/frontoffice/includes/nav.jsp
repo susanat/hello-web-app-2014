@@ -18,6 +18,17 @@
             <ul class="nav navbar-nav navbar-right">
             	<li id="nav-register-btn" class=""><a href="http://bootsnipp.com/register">Register</a></li>
        			<li id="nav-login-btn" class=""><a href="<%=Constantes.JSP_LOGIN %>"><i class="icon-login"></i>Login</a></li>
+       			<li style="padding-top: 10px;">
+       				<!-- Combo para el ididoma -->																				
+					<form role="form" method="post">															
+						<select class="form-control" id="language" name="language" onchange="submit()"
+						style = "color: gray; background-color: black;">		                      			            		
+	            			<option style="background-color: white;" value="es_ES" ${language == 'es_ES' ? 'selected' : ''}>Español</option>             
+	            			<option style="background-color: white;" value="en_GB" ${language == 'en_GB' ? 'selected' : ''}>English</option>										
+	            			<option style="background-color: white;" value="es_EU" ${language == 'es_EU' ? 'selected' : ''}>Euskera</option>										
+						</select>	
+					</form>						
+       			</li>
          	</ul>
             
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -28,6 +39,9 @@
                     </li>
                     <li>
                     	<a href="<%=Constantes.PATH_SITE %>snippets.jsp">Snippets</a>
+                    </li>
+                    <li>
+                        <a href="<%=Constantes.PATH_SITE %>pruebas.jsp">Pruebas</a>
                     </li>
                     <li>
                         <a href="#">About</a>

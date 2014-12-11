@@ -1,15 +1,20 @@
 <%@page import="com.ipartek.formacion.helloweb.bean.CargasTemporales"%>
 <%@page import="com.ipartek.formacion.helloweb.comun.Constantes.EModeloAccion"%>
-<%@include file="/backoffice/includes/head.jsp" %>       
-		<%@include file="/backoffice/includes/nav.jsp" %>
-
 <%@page import="com.ipartek.formacion.helloweb.temp.UtilsTemp"%>
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="com.ipartek.formacion.helloweb.bean.Roles"%>
 <%@page import="com.ipartek.formacion.helloweb.comun.Constantes"%>
-<%@page pageEncoding="UTF-8" %>
+
+
+
+
+<%@include file="/backoffice/includes/head.jsp" %>       
+		<%@include file="/backoffice/includes/nav.jsp" %>
+
+
+
 
 
 <% //*********************************************** Variables
@@ -19,12 +24,12 @@
 	String edad = String.valueOf(Persona.EDAD_NULL);
 	String role = String.valueOf(Persona.ROL_NULL);	
 	
-	//por defecto, el tipo de acci贸n es crear
+	//por defecto, el tipo de acci髇 es crear
 	EModeloAccion accion = null;
 	
 %>
 
-	<!-- breadcrum independiente de la entrada en la p谩gina -->
+	<!-- breadcrum independiente de la entrada en la p醙ina -->
 	<nav>
 		<!-- Insert breadcrumb -->
 		<ol class="breadcrumb">
@@ -39,18 +44,18 @@
 
 	out.print(request.getRequestURL().toString());
 
-	//*********************************************** Obtenci贸n del path y creaci贸n de session si no existe
+	//*********************************************** Obtenci髇 del path y creaci髇 de session si no existe
 	//obtenemos el actual path
 	String path = request.getRequestURL().toString();
 	
-	//creamos una session an贸nima
+	//creamos una session an髇ima
 	if(session == null) {
 		session = request.getSession(true);
 	}
 	
-	//a帽adimos el 煤ltimo path visitado
+	//a馻dimos el 鷏timo path visitado
 	session.setAttribute(Constantes.PARAM_SESSION_LAST_URL, path);
-	//*********************************************** FIN Obtenci贸n del path y creaci贸n de session si no existe
+	//*********************************************** FIN Obtenci髇 del path y creaci髇 de session si no existe
 %>
 
 
@@ -71,16 +76,16 @@
 			edad = String.valueOf(personas.get(0).getEdad());
 			role = String.valueOf(personas.get(0).getRol());
 			
-			//se trata de una actualizaci贸n
+			//se trata de una actualizaci髇
 			accion = EModeloAccion.UPDATE;
 		}
 		
 	} else	if (request.getParameter(Constantes.PARAM_PERSONAS_ID) != null) {
-		//ORIGEN: nos ha llegado por post un par谩metro de identificador
-		//solicitamos al servlet que nos mande la informaci贸n del usuario
+		//ORIGEN: nos ha llegado por post un par醡etro de identificador
+		//solicitamos al servlet que nos mande la informaci髇 del usuario
 		//llamamos para que nos cargue persona
 		
-		//TODO 驴Necesario?
+		//TODO 縉ecesario?
 			%> 
 			<!--  
 				<form id="get_from_id" action="<%=Constantes.PATH_SITE +  Constantes.CONTROLLER_PERSONA%>" method="post">
@@ -162,7 +167,7 @@
 							
 							<!-- Path de referencia para redirigir -->
 							<input type="hidden" name="<%=Constantes.PARAM_SESSION_LAST_URL%>" value="<%=path%>">
-							<!-- Acci贸n a realizar -->
+							<!-- Acci髇 a realizar -->
 							<input type='hidden' value='<%=accion.getValue()%>' name='<%=Constantes.PARAM_ACTION%>' />
 							
 							<div class="col-xs-12 text-right">

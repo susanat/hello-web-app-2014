@@ -1,7 +1,3 @@
-<%@include file="/backoffice/includes/head.jsp" %>       
-		<%@include file="/backoffice/includes/nav.jsp" %>
-
-
 <!-- Importaciones de la página -->
 <%@page import="com.ipartek.formacion.helloweb.temp.UtilsTemp"%>
 <%@page import="com.ipartek.formacion.helloweb.comun.Utils"%>
@@ -9,6 +5,9 @@
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <%@page import="java.util.List"%>
 <%@page import="com.ipartek.formacion.helloweb.comun.Constantes"%>
+
+<%@include file="/backoffice/includes/head.jsp" %>       
+		<%@include file="/backoffice/includes/nav.jsp" %>
 	
 		<!-- Insert breadcrumb
 		<nav>			
