@@ -50,4 +50,34 @@
   <listener>
     <listener-class>com.ipartek.formacion.helloweb.listener.InitListener</listener-class>
   </listener>
+  <servlet>
+    <description></description>
+    <display-name>ServletIdioma</display-name>
+    <servlet-name>ServletIdioma</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controler.ServletIdioma</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletIdioma</servlet-name>
+    <url-pattern>/idioma</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RolServlet</display-name>
+    <servlet-name>RolServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controler.RolServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RolServlet</servlet-name>
+    <url-pattern>/rol</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CalificacionServlet</display-name>
+    <servlet-name>CalificacionServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controler.CalificacionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CalificacionServlet</servlet-name>
+    <url-pattern>/calificacion</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -26,7 +26,17 @@
                     <ul class="nav" id="side-menu">                        
                         <li>
                             <a class="active" href="<%=Constante.CONTROLER_PERSONA%>" title="Gestionar Personas"><i class="fa fa-dashboard fa-fw"></i> Personas</a>
-                        </li>                       
+                        </li>    
+                        <li>
+                            <a class="active" href="<%=Constante.CONTROLER_PERSONA%>" title="Gestionar Idiomas"><i class="fa fa-dashboard fa-fw"></i> Personas</a>
+                        </li>    
+                        <li>
+                            <a class="active" href="<%=Constante.CONTROLER_PERSONA%>" title="Gestionar Roles"><i class="fa fa-dashboard fa-fw"></i> Personas</a>
+                            
+                        </li>        
+						<li>
+                            <a class="active" href="<%=Constante.CONTROLER_PERSONA%>" title="Gestionar Calificaciones"><i class="fa fa-dashboard fa-fw"></i> Personas</a>         
+                        </li>             
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
