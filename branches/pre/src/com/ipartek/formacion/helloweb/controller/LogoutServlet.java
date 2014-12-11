@@ -27,7 +27,7 @@ public class LogoutServlet extends HttpServlet {
 		//recuperar session del usuario
 		HttpSession session = request.getSession();
 		//poner a null su session
-		session.setAttribute( Constantes.USER_SESSION , null);
+		session.removeAttribute(Constantes.USER_SESSION);
 		//session.invalidate();
 		
 		//forwar a login
