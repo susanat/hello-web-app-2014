@@ -1,4 +1,5 @@
   <!-- Navigation -->
+  
     <%@page import="com.ipartek.formacion.helloweb.Rol"%>
 	<%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 	<%@page import="com.ipartek.formacion.helloweb.Constantes"%>
@@ -27,9 +28,9 @@
 
             <ul class="nav navbar-top-links navbar-right">
                 <li >
-                     <a href="<%=Constantes.PATH_LOGOUT %>" title="Cierra tu sesión">
+                     <a href="<%=Constantes.PATH_LOGOUT %>" title="Cierra tu sesiï¿½n">
                    	 	<i class="fa fa-sign-out fa-fw"></i>
-                     	Cerrar sesión
+                     	<fmt:message key="menu.logout"></fmt:message>
                     </a>
                 </li>
                 <!-- /.dropdown -->

@@ -12,12 +12,12 @@ public enum Idioma {
 	    "en_EN", "en", "EN");
 
     private String locale;
-    private String lenguage;
+    private String lenguaje;
     private String pais;
 
-    private Idioma(String locale, String lenguage, String pais) {
+    private Idioma(String locale, String lenguaje, String pais) {
 	this.locale = locale;
-	this.lenguage = lenguage;
+	this.lenguaje = lenguaje;
 	this.pais = pais;
     }
 
@@ -25,8 +25,8 @@ public enum Idioma {
 	return locale;
     }
 
-    public String getLenguage() {
-	return lenguage;
+    public String getLenguaje() {
+	return lenguaje;
     }
 
     public String getPais() {

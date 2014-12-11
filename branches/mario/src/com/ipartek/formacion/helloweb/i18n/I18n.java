@@ -25,19 +25,16 @@ public class I18n {
      */
     public static final String getBrowserLocale(Locale localeBrowser) {
 	// por defecto ingles
-
 	String result = Idioma.INGLES.getLocale();
 	// si no es nulo
 	if (localeBrowser != null) {
 	    // es euskera
-	    if (Idioma.EUSKERA.getLenguage().equalsIgnoreCase(
+	    if (Idioma.EUSKERA.getLenguaje().equalsIgnoreCase(
 		    localeBrowser.getLanguage())) {
-
 		result = Idioma.EUSKERA.getLocale();
-		// es castellano
-	    } else if (Idioma.CASTELLANO.getLenguage().equalsIgnoreCase(
+		// es Castellano
+	    } else if (Idioma.CASTELLANO.getLenguaje().equalsIgnoreCase(
 		    localeBrowser.getLanguage())) {
-
 		result = Idioma.CASTELLANO.getLocale();
 	    }
 	}
