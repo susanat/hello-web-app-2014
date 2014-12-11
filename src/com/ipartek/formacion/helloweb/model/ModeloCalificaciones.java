@@ -148,4 +148,8 @@ public class ModeloCalificaciones implements IModeloCalificaciones {
 	return resul;
     }
 
+    // Para recuperar una calificacion
+
+    // //Para borrar una calificacion
+
 }
