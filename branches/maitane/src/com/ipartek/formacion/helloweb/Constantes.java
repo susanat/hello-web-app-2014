@@ -20,6 +20,7 @@ public class Constantes {
 	public static final String PATH_LOGOUT = "logout";
 
 	public static final String CONTROLLER_PERSONA = "persona";
+	public static final String CONTROLLER_CALIFICACION = "calificacion";
 
 	// JSPs publicas
 
@@ -44,6 +45,7 @@ public class Constantes {
 	public static final String PARAMETRO_USER = "user";
 	public static final String PARAMETRO_PASS = "pass";
 	public static final String PARAMETRO_IDIOMA = "idioma";
+	public static final String PARAMETRO_SELECT_ROL = "rol";
 
 	// Mensajes
 
@@ -66,6 +68,9 @@ public class Constantes {
 
 	public static final String ATT_PERSONAS = "personas";
 	public static final String ATT_PERSONA = "persona";
+
+	public static final String ATT_CALIFICACIONES = "calificaciones";
+	public static final String ATT_CALIFICACION = "calificacion";
 
 	// Operaciones CRUD
 
