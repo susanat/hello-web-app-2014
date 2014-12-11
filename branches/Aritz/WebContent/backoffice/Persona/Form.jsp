@@ -47,17 +47,15 @@
 			</div>
 			<div class="form-group">
 			<label>Roll</label>
-				<select>
-				<% for (Roll roll :Roll.values()){ 
-					if (roll==p.getRoll()){				
-					%>
-						<option value="<%= roll %>" selected><%= roll %></option>
-					<%
+				<select name="roll">
+				<% 
+				
+				for (Roll roll :Roll.values()){ 
+					if (roll==p.getRoll()){						
+						out.print("<option selected value=" + roll + " >" + roll + "</option>");	
 					}else{
-					%>
-					<option value="<%= roll %>"><%= roll %></option>
-					<%
-					}
+						out.print("<option value=" + roll +" >" + roll + "</option>");
+					}				
 				 } 
 				 
 				 %>	
