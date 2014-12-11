@@ -21,14 +21,38 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
 			<attribute> 
 			<name>opValues</name>						
 			<required>true</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.Object</type> 
+			<rtexprvalue>true</rtexprvalue> <!-- Es para que acepte scriptlets -->
+			<description>Textos a mostrar por los options</description> 
 		</attribute>		
 		<attribute> 
 			<name>opTexts</name>			
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue> 
+			<description>Valor para seleccionar un option</description>
+		</attribute>
+		<attribute> 
+			<name>selectedValue</name>			
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>	
+			<description>Valor para seleccionar una option</description>
+		</attribute>
+		<attribute> 
+			<name>parameterName</name>			
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>	
+			<description>Nombre para el parametro dentro del formulario </description>		
+		</attribute>
+		<attribute> 
+			<name>className</name>			
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue> 
-			<type>java.lang.Object</type>
+			<description></description>
+		</attribute>
+		<attribute> 
+			<name>idValue</name>			
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue> 
+			<description></description>
 		</attribute>
 		
 	</tag>

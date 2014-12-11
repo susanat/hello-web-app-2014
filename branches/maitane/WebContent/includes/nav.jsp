@@ -36,6 +36,7 @@
                         <li>
                         
                             <a class="active" href="<%=Constantes.CONTROLLER_PERSONA %>"title="Gestionar Personas"> Personas</a>
+                            <a class="active" href="<%=Constantes.CONTROLLER_CALIFICACION %>"title="Gestionar Calificaciones"> Calificaciones</a>
                         </li>                            
                                 
                             

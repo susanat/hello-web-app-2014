@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-
+<%@ taglib prefix="util" uri="http://www.formacion.ipartek.com/tag/util"%>
 
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
 <%@page import="com.ipartek.formacion.helloweb.i18n.I18n"%>
@@ -35,26 +35,10 @@
 
 
 <div class="login-card">
-<%
-		ArrayList<Idioma> opValues  =   new ArrayList<Idioma>();
 
-		for (Idioma idioma:Idioma.values()){
-			
-			opValues.add(idioma);
-	
-		}
-		
-		ArrayList<String> opTexts  =   new ArrayList<String>();
 
-		for (Idioma idioma:Idioma.values()){
-			
-			opTexts.add(idioma.getLocale());
-	
-		}
-   %>
-<%@ taglib prefix="util" uri="http://www.formacion.ipartek.com/tag/util"%>
 
-<util:SelectOptionsTag opValues="<%=opValues%>" <!-- value opTexts="<%=opTexts%>"-->/>
+
 
    <h1><fmt:message key="login.titulo"></fmt:message></h1><br>
   <form action=<%=Constantes.PATH_LOGIN %> method="post">
@@ -67,9 +51,14 @@
     <input type="text" name="<%=Constantes.PARAMETRO_USER%>" placeholder="<fmt:message key="login.form.usuario"></fmt:message>">
     <input type="password" name="<%=Constantes.PARAMETRO_PASS%>" placeholder="<fmt:message key="login.form.password"></fmt:message>">
     
-    
-	 <select name="idioma" class="form-control">
-			<%
+    <util:SelectOptionsTag opValues="<%=Idioma.devuelvelistaLocale()%>" 
+    					  opTexts="<%=Idioma.devuelveListaIdioma()%>"
+    					  selectedValue="<%=I18n.getBrowserLocale(request.getLocale()) %>"
+    					  parameterName="<%=Constantes.PARAMETRO_IDIOMA %>"
+    					  className="form-control"/>
+    					  
+	<!-- <select name="idioma" class="form-control">
+			<%/*
 			String language=I18n.getBrowserLocale(request.getLocale());
 				for (Idioma idioma:Idioma.values()){
 				
@@ -80,11 +69,11 @@
 						out.print("<option value="+idioma.getLocale()+ ">"+idioma+" </option>");	
 					}
 				
-				}
+				}*/
 			%>
 		
 			</select>
-			
+			 --> 
     
     <input type="submit" name="login" class="login login-submit" value="login">
   </form>

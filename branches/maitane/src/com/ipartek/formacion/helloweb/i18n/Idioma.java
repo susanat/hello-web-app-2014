@@ -12,17 +12,19 @@ public enum Idioma {
 
 	// Enumeracion compleja
 
-	CASTELLANO("es_ES", "es", "ES"), EUSKERA("eu_ES", "eu", "ES"), INGLES(
-			"en_EN", "en", "EN");
+	CASTELLANO("es_ES", "es", "ES", "Castellano"), EUSKERA("eu_ES", "eu", "ES",
+			"Euskera"), INGLES("en_EN", "en", "EN", "English");
 
 	private String locale;
 	private String lenguaje;
 	private String pais;
+	private String texto;
 
-	private Idioma(String _locale, String _language, String _pais) {
+	private Idioma(String _locale, String _language, String _pais, String _text) {
 		this.locale = _locale;
 		this.lenguaje = _language;
 		this.pais = _pais;
+		this.texto = _text;
 	}
 
 	public String getLocale() {
@@ -37,18 +39,33 @@ public enum Idioma {
 		return pais;
 	}
 
-	public Idioma[] devuelveListaIdioma() {
-		Idioma[] rdo = Idioma.values();
+	public String getTexto() {
+		return texto;
+	}
 
+	public static ArrayList<String> devuelveListaIdioma() {
+		ArrayList<String> rdo = new ArrayList<String>();
+		for (Idioma idioma : Idioma.values()) {
+			rdo.add(idioma.getTexto());
+		}
 		return rdo;
 	}
 
-	public ArrayList<String> devuelvelistaLocale() {
+	public static ArrayList<String> devuelvelistaLocale() {
 		ArrayList<String> rdo = new ArrayList<String>();
 		for (Idioma idioma : Idioma.values()) {
 			rdo.add(idioma.getLocale());
 		}
 		return rdo;
 	}
+	
+	public static ArrayList<String> devuelvelistaLenguaje() {
+		ArrayList<String> rdo = new ArrayList<String>();
+		for (Idioma idioma : Idioma.values()) {
+			rdo.add(idioma.getLenguaje());
+		}
+		return rdo;
+	}
+
 
 }
