@@ -1,5 +1,7 @@
 package com.ipartek.formacion.helloweb.bean;
 
+import java.util.ArrayList;
+
 public class Persona {
 
 	private int id;
@@ -58,17 +60,37 @@ public class Persona {
 		this.id = id;
 	}
 
-	/**
-	 * Enumeracion para los Roles de las Personas
-	 */
-	public enum Rol {
-		ADMINISTRADOR, USER;
-	}
-
 	@Override
 	public String toString() {
 		return "Persona [id=" + id + ", rol=" + rol + ", nombre=" + nombre
 				+ ", edad=" + edad + "]";
 	}
 
+	/**
+	 * Enumeracion para los Roles de las Personas
+	 */
+	public enum Rol {
+		ADMINISTRADOR("Administrador"), USER("User");
+
+		private String usuario;
+
+		private Rol(String _usu) {
+			this.usuario = _usu;
+
+		}
+
+		public String getUsuario() {
+			return usuario;
+		}
+
+		public static ArrayList<String> getListaRol() {
+			ArrayList<String> rdo = new ArrayList<String>();
+
+			for (Rol rol : Rol.values()) {
+				rdo.add(rol.getUsuario());
+			}
+
+			return rdo;
+		}
+	}
 }
