@@ -55,6 +55,21 @@
                     <!-- /.dropdown-user -->
                 </li>
                 <!-- /.dropdown -->
+                
+                <!-- Combo para el ididoma -->
+				<li style="padding-top: 10px;">
+					<form role="form" method="post">
+						<select class="form-control" id="language" name="language"
+							onchange="submit()" style="color: gray; background-color: black;">
+							<option style="background-color: white;" value="es_ES"
+								${language == 'es_ES' ? 'selected' : ''}>Español</option>
+							<option style="background-color: white;" value="en_GB"
+								${language == 'en_GB' ? 'selected' : ''}>English</option>
+							<option style="background-color: white;" value="es_EU"
+								${language == 'es_EU' ? 'selected' : ''}>Euskera</option>
+						</select>
+					</form>
+				</li>
             </ul>
             <!-- /.navbar-top-links -->
 			<!-- FIN Iconos de navegación a la derecha de la barra superior -->

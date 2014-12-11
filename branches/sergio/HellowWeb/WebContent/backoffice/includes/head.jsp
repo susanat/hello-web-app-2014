@@ -1,39 +1,40 @@
-
-<!-- Includes generales -->
-	<%@page import="com.ipartek.formacion.helloweb.comun.Constantes"%>
-	<%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
-	<%@page import="com.ipartek.formacion.helloweb.temp.UtilsTemp"%>
-
-<!-- Directiva codificación de la página -->
-	<%@page pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!-- https://jstl.java.net/ -->
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<!-- Lenguage -->
-	<% 
-		//intentamos obtener de sesion el lang del usuario activo
-		Object lang = session.getAttribute(Constantes.PARAM_SESSION_LOCALE);
-	
-		//si no existe, obtenemos el del navegador
-		if(lang == null) {
-			session.setAttribute(Constantes.PARAM_SESSION_LOCALE, request.getLocale().toString());	
-		} 
-	%>
-	<c:set var="language" value="<%= session.getAttribute(Constantes.PARAM_SESSION_LOCALE) %>" scope="session" />
-	
-	<fmt:setLocale value="${language}" />
-	<fmt:setBundle basename="com.ipartek.formacion.helloweb.i18n.lang" />
-<!-- FIN Lenguage -->
+<!-- Includes -->
+<%@page import="com.ipartek.formacion.helloweb.temp.UtilsTemp"%>
+<%@page import="com.ipartek.formacion.helloweb.comun.Constantes"%>
 
+<!-- ******************** LOGICA DEL LENGUAGE JSTL ******************* -->
+<!-- Lenguage: prioridad si pasa el parámetro language --> 
+<c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
 
-<!-- Titulo de la pagina -->
-	<c:set var="title" value="Indefinido" />
-<!-- FIN Titulo de la pagina -->
+<!-- Si le ha pasado el parámetro, prioriza sobre lo que esté puesto en session, así que modificamos session -->
+<c:if test="${not empty language}">
+	<c:set var="locale_user" value="${language}" scope="session" />
+</c:if>
 
+<!-- No hay parámetro de lenguage -->
+	<!-- buscamos y obtenemos el de sessión -->
+	<!-- si no, como último recurso, obtenemos el del navegador -->
+<c:choose>  
+  <c:when test="${sessionScope.locale_user != null}">  	
+    <c:set var="language" value="${sessionScope.locale_user}"/>
+  </c:when>    
+  <c:otherwise>
+    <c:set var="language" value="${pageContext.request.locale}"/>
+  </c:otherwise>  						  
+</c:choose>	
 
-<!-- Autentificado -->
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="com.ipartek.formacion.helloweb.i18n.lang" />
+
+<!-- ******************** FIN LOGICA DEL LENGUAGE JSTL *************** -->
+
+<!-- ******************** Autentificado *************** -->
 	<c:set var="isAuthenticated" scope="page" value="${sessionScope.authenticated == null ? false : true}"/>
 	
 	<c:choose>
@@ -47,16 +48,16 @@
 	    <c:set var="isAuthenticated" scope="page" value="${true}"/>
 	  </c:when>								  
 	</c:choose>	
-<!-- FIN Autentificado -->
+<!-- ******************** FIN Autentificado *************** -->
 
-<!-- URL actual -->
-	<c:set var="lastUrl" scope="page" value="<%= UtilsTemp.cargaHistorial(request, session) %>"/>
+<!-- ******************** URL Actual *************** -->
+<c:set var="lastUrl" scope="page" value="<%= UtilsTemp.cargaHistorial(request, session) %>"/>
+<!-- ******************** FIN URL Actual *************** -->
 
 
 <!DOCTYPE html>
 <html lang="${language}">
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -84,8 +85,31 @@
 	  <!-- jQuery Version 1.11.0 -->
 	 <script src="<%=Constantes.PATH_BACK_ABS_THEME %>js/jquery-1.11.0.js"></script>
     <% //TODO fin pasar a theme-head %>
-
 </head>
 
 <body>
     <div id="wrapper">
+    
+<%
+/*
+Comprobar si se está autentificado:
+	jstl:
+		<c:if test="${isAuthenticated == true}">
+		</c:if>		
+	Java:
+		session.getAttribute(Constantes.PARAM_SESSION_AUTHENTICATED);
+
+Variable que contiene el lenguaje
+	jstl:
+		${language}
+		
+	Java:
+		session.getAttribute(Constantes.PARAM_SESSION_LOCALE);
+		
+URL Actual:
+	jstl:
+		${lastUrl}
+	Java:
+		session.getAttribute(Constantes.PARAM_SESSION_LAST_URL);		
+*/
+%>

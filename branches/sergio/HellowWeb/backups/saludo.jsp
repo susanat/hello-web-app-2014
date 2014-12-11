@@ -21,8 +21,7 @@
 	{
 		//sesion sin authentificar
 		session.setAttribute(Constantes.PARAM_SESSION_AUTHENTICATED, false);
-		
-		
+				
 		
 		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
    		response.sendRedirect(Constantes.JSP_LOGIN);

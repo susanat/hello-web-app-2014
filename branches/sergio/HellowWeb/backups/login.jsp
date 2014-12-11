@@ -4,7 +4,6 @@
 <%@page import="com.ipartek.formacion.helloweb.comun.Constantes"%>
 <%@page pageEncoding="UTF-8" %>
 
-
 <!-- https://jstl.java.net/ -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
