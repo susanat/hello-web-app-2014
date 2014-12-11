@@ -50,9 +50,10 @@ public class LogoutServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-	IOException {
+			IOException {
 		session = request.getSession();
-		session.setAttribute(Constantes.USER_SESSION, null);
+		session.removeAttribute(Constantes.USER_SESSION);
+		// session.setAttribute(Constantes.USER_SESSION, null);
 
 		messages = MensajesIdiomas.loadMessages(pIdioma, session);
 

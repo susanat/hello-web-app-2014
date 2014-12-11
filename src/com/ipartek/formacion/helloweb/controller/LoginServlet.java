@@ -47,11 +47,14 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
 			IOException {
-		session = request.getSession();// Recuperar session
+		// Recuperar session
+		session = request.getSession();
+		// Recoger parámetros del login
+		getParameters(request);
+		// Cargar los mensajes en el idioma correspondiente
 		messages = MensajesIdiomas.loadMessages(pIdioma, session);
-
-		getParameters(request);// Recoger parámetros del login
-		validateUser(request);// Validar el usuario
+		// Validar el usuario
+		validateUser(request);
 
 		dispatch.forward(request, response);// Despachar o servir JSP
 	}
