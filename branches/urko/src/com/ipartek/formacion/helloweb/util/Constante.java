@@ -27,19 +27,23 @@ public class Constante {
 	    + "persona/listado.jsp";
     public static final String JSP_BACKOFFICE_PERSONA_FORM = JSP_BACKOFFICE
 	    + "persona/form.jsp";
-    /* */
+    /* servlets */
     public static final String SERVLET_LOGIN = "login";
     public static final String SERVLET_LOGOUT = "logout";
     public static final String CONTROLER_PERSONA = "persona";
-
+    public static final String CONTROLER_IDIOMA = "idioma";
+    public static final String CONTROLER_ROL = "rol";
+    public static final String CONTROLER_CALIFICACION = "rol";
+    // properties
     public static final String PROPERTI_I18N = "com.ipartek.formacion.helloweb.i18n.i18nmesages";
-
+    // parametros
     public static final String PARAMETRO_USER = "user";
     public static final String PARAMETRO_PASS = "pass";
     public static final String PARAMETRO_ID = "codigo";
     public static final String PARAMETRO_ACCION = "codigo";
     public static final String PARAMETRO_IDIOMA = "idioma";
 
+    // mensajes
     public static final String MSG_KEY = "msg";
     public static final String MSG_LOGIN_INCORRECT = "mensaje.loginIncorrect";
     public static final String MSG_LOGOUT = "Hasta la vista vuelve pronto WE MISS YOU";
@@ -59,6 +63,7 @@ public class Constante {
     public static final int OP_REMOVE = 1;
     public static final int OP_UPDATE = 2;
     public static final int OP_DETAIL = 3;
+    public static final int OP_LIST = 4;
 
     private Constante() {
     }

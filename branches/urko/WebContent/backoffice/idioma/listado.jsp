@@ -7,7 +7,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     		
-	<p><a href="<%=Constante.JSP_BACKOFFICE_PERSONA_FORM%>" title="crear nueva calificación">cree una nueva calificación</a></p>
+	<p><a href="<%=Constante.JSP_BACKOFFICE_PERSONA_FORM%>" title="crear nueva persona">cree una nueva persona</a></p>
 	<%
 		ArrayList<Persona> personas = (ArrayList<Persona>)request.getAttribute( Constante.ATT_PERSONAS );
 		if ( personas == null ){
@@ -20,7 +20,9 @@
 		        <thead>
 		            <tr>
 		                <th>id</th>
-		                <th>Calificación</th>
+		                <th>Nombre</th>
+		                <th>Edad</th>
+		                <th>Rol</th>
 		                <th><!-- Operacion para Eliminar --></th>                
 		            </tr>
 		        </thead>
@@ -61,6 +63,11 @@
 		<% 
 		}//end:persona not null
 	%>
-
+	
+	
+	
+                   
+       
+	
 	
 <%@include file="../includes/footer.jsp" %>   
