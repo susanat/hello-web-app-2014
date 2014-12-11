@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.helloweb.listener.InitListener;
 import com.ipartek.formacion.helloworld.bean.Persona;
-import com.ipartek.formacion.helloworld.model.ModeloPersona;
 import com.ipartek.formacion.helloworld.util.Constante;
 
 /**
@@ -19,7 +19,7 @@ import com.ipartek.formacion.helloworld.util.Constante;
  */
 public class PersonaServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    ModeloPersona model;
+    // ModeloPersona model;
     RequestDispatcher dispatcher;
     String msg = "";
     int id;
@@ -35,7 +35,7 @@ public class PersonaServlet extends HttpServlet {
 	// TODO Auto-generated method stub
 	super.init(config);
 	id = Persona.ID_NULL;
-	model = new ModeloPersona();
+	// model = new ModeloPersona();
     }
 
     /**
@@ -45,7 +45,7 @@ public class PersonaServlet extends HttpServlet {
     public void destroy() {
 	// TODO Auto-generated method stub
 	super.destroy();
-	model = null;
+	// model = null;
     }
 
     /**
@@ -94,7 +94,7 @@ public class PersonaServlet extends HttpServlet {
     }
 
     private void updatePersonaGet(final HttpServletRequest request) {
-	p = model.getById(id);
+	p = InitListener.mPersona.getById(id);
 	request.setAttribute(Constante.ATT_OPERACION, Constante.OP_UPDATE);
 	request.setAttribute(Constante.ATT_PERSONA, p);
 	dispatcher = request
@@ -102,7 +102,7 @@ public class PersonaServlet extends HttpServlet {
     }
 
     private void deletePersonaGet(final HttpServletRequest request) {
-	p = model.getById(id);
+	p = InitListener.mPersona.getById(id);
 	request.setAttribute(Constante.ATT_OPERACION, Constante.OP_REMOVE);
 	request.setAttribute(Constante.ATT_PERSONA, p);
 	dispatcher = request
@@ -112,7 +112,7 @@ public class PersonaServlet extends HttpServlet {
     private void getById(final HttpServletRequest request) {
 	// getPersona
 	// acceder al modelo
-	p = model.getById(id);
+	p = InitListener.mPersona.getById(id);
 	// pasamos los atributos
 	request.setAttribute(Constante.ATT_PERSONA, p);
 	dispatcher = request
@@ -120,7 +120,7 @@ public class PersonaServlet extends HttpServlet {
     }
 
     private void getAll(final HttpServletRequest request) {
-	personas = model.getAll();
+	personas = InitListener.mPersona.getAll();
 	// pasamos los atributos
 	request.setAttribute(Constante.ATT_PERSONAS, personas);
 	dispatcher = request
@@ -191,7 +191,7 @@ public class PersonaServlet extends HttpServlet {
     private void updatePersonaPost(final HttpServletRequest request) {
 	p = postParametros(request);
 	if (p != null) {
-	    if (model.update(p) > Persona.ID_NULL) {
+	    if (InitListener.mPersona.update(p) > Persona.ID_NULL) {
 		msg = Constante.MSG_UPDATE;
 	    } else {
 		msg = Constante.MSG_ERROR_BBDD;
@@ -205,7 +205,7 @@ public class PersonaServlet extends HttpServlet {
 
     private void deletePersonaPost(final HttpServletRequest request) {
 	// acceso DDBB
-	if (model.delete(id)) {
+	if (InitListener.mPersona.delete(id)) {
 	    msg = Constante.MSG_REMOVE;
 	} else {
 	    msg = Constante.MSG_ERROR_BBDD;
@@ -217,7 +217,7 @@ public class PersonaServlet extends HttpServlet {
     private void insertPersona(final HttpServletRequest request) {
 	p = postParametros(request);
 	if (p != null) {
-	    if (model.insert(p) > Persona.ID_NULL) {
+	    if (InitListener.mPersona.insert(p) > Persona.ID_NULL) {
 		// enviar atributos
 		request.setAttribute(Constante.ATT_PERSONA, p);
 		request.setAttribute(Constante.OP_KEY, Constante.OP_UPDATE);
