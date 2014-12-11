@@ -8,23 +8,15 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
 	<tlib-version>0.1</tlib-version> 
 	<jsp-version>1.2</jsp-version> 
 	<short-name>utils</short-name> 
-	<uri>nose</uri> 
+	<uri>tag_utils_uri</uri> 
 	<description>
 		Etiquetas de utilidades
 	</description> 
 
 	<tag>		
-		<name>selectOptions</name>
-		<!-- Clase donde se encuentra el java -->
-		<tag-class>com.ipartek.formacion.helloweb.tag.TagUtilsSelectOptions</tag-class>
-		
-		<!-- En este caso no tiene body. Se puede escribir:		
-			1- <hello:saluda /> 
-			2- <hello:saluda> </hello:saluda>
-		-->
-		<body-content>empty</body-content>
-		
-		<!-- Descripción del tag -->
+		<name>selectOptions</name>		
+		<tag-class>com.ipartek.formacion.helloweb.tag.TagUtilsSelectOptions</tag-class>	
+		<body-content>empty</body-content>	
 		<description>
 			Muestra un combo con los valores pasados
 		</description>
@@ -32,26 +24,23 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
 		<!-- Atributos de entrada -->
 		<attribute>
 			<name>valores</name>
-			<required>true</required>	
-			<rtexprvalue>true</rtexprvalue>
-			<elattribute>true</elattribute>
-			<type></type>			
+			<required>true</required>			
+			<rtexprvalue>true</rtexprvalue>			
+			<description></description>		
 		</attribute>
 		
 		<attribute>
 			<name>texts</name>
-			<required>true</required>	
-			<rtexprvalue>true</rtexprvalue>
-			<elattribute>true</elattribute>
-			<type></type>
+			<required>true</required>			
+			<rtexprvalue>true</rtexprvalue>			
+			<description></description>
 		</attribute>
 		
 		<attribute>
 			<name>selectedValue</name>
-			<required>false</required>	
-			<rtexprvalue>true</rtexprvalue>
-			<elattribute>true</elattribute>
-			<type></type>
+			<required>false</required>			
+			<rtexprvalue>true</rtexprvalue>			
+			<description></description>
 		</attribute>
 	</tag>
 
