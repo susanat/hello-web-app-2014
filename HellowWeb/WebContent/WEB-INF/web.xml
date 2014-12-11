@@ -25,6 +25,8 @@
     <servlet-name>LogoutServlet</servlet-name>
     <url-pattern>/logout</url-pattern>
   </servlet-mapping>
+  
+  <!-- Controlador para personas -->
   <servlet>
     <description>CRUD para Personas</description>
     <display-name>PersonaServlet</display-name>
@@ -35,6 +37,20 @@
     <servlet-name>PersonaServlet</servlet-name>
     <url-pattern>/persona</url-pattern>
   </servlet-mapping>
+  
+  <!-- Controlador para roles -->
+  <servlet>
+    <description>CRUD para Roles</description>
+    <display-name>RolesServlet</display-name>
+    <servlet-name>RolesServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controller.RolesServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RolesServlet</servlet-name>
+    <url-pattern>/roles</url-pattern>
+  </servlet-mapping>
+  
+  
   <display-name>Prueba Taglib</display-name>
   <jsp-config>
     <taglib>
@@ -51,5 +67,8 @@
   </listener>
   <listener>
     <listener-class>com.ipartek.formacion.helloweb.model.interfaces.requestErrorListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>com.ipartek.formacion.helloweb.listener.InitListener</listener-class>
   </listener>
 </web-app>
