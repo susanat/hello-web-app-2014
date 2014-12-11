@@ -5,43 +5,47 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
 <taglib>
 	<tlib-version>1.0</tlib-version>
 	<jsp-version>1.2</jsp-version>
-	<short-name>utilidades</short-name>
+	<short-name>util</short-name>
 	<uri>http://www.formacion.ipartek.com/tags/util</uri>
 	<description>
 		Librerias TagLib de utilidades
 	</description>
 
 	<tag>
-		<name>select</name>
+		<name>selectoptions</name>
 		<tag-class>com.ipartek.formacion.helloweb.tag.SelectOptionsTag</tag-class>
 		<body-content>empty</body-content>
 		<description>
 			Crea un cuadro de select
 		</description>
 		<attribute>
-			<name>nameSelect</name>
-			<required>true</required>
-		</attribute>
-		<attribute>
-			<name>idSelect</name>
-			<required>false</required>
-		</attribute>
-		<attribute>
-			<name>classSelect</name>
-			<required>false</required>
-		</attribute>
-		<attribute>
-			<name>valuesOptions</name>
+			<name>parameterName</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
-			<name>textosOptions</name>
+			<name>idValue</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>className</name>
 			<required>false</required>
 		</attribute>
 		<attribute>
-			<name>indSeleccionOption</name>
-			<required>false</required>
+			<name>opValues</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>opTextos</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>selectedValue</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
 </taglib>

@@ -83,13 +83,17 @@
 							</div>
 
 							<div class="form-group">
-								<%@ taglib prefix="util"
-									uri="http://www.formacion.ipartek.com/tags/util"%>
-								<%
-									String nameSelect = new String("rol").toString();
-								%>
-								<util:selectoptions opValues="<%=p.getRoles() %>" parameterName="<%=nameSelect%>"
-									opTextos="<%=p.getRoles() %>" selectedValue="<%=p.getRol().toString() %>" className="form-control" />
+								<label>Rol</label> <select name="rol" class="form-control"
+									display="none">
+									<%
+										for (Rol rol : Rol.values()) {
+									%>
+									<option value="<%=rol%>"
+										<%=rol.equals(p.getRol()) ? "selected" : ""%>><%=rol%></option>
+									<%
+										}
+									%>
+								</select> <br>
 								<!-- 
                                             <label>Rol</label>
                                             <div class="radio">

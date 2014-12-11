@@ -10,11 +10,12 @@
 
 
 <c:set var="language"
-	value="<%=(session.getAttribute(Constantes.USER_LANGUAGE)!=null)?session.getAttribute(Constantes.USER_LANGUAGE):i18n.getBrowserLocale(request.getLocale())%>" />
-	
+	value="<%=(session.getAttribute(Constantes.USER_LANGUAGE) != null) ? session
+					.getAttribute(Constantes.USER_LANGUAGE) : i18n
+					.getBrowserLocale(request.getLocale())%>" />
+
 <fmt:setLocale value="${language}" />
-<fmt:setBundle
-	basename="<%=Constantes.PROPERTI_I18N %>" />
+<fmt:setBundle basename="<%=Constantes.PROPERTI_I18N%>" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="${language}">
@@ -36,9 +37,9 @@
 <body>
 
 	<%@ taglib prefix="hello" uri="http://www.formacion.ipartek.com"%>
-	<hello:saluda/>
-	<hello:saluda2/>
-	<hello:saluda2 nombre="Pepe"/>
+	<hello:saluda />
+	<hello:saluda2 />
+	<hello:saluda2 nombre="Pepe" />
 	<div class="login-card">
 		<h1>
 			<fmt:message key="login.titulo"></fmt:message>
@@ -52,24 +53,22 @@
 			<input type="password" name="<%=Constantes.PARAMETRO_PASS%>"
 				placeholder="<fmt:message key="login.form.password"></fmt:message>">
 
-			<select name="<%=Constantes.PARAMETRO_IDIOMA%>" class="form-control">
-			<% 
-			for(Idioma idioma:Idioma.values()){
-				StringBuffer op=new StringBuffer("<option value='");
-				op.append(idioma.getLocale()+"'");
-				if(i18n.getBrowserLocale(request.getLocale()).equals(idioma.getLocale())){
-					op.append(" selected");
-				}
-				op.append(">"+idioma+"</option>");
-				out.print(op.toString());
-			}
-			%>
-			</select>
+			<%@ taglib prefix="util"
+				uri="http://www.formacion.ipartek.com/tags/util"%>
+				
+			<util:selectoptions
+				parameterName="<%=Constantes.PARAMETRO_IDIOMA%>"
+				className="form-control"
+				opValues="<%=Idioma.CASTELLANO.getLocaleArrays()%>"
+				opTextos="<%=Idioma.CASTELLANO.getTextoArrays()%>"
+				selectedValue="<%=(session.getAttribute(Constantes.USER_LANGUAGE) != null) ? session
+					.getAttribute(Constantes.USER_LANGUAGE).toString() : i18n
+					.getBrowserLocale(request.getLocale())%>"
+				idValue="<%=Constantes.PARAMETRO_IDIOMA%>" />
 			<br>
-			<%@ taglib prefix="utilidades" uri="http://www.formacion.ipartek.com/tags/util"%>
-			<utilidades:select nameSelect="prueba" valuesOptions="<%=Idioma.CASTELLANO.getLenguajesArrays()%>"/>
-			<br>
-			<input type="submit" name="login" class="login login-submit"
+			<br> 
+			<input type="submit" name="login"
+				class="login login-submit"
 				value="<fmt:message key="login.form.submit"></fmt:message>">
 		</form>
 

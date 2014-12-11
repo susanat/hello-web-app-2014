@@ -1,5 +1,7 @@
 package com.ipartek.formacion.helloweb.bean;
 
+import java.util.ArrayList;
+
 public class Persona {
 
 	private int id;
@@ -64,6 +66,14 @@ public class Persona {
 	public String toString() {
 		return "Persona [id=" + id + ", nombre=" + nombre + ", edad=" + edad
 				+ ", rol=" + rol + "]";
+	}
+
+	public ArrayList<String> getRoles() {
+		ArrayList<String> lista = new ArrayList<String>();
+		for (Rol auxRol : Rol.values()) {
+			lista.add(auxRol.toString());
+		}
+		return lista;
 	}
 
 	/**

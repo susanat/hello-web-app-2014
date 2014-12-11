@@ -9,48 +9,66 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 public class SelectOptionsTag extends TagSupport {
 
-	private String nameSelect;
-	private String idSelect;
-	private String classSelect;
-	private ArrayList<String> valuesOptions;
-	private String[] textosOptions;
-	private int indSeleccionOption;
+	private String parameterName;
+	private String idValue;
+	private String className;
+	private ArrayList<String> opValues;
+	private ArrayList<String> opTextos;
+	private String selectedValue;
 
-	public void setNameSelect(String nameSelect) {
-		this.nameSelect = nameSelect;
+	public void setParameterName(String nameSelect) {
+		this.parameterName = nameSelect;
 	}
 
-	public void setIdSelect(String idSelect) {
-		this.idSelect = idSelect;
+	public void setIdValue(String idSelect) {
+		this.idValue = idSelect;
 	}
 
-	public void setClassSelect(String classSelect) {
-		this.classSelect = classSelect;
+	public void setClassName(String classSelect) {
+		this.className = classSelect;
 	}
 
-	public void setValuesOptions(ArrayList<String> valuesOptions) {
-		this.valuesOptions = valuesOptions;
+	public void setOpValues(ArrayList<String> valuesOptions) {
+		this.opValues = valuesOptions;
 	}
 
-	public void setTextosOptions(String[] textosOptions) {
-		this.textosOptions = textosOptions;
+	public void setOpTextos(ArrayList<String> textosOptions) {
+		this.opTextos = textosOptions;
 	}
 
-	public void setIndSeleccionOption(int indSeleccionOption) {
-		this.indSeleccionOption = indSeleccionOption;
+	public void setSelectedValue(String selectedValue) {
+		this.selectedValue = selectedValue;
 	}
 
 	@Override
 	public int doEndTag() throws JspException {
 		try {
+			String opcion = null;
+			String texto = null;
+			String parametros = null;
 			JspWriter out = pageContext.getOut();
 			StringBuffer sBuffer = new StringBuffer("<select name='"
-					+ nameSelect + "'>");
-			Iterator<String> iOptions = valuesOptions.iterator();
-			while(iOptions.hasNext()){
-				sBuffer.append("<option value'" + iOptions.next() + "'>"
-						+ iOptions.next()+ "</option>");
-				
+					+ parameterName + "'");
+			parametros = (idValue != null ? " id='" + idValue + "'" : "");
+			sBuffer.append(parametros);
+			parametros = (className != null ? " class='" + className + "'" : "");
+			sBuffer.append(parametros);
+			sBuffer.append(">");
+			if (opValues.size() == opTextos.size()) {
+				Iterator<String> iOpValues = opValues.iterator();
+				Iterator<String> iOpTextos = opTextos.iterator();
+				while (iOpValues.hasNext()) {
+					opcion = iOpValues.next();
+					texto = iOpTextos.next();
+					if (opcion.equalsIgnoreCase(selectedValue)) {
+						sBuffer.append("<option value='" + opcion
+								+ "' selected>" + texto + "</option>");
+					} else {
+						sBuffer.append("<option value='" + opcion + "'>"
+								+ texto + "</option>");
+					}
+
+				}
 			}
 			sBuffer.append("</select>");
 			out.print(sBuffer.toString());
