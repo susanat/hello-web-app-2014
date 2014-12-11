@@ -6,6 +6,8 @@ import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
+import com.ipartek.formacion.helloweb.comun.Constantes;
+
 /**
  * Application Lifecycle Listener implementation class SessionListener
  *
@@ -23,7 +25,7 @@ public class SessionListener implements HttpSessionListener, HttpSessionAttribut
      * @see HttpSessionAttributeListener#attributeRemoved(HttpSessionBindingEvent)
      */
     public void attributeRemoved(HttpSessionBindingEvent se)  { 
-         //System.out.println("attribute removed: " + se.getName());
+         System.out.println("attribute removed: " + se.getName());
     }
 
 	/**
@@ -33,7 +35,7 @@ public class SessionListener implements HttpSessionListener, HttpSessionAttribut
     	
     	HttpSession session = se.getSession();
     	
-    	//System.out.println("attribute added: " + se.getName() + " " + session.getAttribute(se.getName()));
+    	System.out.println("attribute added: " + se.getName() + " " + session.getAttribute(se.getName()));
     }
 
 	/**
@@ -42,7 +44,7 @@ public class SessionListener implements HttpSessionListener, HttpSessionAttribut
     public void attributeReplaced(HttpSessionBindingEvent se)  { 
     	HttpSession session = se.getSession();
     	
-    	//System.out.println("attribute replaced: " + se.getName() + " " + session.getAttribute(se.getName()));
+    	System.out.println("attribute replaced: " + se.getName() + " " + session.getAttribute(se.getName()));
     }
 
 	/**
@@ -52,11 +54,16 @@ public class SessionListener implements HttpSessionListener, HttpSessionAttribut
     	
     	HttpSession session = se.getSession();
     	System.out.println("session created: " + session.getId() + " " + session.getCreationTime());
-    	
+    	if(session.getAttribute(Constantes.PARAM_SESSION_AUTHENTICATED) != null) {
+    		System.out.println(session.getAttribute(Constantes.PARAM_SESSION_AUTHENTICATED));
+    	}
+    		
+    		
+    		
     	
     	
     	//añadimos timeout, un minuto para pruebas
-    	session.setMaxInactiveInterval(1*60);
+    	session.setMaxInactiveInterval(30*60);
     	
     	
          

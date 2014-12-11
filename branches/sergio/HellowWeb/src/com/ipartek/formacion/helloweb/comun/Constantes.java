@@ -109,6 +109,7 @@ public final class Constantes {
 	
 	//nombre
 	public final static  String CONTROLLER_PERSONA = "persona";
+	public final static  String CONTROLLER_ROLES = "roles";
 	public final static  String CONTROLLER_LOGIN = "login";
 	public final static  String CONTROLLER_LOG_OUT = "logout";
 	
@@ -140,6 +141,16 @@ public final class Constantes {
 	 * Ruta completa para <a> del jsp formulario de persona
 	 */
 	public final static  String JSP_BACK_PERSONA_FORM = JSP_PATH_BACK + "persona/formPersona.jsp";
+	
+	/**
+	 * Ruta completa para <a> del jsp lista de roles
+	 */
+	public final static  String JSP_BACK_ROLES_LIST = JSP_PATH_BACK + "roles/listRoles.jsp";
+	
+	/**
+	 * Ruta completa para <a> del jsp formulario de roles
+	 */
+	public final static  String JSP_BACK_ROLES_FORM = JSP_PATH_BACK + "roles/formRoles.jsp";
 
 	
 	public final static String JSP_BACK_FOOTER = "footer.jsp";
@@ -227,6 +238,14 @@ public final class Constantes {
 	//*Attributtes Personas (servlet to jsp)    
 	public final static  String ATTR_PERSONAS_LIST = "personas";
 	
+	
+	//*Params Personas (jsp to servlet)
+	public final static  String PARAM_ROLES_ID = "id_roles";
+	public final static  String PARAM_ROLES_ALIAS = "alias_roles";
+	public final static  String PARAM_ROLES_NOMBRE = "nombre_roles";    
+	public final static  String PARAM_ROLES_DESC = "descripcion_roles";
+	
+	
 	//TODO: esto tendría que desaparecer
 	public final static  String ATTR_ROLES_LIST = "list_roles";
 
@@ -235,7 +254,16 @@ public final class Constantes {
 	//*** Servlet Logout
 	public final static String ATTR_LOGOUT_ACTION = "logout";
 	
+
 	
+	
+	//********************** GENERAL
+	/**
+     * Salto de línea genérico independiente del S.O. 
+     * (uso de System.getProperty).
+     */
+    public static final String SALTO_DE_LINEA = 
+	    System.getProperty("line.separator");
 	
 	
 }

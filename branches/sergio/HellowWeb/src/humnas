@@ -106,3 +106,13 @@ Permiso
 	- Nombre
 	- Descripcion
 	
+--------------------------------------------------------------------------------
+logs
+
+Clase logs:
+	Se crea una pila de mensajes
+
+
+
+
+	
