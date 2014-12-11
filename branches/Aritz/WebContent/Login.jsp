@@ -5,6 +5,8 @@
 
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
 
+<%@ taglib prefix="hello" uri="http://www.formacion.ipartek.com"%>
+<%@ taglib prefix="util" uri="http://www.formacion.ipartek.com/tags/util"%>
 
 <c:set var="language" value="<%= I18n.getBrowserLocale(request.getLocale())%>" />
 <fmt:setLocale value="${language}" />
@@ -28,12 +30,19 @@
 
 <body>	
 
+<hello:saluda/>
+<hello:saluda2/>
+
+
   <div class="login-card">
     <h1><fmt:message key="login.titulo"></fmt:message></h1><br>
   <form action="<%=Constantes.PATH_LOGIN %>" method="post">
   
-  <select name="<%= Constantes.PARAMETRO_IDIOMA%>" class="form-control">
-		<%
+  
+  <!--
+  <select name="< %= Constantes.PARAMETRO_IDIOMA%>" class="form-control">
+    
+		< %
 			String languageBrowser = I18n.getBrowserLocale(request.getLocale());
 			for(Idioma idioma: Idioma.values()){
 				StringBuffer op= new StringBuffer();
@@ -47,8 +56,16 @@
 				op.append("</option>");
 				out.print(op.toString());				
 			}
-		%>
-	</select>  <br>
+		%>			
+	</select>  
+	-->
+		
+	<util:SelectOptions opText="<%= Idioma.getTextosList() %>" 
+						opValues="<%= Idioma.getLocaleList() %>" 						
+						parameterName="<%= Constantes.PARAMETRO_IDIOMA %>" 
+						selectedValue="<%= I18n.getBrowserLocale(request.getLocale()) %>"/>
+						
+	<br></br>
   
   	<%@include file="/includes/alert.jsp" %>
   

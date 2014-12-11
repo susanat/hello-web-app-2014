@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.bean.Mensaje;
 import com.ipartek.formacion.helloweb.bean.Persona;
+import com.ipartek.formacion.helloweb.listener.InitListener;
 import com.ipartek.formacion.helloweb.model.ModeloPersona;
 
 /**
@@ -22,7 +23,7 @@ public class PersonaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	RequestDispatcher dispatcher = null;
-	ModeloPersona model = null;
+	// ModeloPersona model = null; cambiamos model por InitListener.modelPersona
 	Mensaje msg = null;
 	int id = Persona.ID_NULL;// identificador persona
 
@@ -31,7 +32,7 @@ public class PersonaServlet extends HttpServlet {
 
 		super.init(config);
 
-		model = new ModeloPersona();
+		InitListener.modelPersona = new ModeloPersona();
 	}
 
 	@Override
@@ -39,7 +40,7 @@ public class PersonaServlet extends HttpServlet {
 
 		super.destroy();
 
-		model = null;
+		InitListener.modelPersona = null;
 	}
 
 	@Override
@@ -81,7 +82,7 @@ public class PersonaServlet extends HttpServlet {
 	private void getById(HttpServletRequest request) {
 
 		// acceder al modelo
-		Persona p = model.getById(id);
+		Persona p = InitListener.modelPersona.getById(id);
 
 		// pasamos los atributos
 		request.setAttribute(Constantes.ATT_PERSONA, p);
@@ -94,7 +95,7 @@ public class PersonaServlet extends HttpServlet {
 	private void getAll(HttpServletRequest request) {
 
 		// acceder al modelo
-		ArrayList<Persona> personas = model.getAll();
+		ArrayList<Persona> personas = InitListener.modelPersona.getAll();
 
 		// pasamos los atributos
 		request.setAttribute(Constantes.ATT_PERSONAS, personas);
@@ -154,7 +155,7 @@ public class PersonaServlet extends HttpServlet {
 		if (p != null) {
 			// insert
 			// TODO comprobar insert
-			model.insert(p);
+			InitListener.modelPersona.insert(p);
 
 			msg = new Mensaje(Constantes.MSG_REG_CREATE,
 					Mensaje.MSG_TYPE_SUCCESS);
@@ -179,7 +180,7 @@ public class PersonaServlet extends HttpServlet {
 	 */
 	private void delete(HttpServletRequest request) {
 
-		if (model.delete(id)) {
+		if (InitListener.modelPersona.delete(id)) {
 			msg = new Mensaje(Constantes.MSG_REG_DELETE,
 					Mensaje.MSG_TYPE_WARNING);
 		} else {
@@ -209,7 +210,7 @@ public class PersonaServlet extends HttpServlet {
 			// modificar
 			p.setId(id);
 			// TODO comprobar que realmente se a modificado
-			model.update(p);
+			InitListener.modelPersona.update(p);
 
 			msg = new Mensaje(Constantes.MSG_REG_UPDATE,
 					Mensaje.MSG_TYPE_SUCCESS);

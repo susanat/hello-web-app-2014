@@ -78,7 +78,7 @@ public class LoginServlet extends HttpServlet {
 			HttpServletResponse response) {
 		if (Constantes.USER_ADMIN.equals(pUser)
 				&& Constantes.PASS_ADMIN.equals(pPass)) {
-			// correcto: redirigir a saludo.jsp
+			// correcto: redirigir a index.jsp
 			dispatch = request.getRequestDispatcher(Constantes.JSP_BACK_INDEX);
 
 			// guardar usuario en sesion
@@ -100,7 +100,7 @@ public class LoginServlet extends HttpServlet {
 			// incorrecto : volver a login.jsp
 			dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
 			Mensaje msg = new Mensaje(
-					messages.getString("msg.login.incorrect"),
+					messages.getString("msg.login.incorrecto"),
 					Mensaje.MSG_TYPE_DANGER);
 			request.setAttribute(Constantes.MSG_KEY, msg);
 		}
@@ -143,7 +143,7 @@ public class LoginServlet extends HttpServlet {
 		Locale locale = new Locale(pIdioma.split("_")[0], pIdioma.split("_")[1]);
 		messages = ResourceBundle.getBundle(Constantes.PROPERTY_I18N, locale);
 
-		// guardar en sesiion el lenguage
+		// guardar en session el language
 		sesion.setAttribute(Constantes.USER_LANGUAGE, pIdioma);
 
 	}

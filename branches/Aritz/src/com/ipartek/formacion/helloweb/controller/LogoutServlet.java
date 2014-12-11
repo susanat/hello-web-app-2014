@@ -40,8 +40,8 @@ public class LogoutServlet extends HttpServlet {
 		// recuperar sesionde usuario
 		HttpSession sesion = request.getSession();
 
-		// `poner a null su sesion
-		sesion.setAttribute(Constantes.USER_SESSION, null);
+		// poner a null su sesion
+		sesion.removeAttribute(Constantes.USER_SESSION);
 
 		dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
 		request.setAttribute(Constantes.MSG_KEY, Constantes.MSG_LOGOUT_CORRECT);
