@@ -49,7 +49,9 @@
   	</c:forEach>
   	</select>
   	</div>
-  	<util:selectoroptinos cname=""/>
+  	<util:selectoroptions parameterName="<%=Constante.PARAMETRO_IDIOMA %>" 
+  						opValues="<%=Idioma.getIndices() %>" 
+  						opTexts="<%=Idioma.getValores() %>"/>
     <input type="submit" name="enviar" class="login login-submit" value="<fmt:message key="login.form.submit"></fmt:message>">
   </form>
 

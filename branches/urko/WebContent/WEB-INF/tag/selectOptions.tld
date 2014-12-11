@@ -18,19 +18,40 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
 			Genera un select
 		</description>
 		<attribute>
-			<name>clase</name>
+			<name>className</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
+			<description>la class del formulario</description>
 		</attribute>
 		<attribute>
-			<name>cid</name>
+			<name>idName</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
+			<description>la id del formulario</description>
 		</attribute>
 		<attribute>
-			<name>cname</name>
+			<name>parameterName</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
+			<description>El nombre del formulario</description>
+		</attribute>
+		<attribute>
+			<name>opValues</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>El texto de las option que se envia en el formulario</description>
+		</attribute>
+		<attribute>
+			<name>opTexts</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>El texto que aparece visible en el select</description>
+		</attribute>
+		<attribute>
+			<name>selectedValue</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>El elemento que aparecera selected en el select</description>
 		</attribute>
 	</tag>
 </taglib>
