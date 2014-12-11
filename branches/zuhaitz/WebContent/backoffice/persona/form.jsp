@@ -1,11 +1,14 @@
-<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@include file="../includes/head.jsp" %>
 <%@include file="../includes/nav.jsp" %>
 
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@page import="com.ipartek.formacion.helloweb.util.Rol"%>
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
-	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="util" uri="http://www.formacion.ipartek.com/tag/util"%>
+
 <%
 	Persona persona = (Persona) request.getAttribute(Constantes.ATTR_PERSONA);
 	String buttonValue ="Crear";
@@ -47,17 +50,12 @@
 		<br>
 		
 		<div class="form-group">
-			<label>Rol</label>
-			<select class="form-control" name='rol'>
-				<% for(Rol rol : Rol.values()){ 
-					if(rol == persona.getRol()){
-						out.println("<option selected value=" + rol + ">" + rol + "</option>");
-					} else {
-						out.println("<option value=" + rol + ">" + rol + "</option>");
-					}
-				}%>
-			</select>
-		</div>
+				<util:selectoptions tagName="rol" 
+									tagClass="form-control" 
+									opValues="<%=Rol.getTextoRolList()%>" 
+									opTextos="<%=Rol.getTextoRolList()%>" 
+									selectedValue="<%=persona.getRol().toString()%>"/>
+			</div>
 
 		<input type='submit' class="btn btn-primary pull-left" value='<%=buttonValue%>'>
 		
