@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE taglib
+PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
+"http://java.sun.com/j2ee/dtd/web-jsptaglibrary_1_2.dtd">
+<taglib>
+	<tlib-version>1.0</tlib-version>
+	<jsp-version>1.2</jsp-version>
+	<short-name>login</short-name>
+	<uri>http://www.formacion.ipartek.com/tag/login</uri>
+	<description>
+		Ejemplo TagLib para el Select
+	</description>
+
+	<tag>
+		<name>loginchecked</name>
+		<!-- Lo implementa esta clase -->
+		<tag-class>com.ipartek.formacion.helloweb.tag.util.login.TagLogin</tag-class>
+		<!-- El cuerpo puede tener o no, en este caso no tiene -->
+		<body-content>empty</body-content>
+		<description>
+			Muestra el Select Option con los posibles Idiomas que tenemos en nuestra web
+		</description>
+		
+	</tag>
+
+		
+</taglib>

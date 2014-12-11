@@ -6,7 +6,7 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
 	<tlib-version>1.0</tlib-version>
 	<jsp-version>1.2</jsp-version>
 	<short-name>util</short-name>
-	<uri>http://www.formacion.ipartek.com</uri>
+	<uri>http://www.formacion.ipartek.com/tag/util</uri>
 	<description>
 		Ejemplo TagLib para el Select
 	</description>
@@ -20,7 +20,42 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
 		<description>
 			Muestra el Select Option con los posibles Idiomas que tenemos en nuestra web
 		</description>
-		
+				<attribute> 
+			<name>opValues</name>												
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>	
+			<description>Values para los options</description>		 
+		</attribute>		
+		<attribute> 
+			<name>opTexts</name>			
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>	
+			<description>Textos a mostrar para los options</description>				
+		</attribute>
+		<attribute> 
+			<name>selectedValue</name>			
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>		
+			<description>valor para selecionar un option</description>			
+		</attribute>
+		<attribute> 
+			<name>parameterName</name>			
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>		
+			<description>Nombre para el parametro dentro del formulario</description>			
+		</attribute>
+		<attribute> 
+			<name>className</name>			
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>	
+			<description>Nombre de la Clase de CSS</description>				
+		</attribute>
+		<attribute> 
+			<name>idValue</name>			
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>	
+			<description>Identificador de la etiqueta para HTML</description>				
+		</attribute>
 	</tag>
 
 		
