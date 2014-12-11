@@ -9,6 +9,7 @@
 
 <!doctype html>
 
+
 <% 
 	//carga la última página visitada en session dentro del parámetro PARAM_SESSION_LAST_URL
 	UtilsTemp.cargaHistorial(request, session);

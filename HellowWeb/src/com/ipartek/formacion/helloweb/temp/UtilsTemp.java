@@ -3,6 +3,8 @@ package com.ipartek.formacion.helloweb.temp;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -253,6 +255,111 @@ public class UtilsTemp {
 		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
    		response.sendRedirect(Constantes.JSP_LOGIN);
    		
+	}
+	
+	/**
+	 * Dada la propiedad y el locale de la sesión obtiene el texto traducido al idioma indicado del objeto Role. 
+	 * @param obj Roles
+	 * @param propiedad String con el nombre de la propiedad (ejemplo, role.alias.desc) 
+	 * @param sesion HttpSession actual
+	 * @return String con el texto en el idioma o en blanco si no lo encuentra
+	 */
+	public static String getTextLang(Roles obj, String propiedad, HttpSession sesion) {	
+		
+		String res = propiedad;
+		String resTemp = "";
+		
+		//construimos la propiedad
+		if( propiedad.trim().toLowerCase().equals(Roles.ROLE_DESC_NULL.toLowerCase()) 
+				|| propiedad.trim().toLowerCase().equals(Roles.ROLE_NAME_NULL.toLowerCase())) {
+			
+			
+			//construimos la propiedad, sustituyo alias por el alias
+			propiedad = propiedad.replace("alias", obj.getAlias().toLowerCase().trim()); 
+			
+				
+			resTemp = getStringLang(propiedad, sesion, Constantes.SITE_DEFAULT_LANG);
+			if("".equals(res.trim())) {
+				resTemp = propiedad; 
+			} else {
+				res = resTemp;
+			}			
+		}
+		
+		
+		return res;
+	}
+	
+	
+	/**
+	 * Dada la propiedad y el locale de la sesión obtiene el texto traducido al idioma indicado. 
+	 * @param propiedad Propiedad a buscar
+	 * @param sesion sesion
+	 * @return
+	 */
+	public static String getStringLang (String propiedad, HttpSession sesion, String langDefault) {
+		String res = "";
+		String language = langDefault;
+		String[] langSplit = null;
+		Locale locale = null;
+		
+		try {			
+			//Locale por defecto
+			langSplit = language.split("_");				
+			locale = new Locale(langSplit[0], langSplit[1].toUpperCase());
+
+			//obtener lenguaje de la session del usuario
+			if(sesion.getAttribute(Constantes.PARAM_SESSION_LOCALE) != null) {
+				language = sesion.getAttribute(Constantes.PARAM_SESSION_LOCALE).toString();
+			}
+			
+			if(language != null) {				
+				langSplit = language.split("_");				
+				locale = new Locale(langSplit[0], langSplit[1].toUpperCase());
+				//locale = new Locale(language);
+			}
+			
+			//Cargar resourceBundle o properties dependiente del idioma
+			// Debemos indicara el package donde se encuentra y el nombre del /properties sin la extension del locale
+			ResourceBundle men = ResourceBundle.getBundle("com.ipartek.formacion.helloweb.i18n.lang", locale );
+			
+			//obtenemos el texto del mensaje
+			res = men.getString(propiedad);			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}		
+		return res;
+	}
+	
+	/**
+	 * Dada la propiedad y el locale de la sesión obtiene el texto traducido al idioma indicado. 
+	 * @param propiedad Propiedad a buscar
+	 * @param sesion sesion
+	 * @return
+	 */
+	public static String getStringLang (String propiedad, Locale locale, String langDefault) {
+		String res = "";
+		String language = langDefault;
+			
+		try {			
+			//Locale por defecto
+			Locale localLocale = new Locale(language);
+
+			//obtener lenguaje de la session del usuario
+			if(locale != null) {
+				localLocale = locale;
+			}
+			
+			//Cargar resourceBundle o properties dependiente del idioma
+			// Debemos indicara el package donde se encuentra y el nombre del /properties sin la extension del locale
+			ResourceBundle messages = ResourceBundle.getBundle(Constantes.PACKAGE_LANG, locale );
+			
+			//obtenemos el texto del mensaje
+			res = messages.getString(propiedad);			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}		
+		return res;
 	}
 
 }

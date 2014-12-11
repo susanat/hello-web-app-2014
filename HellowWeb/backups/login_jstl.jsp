@@ -19,6 +19,7 @@
 -->
 
 
+
 <c:choose>
   <c:when test="${sessionScope.locale_user != null}">
     <c:set var="language" value="${sessionScope.locale_user}"/>

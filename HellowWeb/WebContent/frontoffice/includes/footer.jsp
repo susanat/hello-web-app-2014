@@ -51,18 +51,18 @@
     <!-- /.container -->
 
     <!-- jQuery -->
-    <script src="frontoffice/themes/blog-post/js/jquery-1.11.1.min.js"></script>
+    <script src="<%=Constantes.PATH_FRONT_ABS_THEME %>js/jquery-1.11.1.min.js"></script>
 	<script>window.jQuery || document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"><\/script>')</script>
        
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="frontoffice/themes/blog-post/js/bootstrap.min.js"></script>
+    <script src="<%=Constantes.PATH_FRONT_ABS_THEME %>js/bootstrap.min.js"></script>
     
     <!-- Añadimos los javascript y css para las alertas -->
 	<link href="<%=Constantes.PATH_SITE%>bootstrap/js/vendor/toastr/toastr.css" rel="stylesheet"/>
 	<script src="<%=Constantes.PATH_SITE%>bootstrap/js/vendor/toastr/toastr.js"></script>
     
-    <script src="frontoffice/themes/blog-post/js/main.js"></script>
+    <script src="<%=Constantes.PATH_FRONT_ABS_THEME %>js/main.js"></script>
 
 </body>
 

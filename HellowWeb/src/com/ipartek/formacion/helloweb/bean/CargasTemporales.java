@@ -26,7 +26,7 @@ public class CargasTemporales {
 	
 	public static void CargaTablaRoles() {
 		roles = new ArrayList<Roles>();
-		roles.add(new Roles(1, "USER", "Usuario", "Permisos solo de usuario"));
+		roles.add(new Roles(1, "USER", Roles.ROLE_NAME_NULL, Roles.ROLE_DESC_NULL));
 		roles.add(new Roles(2, "ADM", "Administrador", "Permisos completos al site"));
 	}
 	
