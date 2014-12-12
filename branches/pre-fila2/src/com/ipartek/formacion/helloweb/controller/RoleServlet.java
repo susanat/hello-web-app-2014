@@ -101,11 +101,12 @@ public class RoleServlet extends HttpServlet {
 			
 		} catch (Exception ex) {			
 			mes.setMsg(ex.getMessage());
-			mes.setType(Constantes.ALERT_TYPE_DANGER);		
+			mes.setType(Constantes.ALERT_TYPE_DANGER);
+			request.setAttribute(Constantes.ATT_MENSAJE, mes);
 		}
 		
 
-		request.setAttribute(Constantes.ATT_MENSAJE, mes);
+		
 		
 		// forward a la vista correspondiente
 		dispatcher.forward(request, response);
@@ -143,9 +144,10 @@ public class RoleServlet extends HttpServlet {
 		} catch (Exception ex) {
 			mes.setMsg(ex.getMessage());
 			mes.setType(Constantes.ALERT_TYPE_DANGER);
+			request.setAttribute(Constantes.ATT_MENSAJE, mes);
 		}
 
-		request.setAttribute(Constantes.ATT_MENSAJE, mes);
+		
 		
 		// forward a la vista (formulario)
 		dispatcher.forward(request, response);
