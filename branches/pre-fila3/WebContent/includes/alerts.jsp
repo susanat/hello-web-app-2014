@@ -6,6 +6,7 @@
 	<c:if test="${requestScope.msg != null}">
 		<div class="alert alert-${requestScope.msg.type}" role="alert" >
 			${requestScope.msg.msg}
+			<fmt:message key="${requestScope.msg.msg}"></fmt:message>
 		</div>
 	</c:if>
 	
