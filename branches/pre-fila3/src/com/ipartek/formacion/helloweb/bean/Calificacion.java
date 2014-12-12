@@ -33,6 +33,7 @@ public class Calificacion {
 
 	public Calificacion() {
 		super();
+		this.id = ID_NULL;
 	}
 
 	public int getId() {
