@@ -60,7 +60,13 @@
 				<td><%out.print(personas.get(i).getRol()); %></td>
 				
 				<td>
-				<a href=<%=Constantes.CONTROLLER_PERSONA +"?id=" +personas.get(i).getId()+"&accion=" + Constantes.LETRERO_BORRAR %> class="btn btn-xs btn-danger">Eliminar</a></td>
+					<form action="<%=request.getContextPath()+"/"+ Constantes.CONTROLLER_PERSONA %>" method="post">
+				
+							<input type="hidden" name="id" value="<%=personas.get(i).getId() %>" />" >
+							<input type="hidden" name="<%=Constantes.OP_KEY %>" value="<%=Constantes.OP_DELETE%>">
+							<input type="submit" value="Eliminar" class="btn btn-danger btn-outline btn-xs">
+						</form>	
+				</td>
 				</tr>
 				
 				
