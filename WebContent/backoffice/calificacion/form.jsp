@@ -1,4 +1,4 @@
-<%@page import="com.ipartek.formacion.helloweb.bean.Calificacion"%>
+			<%@page import="com.ipartek.formacion.helloweb.bean.Calificacion"%>
 
 <%@include file="../includes/head.jsp" %>
 <%@include file="../includes/nav.jsp" %>
@@ -16,7 +16,7 @@
     
     //inicializar variables para el formulario
     
-    String buttonValue="Crear";
+    String buttonValue="boton.crear";
     String op=Constantes.OP_UPDATE;
     boolean isNew=false;
     
@@ -30,7 +30,7 @@
 	//modificar persona
 	else{
 		
-		buttonValue="Modificar";
+		buttonValue="boton.modificar";
 	}
 	%>	
 
@@ -39,16 +39,16 @@
 	
 		
 		<div class="form-group">
-		
+
 		<input type="text" name="id" readonly value="<%=c.getId()%>" class="form-control"> 
 		</div>
 		
 		<div class="form-group">
-		<label>Nota</label>
+		<label><fmt:message key="calificacion.nota"></fmt:message></label>
 		<input type="text" name="nota" value="<%=c.getClave()%>"class="form-control">
 		</div> 
 		<div class="form-group">
-		<label>Descripcion</label>
+		<label><fmt:message key="calificacion.descripcion"></fmt:message></label>
 		<% if(!isNew){%>
 			<input type="text" name="descripcion" value="<%=c.getDescripcion()%>"class="form-control">
 			
@@ -62,16 +62,17 @@
 	
 		
 		<input type="hidden" name="<%=Constantes.OP_KEY %>" value="<%=op%>">
-		<input type="submit" class="btn btn-outline btn-primary" value="<%= buttonValue%>"> 
+		<input type="submit" class="btn btn-outline btn-primary" value=<fmt:message key="<%=buttonValue %>"></fmt:message>> 
 		
 	</form>
-</div>
-
-	<% if(!isNew){ %>	
+	</div>
+	<% if(!isNew){ %>
+	
+	
 	<form action="<%=request.getContextPath()+"/"+Constantes.CONTROLLER_CALIFICACION%>" method="post">
 		<input type="hidden" name="id" value="<%=c.getId()%>"> 		
 		<input type="hidden" name="<%=Constantes.OP_KEY %>" value="<%=Constantes.OP_DELETE%>">
-		<input type="submit" class="btn btn-outline btn-danger" value="Eliminar"> 
+		<input type="submit" class="btn btn-outline btn-danger" value=<fmt:message key="boton.eliminar"></fmt:message>> 
 	</form>
 	<%}%>
 <%@include file="../includes/footer.jsp" %>
