@@ -1,3 +1,4 @@
+<%@page import="com.ipartek.formacion.helloweb.bean.Calificacion"%>
 <%@include file="../includes/head.jsp" %>
 <%@include file="../includes/nav.jsp" %>
 
@@ -14,10 +15,10 @@
 	<!-- <p><a href="<%= Constantes.JSP_BACK_PERSONA_FORM%>" title="crear nueva perosna">Cree una nueva persona</a></p> -->
 
 <%
-		ArrayList<Persona> personas = (ArrayList<Persona>)request.getAttribute( Constantes.ATT_PERSONAS );
-		if ( personas == null ){
+		ArrayList<Calificacion> calificaciones = (ArrayList<Calificacion>)request.getAttribute( Constantes.ATT_CALIFICACIONES );
+		if ( calificaciones == null ){
 			%>
-				<h2>No existe niguna persona</h2>
+				<h2>No existe niguna calificacion</h2>
 				
 			<%
 		}else{
@@ -48,9 +49,8 @@
     			<tr>
 	        	 	<td><a href="<%=Constantes.CONTROLLER_CALIFICACION+"?id="%>${calificacion.id}">${calificacion.id}</a></td>
 	
-					<td><a href="<%=Constantes.CONTROLLER_CALIFICACION+"?id="%>${calificacion.id}">${calificacion.nombre}</a></td>
-					<td>${calificacion.edad}</td>
-					<td>${calificacion.rol}</td>
+					<td><a href="<%=Constantes.CONTROLLER_CALIFICACION+"?id="%>${calificacion.id}">${calificacion.clave}</a></td>
+					<td>${calificacion.descripcion}</td>
 					<td>
 					
 						<form action="<%=Constantes.CONTROLLER_CALIFICACION%>" method="post">
@@ -71,7 +71,7 @@
     
     <%} %>
 			
-			<form action="<%=Constantes.JSP_BACK_PERSONA_FORM%>" method="post">
+			<form action="<%=Constantes.JSP_BACK_CALIFICACION_FORM%>" method="post">
 				<button class="btn btn-primary" type="submit">Nueva Calificacion</button>
            </form>
            
