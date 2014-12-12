@@ -14,7 +14,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.ipartek.formacion.helloweb.bean.Calificacion;
-import com.ipartek.formacion.helloweb.model.ModeloCalificacion;
 
 public class ModeloCalificacionTest {
 
@@ -56,8 +55,8 @@ public class ModeloCalificacionTest {
 		String descripcion = "CumLaude";
 		int idNuevo = modelo.insert(new Calificacion(notaNueva, descripcion));
 
-		Calificacion cGorriti = modelo.getById(idNuevo);
-		assertEquals(notaNueva, cGorriti.getClave());
+		Calificacion cNueva = modelo.getById(idNuevo);
+		assertEquals(notaNueva, cNueva.getClave());
 		assertNull(modelo.getById(13));
 
 	}
@@ -67,6 +66,7 @@ public class ModeloCalificacionTest {
 
 		int todos = modelo.getAll().size();
 
+		// insertar una calificacion nueva
 		int idNuevaNota = modelo.insert(new Calificacion(12, "CumLaude"));
 		assertTrue(Calificacion.ID_NULL < idNuevaNota);
 		assertEquals("no deberia insertarse", Calificacion.ID_NULL,
@@ -95,6 +95,7 @@ public class ModeloCalificacionTest {
 		// comprobar que este borrado
 		assertNull(modelo.getById(1));
 
+		// borrar un registro que no existe
 		assertFalse(modelo.delete(13));
 		assertNull(modelo.getById(13));
 
@@ -105,8 +106,8 @@ public class ModeloCalificacionTest {
 
 	@Test
 	public void testDeleteAll() throws Exception {
-		// eliminar todas las notas
-		// Calificacion c = null;
+
+		// eliminar todas las calificaciones
 		ArrayList<Calificacion> calificaciones = modelo.getAll();
 		for (Calificacion calificacion : calificaciones) {
 			assertTrue(modelo.delete(calificacion.getId()));
@@ -117,6 +118,7 @@ public class ModeloCalificacionTest {
 	@Test
 	public void testUpdate() {
 
+		// update de registros que ya existen
 		int todos = modelo.getAll().size();
 		Calificacion c = modelo.getById(1);
 		Calificacion c2 = new Calificacion(7, "Notable");
@@ -127,8 +129,10 @@ public class ModeloCalificacionTest {
 		assertTrue(Calificacion.ID_NULL < modelo.update(c2));
 		assertEquals(5, modelo.getById(1).getClave());
 
+		// update de un registro null
 		assertEquals(Calificacion.ID_NULL, modelo.update(null));
 
+		// update de un registro que no existe
 		Calificacion cInexistente = new Calificacion(0, "nulo");
 		cInexistente.setId(14);
 		assertEquals(Calificacion.ID_NULL, modelo.update(cInexistente));
