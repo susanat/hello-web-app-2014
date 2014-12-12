@@ -7,9 +7,6 @@
 <%@page import="com.ipartek.formacion.helloweb.bean.Roles"%>
 <%@page import="com.ipartek.formacion.helloweb.comun.Constantes"%>
 
-
-
-
 <%@include file="/backoffice/includes/head.jsp" %>       
 		<%@include file="/backoffice/includes/nav.jsp" %>
 
@@ -19,10 +16,10 @@
 
 <% //*********************************************** Variables
 	//default values
-	String id = String.valueOf(Persona.ID_NULL);
-	String nombre = "";
-	String edad = String.valueOf(Persona.EDAD_NULL);
-	String role = String.valueOf(Persona.ROL_NULL);	
+	String id = String.valueOf(Roles.ID_NULL);
+	String alias = "";
+	String nombre = Roles.ROLE_NAME_NULL;
+	String descripcion = Roles.ROLE_DESC_NULL;	
 	
 	//por defecto, el tipo de acción es crear
 	EModeloAccion accion = null;
@@ -39,34 +36,14 @@
 		</ol>
 	</nav>
 
-
-<%
-
-	out.print(request.getRequestURL().toString());
-
-	//*********************************************** Obtención del path y creación de session si no existe
-	//obtenemos el actual path
-	String path = request.getRequestURL().toString();
-	
-	//creamos una session anónima
-	if(session == null) {
-		session = request.getSession(true);
-	}
-	
-	//añadimos el último path visitado
-	session.setAttribute(Constantes.PARAM_SESSION_LAST_URL, path);
-	//*********************************************** FIN Obtención del path y creación de session si no existe
-%>
-
-
 <% 
 	//********************************************** Logica de entrada
 	
 	//ORIGEN: nos ha llegado la persona por el servlet (en una lista)
-	if (request.getAttribute(Constantes.ATTR_PERSONAS_LIST) != null) {
+	if (request.getAttribute(Constantes.ATTR_ROLES_LIST) != null) {
 		
 		//obtenemos la persona
-		List<Persona> personas = (List<Persona>)request.getAttribute(Constantes.ATTR_PERSONAS_LIST);
+		List<Roles> lstRoles = (List<Roles>)request.getAttribute(Constantes.ATTR_ROLES_LIST);
 		
 		//si existe la cargamos
 		if(personas != null && personas.size() > 0) {		
