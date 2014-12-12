@@ -2,6 +2,7 @@ package com.ipartek.formacion.helloweb.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -26,6 +27,7 @@ public class CalificacionServlet extends HttpServlet {
 	Mensaje msg = null;
 	int id = Persona.ID_NULL; // identificador Calificacion
 	Calificacion c = null;
+	private ResourceBundle messages;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -108,6 +110,11 @@ public class CalificacionServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		messages = ResourceBundle
+				.getBundle("com.ipartek.formacion.helloweb.i18n.i18nmesages_"
+						+ request.getSession().getAttribute(
+								Constantes.USER_LANGUAGE));
+
 		// check Operacion
 		String op = request.getParameter(Constantes.OP_KEY);
 		if (Constantes.OP_UPDATE.equals(op)) {
@@ -127,7 +134,8 @@ public class CalificacionServlet extends HttpServlet {
 
 	private void opNotSuported(HttpServletRequest request) {
 		getAll(request);
-		msg = new Mensaje(Constantes.MSG_NOT_ALLOWED, Mensaje.MSG_TYPE_DANGER);
+		msg = new Mensaje(messages.getString("mensaje.not_allowed"),
+				Mensaje.MSG_TYPE_DANGER);
 
 	}
 
@@ -139,10 +147,10 @@ public class CalificacionServlet extends HttpServlet {
 	private void delete(HttpServletRequest request) {
 
 		if (InitListener.modelCalificacion.delete(id)) {
-			msg = new Mensaje(Constantes.MSG_REG_DELETE,
+			msg = new Mensaje(messages.getString("mensaje.reg_delete"),
 					Mensaje.MSG_TYPE_SUCCESS);
 		} else {
-			msg = new Mensaje(Constantes.MSG_ERR_REG_DELETE,
+			msg = new Mensaje(messages.getString("mensaje.err_delete"),
 					Mensaje.MSG_TYPE_DANGER);
 		}
 		getAll(request);
@@ -157,10 +165,10 @@ public class CalificacionServlet extends HttpServlet {
 			// TODO comprobar que realmente se a modificado
 			InitListener.modelCalificacion.update(c);
 			// enviar atributos
-			msg = new Mensaje(Constantes.MSG_REG_UPDATE,
+			msg = new Mensaje(messages.getString("mensaje.reg_update"),
 					Mensaje.MSG_TYPE_SUCCESS);
 		} else {
-			msg = new Mensaje(Constantes.MSG_ERR_PARAMETERS,
+			msg = new Mensaje(messages.getString("mensaje.err_param"),
 					Mensaje.MSG_TYPE_DANGER);
 		}
 
@@ -201,10 +209,10 @@ public class CalificacionServlet extends HttpServlet {
 			// TODO comprobar la inserccion
 			InitListener.modelCalificacion.insert(c);
 			// enviar atributos
-			msg = new Mensaje(Constantes.MSG_REG_CREATE,
+			msg = new Mensaje(messages.getString("mensaje.reg_create"),
 					Mensaje.MSG_TYPE_SUCCESS);
 		} else {
-			msg = new Mensaje(Constantes.MSG_ERR_PARAMETERS,
+			msg = new Mensaje(messages.getString("mensaje.err_param"),
 					Mensaje.MSG_TYPE_DANGER);
 		}
 
