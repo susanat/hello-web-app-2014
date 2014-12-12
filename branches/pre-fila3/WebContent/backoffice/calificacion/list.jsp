@@ -35,7 +35,6 @@
  
  
         <tbody>
-        	</tr>
         	<c:forEach var="calificacion" begin="0" items="${calificaciones}">    	
     	
     			<tr>
