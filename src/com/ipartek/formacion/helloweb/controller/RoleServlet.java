@@ -148,8 +148,8 @@ public class RoleServlet extends HttpServlet {
 	ArrayList<Role> roles = InitListener.modelRole.getAll();
 	request.setAttribute("accion", Constantes.LETRERO_DETALLE);
 	request.setAttribute(Constantes.ATT_MENSAJE, mes);
-	request.setAttribute(Constantes.ATT_PERSONA, r);
-	request.setAttribute(Constantes.ATT_PERSONAS, roles);
+	request.setAttribute(Constantes.ATT_ROLE, r);
+	request.setAttribute(Constantes.ATT_ROLES, roles);
 	dispatcher = request
 		.getRequestDispatcher(Constantes.JSP_BACKOFFICE_ROLE_LIST);
 
@@ -187,8 +187,8 @@ public class RoleServlet extends HttpServlet {
 	    mes.setType(Constantes.ALERT_TYPE_DANGER);
 	}
 	ArrayList<Role> roles = InitListener.modelRole.getAll();
-	request.setAttribute(Constantes.ATT_PERSONAS, roles);
-	request.setAttribute(Constantes.ATT_PERSONA, r);
+	request.setAttribute(Constantes.ATT_ROLES, roles);
+	request.setAttribute(Constantes.ATT_ROLE, r);
 	request.setAttribute(Constantes.ATT_MENSAJE, mes);
 	dispatcher = request
 		.getRequestDispatcher(Constantes.JSP_BACKOFFICE_ROLE_LIST);
