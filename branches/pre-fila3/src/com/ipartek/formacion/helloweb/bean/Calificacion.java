@@ -7,17 +7,26 @@ package com.ipartek.formacion.helloweb.bean;
  *
  */
 public class Calificacion {
+	/**
+	 * Identificador de registro en bbdd.
+	 */
 	private int id;
+	/**
+	 * Valor numérico de la calificacion.
+	 */
 	private int clave;
+	/**
+	 * Descripción de la calificación.
+	 */
 	private String descripcion;
 
 	/**
-	 * Valor por defecto en el id
+	 * Valor por defecto en el id.
 	 */
 	public static final int ID_NULL = -1;
 
 	/**
-	 * Constructor
+	 * Constructor.
 	 * 
 	 * @param clave
 	 *            {@code Int} valor de la calificación.
@@ -31,6 +40,9 @@ public class Calificacion {
 		this.descripcion = descripcion;
 	}
 
+	/**
+	 * Constructor sin parámetros.
+	 */
 	public Calificacion() {
 		super();
 		this.id = ID_NULL;
