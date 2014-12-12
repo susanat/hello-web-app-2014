@@ -1,44 +1,52 @@
 package com.ipartek.formacion.helloweb.model.interfaces;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.ipartek.formacion.helloweb.bean.Role;
 
+/**
+ * Interfaz relativa al modelo del Role.
+ * @author Sergio Rubio Nieto
+ *
+ */
 public interface IModeloRol {
 
 	/**
-	 * Obtiene una lista de Role
+	 * Obtiene una lista de Role.
 	 * @return List<Role> lista de role
 	 */
-    public List<Role> getAll();
+    List<Role> getAll();
 
     /**
-     * Obtiene un Role dado el identificador
-     * @param id Identificador del rol
+     * Obtiene un Role dado el identificador.
+     * @param ident Identificador del rol
      * @return Role con el rol o null si no ha encontrado
+     * @throws Exception Excepción en caso de error
      */
-    public Role getByID(int id) throws Exception;
+    Role getByID(int ident) throws java.lang.Exception;
 
     /**
-     * Inserta un objeto de tipo Role
-     * @param r Objeto a insertar
-     * @return Integer , mayor de 0 se ha insertado el objeto 
+     * Inserta un objeto de tipo Role.
+     * @param obj Objeto a insertar
+     * @return Integer , mayor de 0 se ha insertado el objeto
+     * @throws Exception Excepción en caso de error 
      */
-    public Role insert(Role r) throws Exception;
+    Role insert(Role obj) throws java.lang.Exception;
 
     /**
-     * Actualiza un objeto de tipo Role
-     * @param r Objeto a actualizar
-     * @return
+     * Actualiza un objeto de tipo Role.
+     * @param obj Objeto a actualizar
+     * @return Role objeto creado o null si no ha sido creado
+     * @throws Exception Excepción en caso de error
      */
-    public Role update(Role r) throws Exception;
+    Role update(Role obj) throws java.lang.Exception;
 
     /**
-     * Elimina un objeto por su identificador
-     * @param id
-     * @return
+     * Elimina un objeto por su identificador.
+     * @param ident Integer identificador del objeto
+     * @return true si ha sido borrado o false si no
+     * @throws Exception Excepción en caso de error
      */
-    public boolean delete(int id) throws Exception;
+    boolean delete(int ident) throws java.lang.Exception;
 
 }
