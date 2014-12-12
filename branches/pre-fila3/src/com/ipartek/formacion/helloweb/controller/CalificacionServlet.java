@@ -173,18 +173,18 @@ public class CalificacionServlet extends HttpServlet {
 	}
 
 	private Calificacion getParametrosCalificacion(HttpServletRequest request) {
-		Calificacion p = null;
+		Calificacion c = null;
 		try {
 			c = new Calificacion();
 			c.setClave(Integer.parseInt(request.getParameter("nota")));
 			c.setDescripcion(request.getParameter("descripcion"));
 
 		} catch (Exception e) {
-			p = null;
+			c = null;
 			e.printStackTrace();
 		}
 
-		return p;
+		return c;
 	}
 
 	/**
