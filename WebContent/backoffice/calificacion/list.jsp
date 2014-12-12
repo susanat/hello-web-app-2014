@@ -29,7 +29,7 @@
                 <th>Id</th>
                 <th><fmt:message key="calificacion.nota"></fmt:message></th>
                 <th><fmt:message key="calificacion.descripcion"></fmt:message></th>
-                <th><fmt:message key="boton.eliminar"></fmt:message></th>
+                <th></th>
             </tr>
         </thead>
  
