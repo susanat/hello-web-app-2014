@@ -1,16 +1,16 @@
 package com.ipartek.formacion.helloweb.bean;
 
-public class Calificacion {
-    public final static int ID_NULL = -1;
+public class Languaje {
+    public static final int ID_NULL = -1;
     private int id;
     private String nombre;
 
-    public Calificacion() {
+    public Languaje() {
 	this.id = ID_NULL;
 	this.nombre = "";
     }
 
-    public Calificacion(final int id, final String nombre) {
+    public Languaje(final int id, final String nombre) {
 	super();
 	this.id = id;
 	this.nombre = nombre;
