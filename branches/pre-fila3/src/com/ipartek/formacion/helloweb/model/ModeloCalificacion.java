@@ -143,15 +143,17 @@ public class ModeloCalificacion implements IModeloCalificacion {
 	 */
 	public boolean delete(int i) {
 		boolean resul = false;
-		int index = 0;
-		for (Calificacion calif : calificaciones) {
-			if (calif.getId() == i) {
-				calificaciones.set(index, null);
-				resul = true;
+		try {
+			if (calificaciones != null) {
+				if (getById(i) != null) {
+					calificaciones.set(i, null);
+					resul = true;
+				}
 			}
-			index++;
+		} catch (Exception e) {
+			// TODO traza de Log
+			System.out.print("No existe el ID[" + i + "] queremos eliminar");
 		}
 		return resul;
 	}
-
 }
