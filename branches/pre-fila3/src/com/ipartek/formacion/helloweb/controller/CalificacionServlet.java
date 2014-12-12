@@ -47,6 +47,23 @@ public class CalificacionServlet extends HttpServlet {
 		msg = null;
 	}
 
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+
+		// TODO comprobar Autorizacion del usuario
+
+		// recoger paramtro identificador Calificacion
+		try {
+			id = Integer.parseInt(req.getParameter("id"));
+		} catch (Exception e) {
+			id = Calificacion.ID_NULL;
+		}
+
+		super.service(req, resp);
+
+	}
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -69,7 +86,7 @@ public class CalificacionServlet extends HttpServlet {
 		request.setAttribute(Constantes.ATT_CALIFICACION, c);
 		// forward a la vista del formulario
 		dispatcher = request
-				.getRequestDispatcher(Constantes.JSP_BACK_PERSONA_FORM);
+				.getRequestDispatcher(Constantes.JSP_BACK_CALIFICACION_FORM);
 
 	}
 
