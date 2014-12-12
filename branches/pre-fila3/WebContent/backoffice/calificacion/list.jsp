@@ -27,9 +27,9 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Nota</th>
-                <th>Descripcion</th>
-                <th>Eliminar</th>
+                <th><fmt:message key="calificacion.nota"></fmt:message></th>
+                <th><fmt:message key="calificacion.descripcion"></fmt:message></th>
+                <th><fmt:message key="boton.eliminar"></fmt:message></th>
             </tr>
         </thead>
  
@@ -48,7 +48,7 @@
 						<form action="<%=Constantes.CONTROLLER_CALIFICACION%>" method="post">
 							<input type="hidden" name="id" value="${calificacion.id}"> 		
 							<input type="hidden" name="<%=Constantes.OP_KEY %>" value="<%=Constantes.OP_DELETE%>">
-							<input class="btn btn-outline btn-danger" type="submit" value="Borrar">
+							<input class="btn btn-outline btn-danger" type="submit" value=<fmt:message key="boton.eliminar"></fmt:message>>
 						</form>
 					</td>
         	 
@@ -64,7 +64,7 @@
     <%} %>
 			
 			<form action="<%=Constantes.JSP_BACK_CALIFICACION_FORM%>" method="post">
-				<button class="btn btn-primary" type="submit">Nueva Calificacion</button>
+				<button class="btn btn-primary" type="submit"><fmt:message key="calificacion.nueva"></fmt:message></button>
            </form>
            
            
