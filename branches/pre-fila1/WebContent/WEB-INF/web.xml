@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>HelloWeb</display-name>
+  <welcome-file-list>
+    <welcome-file>login.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <description>Controlador para Login de usuarios</description>
+    <display-name>LoginServlet</display-name>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controller.LoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/login</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>Control de Cerrar Session del Usuario</description>
+    <display-name>LogoutServlet</display-name>
+    <servlet-name>LogoutServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controller.LogoutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogoutServlet</servlet-name>
+    <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>CRUD para Personas</description>
+    <display-name>PersonaServlet</display-name>
+    <servlet-name>PersonaServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controller.PersonaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PersonaServlet</servlet-name>
+    <url-pattern>/persona</url-pattern>
+  </servlet-mapping>
+  <jsp-config>
+    <taglib>
+      <taglib-uri>http://www.formacion.ipartek.com</taglib-uri>
+      <taglib-location>/WEB-INF/tag/tag_hello.tld</taglib-location>
+    </taglib>
+  </jsp-config>
+  <listener>
+    <listener-class>com.ipartek.formacion.helloweb.listener.SessionListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>com.ipartek.formacion.helloweb.listener.InitListener</listener-class>
+  </listener>
+  <servlet>
+    <description>Servlet que se encarga de gestionar los idiomas disponibles de la aplicacion</description>
+    <display-name>IdiomaServlet</display-name>
+    <servlet-name>IdiomaServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controller.IdiomaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>IdiomaServlet</servlet-name>
+    <url-pattern>/idioma</url-pattern>
+  </servlet-mapping>
+  <filter>
+    <display-name>FilterEncoding</display-name>
+    <filter-name>FilterEncoding</filter-name>
+    <filter-class>com.ipartek.formacion.helloweb.controller.FilterEncoding</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>FilterEncoding</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+</web-app>
