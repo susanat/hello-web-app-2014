@@ -34,12 +34,12 @@
 	}
 	%>	
 
-		
+<div class="col-lg-6">
 	<form action="<%=request.getContextPath()+"/"+Constantes.CONTROLLER_CALIFICACION%>" method="post">
 	
 		
 		<div class="form-group">
-		<label>Id</label>
+		
 		<input type="text" name="id" readonly value="<%=c.getId()%>" class="form-control"> 
 		</div>
 		
@@ -62,17 +62,16 @@
 	
 		
 		<input type="hidden" name="<%=Constantes.OP_KEY %>" value="<%=op%>">
-		<input type="submit" class="btn btn-primary" value="<%= buttonValue%>"> 
+		<input type="submit" class="btn btn-outline btn-primary" value="<%= buttonValue%>"> 
 		
 	</form>
+</div>
 
-	<% if(!isNew){ %>
-	
-	
+	<% if(!isNew){ %>	
 	<form action="<%=request.getContextPath()+"/"+Constantes.CONTROLLER_CALIFICACION%>" method="post">
 		<input type="hidden" name="id" value="<%=c.getId()%>"> 		
 		<input type="hidden" name="<%=Constantes.OP_KEY %>" value="<%=Constantes.OP_DELETE%>">
-		<input type="submit" class="btn btn-danger" value="borrar"> 
+		<input type="submit" class="btn btn-outline btn-danger" value="Eliminar"> 
 	</form>
 	<%}%>
 <%@include file="../includes/footer.jsp" %>
