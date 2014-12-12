@@ -5,7 +5,6 @@
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
-<%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
@@ -24,8 +23,8 @@
 		}else{
 			%>
 			
-	<table id="table" class="display" width="100%" cellspacing="0">
-        <thead class="miTabla">
+	<table id="table" width="100%" cellspacing="0">
+        <thead>
             <tr>
                 <th>Id</th>
                 <th>Nota</th>
@@ -36,7 +35,7 @@
  
         <tfoot>
             <tr>
-                <<th>Id</th>
+                <th>Id</th>
                 <th>Nota</th>
                 <th>Descripcion</th>
                 <th>Eliminar</th>
@@ -44,7 +43,8 @@
         </tfoot>
  
         <tbody>
-        	<c:forEach var="calificacion" begin="0" items="${calificacion}">    	
+        	</tr>
+        	<c:forEach var="calificacion" begin="0" items="${calificaciones}">    	
     	
     			<tr>
 	        	 	<td><a href="<%=Constantes.CONTROLLER_CALIFICACION+"?id="%>${calificacion.id}">${calificacion.id}</a></td>
