@@ -22,7 +22,7 @@
     
   //nueva persona
     if(c==null){
-		//si la persona esta vacia, se crea una nueva
+		//si la calificacion esta vacia, se crea una nueva
 		c=new Calificacion();
 		isNew=true;
 		op=Constantes.OP_CREATE;
@@ -49,7 +49,7 @@
 		
 		<div class="form-group">
 		<label>Nota</label>
-		<input type="text" name="nota" value="<%=c.getValor()%>"class="form-control">
+		<input type="text" name="nota" value="<%=c.getClave()%>"class="form-control">
 		</div> 
 		<div class="form-group">
 		<label>Descripcion</label>
