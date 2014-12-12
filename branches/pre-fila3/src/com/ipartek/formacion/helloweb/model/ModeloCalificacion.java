@@ -59,7 +59,7 @@ public class ModeloCalificacion implements IModeloCalificacion {
 		calificacion.add(c);
 	}
 
-	static void truncateTable() {
+	public static void truncateTable() {
 		calificacion = null;
 	}
 
