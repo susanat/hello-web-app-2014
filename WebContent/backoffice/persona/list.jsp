@@ -4,11 +4,11 @@
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.ipartek.formacion.helloweb.Constante"%>
+<%@page import="com.ipartek.formacion.helloweb.Constantes"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     		
-	<p><a href="<%=Constante.JSP_BACKOFFICE_PERSONA_FORM%>" title="crear nueva persona">cree una nueva persona</a></p>
+	<p><a href="<%=Constantes.JSP_BACK_PERSONA_FORM%>" title="crear nueva persona">cree una nueva persona</a></p>
 	<%
 		ArrayList<Persona> personas = (ArrayList<Persona>)request.getAttribute( Constantes.ATT_PERSONAS );
 		if ( personas == null ){
