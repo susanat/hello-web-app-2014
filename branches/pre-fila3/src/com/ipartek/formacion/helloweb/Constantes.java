@@ -32,11 +32,14 @@ public class Constantes {
 	public static final String JSP_BACK_PERSONA_FORM = JSP_BACKOFFICE
 			+ "persona/form.jsp";
 
+
+
 	// Calificacion
 	public static final String JSP_BACK_CALIFICACION_LIST = JSP_BACKOFFICE
 			+ "calificacion/list.jsp";
 	public static final String JSP_BACK_CALIFICACION_FORM = JSP_BACKOFFICE
 			+ "calificacion/form.jsp";
+
 
 	// Properties
 	public static final String PROPERTI_I18N = "com.ipartek.formacion.helloweb.i18n.i18nmesages";

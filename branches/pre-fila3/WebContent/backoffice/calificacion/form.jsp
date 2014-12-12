@@ -32,11 +32,7 @@
 		
 		buttonValue="Modificar";
 	}
-	%>
-
-
-	
-	
+	%>	
 
 		
 	<form action="<%=request.getContextPath()+"/"+Constantes.CONTROLLER_CALIFICACION%>" method="post">
@@ -53,7 +49,13 @@
 		</div> 
 		<div class="form-group">
 		<label>Descripcion</label>
-		<input type="numeric" name="descripcion" value="<%=c.getDescripcion()%>"class="form-control">
+		<input type="numeric" name="descripcion" value="
+		<% if (isNew){
+			c.getDescripcion();}
+			else{
+				c.getDescripcion();}
+				%>"class="form-control">
+		
 		</div>
 		
 	
@@ -67,7 +69,7 @@
 	
 	
 	<form action="<%=request.getContextPath()+"/"+Constantes.CONTROLLER_CALIFICACION%>" method="post">
-		<input type="hidden" name="id" disabled value="<%=c.getId()%>"> 		
+		<input type="hidden" name="id" value="<%=c.getId()%>"> 		
 		<input type="hidden" name="<%=Constantes.OP_KEY %>" value="<%=Constantes.OP_DELETE%>">
 		<input type="submit" class="btn btn-danger" value="borrar"> 
 	</form>
