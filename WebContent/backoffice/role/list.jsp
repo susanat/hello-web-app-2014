@@ -52,19 +52,23 @@
 		    <%
 		    for(int i =0; i<roles.size(); i++){
 			%>
-				<tr><td><a href=<%=Constantes.CONTROLLER_ROLE +"?id=" +roles.get(i).getId()+ "&accion=" + Constantes.LETRERO_DETALLE %>><%out.print(roles.get(i).getId()); %></a>
+				<tr>
+					<td><a href=<%=Constantes.CONTROLLER_ROLE +"?id=" +roles.get(i).getId()+ "&accion=" + Constantes.LETRERO_DETALLE %>><%out.print(roles.get(i).getId()); %></a>
 				
-				</td>
-				<td><%out.print(roles.get(i).getNombre()); %></td>
-				<td><%out.print(roles.get(i).getDescripcion()); %></td>
+					</td>
+					<td><%out.print(roles.get(i).getNombre()); %></td>
+					<td><%out.print(roles.get(i).getDescripcion()); %></td>
+					
+					
+					<td>
+						<form action="<%=request.getContextPath()+"/"+ Constantes.CONTROLLER_ROLE %>" method="post">
 				
-				
-				<td>
-				<a href=<%=Constantes.CONTROLLER_ROLE +"?id=" +roles.get(i).getId()+"&accion=" + Constantes.LETRERO_BORRAR %> class="btn btn-xs btn-danger">Eliminar</a></td>
+							<input type="hidden" name="id" value="<%=roles.get(i).getId() %>" >
+							<input type="hidden" name="<%=Constantes.OP_KEY %>" value="<%=Constantes.OP_DELETE%>">
+							<input type="submit" value="Eliminar" class="btn btn-danger btn-outline btn-xs">
+						</form>				
+					</td>
 				</tr>
-				
-				
-				
 				<%
 		    }
 		    %>
