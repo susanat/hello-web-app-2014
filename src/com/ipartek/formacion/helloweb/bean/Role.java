@@ -58,7 +58,7 @@ public class Role {
 	 * @param borrado True borra el objeto, false, lo recupera
 	 */
 	public void setBorrado(boolean borrado) {
-
+		this.borrado = borrado;
 	}
 
 	/**
