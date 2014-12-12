@@ -22,6 +22,9 @@
                         <li>
                             <a class="active" href="<%=Constantes.CONTROLLER_PERSONA%>"><fmt:message key="backoffice.nav.persona"></fmt:message></a>
                         </li>
+                        <li>
+                            <a href="<%=Constantes.CONTROLLER_CALIF%>"><fmt:message key="backoffice.nav.calificacion"></fmt:message></a>
+                        </li>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
