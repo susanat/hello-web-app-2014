@@ -23,7 +23,7 @@
 		}else{
 			%>
 			
-	<table id="table" width="100%" cellspacing="0">
+	<table id="tabla" width="100%" cellspacing="0">
         <thead>
             <tr>
                 <th>Id</th>
@@ -33,14 +33,6 @@
             </tr>
         </thead>
  
-        <tfoot>
-            <tr>
-                <th>Id</th>
-                <th>Nota</th>
-                <th>Descripcion</th>
-                <th>Eliminar</th>
-            </tr>
-        </tfoot>
  
         <tbody>
         	</tr>
