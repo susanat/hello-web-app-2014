@@ -38,7 +38,7 @@ public class ModeloPersona implements IModeloPersona {
 		indiceMax = 4;
 	}
 
-	static void truncateTable() {
+	public static void truncateTable() {
 		personas = null;
 		indiceMax = 0;
 	}

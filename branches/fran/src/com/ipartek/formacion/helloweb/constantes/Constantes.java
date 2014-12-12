@@ -23,11 +23,16 @@ public class Constantes {
 			+ "/persona/list.jsp";
 	public static final String JSP_BACK_PERSONA_FORM = JSP_BACKOFFICE
 			+ "/persona/form.jsp";
+	public static final String JSP_BACK_CALIF_LIST = JSP_BACKOFFICE
+			+ "/calificacion/list.jsp";
+	public static final String JSP_BACK_CALIF_FORM = JSP_BACKOFFICE
+			+ "/calificacion/form.jsp";
 
 	// Path para servlets
 	public static final String PATH_LOGIN = "login";
 	public static final String PATH_LOGOUT = "logout";
 	public static final String CONTROLLER_PERSONA = "persona";
+	public static final String CONTROLLER_CALIF = "calificacion";
 
 	// Parámetros
 	public static final String PARAMETRO_USER = "user";
@@ -54,6 +59,8 @@ public class Constantes {
 	// Atributos
 	public static final String ATT_PERSONAS = "personas";
 	public static final String ATT_PERSONA = "persona";
+	public static final String ATT_CALIFICACIONES = "calificaciones";
+	public static final String ATT_CALIFICACION = "calificacion";
 
 	// Operaciones
 	public static final String OP_KEY = "mode";
