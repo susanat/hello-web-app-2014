@@ -59,10 +59,16 @@ public class ModeloCalificacion implements IModeloCalificacion {
 		calificacion.add(c);
 	}
 
+	/**
+	 * Limpiar tabla de clasificaciones
+	 */
 	public static void truncateTable() {
 		calificacion = null;
 	}
 
+	/**
+	 * Obtener todas las calificaciones no eliminadas
+	 */
 	public ArrayList<Calificacion> getAll() {
 		ArrayList<Calificacion> calificaAuxi = null;
 		if (calificacion != null) {
@@ -81,6 +87,9 @@ public class ModeloCalificacion implements IModeloCalificacion {
 		return calificaAuxi;
 	}
 
+	/**
+	 * Obtener una calificacion de la tabla por su id
+	 */
 	public Calificacion getById(int id) {
 		Calificacion resul = null;
 		if (calificacion != null) {
@@ -96,6 +105,9 @@ public class ModeloCalificacion implements IModeloCalificacion {
 		return resul;
 	}
 
+	/**
+	 * Insertar una calificacion en la tabla
+	 */
 	public int insert(Calificacion c) {
 		int resul = Calificacion.ID_NULL;
 
@@ -112,6 +124,9 @@ public class ModeloCalificacion implements IModeloCalificacion {
 		return resul;
 	}
 
+	/**
+	 * Actualizar una calificacion de la tabla
+	 */
 	public int update(Calificacion c) {
 		int resul = Calificacion.ID_NULL;
 		if (calificacion != null && c != null) {
@@ -123,6 +138,9 @@ public class ModeloCalificacion implements IModeloCalificacion {
 		return resul;
 	}
 
+	/**
+	 * Borrar una calificacion
+	 */
 	public boolean delete(int id) {
 		boolean resul = false;
 		try {
