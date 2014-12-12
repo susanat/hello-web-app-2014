@@ -17,7 +17,7 @@ public class Constante {
     public static final String ROL_USER_NAME = "user";
     public static final String ROL_ADMIN_CODE = "0";
     public static final String ROL_ADMIN_NAME = "admin";
-
+    // rutas
     public static final String JSP_BACKOFFICE = "backoffice/";
     public static final String JSP_SALUDO = "saludo.jsp";
     public static final String JSP_LOGIN = "login.jsp";
@@ -27,13 +27,17 @@ public class Constante {
 	    + "persona/listado.jsp";
     public static final String JSP_BACKOFFICE_PERSONA_FORM = JSP_BACKOFFICE
 	    + "persona/form.jsp";
+    public static final String JSP_BACKOFFICE_IDIOMA_LIST = JSP_BACKOFFICE
+	    + "idioma/listado.jsp";
+    public static final String JSP_BACKOFFICE_IDIOMA_FORM = JSP_BACKOFFICE
+	    + "idioma/form.jsp";
     /* servlets */
     public static final String SERVLET_LOGIN = "login";
     public static final String SERVLET_LOGOUT = "logout";
     public static final String CONTROLER_PERSONA = "persona";
     public static final String CONTROLER_IDIOMA = "idioma";
     public static final String CONTROLER_ROL = "rol";
-    public static final String CONTROLER_CALIFICACION = "rol";
+    public static final String CONTROLER_CALIFICACION = "calificacion";
     // properties
     public static final String PROPERTI_I18N = "com.ipartek.formacion.helloweb.i18n.i18nmesages";
     // parametros

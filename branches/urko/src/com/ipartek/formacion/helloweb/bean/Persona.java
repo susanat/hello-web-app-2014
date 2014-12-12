@@ -2,6 +2,7 @@ package com.ipartek.formacion.helloweb.bean;
 
 public class Persona {
     public static final int ID_NULL = -1;
+    public static final int EDAD_NULL = -1;
     private int codigo;
     private String nombre;
     private String userName;
@@ -10,10 +11,10 @@ public class Persona {
     private Rol rol;
 
     public Persona() {
-	this.codigo = -1;
+	this.codigo = ID_NULL;
 	this.nombre = "";
 	this.userName = "";
-	this.edad = -1;
+	this.edad = EDAD_NULL;
 	setRol(Rol.USUARIO);
     }
 
