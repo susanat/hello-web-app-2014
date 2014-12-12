@@ -49,13 +49,14 @@
 		</div> 
 		<div class="form-group">
 		<label>Descripcion</label>
-		<input type="numeric" name="descripcion" value="sss
-		<% if (!isNew){
-			c.getDescripcion();
-			}
+		<% if(!isNew){%>
+			<input type="text" name="descripcion" value="<%=c.getDescripcion()%>"class="form-control">
+			
+		<%} 
 		
-		%>"class="form-control">
-		
+		else{%>
+		<input type="text" name="descripcion" value=""class="form-control">
+		<%} %>
 		</div>
 		
 	
@@ -64,7 +65,7 @@
 		<input type="submit" class="btn btn-primary" value="<%= buttonValue%>"> 
 		
 	</form>
-	<h1><%=c.getDescripcion() %></h1>
+
 	<% if(!isNew){ %>
 	
 	
