@@ -26,7 +26,7 @@
                     <ul class="nav" id="side-menu">                        
                         <li>
                             <a class="active" href="<%=Constantes.CONTROLLER_PERSONA%>" title="Gestionar Personas"><i class="fa fa-dashboard fa-fw"></i> Personas</a>
-                             <a class="active" href="<%=Constantes.CONTROLLER_CALIFICACION %>"title="Gestionar Calificaciones"> Calificaciones</a>
+                             <a class="active" href="<%=Constantes.CONTROLLER_CALIFICACION %>"title="Gestionar Calificaciones"> <fmt:message key="menu.calificacion"></fmt:message></a>
                         </li>                       
                     </ul>
                 </div>
