@@ -80,7 +80,7 @@ public class CalificacionServlet extends HttpServlet {
 		request.setAttribute(Constantes.ATT_CALIFICACIONES, calificacion);
 		// forward a la vista
 		dispatcher = request
-				.getRequestDispatcher(Constantes.JSP_BACK_PERSONA_LIST);
+				.getRequestDispatcher(Constantes.JSP_BACK_CALIFICACION_LIST);
 	}
 
 	/**
@@ -149,7 +149,7 @@ public class CalificacionServlet extends HttpServlet {
 
 		// forward vista
 		dispatcher = request
-				.getRequestDispatcher(Constantes.JSP_BACK_PERSONA_FORM);
+				.getRequestDispatcher(Constantes.JSP_BACK_CALIFICACION_FORM);
 
 	}
 
@@ -193,7 +193,7 @@ public class CalificacionServlet extends HttpServlet {
 
 		// forward vista
 		dispatcher = request
-				.getRequestDispatcher(Constantes.JSP_BACK_PERSONA_FORM);
+				.getRequestDispatcher(Constantes.JSP_BACK_CALIFICACION_FORM);
 
 	}
 
