@@ -114,7 +114,7 @@ public class ModeloCalificacion implements IModeloCalificacion {
 
 	public int update(Calificacion c) {
 		int resul = Calificacion.ID_NULL;
-		if (calificacion != null) {
+		if (calificacion != null && c != null) {
 			calificacion.set((c.getId() - 1), c);
 			resul = c.getId();
 		}
