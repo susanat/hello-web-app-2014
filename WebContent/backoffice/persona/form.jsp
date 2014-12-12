@@ -1,8 +1,11 @@
+<%@page import="com.ipartek.formacion.helloweb.bean.Persona.Rol"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <%@page import="com.ipartek.formacion.helloweb.constantes.Constantes"%>
 <%@page errorPage="../includes/error.jsp" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="util" uri="http://www.formacion.ipartek.com/tags/util"%>
 <%@include file="../includes/head.jsp"%>
 <%@include file="../includes/nav.jsp"%>
 	<%
@@ -82,7 +85,7 @@
 						<label>Permisos</label>
 						<br>
 					<!-- Esto se podria hacer con un for -->
-						<input type="radio" name="rol" value="<%=Persona.Rol.ADMINISTRADOR%>"
+					<input type="radio" name="rol" value="<%=Persona.Rol.ADMINISTRADOR%>"
 					<%
 						if (Persona.Rol.ADMINISTRADOR.equals(p.getRole())) {
 					%>
@@ -98,6 +101,18 @@
 					<%
 						}
 					%>><%=Persona.Rol.USER%>
+					
+					<!-- 
+					< %
+						ArrayList<String> valores = new ArrayList<String>();
+						ArrayList<String> texts = new ArrayList<String>();
+						for ( Rol rol : Rol.values() ) {
+							valores.add(rol.toString());
+							texts.add(rol.toString());
+						}
+					% >
+					<util:selectoptions nombre="rolOp" valores="< %=valores % >" selected="< %=p.getRole().toString() % >" texts="< %=texts % >"/>
+					 -->
 					</div>
 				</div>
 			</div>
