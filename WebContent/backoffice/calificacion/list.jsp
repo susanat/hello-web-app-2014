@@ -48,7 +48,7 @@
 						<form action="<%=Constantes.CONTROLLER_CALIFICACION%>" method="post">
 							<input type="hidden" name="id" value="${calificacion.id}"> 		
 							<input type="hidden" name="<%=Constantes.OP_KEY %>" value="<%=Constantes.OP_DELETE%>">
-							<input class="btn btn-outline btn-danger" type="submit" value=<fmt:message key="boton.eliminar"></fmt:message>>
+							<input class="btn btn-outline btn-danger btn-xs" type="submit" value=<fmt:message key="boton.eliminar"></fmt:message>>
 						</form>
 					</td>
         	 
