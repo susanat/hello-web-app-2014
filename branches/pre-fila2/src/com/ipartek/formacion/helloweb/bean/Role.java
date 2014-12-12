@@ -1,71 +1,135 @@
 package com.ipartek.formacion.helloweb.bean;
 
+/**
+ * Clase del objeto role.
+ * @author Fila-2
+ *
+ */
 public class Role {
 
-	private int id;
-	private String nombre;
-	private String descripcion = DESC_NULL;
-	private boolean borrado = BORRADO_DEFAULT;
-
+	/**
+	 * Identificador null del objeto.
+	 */
 	public static final int ID_NULL = -1;
+	
+	/**
+	 * Estado por defecto del borrado del objeto.
+	 */
 	public static final boolean BORRADO_DEFAULT = false;
+	
+	/**
+	 * Descripción por defecto del objeto.
+	 */
 	public static final String DESC_NULL = "";
-
-	public Role(String nombre, String descripcion) {
+	
+	/**
+	 * Identificador del objeto.
+	 */
+	private int id;
+	
+	/**
+	 * Nombre del objeto.
+	 */
+	private String nombre;
+	
+	/**
+	 * Descripción del objeto.
+	 */
+	private String descripcion = DESC_NULL;
+	
+	/**
+	 * Estado borrado del objeto.
+	 */
+	private boolean borrado = BORRADO_DEFAULT;
+	
+	/**
+	 * Constructor del objeto.
+	 * @param lNombre String nombre del objeto
+	 * @param lDescripcion String descripción del objeto
+	 */
+	public Role(final String lNombre, final String lDescripcion) {
 		super();
-		this.nombre = nombre;
-		this.descripcion = descripcion;		
-
+		this.nombre = lNombre;
+		this.descripcion = lDescripcion;
 	}
 
-	public Role(String nombre) {
+	
+	/**
+	 * Constructor del objeto.
+	 * @param lNombre String nombre del objeto
+	 */
+	public Role(final String lNombre) {
 		super();
-		this.nombre = nombre;
+		this.nombre = lNombre;
 	}
 
-	public int getId() {
+	/**
+	 * Obtiene el identificador del objeto.
+	 * @return Integer con el identificador del objeto
+	 */
+	public final int getId() {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	/**
+	 * Añade identificador al objeto.
+	 * @param ident Integer identificador del objeto
+	 */
+	public final void setId(final int ident) {
+		this.id = ident;
 	}
 
-	public String getNombre() {
+	/**
+	 * Obtiene el nombre del objeto.
+	 * @return String con el nombre del objeto
+	 */
+	public final String getNombre() {
 		return nombre;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	/**
+	 * Añade un nombre al objeto.
+	 * @param lNombre String nombre del objeto
+	 */
+	public final void setNombre(final String lNombre) {
+		this.nombre = lNombre;
 	}
 
-	public String getDescripcion() {
+	/**
+	 * Devuelve el texto del objeto.
+	 * @return String texto del objeto
+	 */
+	public final String getDescripcion() {
 		return descripcion;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	/**
+	 * Añade una descripción al objeto.
+	 * @param lDescripcion Descripción del objeto
+	 */
+	public final void setDescripcion(final String lDescripcion) {
+		this.descripcion = lDescripcion;
 	}
 
 	@Override
-	public String toString() {
+	public final String toString() {
 		return "Rol [id=" + id + ", nombre=" + nombre + ", descripcion="
 				+ descripcion + "]";
 	}
 
 	/**
-	 * Borra o recupera el objeto
-	 * @param borrado True borra el objeto, false, lo recupera
+	 * Borra o recupera el objeto.
+	 * @param lBorrado True borra el objeto, false, lo recupera
 	 */
-	public void setBorrado(boolean borrado) {
-		this.borrado = borrado;
+	public final void setBorrado(final boolean lBorrado) {
+		this.borrado = lBorrado;
 	}
 
 	/**
-	 * Comprueba si el objeto está borrado 
-	 * @return
+	 * Comprueba si el objeto está borrado. 
+	 * @return true si está borrado y false si no
 	 */
-	public boolean isBorrado() {
+	public final boolean isBorrado() {
 		return borrado;
 	}
 

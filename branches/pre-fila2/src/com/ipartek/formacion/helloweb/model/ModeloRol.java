@@ -111,7 +111,7 @@ public class ModeloRol implements IModeloRol {
 	 * Devuelve una lista de roles.
 	 * @return Lista de roles activos o null si no se encuentran
 	 */
-	public List<Role> getAll() {
+	public final List<Role> getAll() {
 		
 		List<Role> lstObj = null;
 		
@@ -138,11 +138,11 @@ public class ModeloRol implements IModeloRol {
 	
 	/**
 	 * Obtenemos un role por su identificador.
-	 * @param id Integer identificador del objeto
+	 * @param identi Integer identificador del objeto
 	 * @return Role con los datos del objeto o null si no lo ha encontrado
 	 * @throws Exception 
 	 */
-	public Role getByID(final int identi) throws Exception {
+	public final Role getByID(final int identi) throws java.lang.Exception {
 		
 		Role resul = null;
 		int cont = LIST_LOGICAL_NULL; //contador para el while
@@ -179,8 +179,9 @@ public class ModeloRol implements IModeloRol {
 	 * Inserta un role.
 	 * @param obj Objeto Role
 	 * @return Null si no ha sido insertado o el objeto si ha sido insertado
+	 * @throws Exception 
 	 */
-	public Role insert(final Role obj) throws Exception {
+	public final Role insert(final Role obj) throws java.lang.Exception {
 		Role res = null;		
 		
 		
@@ -227,8 +228,9 @@ public class ModeloRol implements IModeloRol {
 	 * Actualiza un objeto Role.
 	 * @param obj Objeto a actualizar
 	 * @return Objeto actualizado o null si ha habido algún error
+	 * @throws Exception 
 	 */
-	public Role update(final Role obj) throws Exception {
+	public final Role update(final Role obj) throws java.lang.Exception {
 		
 		Role roleTemp = null;		
 		
@@ -260,10 +262,11 @@ public class ModeloRol implements IModeloRol {
 
 	/**
 	 * Función que elimina un elemento.
-	 * @param id Identificador del objeto a borrar
+	 * @param identi Identificador del objeto a borrar
 	 * @return true si ha sido borrado o false si no ha sido borrado
+	 * @throws Exception 
 	 */
-	public boolean delete(final int identi) throws Exception {
+	public final boolean delete(final int identi) throws java.lang.Exception {
 		boolean res = true;
 				
 		Role newRole = null;
