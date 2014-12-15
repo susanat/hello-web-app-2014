@@ -7,6 +7,7 @@ import javax.servlet.ServletContextListener;
 
 import com.ipartek.formacion.helloweb.model.ModeloCalificacion;
 import com.ipartek.formacion.helloweb.model.ModeloPersona;
+import com.ipartek.formacion.helloweb.model.ModeloRol;
 
 /**
  * Application Lifecycle Listener implementation class InitListener
@@ -17,7 +18,19 @@ public class InitListener implements ServletContextListener,
 
 	public static ModeloPersona modelPersona = null;
 	public static ModeloCalificacion modelCalificacion = null;
+	public static ModeloRol modelRole = null;
 
+	/**
+     * Default constructor.
+     */
+    public InitListener() {
+			
+		initModelPersona();
+		initModelRole();
+		System.out.println("Cargado modelo de datos");
+
+    }
+	
 	/**
 	 * @see ServletContextListener#contextInitialized(ServletContextEvent)
 	 */
@@ -33,6 +46,13 @@ public class InitListener implements ServletContextListener,
 		System.out.println("Modelo Persona Cargardo");
 
 	}
+	
+	 private void initModelRole() {
+			// TODO Auto-generated method stub
+			modelRole = new ModeloRol();
+			ModeloRol.createTable();
+
+	    }
 
 	/**
 	 * @see ServletContextListener#contextDestroyed(ServletContextEvent)
