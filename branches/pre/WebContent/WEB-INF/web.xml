@@ -34,7 +34,6 @@
     <servlet-name>PersonaServlet</servlet-name>
     <url-pattern>/persona</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description>CRUD para Calificacion</description>
     <display-name>CalificacionServlet</display-name>
@@ -45,7 +44,6 @@
     <servlet-name>CalificacionServlet</servlet-name>
     <url-pattern>/calificacion</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description>Servlet para gestionar los roles</description>
     <display-name>RoleServlet</display-name>
@@ -69,4 +67,13 @@
   <listener>
     <listener-class>com.ipartek.formacion.helloweb.listener.InitListener</listener-class>
   </listener>
+  <filter>
+    <display-name>LoadErrorFilter</display-name>
+    <filter-name>LoadErrorFilter</filter-name>
+    <filter-class>com.ipartek.formacion.helloweb.filter.LoadErrorFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>LoadErrorFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
 </web-app>
