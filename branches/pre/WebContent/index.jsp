@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!doctype html>
 
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
@@ -5,12 +6,12 @@
 
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+<%@ page contentType="text/html; charset=UTF-8" %>
 
   <title>Hello World</title>
   <meta name="description" content="">
   <meta name="author" content="">
-
+    <meta charset="utf-8">
   
 
   <!--[if lt IE 9]>
