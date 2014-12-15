@@ -1,14 +1,13 @@
+<%@include file="backoffice/includes/head.jsp" %>
+<%@page import="com.ipartek.formacion.helloweb.listener.InitListener"%>
+<%@page import="com.ipartek.formacion.helloweb.model.ModeloIdioma"%>
+<%@page import="com.ipartek.formacion.helloweb.bean.Idioma"%>
 <%@page import="java.util.Arrays"%>
-<%@page import="com.ipartek.formacion.helloweb.i18n.Idioma"%>
 <%@page import="com.ipartek.formacion.helloweb.i18n.I18n"%>
-
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="util" uri="http://www.formacion.ipartek.com/tags/util"%>
-
-
-
-
 
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
 
@@ -20,10 +19,8 @@
 <html lang="${language}">
 
 <head>
+    <meta charset="utf-8">
 
-<h1>Locale: <%=request.getLocale()%> </h1>
-
-  <meta charset="UTF-8">
 
   <title><fmt:message key="login.titulo"></fmt:message></title>
 
@@ -34,6 +31,7 @@
 </head>
 
 <body>
+   <h1>Locale: <%=request.getLocale()%> </h1>
    
    
   <div class="login-card">
@@ -50,11 +48,12 @@
     	   placeholder="<fmt:message key="login.form.password"></fmt:message>"
     >
     
-    <util:selecoptions opValues="<%=Idioma.getLocalesList()%>" 
-                       opTexts="<%=Idioma.getTextosList()%>"
+    <util:selecoptions className="form-control"
+    				opValues="<%=Idioma.getLocalesList(InitListener.modelIdioma.getAll())%>" 
+                       opTexts="<%=Idioma.getIdiomaTextoList(InitListener.modelIdioma.getAll())%>"
                        selectedValue="<%=I18n.getBrowserLocale(request.getLocale())%>"
-                       parameterName="<%=Constantes.PARAMETRO_IDIOMA%>"
-                       
+                       parameterName="<%=Constantes.PARAMETRO_IDIOMA%>"   
+                                         
                        />
     			  
     <br>

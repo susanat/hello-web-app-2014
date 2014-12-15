@@ -26,7 +26,11 @@
                     <ul class="nav" id="side-menu">                        
                         <li>
                             <a class="active" href="<%=Constantes.CONTROLLER_PERSONA%>" title="Gestionar Personas"><i class="fa fa-dashboard fa-fw"></i> Personas</a>
-                        </li>                       
+                        </li>   
+                         <li>
+                            <a class="active" href="<%=Constantes.CONTROLLER_IDIOMA%>" title="Gestionar Idiomas"><i class="fa fa-dashboard fa-fw"></i> Idiomas</a>
+                        </li> 
+                                           
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

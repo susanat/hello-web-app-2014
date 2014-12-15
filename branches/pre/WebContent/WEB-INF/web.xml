@@ -46,4 +46,23 @@
   <listener>
     <listener-class>com.ipartek.formacion.helloweb.listener.InitListener</listener-class>
   </listener>
+  <servlet>
+    <description>Servlet que se encarga de gestionar los idiomas disponibles de la aplicacion</description>
+    <display-name>IdiomaServlet</display-name>
+    <servlet-name>IdiomaServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controller.IdiomaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>IdiomaServlet</servlet-name>
+    <url-pattern>/idioma</url-pattern>
+  </servlet-mapping>
+  <filter>
+    <display-name>FilterEncoding</display-name>
+    <filter-name>FilterEncoding</filter-name>
+    <filter-class>com.ipartek.formacion.helloweb.controller.FilterEncoding</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>FilterEncoding</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
 </web-app>
