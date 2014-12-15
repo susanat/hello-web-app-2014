@@ -26,7 +26,10 @@
                     <ul class="nav" id="side-menu">                        
                         <li>
                             <a class="active" href="<%=Constantes.CONTROLLER_PERSONA%>" title="Gestionar Personas"><i class="fa fa-dashboard fa-fw"></i> Personas</a>
-                             <a class="active" href="<%=Constantes.CONTROLLER_CALIFICACION %>"title="Gestionar Calificaciones"> <fmt:message key="menu.calificacion"></fmt:message></a>
+                            <a class="active" href="<%=Constantes.CONTROLLER_CALIFICACION %>"title="Gestionar Calificaciones"> <fmt:message key="menu.calificacion"></fmt:message></a>
+                        </li>
+                        <li>
+                            <a class="active" href="<%= Constantes.CONTROLLER_ROLE %>" title="Gestionar roles"><i class="fa fa-user fa-fw"></i>Roles</a>
                         </li>                       
                     </ul>
                 </div>
