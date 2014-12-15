@@ -1,7 +1,12 @@
 <%@page isErrorPage="true"%>
-
 <center>
 	<img border="0" width="348" height="378" src="http://www.limpfish.com/notfound.gif">
+
+<div id="mother">
+	<div id="errorBox">
+	
+	</div>
+</div>
 
 <!-- 	 
 	<img id="yui_3_17_2_1_1417695521232_542" data-image-resolution="1500w"

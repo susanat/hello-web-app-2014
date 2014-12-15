@@ -1,43 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns="http://java.sun.com/xml/ns/javaee"
-        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-        id="WebApp_ID" version="2.5">
-        <display-name>HelloWorld</display-name>
-        <welcome-file-list>
-                <welcome-file>login.jsp</welcome-file>
-        </welcome-file-list>
-        <servlet>
-                <description>Controlador para Login de usuarios</description>
-                <display-name>LoginServlet</display-name>
-                <servlet-name>LoginServlet</servlet-name>
-                <servlet-class>com.ipartek.formacion.helloweb.controller.LoginServlet</servlet-class>
-        </servlet>
-        <servlet-mapping>
-                <servlet-name>LoginServlet</servlet-name>
-                <url-pattern>/login</url-pattern>
-        </servlet-mapping>
-        <servlet>
-                <description></description>
-                <display-name>LogoutServlet</display-name>
-                <servlet-name>LogoutServlet</servlet-name>
-                <servlet-class>com.ipartek.formacion.helloweb.controller.LogoutServlet</servlet-class>
-        </servlet>
-        <servlet-mapping>
-                <servlet-name>LogoutServlet</servlet-name>
-                <url-pattern>/logout</url-pattern>
-        </servlet-mapping>
-        <servlet>
-                <description>CRUD de Persona</description>
-                <display-name>PersonaServlet</display-name>
-                <servlet-name>PersonaServlet</servlet-name>
-                <servlet-class>com.ipartek.formacion.helloweb.controller.PersonaServlet</servlet-class>
-        </servlet>
-        <servlet-mapping>
-                <servlet-name>PersonaServlet</servlet-name>
-                <url-pattern>/Persona</url-pattern>
-        </servlet-mapping>
-
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>HelloWorld</display-name>
+  <welcome-file-list>
+    <welcome-file>login.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <description>Controlador para Login de usuarios</description>
+    <display-name>LoginServlet</display-name>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controller.LoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/login</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LogoutServlet</display-name>
+    <servlet-name>LogoutServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controller.LogoutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogoutServlet</servlet-name>
+    <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>CRUD de Persona</description>
+    <display-name>PersonaServlet</display-name>
+    <servlet-name>PersonaServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controller.PersonaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PersonaServlet</servlet-name>
+    <url-pattern>/Persona</url-pattern>
+  </servlet-mapping>
   <display-name>Prueba TagLib</display-name>
   <jsp-config>
     <taglib>
@@ -55,4 +51,28 @@
   <listener>
     <listener-class>com.ipartek.formacion.helloweb.listener.InitListener</listener-class>
   </listener>
+  <servlet>
+    <description></description>
+    <display-name>BaseServlet</display-name>
+    <servlet-name>BaseServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controller.BaseServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BaseServlet</servlet-name>
+    <url-pattern>/BaseServlet</url-pattern>
+  </servlet-mapping>
+  <filter>
+    <display-name>LoadErrorFilter</display-name>
+    <filter-name>LoadErrorFilter</filter-name>
+    <filter-class>com.ipartek.formacion.helloweb.filter.LoadErrorFilter</filter-class>
+    <init-param>
+      <description>LoadErrorFilter</description>
+      <param-name>/*</param-name>
+      <param-value></param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>LoadErrorFilter</filter-name>
+    <url-pattern>/LoadErrorFilter</url-pattern>
+  </filter-mapping>
 </web-app>

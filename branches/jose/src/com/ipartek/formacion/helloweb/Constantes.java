@@ -20,6 +20,7 @@ public class Constantes {
 	// JSPs publicas
 	public static final String JSP_SALUDO = "/saludo.jsp";
 	public static final String JSP_LOGIN = "/login.jsp";
+	public static final String JSP_ERROR = "";
 
 	// JSPs Backoffice
 	public static final String JSP_BACKOFFICE = "backoffice/";
@@ -48,6 +49,7 @@ public class Constantes {
 
 	public static final String MSG_ERR_PARAMETERS = "Error recogiendo parametros";
 	public static final String MSG_ERR_REG_DELETE = "Error al eliminar un registro";
+	public static final String MSG_ERR_LOAD_LOG4J = "Error al cargar el LOG4J";
 
 	public static final String MSG_NOT_ALLOWED = "No tienes presmisos";
 

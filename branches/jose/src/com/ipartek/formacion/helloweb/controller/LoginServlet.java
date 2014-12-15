@@ -5,11 +5,14 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.Logger;
 
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.bean.Mensaje;
@@ -20,12 +23,17 @@ import com.ipartek.formacion.helloweb.i18n.Idioma;
  * Servlet implementation class LoginServlet
  */
 public class LoginServlet extends HttpServlet {
+	// public class LoginServlet extends BaseServlet {
 
 	private static final long serialVersionUID = 1L;
 
 	RequestDispatcher dispatch = null;
 	HttpSession session = null;
 	ResourceBundle messages = null;
+
+	private final static Logger log = Logger.getLogger("ACCESOS");
+
+	//private final static Logger log = Logger.getLogger(LoginServlet.class);
 
 	// parametros
 	String pUser = null;
@@ -35,9 +43,9 @@ public class LoginServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public LoginServlet() {
-		super();
-	}
+	/*
+	 * public LoginServlet() { super(); }
+	 */
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -57,12 +65,44 @@ public class LoginServlet extends HttpServlet {
 		// Cargar fichero de mensajes
 		LoadMensajes();
 
+
+
 		// validar el usuario
 		validateUser(request);
 
 		// despachar o servir JSP
 		dispatch.forward(request, response);
 
+	}
+
+	/**
+	 * Cargar la configuracion de Log4j
+	 */
+	/*
+	private void loadLog4j() {
+		PropertyConfigurator.configure(Constantes.PATH_LOG);
+		log.info("LOG Cargado");
+	}
+	*/
+
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		// TODO Auto-generated method stub
+		super.init(config);
+		/*
+		 * mensajeLog(TipoMensajeLog.TRACE, "Inicializado LoginServlet");
+		 * mensajeLog(TipoMensajeLog.DEBUG, "Inicializado LoginServlet");
+		 * mensajeLog(TipoMensajeLog.INFO, "Inicializado LoginServlet");
+		 * mensajeLog(TipoMensajeLog.WARN, "Inicializado LoginServlet");
+		 * mensajeLog(TipoMensajeLog.ERROR, "Inicializado LoginServlet");
+		 * mensajeLog(TipoMensajeLog.FATAL, "Inicializado LoginServlet"); /*
+		 * loadLog4j(); log.trace("Inicializado LoginServlet");
+		 * log.debug("Inicializado LoginServlet");
+		 * log.info("Inicializado LoginServlet");
+		 * log.warn("Inicializado LoginServlet");
+		 * log.error("Inicializado LoginServlet");
+		 * log.fatal("Inicializado LoginServlet");
+		 */
 	}
 
 	private void LoadMensajes() {
@@ -81,6 +121,13 @@ public class LoginServlet extends HttpServlet {
 				Constantes.PROPERTI_I18N, locale);
 		// guardar en session el language
 		session.setAttribute(Constantes.USER_LANGUAGE, pIdioma);
+
+		/*
+		 * mensajeLog(TipoMensajeLog.DEBUG, "cargados mensajes de properties " +
+		 * Constantes.PROPERTI_I18N + " " + locale);
+		 */
+		log.debug("cargados mensajes de properties " + Constantes.PROPERTI_I18N
+				+ " " + locale);
 
 	}
 
@@ -108,6 +155,12 @@ public class LoginServlet extends HttpServlet {
 			Persona p = new Persona(pUser, 0);
 			session.setAttribute(Constantes.USER_SESSION, p);
 
+			/*
+			 * mensajeLog(TipoMensajeLog.INFO, "acceso usuario NORMAL [" + pUser
+			 * + ", " + pPass + "]");
+			 */
+			log.info("acceso usuario NORMAL [" + pUser + ", " + pPass + "]");
+
 			// Administrador: ir a backoffice
 		} else if (Constantes.USER_ADMIN_NAME.equals(pUser)
 				&& Constantes.USER_ADMIN_PASS.equals(pPass)) {
@@ -118,6 +171,13 @@ public class LoginServlet extends HttpServlet {
 			Persona p = new Persona(pUser, 0);
 			p.setRol(Persona.Rol.ADMINISTRADOR);
 			session.setAttribute(Constantes.USER_SESSION, p);
+
+			/*
+			 * mensajeLog(TipoMensajeLog.INFO, "acceso usuario ADMINISTRADOR ["
+			 * + pUser + ", " + pPass + "]");
+			 */
+			log.info("acceso usuario ADMINISTRADOR [" + pUser + ", " + pPass
+					+ "]");
 
 			// Si no Validado: retornar al login
 		} else {
@@ -131,6 +191,14 @@ public class LoginServlet extends HttpServlet {
 					messages.getString("msg.login.incorrect"),
 					Mensaje.MSG_TYPE_DANGER);
 			request.setAttribute(Constantes.MSG_KEY, msg);
+
+			// TODO cambiar por mensaje de Properties
+			/*
+			 * mensajeLog(TipoMensajeLog.WARN, "Usuario incorrecto [" + pUser +
+			 * ", " + pPass + "]");
+			 */
+			log.info("Usuario incorrecto [" + pUser + ", " + pPass + "]");
+
 		}
 
 	}
