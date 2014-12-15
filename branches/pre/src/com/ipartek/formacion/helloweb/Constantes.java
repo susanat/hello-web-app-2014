@@ -23,6 +23,7 @@ public class Constantes {
 	// JSPs publicas
 	public static final String JSP_SALUDO = "saludo.jsp";
 	public static final String JSP_LOGIN = "login.jsp";
+	public static final String JSP_ERROR = "includes/error.jsp";
 
 	// JSPs Backoffice
 	public static final String JSP_BACKOFFICE = "backoffice/";
@@ -68,6 +69,8 @@ public class Constantes {
 
 	public static final String MSG_ERR_PARAMETERS = "Error recogiendo Parametros";
 	public static final String MSG_ERR_REG_DELETE = "Error Elimnando Registro";
+	
+	public static final String MSG_ERR_LOAD_LOG4J = "Error cargando LOG4J";
 
 	public static final String MSG_UNAUTHORIZED = "No le esta permitido el acceso";
     public static final String MSG_REG_CREATED = "Registro creado con exito";
