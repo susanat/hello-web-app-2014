@@ -3,7 +3,6 @@
 <%@ page isErrorPage="true" import="java.io.*"%>
 
 
-
 <html>
 <head>
 <title>Error Handling Example</title>
@@ -59,24 +58,7 @@
 						<label for="InputMessage">Message</label>
 						<div class="input-group">
 							<textarea name="InputMessage" id="InputMessage"
-		
 								class="form-control" rows="5" required>
-Message:
-<%=
-	exception!= null ? exception.getMessage() : "por otro error"
-%>
-
-StackTrace:
-<%
-	if(exception!= null) {
-		StringWriter stringWriter = new StringWriter();
-		PrintWriter printWriter = new PrintWriter(stringWriter);
-		exception.printStackTrace(printWriter);
-		out.println(stringWriter);
-		printWriter.close();
-		stringWriter.close();
-	}
-%>
 														</textarea>
 							<span class="input-group-addon"><i
 								class="glyphicon glyphicon-ok form-control-feedback"></i></span>

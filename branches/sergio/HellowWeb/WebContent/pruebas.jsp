@@ -36,28 +36,33 @@
     Prueba de paths 1: <br>    
     <% 
     
+    /*
     	ServletContext sc = this.getServletContext();
     	String path = new File(sc.getRealPath("/")).getAbsolutePath();
     	List<String> files =  ClsUtilsFicheros.ListResursiveFolder(path);
     	for(String str : files) {
     		out.print(str + "<br>");
     	}
+    */
     
     %>
     
     <br><br>
     Prueba de paths 2: <br>  
     <% 
+    /*
     	files =  ClsUtilsFicheros.ListResursiveFolder(request.getContextPath());
     	for(String str : files) {
     		out.print(str + "<br>");
     	}
+    	*/
     
     %>
     
     <br><br>
     Prueba de paths 3: <br>  
     <% 
+    /*
     	String relativeWebPath = "pruebas.jsp";
     	String absoluteDiskPath = getServletContext().getRealPath(relativeWebPath);
     
@@ -65,6 +70,7 @@
     	for(String str : files) {
     		out.print(str + "<br>");
     	}
+    	*/
     
     %>
             
