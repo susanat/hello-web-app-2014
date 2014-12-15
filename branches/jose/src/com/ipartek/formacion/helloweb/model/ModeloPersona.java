@@ -19,6 +19,11 @@ public class ModeloPersona implements IModeloPersona {
 	// TODO implementar base BBDD
 	static ArrayList<Persona> personas = null;
 
+	public ModeloPersona() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public static void createTable() {
 		personas = new ArrayList<Persona>();
 		Persona p = new Persona("");

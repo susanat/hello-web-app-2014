@@ -22,6 +22,10 @@
 <html>
 <head>
 
+
+<!--  base para todos nuestros paths -->
+<base href="<%=request.getContextPath() + "/"%>">
+
 <!--  
   <meta charset="UTF-8">
 -->
@@ -36,10 +40,6 @@
 
 <body>
 
-	<%@ taglib prefix="hello" uri="http://www.formacion.ipartek.com"%>
-	<hello:saluda />
-	<hello:saluda2 />
-	<hello:saluda2 nombre="Pepe" />
 	<div class="login-card">
 		<h1>
 			<fmt:message key="login.titulo"></fmt:message>
@@ -47,7 +47,7 @@
 		<br>
 		<form action="<%=Constantes.PATH_LOGIN%>" method="post">
 
-			<%@include file="/includes/alerts.jsp"%>
+			
 			<input type="text" name="<%=Constantes.PARAMETRO_USER%>"
 				placeholder="<fmt:message key="login.form.usuario"></fmt:message>">
 			<input type="password" name="<%=Constantes.PARAMETRO_PASS%>"
@@ -55,9 +55,8 @@
 
 			<%@ taglib prefix="util"
 				uri="http://www.formacion.ipartek.com/tags/util"%>
-				
-			<util:selectoptions
-				parameterName="<%=Constantes.PARAMETRO_IDIOMA%>"
+
+			<util:selectoptions parameterName="<%=Constantes.PARAMETRO_IDIOMA%>"
 				className="form-control"
 				opValues="<%=Idioma.CASTELLANO.getLocaleArrays()%>"
 				opTextos="<%=Idioma.CASTELLANO.getTextoArrays()%>"
@@ -65,9 +64,7 @@
 					.getAttribute(Constantes.USER_LANGUAGE).toString() : i18n
 					.getBrowserLocale(request.getLocale())%>"
 				idValue="<%=Constantes.PARAMETRO_IDIOMA%>" />
-			<br>
-			<br> 
-			<input type="submit" name="login"
+			<br> <br> <input type="submit" name="login"
 				class="login login-submit"
 				value="<fmt:message key="login.form.submit"></fmt:message>">
 		</form>

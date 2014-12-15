@@ -35,7 +35,8 @@ public class LogoutServlet extends HttpServlet {
 		// recuperar session del usuario
 		HttpSession session = request.getSession();
 		// poner a null la session
-		session.setAttribute(Constantes.USER_SESSION, null);
+		// session.setAttribute(Constantes.USER_SESSION, null);
+		session.removeAttribute(Constantes.USER_SESSION);
 		// otra alternativa - eliminar toda la session del usuario
 		// session.invalidate();
 
