@@ -1,3 +1,4 @@
+<%@page import="com.ipartek.formacion.helloweb.listener.InitListener"%>
 <%@page isErrorPage="true"%>
 <!DOCTYPE HTML>
 <html>
@@ -21,12 +22,21 @@
 	<body>
 		<div id="mother">
 			<div id="errorBox">
+				<div id="errorLoad">
+					<% 
+						if ( InitListener.LOAD_ERROR_MSG != null ){
+							out.println( InitListener.LOAD_ERROR_MSG );
+						} 
+					%>
+				</div>
+			
+				<% if ( exception != null ) { %>
 				<div id="errorText">
 					<h1>Error: Disculpa las Moletias</h1>
 					<p>
 						<b>Message:</b> <%=exception.getMessage()%>	
 					</p>
-					
+				<% } %>	
 					
 				</div>
 				<a href="/" title="Home...">
