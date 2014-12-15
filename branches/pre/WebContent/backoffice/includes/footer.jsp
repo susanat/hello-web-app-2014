@@ -22,7 +22,7 @@
     
     
     <!-- Custom JavaScript for me-->
-    <script src="<%=Constantes.JSP_BACKOFFICE%>/js/main.js"></script>
+    <script src="<%=Constantes.JSP_BACKOFFICE%>js/main.js"></script>
 
 </body>
 
