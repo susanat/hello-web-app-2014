@@ -19,6 +19,10 @@ public class Mensaje {
     String type; // tipo de mensaje [success,info,warning,danger]
     int code; // codigo http
 
+    public Mensaje() {
+    	
+    }
+    
     public Mensaje(final String msg) {
 	super();
 	this.msg = msg;

@@ -18,6 +18,7 @@ public class Constantes {
 
 	public static final String CONTROLLER_PERSONA = "persona";
 	public static final String CONTROLLER_CALIFICACION = "calificacion";
+	 public static final String CONTROLLER_ROLE = "RoleServlet";
 
 	// JSPs publicas
 	public static final String JSP_SALUDO = "saludo.jsp";
@@ -40,6 +41,11 @@ public class Constantes {
 	public static final String JSP_BACK_CALIFICACION_FORM = JSP_BACKOFFICE
 			+ "calificacion/form.jsp";
 
+	public static final String JSP_BACKOFFICE_ROLE_LIST = JSP_BACKOFFICE
+		    + "role/list.jsp";
+
+	public static final String JSP_BACKOFFICE_ROLE_FORM = JSP_BACKOFFICE
+		    + "role/form.jsp";
 
 	// Properties
 	public static final String PROPERTI_I18N = "com.ipartek.formacion.helloweb.i18n.i18nmesages";
@@ -63,13 +69,31 @@ public class Constantes {
 	public static final String MSG_ERR_PARAMETERS = "Error recogiendo Parametros";
 	public static final String MSG_ERR_REG_DELETE = "Error Elimnando Registro";
 
+	public static final String MSG_UNAUTHORIZED = "No le esta permitido el acceso";
+    public static final String MSG_REG_CREATED = "Registro creado con exito";
+    public static final String MSG_REG_DELETED = "Registro eliminado con exito";
+    public static final String MSG_REG_UPDATED = "Registro actualizado con exito";
+    public static final String MSG_ERROR_PARAMETERS = "Error recogiendo parametros";
+    public static final String MSG_REG_NOT_DELETED = "Error borrando registro";
+    public static final String MSG_NOT_UPDATED = "Error modificando registro";
+	
 	// Atrinuttos
 	public static final String ATT_PERSONAS = "personas";
 	public static final String ATT_PERSONA = "persona";
+	public static final String ATT_ROLES = "roles";
+    public static final String ATT_ROLE = "role";
+    public static final String ATT_MENSAJE = "mensaje";
 
 	public static final String ATT_CALIFICACIONES = "calificaciones";
 	public static final String ATT_CALIFICACION = "calificacion";
-
+	
+	public static final String ALERT_TYPE_SUCCESS = "alert-success";
+    public static final String ALERT_TYPE_DANGER = "alert-danger";
+    
+    public static final String LETRERO_CREAR = "Crear";
+    public static final String LETRERO_BORRAR = "Borrar";
+    public static final String LETRERO_DETALLE = "Detalle";
+    
 	// Operaciones CRUD
 	public static final String OP_KEY = "op"; // Actualizar Registro
 	public static final String OP_UPDATE = "0"; // Actualizar Registro
