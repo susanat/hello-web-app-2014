@@ -1,5 +1,4 @@
-<%@page import="com.ipartek.formacion.helloweb.bean.Idioma"%>
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@page import="com.ipartek.formacion.helloweb.i18n.Idioma"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
@@ -7,7 +6,7 @@
 <%@page errorPage="includes/error.jsp" %>
 
 
-<c:set var="language" value="<%= (session.getAttribute(Constantes.USER_LANGUAGE)!=null)?session.getAttribute(Constantes.USER_LANGUAGE):Constantes.DEFAULT_LANG%>" />
+<c:set var="language" value="<%= (session.getAttribute(Constantes.USER_LANGUAGE)!=null)?session.getAttribute(Constantes.USER_LANGUAGE):Idioma.INGLES.getLocale()%>" />
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="<%=Constantes.PROPERTI_I18N%>" /> 
 
