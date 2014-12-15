@@ -2,6 +2,7 @@ package com.ipartek.formacion.helloweb.controller;
 
 import java.io.IOException;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +15,41 @@ import com.ipartek.formacion.helloweb.bean.Mensaje;
 /**
  * Servlet implementation class LogoutServlet
  */
-public class LogoutServlet extends HttpServlet {
+// public class LogoutServlet extends HttpServlet {
+public class LogoutServlet extends BaseServlet {
+
+	// private final static Logger log = Logger.getLogger(LogoutServlet.class);
+
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		// TODO Auto-generated method stub
+		super.init(config);
+		mensajeLog(TipoMensajeLog.TRACE, "Inicializado LogoutServlet");
+		mensajeLog(TipoMensajeLog.DEBUG, "Inicializado LogoutServlet");
+		mensajeLog(TipoMensajeLog.INFO, "Inicializado LogoutServlet");
+		mensajeLog(TipoMensajeLog.WARN, "Inicializado LogoutServlet");
+		mensajeLog(TipoMensajeLog.ERROR, "Inicializado LogoutServlet");
+		mensajeLog(TipoMensajeLog.FATAL, "Inicializado LogoutServlet");
+
+		/*
+		 * loadLog4j(); log.trace("Inicializado LogoutServlet");
+		 * log.debug("Inicializado LogoutServlet");
+		 * log.info("Inicializado LogoutServlet");
+		 * log.warn("Inicializado LogoutServlet");
+		 * log.error("Inicializado LogoutServlet");
+		 * log.fatal("Inicializado LogoutServlet");
+		 */
+	}
+
+	/**
+	 * Cargar la configuracion de Log4j
+	 */
+	/*
+	 * private void loadLog4j() {
+	 * PropertyConfigurator.configure(Constantes.PATH_LOG);
+	 * log.info("LOG Cargado"); }
+	 */
+
 	private static final long serialVersionUID = 1L;
 
 	/**
