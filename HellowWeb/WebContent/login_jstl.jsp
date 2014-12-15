@@ -33,7 +33,10 @@
 							    <fmt:message key="login.page.form.title.insert" />
 							  </c:when>
 							  <c:when test="${isAuthenticated == true}">
-							    <fmt:message key="login.page.form.title.wellcome" />
+							    <fmt:message key="login.page.form.title.wellcome" >
+							    	<fmt:param>paramatropasadoporfmt</fmt:param>
+							    </fmt:message>
+							    	
 							  </c:when>							  
 							</c:choose>			      					      		
 			      		</h3>
