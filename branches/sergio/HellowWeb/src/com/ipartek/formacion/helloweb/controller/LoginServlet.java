@@ -18,6 +18,7 @@ import com.ipartek.formacion.helloweb.bean.Message.ETypeAlert;
 import com.ipartek.formacion.helloweb.bean.Persona;
 import com.ipartek.formacion.helloweb.comun.Constantes;
 import com.ipartek.formacion.helloweb.comun.Utils;
+import com.ipartek.formacion.helloweb.listener.InitListener;
 import com.ipartek.formacion.helloweb.model.ModeloPersona;
 import com.ipartek.formacion.helloweb.model.interfaces.IModeloPersona.onModelPersonaError;
 import com.ipartek.formacion.helloweb.temp.ShutdownExample;
@@ -25,10 +26,18 @@ import com.ipartek.formacion.helloweb.temp.ShutdownExample;
 /**
  * Servlet implementation class LoginServlet
  */
-public class LoginServlet extends HttpServlet {
+public class LoginServlet extends customServlet {
+	
 	private static final long serialVersionUID = 1L;
        	
+	
+	public LoginServlet() {
+		super();
 		
+		this.nameClass = this;
+		// TODO Auto-generated constructor stub
+	}
+	
 	
 	/**
 	 * Modelo de la persona
@@ -69,6 +78,8 @@ public class LoginServlet extends HttpServlet {
 			}
 		});
 		
+		this.getClass();
+		
 		contador = new ShutdownExample();
 	}
 	
@@ -103,6 +114,8 @@ public class LoginServlet extends HttpServlet {
 	 * @throws IOException
 	 */
 	private Message doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		log.trace("Entrando en doProcess");
+		
 		//obtenemos la sesion
 		HttpSession session = request.getSession();
 
@@ -117,6 +130,9 @@ public class LoginServlet extends HttpServlet {
 		//obtenemos los par�metros del login
 		String username = request.getParameter(Constantes.PARAMETRO_USER);
 	    String password = request.getParameter(Constantes.PARAMETRO_PASSWORD);
+	    	    
+	    log.trace("Procesando usuario: " + username);
+	    log.trace("Procesando password: " + username);
 	    	    
 	    //si el usuario es válido, obtenemos el  por nombre el usuario
   		if (validarUsuario(username, password)) {
@@ -133,7 +149,10 @@ public class LoginServlet extends HttpServlet {
   				
   				lMsg.setError(true);
   				lMsg.setText("Usuario o contraseña incorrecto");
-  				lMsg.setType(ETypeAlert.DANGER);  								
+  				lMsg.setType(ETypeAlert.DANGER);  	
+  				
+  				
+  			    
   				
   			}
   		}	
@@ -158,12 +177,15 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		
 		HttpSession session = request.getSession();
 		
 		//obtenemos la redireccion por defecto
 		String urlToDefault = Constantes.JSP_LOGIN;
 		String urlTo = urlToDefault;
-				
+		
 		//obtenemos la redireccion si nos la pasan
 		if (request.getParameter(Constantes.PARAM_URL_TO) != null) 
 		{
@@ -183,6 +205,12 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute(Constantes.PARAM_SESSION_LAST_URL, Constantes.JSP_LOGIN);
 		}
 		
+		if(msg.isError()) {
+			log.warn("Error: " + msg.getText());
+		}else {
+			log.info("Info: Proceso de logueado correcto");
+		}
+		
 		
 		//redirigimos necesario
 		dispatcher = request.getRequestDispatcher(Utils.getUriFile(urlTo));	    
@@ -193,6 +221,7 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		log.trace("Entrando por doPost");
 		doGet(request, response);
 	}
 	
@@ -239,6 +268,7 @@ public class LoginServlet extends HttpServlet {
 			msg.setError(true);
 			msg.setText("Usuario o contraseña vacíos");
 			msg.setType(ETypeAlert.WARNING);
+			
 	    } else {	    
 
 			if(username.equals("")) {

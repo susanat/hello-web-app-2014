@@ -18,14 +18,14 @@ public class SessionListener implements HttpSessionListener, HttpSessionAttribut
      * Default constructor. 
      */
     public SessionListener() {
-    	System.out.println("Constructor creado del listener session listener");
+    	//System.out.println("Constructor creado del listener session listener");
     }
 
 	/**
      * @see HttpSessionAttributeListener#attributeRemoved(HttpSessionBindingEvent)
      */
     public void attributeRemoved(HttpSessionBindingEvent se)  { 
-         System.out.println("attribute removed: " + se.getName());
+         //System.out.println("attribute removed: " + se.getName());
     }
 
 	/**
@@ -35,7 +35,7 @@ public class SessionListener implements HttpSessionListener, HttpSessionAttribut
     	
     	HttpSession session = se.getSession();
     	
-    	System.out.println("attribute added: " + se.getName() + " " + session.getAttribute(se.getName()));
+    	//System.out.println("attribute added: " + se.getName() + " " + session.getAttribute(se.getName()));
     }
 
 	/**
@@ -44,7 +44,7 @@ public class SessionListener implements HttpSessionListener, HttpSessionAttribut
     public void attributeReplaced(HttpSessionBindingEvent se)  { 
     	HttpSession session = se.getSession();
     	
-    	System.out.println("attribute replaced: " + se.getName() + " " + session.getAttribute(se.getName()));
+    	//System.out.println("attribute replaced: " + se.getName() + " " + session.getAttribute(se.getName()));
     }
 
 	/**
@@ -53,9 +53,9 @@ public class SessionListener implements HttpSessionListener, HttpSessionAttribut
     public void sessionCreated(HttpSessionEvent se)  { 
     	
     	HttpSession session = se.getSession();
-    	System.out.println("session created: " + session.getId() + " " + session.getCreationTime());
+    	//System.out.println("session created: " + session.getId() + " " + session.getCreationTime());
     	if(session.getAttribute(Constantes.PARAM_SESSION_AUTHENTICATED) != null) {
-    		System.out.println(session.getAttribute(Constantes.PARAM_SESSION_AUTHENTICATED));
+    		//System.out.println(session.getAttribute(Constantes.PARAM_SESSION_AUTHENTICATED));
     	}
     		
     		
@@ -74,7 +74,7 @@ public class SessionListener implements HttpSessionListener, HttpSessionAttribut
      */
     public void sessionDestroyed(HttpSessionEvent se)  { 
     	HttpSession session = se.getSession();
-    	System.out.println("session removed: " + session.getId() + " Creado el: " + session.getCreationTime() + "Causa?: " + se.getSource().toString());
+    	//System.out.println("session removed: " + session.getId() + " Creado el: " + session.getCreationTime() + "Causa?: " + se.getSource().toString());
     }
 	
 }

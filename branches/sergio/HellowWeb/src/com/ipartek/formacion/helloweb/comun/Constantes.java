@@ -281,6 +281,16 @@ public final class Constantes {
      */
     public static final String SALTO_DE_LINEA = 
 	    System.getProperty("line.separator");
+
+    /**
+     * Comprueba si ha ocurrido algún error en la carga
+     */
+	public static final boolean LOAD_ERROR = true;
+
+	/**
+	 * Ruta página jsp de error
+	 */
+	public static final String JSP_ERROR = "error.jsp";
 	
 	
 }
