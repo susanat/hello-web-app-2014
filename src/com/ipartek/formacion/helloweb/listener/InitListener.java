@@ -29,7 +29,7 @@ public class InitListener implements ServletContextListener,
 	public static boolean LOAD_ERROR = false;
 	public static String  LOAD_ERROR_MSG = null;
 	
-	public static final String PATH_LOG4J = "WEB-INF/conf/log4j.properties";
+	public static final String PATH_LOG4J = "WEB-INFfgfsgdf/conf/log4j.properties";
 	
 	public static ModeloPersona modelPersona = null;
 	public static ModeloRol modelRole = null;
@@ -44,14 +44,16 @@ public class InitListener implements ServletContextListener,
 		loadLog4j( sce );
 		
 		if ( !LOAD_ERROR ){
-			log.info("Incializar Contexto Servlet ");			
 			
+						
+			//TODO establecer conexion
 			log.info("Establecer conexion BBDD OK");
 			// TODO cargar modelos de datos
 			initModelPersona();
 			initModelCalificacion();
 			initModelRole();
 			log.info("Mode lo Persona Cargardo");
+			
 		}else{
 			System.out.println("Error cargando LOG4J");
 		}		
@@ -78,8 +80,8 @@ public class InitListener implements ServletContextListener,
 		try{
 			String pathReal = sce.getServletContext().getRealPath("/");
 			PropertyConfigurator.configure(pathReal + PATH_LOG4J );
-			//check configration, si no hay apender es que ha fallado
-			if ( ! LogManager.getCurrentLoggers().hasMoreElements() ){
+			//check configration, si no hay apender es que ha fallado			
+			if ( null == LogManager.exists("ACCESOS") ){
 				LOAD_ERROR = true;
 				LOAD_ERROR_MSG = Constantes.MSG_ERR_LOAD_LOG4J;
 			}			
