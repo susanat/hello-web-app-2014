@@ -14,11 +14,13 @@ public class ModeloRol implements IModeloRol {
 	Role r = new Role("");
 	r.setNombre("Usuario");
 	r.setDescripcion("Usuarios normales");
+	r.setId(1);
 	roles.add(r);
 
 	r = new Role("");
 	r.setNombre("Administrador");
 	r.setDescripcion("Administradores del sitio");
+	r.setId(2);
 	roles.add(r);
     }
 

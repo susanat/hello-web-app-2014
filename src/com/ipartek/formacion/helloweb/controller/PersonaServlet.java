@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.bean.Message;
 import com.ipartek.formacion.helloweb.bean.Persona;
@@ -20,6 +23,7 @@ import com.ipartek.formacion.helloweb.listener.InitListener;
  */
 public class PersonaServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    private final static Logger log = Logger.getLogger(PersonaServlet.class);
     // ModeloPersona model = null;
     RequestDispatcher dispatcher = null;
     String msg = "";
@@ -28,7 +32,8 @@ public class PersonaServlet extends HttpServlet {
     // Inicializa el servlet, se ejecuta una sola vez
     @Override
     public void init(ServletConfig config) throws ServletException {
-
+	PropertyConfigurator
+		.configure("C:/desarrollo/apache-tomcat-6.0.37/webapps/log4j.properties");
 	super.init(config);
 	// model = new ModeloPersona();
     }
@@ -186,12 +191,14 @@ public class PersonaServlet extends HttpServlet {
 	    msg = Constantes.MSG_REG_DELETED;
 	    mes.setMsg(Constantes.MSG_REG_DELETED);
 	    mes.setType(Constantes.ALERT_TYPE_SUCCESS);
+	    log.info("Persona eliminada. ID=" + id);
 
 	} else {
 	    // borrado no realizado
 	    msg = Constantes.MSG_REG_NOT_DELETED;
 	    mes.setMsg(Constantes.MSG_REG_NOT_DELETED);
 	    mes.setType(Constantes.ALERT_TYPE_DANGER);
+	    log.error("Error borrando persona. ID=" + id);
 	}
 	ArrayList<Persona> personas = InitListener.modelPersona.getAll();
 	request.setAttribute(Constantes.ATT_PERSONAS, personas);
