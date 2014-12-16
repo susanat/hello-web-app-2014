@@ -94,7 +94,7 @@ public class PersonaServlet extends HttpServlet {
     }
 
     private void updatePersonaGet(final HttpServletRequest request) {
-	p = InitListener.mPersona.getById(id);
+	p = InitListener.modelPersona.getById(id);
 	request.setAttribute(Constante.ATT_OPERACION, Constante.OP_UPDATE);
 	request.setAttribute(Constante.ATT_PERSONA, p);
 	dispatcher = request
@@ -102,7 +102,7 @@ public class PersonaServlet extends HttpServlet {
     }
 
     private void deletePersonaGet(final HttpServletRequest request) {
-	p = InitListener.mPersona.getById(id);
+	p = InitListener.modelPersona.getById(id);
 	request.setAttribute(Constante.ATT_OPERACION, Constante.OP_REMOVE);
 	request.setAttribute(Constante.ATT_PERSONA, p);
 	dispatcher = request
@@ -112,7 +112,7 @@ public class PersonaServlet extends HttpServlet {
     private void getById(final HttpServletRequest request) {
 	// getPersona
 	// acceder al modelo
-	p = InitListener.mPersona.getById(id);
+	p = InitListener.modelPersona.getById(id);
 	// pasamos los atributos
 	request.setAttribute(Constante.ATT_PERSONA, p);
 	dispatcher = request
@@ -120,7 +120,7 @@ public class PersonaServlet extends HttpServlet {
     }
 
     private void getAll(final HttpServletRequest request) {
-	personas = InitListener.mPersona.getAll();
+	personas = InitListener.modelPersona.getAll();
 	// pasamos los atributos
 	request.setAttribute(Constante.ATT_PERSONAS, personas);
 	dispatcher = request
@@ -191,7 +191,7 @@ public class PersonaServlet extends HttpServlet {
     private void updatePersonaPost(final HttpServletRequest request) {
 	p = postParametros(request);
 	if (p != null) {
-	    if (InitListener.mPersona.update(p) > Persona.ID_NULL) {
+	    if (InitListener.modelPersona.update(p) > Persona.ID_NULL) {
 		msg = Constante.MSG_UPDATE;
 	    } else {
 		msg = Constante.MSG_ERROR_BBDD;
@@ -205,7 +205,7 @@ public class PersonaServlet extends HttpServlet {
 
     private void deletePersonaPost(final HttpServletRequest request) {
 	// acceso DDBB
-	if (InitListener.mPersona.delete(id)) {
+	if (InitListener.modelPersona.delete(id)) {
 	    msg = Constante.MSG_REMOVE;
 	} else {
 	    msg = Constante.MSG_ERROR_BBDD;
@@ -217,7 +217,7 @@ public class PersonaServlet extends HttpServlet {
     private void insertPersona(final HttpServletRequest request) {
 	p = postParametros(request);
 	if (p != null) {
-	    if (InitListener.mPersona.insert(p) > Persona.ID_NULL) {
+	    if (InitListener.modelPersona.insert(p) > Persona.ID_NULL) {
 		// enviar atributos
 		request.setAttribute(Constante.ATT_PERSONA, p);
 		request.setAttribute(Constante.OP_KEY, Constante.OP_UPDATE);

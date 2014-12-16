@@ -1,6 +1,7 @@
 package com.ipartek.formacion.helloweb.controler;
 
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.Logger;
 
 import com.ipartek.formacion.helloweb.bean.Mensaje;
 import com.ipartek.formacion.helloweb.bean.Persona;
@@ -33,19 +36,15 @@ public class LoginServlet extends HttpServlet {
     private RequestDispatcher dispatch = null;
     private HttpSession session = null;
     private ResourceBundle messages = null;
-
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public LoginServlet() {
-	super();
-    }
+    private final static Logger log = Logger.getLogger("ACCESOS");
 
     /**
      * @see Servlet#init(ServletConfig)
      */
     @Override
     public void init(final ServletConfig config) throws ServletException {
+	super.init(config);
+	log.trace("Init");
     }
 
     /**
@@ -72,6 +71,12 @@ public class LoginServlet extends HttpServlet {
 	// loadMessages();
 	session = request.getSession();
 	user = UserService.find(pUser, pPass);
+	log.debug(messages.getString("ejem.parametros"));
+	log.debug(I18n.getStringParametros(
+		messages.getString("ejem.paramtros"), "uno", "dos"));
+	Object arguments = null;
+	MessageFormat.format(messages.getString("ejem.parametros"), arguments);
+
 	validateLanguaje(request);
 	validateUser(request);
 
