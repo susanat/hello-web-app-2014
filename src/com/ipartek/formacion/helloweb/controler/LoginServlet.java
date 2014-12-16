@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
     private RequestDispatcher dispatch = null;
     private HttpSession session = null;
     private ResourceBundle messages = null;
-    private final static Logger log = Logger.getLogger("ACCESOS");
+    private static Logger log = Logger.getLogger("ACCESOS");
 
     /**
      * @see Servlet#init(ServletConfig)
@@ -71,12 +71,13 @@ public class LoginServlet extends HttpServlet {
 	// loadMessages();
 	session = request.getSession();
 	user = UserService.find(pUser, pPass);
+/*
+	Object arguments = null;
 	log.debug(messages.getString("ejem.parametros"));
 	log.debug(I18n.getStringParametros(
 		messages.getString("ejem.paramtros"), "uno", "dos"));
-	Object arguments = null;
 	MessageFormat.format(messages.getString("ejem.parametros"), arguments);
-
+*/
 	validateLanguaje(request);
 	validateUser(request);
 

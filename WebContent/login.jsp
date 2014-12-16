@@ -17,6 +17,7 @@
 <!DOCTYPE html>
 <html lang="${languaje} }">
 <head>
+	<base href="<%=request.getContextPath()+"/"%>">
 	<meta charset="utf-8">
 	<link rel='stylesheet' href='http://codepen.io/assets/libs/fullpage/jquery-ui.css'>
     <link rel="stylesheet" href="backoffice/css/bootstrap.min.css" media="screen" type="text/css" />

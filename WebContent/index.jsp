@@ -2,6 +2,7 @@
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <html>
 <head>
+	<base href="<%=request.getContextPath()+"/"%>">
 	<meta charset="utf-8">
 	<title>Hello World!</title>
 </head>

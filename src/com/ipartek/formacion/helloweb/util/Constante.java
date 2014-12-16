@@ -51,12 +51,13 @@ public class Constante {
     // mensajes
     public static final String MSG_KEY = "msg";
     public static final String MSG_LOGIN_INCORRECT = "mensaje.loginIncorrect";
-    public static final String MSG_LOGOUT = "Hasta la vista vuelve pronto WE MISS YOU";
-    public static final String MSG_CREATE = "Registro creado";
-    public static final String MSG_REMOVE = "Registro eliminado";
-    public static final String MSG_UPDATE = "Registro actualizado";
-    public static final String MSG_ERROR = "Problema en la operación";
-    public static final String MSG_ERROR_BBDD = "Problema en la operación";
+    public static final String MSG_SIN_PERMISOS = "mensaje.sinPermiso";
+    public static final String MSG_LOGOUT = "mensaje.logout";
+    public static final String MSG_CREATE = "mensaje.create";
+    public static final String MSG_REMOVE = "mensaje.remove";
+    public static final String MSG_UPDATE = "mensaje.update";
+    public static final String MSG_ERROR = "mensaje.error";
+    public static final String MSG_ERROR_BBDD = "mensaje.error";
     // Atributos
     public static final String ATT_PERSONAS = "personas";
     public static final String ATT_PERSONA = "persona";

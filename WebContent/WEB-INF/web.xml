@@ -8,7 +8,7 @@
     <description>Servlet que valida el logueo</description>
     <display-name>LoginServlet</display-name>
     <servlet-name>LoginServlet</servlet-name>
-    <servlet-class>com.ipartek.formacion.helloworld.controler.LoginServlet</servlet-class>
+    <servlet-class>com.ipartek.formacion.helloweb.controler.LoginServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
@@ -90,12 +90,12 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
   <filter>
-    <display-name>FilterJsp</display-name>
-    <filter-name>FilterJsp</filter-name>
-    <filter-class>com.ipartek.formacion.helloweb.filter.FilterJsp</filter-class>
+    <display-name>JspFilter</display-name>
+    <filter-name>JspFilter</filter-name>
+    <filter-class>com.ipartek.formacion.helloweb.filter.JspFilter</filter-class>
   </filter>
   <filter-mapping>
-    <filter-name>FilterJsp</filter-name>
-    <url-pattern>/*.jsp</url-pattern>
+    <filter-name>JspFilter</filter-name>
+    <url-pattern>*.jsp</url-pattern>
   </filter-mapping>
 </web-app>
