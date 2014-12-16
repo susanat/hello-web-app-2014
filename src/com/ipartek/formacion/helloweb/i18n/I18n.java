@@ -1,6 +1,12 @@
 package com.ipartek.formacion.helloweb.i18n;
 
+import java.text.MessageFormat;
 import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+
+import com.ipartek.formacion.helloweb.Constantes;
+import com.ipartek.formacion.helloweb.bean.Idioma;
 
 /**
  * Clase con utilidades oara los idiomas. <h1>Lista de locales</h1>
@@ -22,17 +28,55 @@ public class I18n {
 	 * @return
 	 */
 	public static final String getBrowserLocale(final Locale localeBrowser) {
-		String res = Idioma.INGLES.getLocale();
+		// Por defecto inglés
+		final Idioma idioma = new Idioma(Constantes.DEFAULT_LANG);
+		String res = idioma.getLocale();
 
+		// si no es nulo
 		if (localeBrowser != null) {
-			if (Idioma.EUSKERA.getIdioma() == localeBrowser.getLanguage()) {
-				res = Idioma.EUSKERA.getLocale();
-			} else if (Idioma.CASTELLANO.getIdioma() == localeBrowser.getLanguage()) {
-				res = Idioma.CASTELLANO.getLocale();
-			}
+			res = localeBrowser.getLanguage();
 		}
-
 		return res;
+	}
+
+	/**
+	 * Utilidad para mostrar mensajes de properties con parámetros.
+	 *
+	 * @param cadenaMensaje
+	 *            La cadena del mensaje con los parámetros a cambiar
+	 * @param params
+	 *            Número indeterminado de parámetros a sustituirse en la
+	 *            cadenaMensaje
+	 * @return cadenaMensaje con los parámetros cambiados, si
+	 *         MissingResourceException return "! no existe mensaje !"
+	 */
+	public static String getStringParametros(final String cadenaMensaje, final Object... params) {
+		try {
+			return MessageFormat.format(cadenaMensaje, params);
+		} catch (final MissingResourceException e) {
+			return "! no existe mensaje !";
+		}
+	}
+
+	/**
+	 * Utilidad para mostrar mensajes de properties con parámetros.
+	 *
+	 * @param resource
+	 *            ResourceBundle con los .properties
+	 * @param key
+	 *            clave a buscar en ResourceBundle
+	 * @param params
+	 *            Número indeterminado de parámetros a sustituirse en la
+	 *            cadenaMensaje
+	 * @return cadenaMensaje con los parámetros cambiados, si
+	 *         MissingResourceException return "! no existe mensaje !"
+	 */
+	public static String getStringParametros(final ResourceBundle resource, final String key, final Object... params) {
+		try {
+			return MessageFormat.format(resource.getString(key), params);
+		} catch (final MissingResourceException e) {
+			return "! no existe mensaje !";
+		}
 	}
 
 }

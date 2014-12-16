@@ -3,7 +3,6 @@
 <%@include file="../includes/nav.jsp" %>
 
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
-<%@page import="com.ipartek.formacion.helloweb.util.Rol"%>
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>

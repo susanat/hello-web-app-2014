@@ -1,6 +1,6 @@
 package com.ipartek.formacion.helloweb.bean;
 
-import com.ipartek.formacion.helloweb.util.Rol;
+import com.ipartek.formacion.helloweb.Constantes;
 
 public class Persona {
 
@@ -10,21 +10,21 @@ public class Persona {
 	private int id;
 	private String nombre;
 	private int edad;
-	private Rol rol;
+	private Role role;
 
-	public Persona(final String nombre, final int edad, final Rol rol) {
+	public Persona(final String nombre, final int edad, final Role role) {
 		super();
 		setNombre(nombre);
 		setEdad(edad);
-		setRol(rol);
+		setRole(role);
 		this.id = ID_NULL;
 	}
 
-	public Persona(final String nombre, final Rol rol) {
+	public Persona(final String nombre, final Role role) {
 		super();
 		setNombre(nombre);
 		setEdad(EDAD_NULL);
-		setRol(rol);
+		setRole(role);
 		this.id = ID_NULL;
 	}
 
@@ -32,7 +32,7 @@ public class Persona {
 		super();
 		setNombre(nombre);
 		setEdad(EDAD_NULL);
-		setRol(Rol.INVITADO);
+		setRole(new Role(Constantes.ROLE_DEFAULT));
 		this.id = -1;
 	}
 
@@ -67,16 +67,16 @@ public class Persona {
 		this.edad = edad;
 	}
 
-	public Rol getRol() {
-		return rol;
+	public Role getRole() {
+		return role;
 	}
 
-	public void setRol(final Rol rol) {
-		this.rol = rol;
+	public void setRole(final Role role) {
+		this.role = role;
 	}
 
 	@Override
 	public String toString() {
-		return "rol = " + rol + ", nombre = " + nombre + ", edad = " + edad;
+		return "rol = " + role + ", nombre = " + nombre + ", edad = " + edad;
 	}
 }

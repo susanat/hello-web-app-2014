@@ -14,12 +14,12 @@ import javax.servlet.http.HttpSession;
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.bean.Mensaje;
 import com.ipartek.formacion.helloweb.bean.Persona;
+import com.ipartek.formacion.helloweb.bean.Role;
 import com.ipartek.formacion.helloweb.i18n.I18n;
-import com.ipartek.formacion.helloweb.i18n.Idioma;
 import com.ipartek.formacion.helloweb.listener.InitListener;
 import com.ipartek.formacion.helloweb.model.ModeloPersona;
+import com.ipartek.formacion.helloweb.model.ModeloRol;
 import com.ipartek.formacion.helloweb.util.MensajesIdiomas;
-import com.ipartek.formacion.helloweb.util.Rol;
 
 /**
  * Servlet implementation class PersonaServlet.
@@ -30,18 +30,16 @@ public class PersonaServlet extends HttpServlet {
 
 	RequestDispatcher dispatcher = null;
 	HttpSession session = null;
-	ResourceBundle messages = null;
 
-	// ModeloPersona modelo = null;
+	ResourceBundle messages = null;
 	Mensaje msg;
 
 	int id = Persona.ID_NULL;
-	String pIdioma = Idioma.INGLES.getLocale();
+	String pIdioma = Constantes.DEFAULT_LANG;
 
 	@Override
 	public void init(final ServletConfig config) throws ServletException {
 		super.init(config);
-		// modelo = new ModeloPersona();
 		InitListener.modeloPersona = new ModeloPersona();
 	}
 
@@ -63,7 +61,6 @@ public class PersonaServlet extends HttpServlet {
 	@Override
 	public void destroy() {
 		super.destroy();
-		// modelo = null;
 		InitListener.modeloPersona = null;
 	}
 
@@ -126,9 +123,7 @@ public class PersonaServlet extends HttpServlet {
 		final Persona p = getParametersPersona(request);
 
 		if (p != null) {
-			// modelo.insert(p);
 			InitListener.modeloPersona.insert(p);
-			// TODO comprobar la inserción
 			msg = new Mensaje(Mensaje.MSG_TYPE_SUCCESS, messages.getString("msg.reg.inserted"));
 		} else {
 			msg = new Mensaje(Mensaje.MSG_TYPE_DANGER, messages.getString("msg.err.parameters"));
@@ -199,11 +194,18 @@ public class PersonaServlet extends HttpServlet {
 		try {
 			p = new Persona("");
 			p.setNombre(request.getParameter("nombre"));
+
 			if (request.getParameter("edad") != null) {
 				p.setEdad(Integer.parseInt(request.getParameter("edad")));
 			}
-			if (request.getParameter("rol") != null) {
-				p.setRol(Rol.valueOf(request.getParameter("rol")));
+
+			if (request.getParameter("role") != null) {
+				for (final Role rol : ModeloRol.getListRoles()) {
+					if (request.getParameter("role") == rol.getNombre()) {
+						p.setRole(rol);
+						break;
+					}
+				}
 			}
 		} catch (final Exception e) {
 			p = null;
@@ -219,7 +221,6 @@ public class PersonaServlet extends HttpServlet {
 	 * @param request
 	 */
 	private void getById(final HttpServletRequest request) {
-		// request.setAttribute(Constantes.ATTR_PERSONA, modelo.getById(id));
 		request.setAttribute(Constantes.ATTR_PERSONA, InitListener.modeloPersona.getById(id));
 		dispatcher = request.getRequestDispatcher(Constantes.JSP_BACKOFFICE_PERSONA_FORM);
 	}
@@ -230,7 +231,6 @@ public class PersonaServlet extends HttpServlet {
 	 * @param request
 	 */
 	private void getAll(final HttpServletRequest request) {
-		// request.setAttribute(Constantes.ATTR_PERSONAS, modelo.getAll());
 		request.setAttribute(Constantes.ATTR_PERSONAS, InitListener.modeloPersona.getAll());
 		dispatcher = request.getRequestDispatcher(Constantes.JSP_BACKOFFICE_PERSONA_LIST);
 	}
