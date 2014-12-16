@@ -1,14 +1,12 @@
      <!-- Navigation -->
-        <%@page import="com.ipartek.formacion.helloweb.util.Rol"%>
 		<%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 		<%@page import="com.ipartek.formacion.helloweb.Constantes"%>
-		<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 		
 		<%
 			String root = request.getContextPath() + "/";
 			Persona pUser = (Persona) session.getAttribute(Constantes.USER_SESSION);
 			
-			if (pUser == null || pUser.getRol() != Rol.ADMINISTRADOR) {
+			if (pUser == null || pUser.getRole().toString() != Constantes.ROLE_ADMIN) {
 				request.setAttribute(Constantes.MSG_KEY, Constantes.MSG_NO_AUTORIZADO);
 				response.sendRedirect(root + Constantes.CONTROLLER_LOGIN);
 			}
@@ -22,7 +20,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="backoffice/index.jsp">${sessionScope.user_session.nombre} | ${sessionScope.user_session.rol}</a>
+                <a class="navbar-brand" href="backoffice/index.jsp">${sessionScope.user_session.nombre} | ${sessionScope.user_session.role}</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -35,11 +33,17 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a class="active" href="<%=Constantes.CONTROLLER_PERSONA%>" title="Gestionar Personas"><i class="fa fa-dashboard fa-fw"></i> Personas</a>
+                            <a class="active" href="<%=Constantes.CONTROLLER_PERSONA%>" title="Gestionar Personas"><i class="fa fa-leaf fa-fw"></i> Personas</a>
                         </li>
                          <li>
                             <a class="active" href="<%=Constantes.CONTROLLER_CALIFICACION%>" title="Gestionar Calificaciones"><i class="fa fa-dashboard fa-fw"></i> Calificaciones</a>
-                        </li>                                      
+                        </li>
+                        <li>
+                            <a class="active" href="<%=Constantes.CONTROLLER_IDIOMA%>" title="Gestionar Idiomas"><i class="fa fa-pencil fa-fw"></i> Idiomas</a>
+                        </li> 
+                         <li>
+                            <a class="active" href="<%= Constantes.CONTROLLER_ROLE%>" title="Gestionar Roles"><i class="fa fa-user fa-fw"></i> Roles</a>
+                        </li>                                       
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

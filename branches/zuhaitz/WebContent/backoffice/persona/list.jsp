@@ -38,7 +38,7 @@
 								   <fmt:formatNumber type="number" minIntegerDigits="3" value="${persona.id}"/></a></td>	
 							<td>${persona.nombre}</td>
 							<td>${persona.edad}</td>
-							<td>${persona.rol}</td>
+							<td>${persona.role}</td>
 							<td>
 								<form action="<%=Constantes.CONTROLLER_PERSONA%>" method="post">
 									<input type="hidden" name="id" value="${persona.id}">

@@ -9,9 +9,19 @@ import com.ipartek.formacion.helloweb.Constantes;
 
 public class MensajesIdiomas {
 
-	public static ResourceBundle loadMessages(final String idioma, final HttpSession session) {
+	public static ResourceBundle loadMessages(String idioma, final HttpSession session) {
+		if (idioma == null) {
+			idioma = Constantes.DEFAULT_LANG;
+		}
+
 		session.setAttribute(Constantes.PARAMETRO_LANG, idioma);
-		return ResourceBundle.getBundle(Constantes.PROPERTY_I18N,
-				new Locale(idioma.split("_")[0], idioma.split("_")[1]));
+
+		Locale locale = null;
+		if (idioma.length() > 2) {
+			locale = new Locale(idioma.split("_")[0], idioma.split("_")[1]);
+		} else {
+			locale = new Locale(idioma);
+		}
+		return ResourceBundle.getBundle(Constantes.PROPERTY_I18N, locale);
 	}
 }

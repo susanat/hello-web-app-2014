@@ -10,12 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.bean.Mensaje;
 import com.ipartek.formacion.helloweb.bean.Persona;
-import com.ipartek.formacion.helloweb.i18n.Idioma;
+import com.ipartek.formacion.helloweb.bean.Role;
 import com.ipartek.formacion.helloweb.util.MensajesIdiomas;
-import com.ipartek.formacion.helloweb.util.Rol;
 
 /**
  * Servlet implementation class LoginServlet
@@ -23,6 +24,7 @@ import com.ipartek.formacion.helloweb.util.Rol;
 public class LoginServlet extends HttpServlet {
 
 	private static final long serialVersionUID = -986747240512475180L;
+	private final static Logger log = Logger.getLogger("ACCESOS");
 
 	RequestDispatcher dispatch = null;
 	HttpSession session = null;
@@ -31,7 +33,7 @@ public class LoginServlet extends HttpServlet {
 	// Parámetros
 	String pUser = null;
 	String pPass = null;
-	String pIdioma = Idioma.INGLES.getLocale();
+	String pIdioma = Constantes.DEFAULT_LANG;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -46,7 +48,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-			IOException {
+	IOException {
 		// Recuperar session
 		session = request.getSession();
 		// Recoger parámetros del login
@@ -97,7 +99,7 @@ public class LoginServlet extends HttpServlet {
 			dispatch = request.getRequestDispatcher(Constantes.JSP_SALUDO);
 			// Guardar usuario en session
 			// TODO recuperar usuario de la BBDD
-			final Persona p = new Persona(pUser, 0, Rol.USUARIO);
+			final Persona p = new Persona(pUser, 0, new Role("Usuario"));
 			session.setAttribute(Constantes.USER_SESSION, p);
 
 			// Administrador
@@ -106,9 +108,15 @@ public class LoginServlet extends HttpServlet {
 			dispatch = request.getRequestDispatcher(Constantes.JSP_BACKOFFICE_INDEX);
 			// Guardar usuario en session
 			// TODO recuperar usuario de la BBDD
-			final Persona p = new Persona(pUser, 0, Rol.ADMINISTRADOR);
+			final Persona p = new Persona(pUser, 0, new Role("Administrador"));
 			session.setAttribute(Constantes.USER_SESSION, p);
-			// No Validado
+
+			// Entrada sin submitar el formulario
+		} else if ((pUser == null) && (pPass == null)) {
+			log.trace("Entrada sin submitar el formulario");
+			dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
+
+			// No Validado retornar al login
 		} else {
 			// Incorrecto: enviar de nuevo a login.jsp
 			dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
@@ -116,5 +124,4 @@ public class LoginServlet extends HttpServlet {
 			request.setAttribute(Constantes.MSG_KEY, msg);
 		}
 	}
-
 }
