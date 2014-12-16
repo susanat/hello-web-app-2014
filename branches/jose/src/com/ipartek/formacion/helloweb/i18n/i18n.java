@@ -1,6 +1,9 @@
 package com.ipartek.formacion.helloweb.i18n;
 
+import java.text.MessageFormat;
 import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 /**
  * Clase con utilidades para los idiomas
@@ -37,6 +40,25 @@ public class i18n {
 		return result;
 	}
 
+	/**
+	 * Utilidad para mostrar mensajes de properties con parametros
+	 * 
+	 * @param cadenaMensaje
+	 *            cadena del mensaje con los parametros a cambiar
+	 * @param params
+	 *            numero indeterminado (...) de parametros a sustituirse en la
+	 *            cadenaMensaje
+	 * @return cadena mensaje con los parametros injectados, si Exception
+	 *         devuelve "! no existe mensaje !"
+	 */
+	public static String getStringParametros(String cadenaMensaje,
+			Object... params) {
+		try {
+			return MessageFormat.format(cadenaMensaje, params);
+		} catch (Exception e) {
+			return "! no existe mensaje !";
+		}
+	}
 	/*
 	 * public static final String getSession(HttpSession sesion) { // por
 	 * defecto Ingles String result = Idioma.INGLES.getLenguaje(); // Si no es
@@ -49,4 +71,25 @@ public class i18n {
 	 * Idioma.CASTELLANO.getLocale(); } } return result; }
 	 */
 
+	/**
+	 * Utilidad para mostrar mensajes de properties con parametros
+	 * 
+	 * @param resource
+	 *            ResourceBundle con los .properties
+	 * @param key
+	 *            llave para buscar en ResourceBundle
+	 * @param params
+	 *            numero indeterminado de parametros a sustituir
+	 * @return cadena de mensajes con los parametros injectados, si
+	 *         MissingResourceException devuelve "!key!"
+	 */
+	public static Object getStringParametros(ResourceBundle resource,
+			String key, Object... params) {
+		try {
+			return MessageFormat.format(resource.getString(key), params);
+		} catch (MissingResourceException e) {
+			return "!" + key + "!";
+		}
+
+	}
 }

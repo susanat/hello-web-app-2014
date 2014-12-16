@@ -6,10 +6,8 @@
 
 <%@include file="/includes/head.jsp"%>
 <%@include file="/includes/nav.jsp"%>
-
-
-
-<jsp:useBean id="Constantes" class="com.ipartek.formacion.helloweb.Constantes" scope = "application"/>
+<jsp:useBean id="Constantes"
+	class="com.ipartek.formacion.helloweb.Constantes" scope="application" />
 <!-- BOTON -->
 <div class="row">
 	<div class="col-lg-12">
@@ -23,7 +21,6 @@
 </div>
 <!-- /.row -->
 
-
 <!-- LISTADO -->
 <div class="row">
 	<div class="col-lg-12">
@@ -35,10 +32,8 @@
 		%>
 		<h2>No existe ninguna persona</h2>
 		<%
-			}
-			else {
+			} else {
 		%>
-
 		<div class="panel panel-default">
 			<div class="panel-heading">Personas</div>
 			<!-- /.panel-heading -->
@@ -53,38 +48,36 @@
 									<th>Nombre</th>
 									<th>Edad</th>
 									<th>Rol</th>
-									<th><c:out value="${Constantes.ATT_PERSONAS}"/></th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="persona" begin="0" items="${requestScope.personas}">
-								
-								<tr>
-									<td><a
-										href="Persona?id=<c:out value="${persona.id}"/>">
-											${persona.id}
-									</a></td>
-									 <td>${persona.nombre}</td>
-									 <td>${persona.edad}</td>
-									 <td>${persona.rol}</td>
-									 
-									<td>
-										<form action="<%=Constantes.CONTROLLER_PERSONA%>"
-											method="post">
-											<input type="hidden" name="id"
-												value="${persona.id}"> <input type="hidden"
-												name="<%=Constantes.OP_KEY%>"
-												value="<%=Constantes.OP_DELETE%>">
+								<c:forEach var="persona" begin="0"
+									items="${requestScope.personas}">
 
-											<button type="submit" class="btn btn-danger btn-outline">
-												<i class="fa fa-trash-o fa-fw"></i>Eliminar
-												<!-- 
+									<tr>
+										<td><a href="Persona?id=<c:out value="${persona.id}"/>">
+												${persona.id} </a></td>
+										<td>${persona.nombre}</td>
+										<td>${persona.edad}</td>
+										<td>${persona.rol}</td>
+
+										<td>
+											<form action="<%=Constantes.CONTROLLER_PERSONA%>"
+												method="post">
+												<input type="hidden" name="id" value="${persona.id}">
+												<input type="hidden" name="<%=Constantes.OP_KEY%>"
+													value="<%=Constantes.OP_DELETE%>">
+
+												<button type="submit" class="btn btn-danger btn-outline">
+													<i class="fa fa-trash-o fa-fw"></i>Eliminar
+													<!-- 
 											<button type="button" class="btn btn-default">Eliminar</button>
 											 -->
-											</button>
-										</form>
-									</td>
-								</tr>
+												</button>
+											</form>
+										</td>
+									</tr>
 
 								</c:forEach>
 							</tbody>
@@ -94,15 +87,18 @@
 						</div>
 						<!-- /.panel-body -->
 						</div>
+
 						<%
 							}
-						 %>
-						</div>
-						<!-- class="col-lg-12" -->
-						</div>
-						<!-- class="row" -->
+						%>
+					
+				</div>
+				<!-- class="col-lg-12" -->
+			</div>
+			<!-- class="row" -->
 
-						</div>
-						<!-- /#page-wrapper -->
+		</div>
+		<!-- /#page-wrapper -->
 
-						<%@include file="/includes/footer.jsp"%>
+
+		<%@include file="/includes/footer.jsp"%>

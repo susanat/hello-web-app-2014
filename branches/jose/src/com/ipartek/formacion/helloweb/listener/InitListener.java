@@ -7,9 +7,11 @@ import javax.servlet.ServletContextAttributeListener;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
+import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.model.ModeloPersona;
 
 /**
@@ -52,6 +54,10 @@ public class InitListener implements ServletContextListener, ServletContextAttri
 	private void loadLog4j(ServletContextEvent sce) {
 		String pathReal = sce.getServletContext().getRealPath("/");
 		PropertyConfigurator.configure(pathReal + PATH_LOG4J);
+		if (null == LogManager.exists("ACCESOS")) {
+			LOAD_ERROR = true;
+			LOAD_ERROR_MSG = Constantes.MSG_ERR_LOAD_LOG4J;
+		}
 		/*
 		 * if (!LogManager.getCurrentLoggers().hasMoreElements()) { LOAD_ERROR =
 		 * true; LOAD_ERROR_MSG = Constantes.MSG_ERR_LOAD_LOG4J; }

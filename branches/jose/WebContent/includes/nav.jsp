@@ -17,8 +17,8 @@
 
 	<ul class="nav navbar-top-links navbar-right">
 		<li><a href="<%=Constantes.PATH_LOGOUT%>"
-			title="Cierra tu session"> <i class="fa fa-sign-out fa-fw"></i>
-				<fmt:message key="menu.logout"></fmt:message></a></li>
+			title="Cierra tu session"> <i class="fa fa-sign-out fa-fw"></i> <fmt:message
+					key="menu.logout"/></a></li>
 	</ul>
 	<!-- /.navbar-top-links -->
 
