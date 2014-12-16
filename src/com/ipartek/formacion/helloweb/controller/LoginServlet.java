@@ -2,6 +2,7 @@ package com.ipartek.formacion.helloweb.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -20,6 +21,7 @@ import org.apache.log4j.Logger;
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.bean.Mensaje;
 import com.ipartek.formacion.helloweb.bean.Persona;
+import com.ipartek.formacion.helloweb.i18n.I18n;
 import com.ipartek.formacion.helloweb.i18n.Idioma;
 import com.ipartek.formacion.helloweb.listener.InitListener;
 
@@ -63,6 +65,17 @@ public class LoginServlet extends HttpServlet {
 
 		loadMessages();
 		
+		//TODO borrar ejemplo mensajes con parametros
+		log.debug(  messages.getString("ejem.parametros") );
+		
+		log.debug( I18n.getStringParametros( 
+						messages,
+						"ejem.parametros",
+						"uno",
+						"dos"
+						)
+				  );
+			
 		
 		//validar el usuario
 		validateUser(request);		
