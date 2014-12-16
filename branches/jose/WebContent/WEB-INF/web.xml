@@ -75,4 +75,13 @@
     <filter-name>LoadErrorFilter</filter-name>
     <url-pattern>/LoadErrorFilter</url-pattern>
   </filter-mapping>
+  <filter>
+    <display-name>JspFilter</display-name>
+    <filter-name>JspFilter</filter-name>
+    <filter-class>com.ipartek.formacion.helloweb.filter.JspFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>JspFilter</filter-name>
+    <url-pattern>*.jsp</url-pattern>
+  </filter-mapping>
 </web-app>

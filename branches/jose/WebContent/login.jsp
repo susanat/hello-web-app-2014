@@ -40,6 +40,10 @@
 
 <body>
 
+	<fmt:message key="ejem.parametros">
+		<fmt:param value="uno" />
+		<fmt:param value="dos" />
+	</fmt:message>
 	<div class="login-card">
 		<h1>
 			<fmt:message key="login.titulo"></fmt:message>
@@ -47,7 +51,7 @@
 		<br>
 		<form action="<%=Constantes.PATH_LOGIN%>" method="post">
 
-			
+
 			<input type="text" name="<%=Constantes.PARAMETRO_USER%>"
 				placeholder="<fmt:message key="login.form.usuario"></fmt:message>">
 			<input type="password" name="<%=Constantes.PARAMETRO_PASS%>"

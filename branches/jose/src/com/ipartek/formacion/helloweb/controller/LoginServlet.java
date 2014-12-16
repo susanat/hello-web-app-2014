@@ -18,6 +18,7 @@ import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.bean.Mensaje;
 import com.ipartek.formacion.helloweb.bean.Persona;
 import com.ipartek.formacion.helloweb.i18n.Idioma;
+import com.ipartek.formacion.helloweb.i18n.i18n;
 
 /**
  * Servlet implementation class LoginServlet
@@ -47,6 +48,7 @@ public class LoginServlet extends HttpServlet {
 	 * public LoginServlet() { super(); }
 	 */
 
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -65,6 +67,16 @@ public class LoginServlet extends HttpServlet {
 		// Cargar fichero de mensajes
 		LoadMensajes();
 
+		// TODO borrar ejemplo mensajes con parametros
+		log.debug(messages.getString("ejem.parametros"));
+
+		/*
+		 * Object arguments = null;
+		 * MessageFormat.format(messages.getString("ejem.parametros"),
+		 * arguments);
+		 */
+		log.debug(i18n.getStringParametros(
+				messages.getString("ejem.parametros"), "uno", "dos"));
 
 
 		// validar el usuario
@@ -89,6 +101,8 @@ public class LoginServlet extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
 		super.init(config);
+		log.trace("Init");
+
 		/*
 		 * mensajeLog(TipoMensajeLog.TRACE, "Inicializado LoginServlet");
 		 * mensajeLog(TipoMensajeLog.DEBUG, "Inicializado LoginServlet");
@@ -116,6 +130,11 @@ public class LoginServlet extends HttpServlet {
 		 * request.getSession().setAttribute(Constantes.IDIOMA_KEY,
 		 * valorIdioma);
 		 */
+		if (pIdioma == null) {
+			pIdioma = Idioma.INGLES.getLocale();
+			log.warn("No viene parametros idioma, ponemos " + pIdioma
+					+ " por defecto");
+		}
 		Locale locale = new Locale(pIdioma.split("_")[0], pIdioma.split("_")[1]);
 		messages = ResourceBundle.getBundle(
 				Constantes.PROPERTI_I18N, locale);
@@ -179,8 +198,11 @@ public class LoginServlet extends HttpServlet {
 			log.info("acceso usuario ADMINISTRADOR [" + pUser + ", " + pPass
 					+ "]");
 
+		//entrada si submitar el formulario
+		}else if((pUser==null)&&(pPass==null)){
+			log.trace("entrada sin submitar formulario");
 			// Si no Validado: retornar al login
-		} else {
+		}else {
 			// incorrecto: enviar de nuevo a login.jsp
 			dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
 			/*
