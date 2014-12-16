@@ -18,6 +18,7 @@ import com.ipartek.formacion.helloweb.listener.InitListener;
  * @see com.ipartek.formacion.helloweb.listener.InitListener
  */
 public class LoadErrorFilter implements Filter {
+	
 	public FilterConfig filterConfig; 
     
 
@@ -27,10 +28,15 @@ public class LoadErrorFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		
 		if ( InitListener.LOAD_ERROR ){			
-			request.getRequestDispatcher(Constantes.JSP_ERROR).forward(request, response);				
-		}
-		// pass the request along the filter chain
-		chain.doFilter(request, response);
+			request.getRequestDispatcher(Constantes.JSP_ERROR).forward(request, response);
+			return;
+		}else{
+			// pass the request along the filter chain
+			chain.doFilter(request, response);
+			return;
+		}	
+		
+	
 	}
 
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -38,7 +44,6 @@ public class LoadErrorFilter implements Filter {
 	}
 
 	public void destroy() {		
-		
 	}
 
 	
