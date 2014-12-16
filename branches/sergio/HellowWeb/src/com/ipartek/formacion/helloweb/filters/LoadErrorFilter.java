@@ -8,6 +8,9 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.log4j.Logger;
 
 import com.ipartek.formacion.helloweb.comun.Constantes;
 
@@ -16,8 +19,8 @@ import com.ipartek.formacion.helloweb.comun.Constantes;
  */
 public class LoadErrorFilter implements Filter {
 
-	
-	
+	private FilterConfig filterConfig = null;
+	private static Logger log = Logger.getLogger(LoadErrorFilter.class);
 	
     /**
      * Default constructor. 
@@ -31,13 +34,27 @@ public class LoadErrorFilter implements Filter {
 	 */
 	public void destroy() {
 		// TODO Auto-generated method stub
+		this.filterConfig = null;
 	}
 
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		// TODO Auto-generated method stub
+		
+		if(request instanceof HttpServletRequest) 
+		{
+			HttpServletRequest httpres = (HttpServletRequest) request;			
+			log.trace(httpres.getRequestURL());
+			
+		}
+		
+		
+		
+		
+		
+		
+		
 		// place your code here
 		if(Constantes.LOAD_ERROR) {
 			request.getRequestDispatcher(Constantes.JSP_ERROR).forward(request, response);
@@ -53,6 +70,7 @@ public class LoadErrorFilter implements Filter {
 	 */
 	public void init(FilterConfig fConfig) throws ServletException {
 		// TODO Auto-generated method stub
+		this.filterConfig = fConfig;
 	}
 
 }

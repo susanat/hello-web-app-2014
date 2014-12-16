@@ -14,6 +14,31 @@
 	<hello:saluda nombre="Sergio"/>
 	
 	
+	
+	<% 
+	
+	ServletContext sc2 = this.getServletContext();
+	
+	out.print("Context path:" + sc2.getContextPath() + "<br>");
+	out.print("Context realPath:" + sc2.getRealPath(sc2.getContextPath()) + "<br>");
+	out.print("Context path:" + sc2.getResourcePaths("/").toString() + "<br>");
+	
+	for(Object a : sc2.getResourcePaths("/")) {
+		out.print(a.toString() + "<br>");
+	}
+	
+	//Meta-inf
+	for(Object a : sc2.getResourcePaths("/WEB-INF/classes/com/ipartek/formacion/helloweb/i18n")) {
+		out.print(a.toString() + "<br>");
+	}
+	
+	
+	%>
+	
+  
+	
+	
+	
 	<br>
 	TLD de combo:
 	<% 
@@ -36,14 +61,14 @@
     Prueba de paths 1: <br>    
     <% 
     
-    /*
+    
     	ServletContext sc = this.getServletContext();
     	String path = new File(sc.getRealPath("/")).getAbsolutePath();
     	List<String> files =  ClsUtilsFicheros.ListResursiveFolder(path);
     	for(String str : files) {
     		out.print(str + "<br>");
     	}
-    */
+    
     
     %>
     
@@ -73,7 +98,16 @@
     	*/
     
     %>
-            
+          
+          
+    <table>
+	    <c:forEach items="${properties}" var="property">
+	        <tr>
+	            <td>${property.key}</td>
+	            <td>${property.value}</td>
+	        </tr>
+	    </c:forEach>    
+	</table>  
 
 </div>
            <!-- sidebar -->

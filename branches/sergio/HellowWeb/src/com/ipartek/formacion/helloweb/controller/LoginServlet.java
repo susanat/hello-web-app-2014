@@ -1,6 +1,13 @@
 package com.ipartek.formacion.helloweb.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
+import java.text.MessageFormat;
+import java.util.Properties;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -22,6 +29,7 @@ import com.ipartek.formacion.helloweb.listener.InitListener;
 import com.ipartek.formacion.helloweb.model.ModeloPersona;
 import com.ipartek.formacion.helloweb.model.interfaces.IModeloPersona.onModelPersonaError;
 import com.ipartek.formacion.helloweb.temp.ShutdownExample;
+import com.ipartek.formacion.helloweb.temp.UtilsTemp;
 
 /**
  * Servlet implementation class LoginServlet
@@ -119,6 +127,64 @@ public class LoginServlet extends customServlet {
 		//obtenemos la sesion
 		HttpSession session = request.getSession();
 
+		
+		try {
+			Properties properties = new Properties();
+			
+			/*
+			properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(
+					"/com/ipertek/formacion/helloweb/i18n/lang_en_GB.properties")
+					);
+			*/
+			
+			//String path = new File(this.getServletContext().getRealPath("/")).getAbsolutePath();
+			
+			//String pathcompletofile = "C:\\desarrollo\\Web\\apache-tomcat-6.0.43\\webapps\\HelloWeb\\WEB-INF\\classes\\com\\ipartek\\formacion\\helloweb\\i18n\\lang_en_GB.properties";
+			//InputStream input = getServletContext().getResourceAsStream(pathcompletofile); 
+			
+			//InputStream input = getServletContext().getResourceAsStream(path + "\\WEB-INF\\classes\\com\\ipartek\\formacion\\helloweb\\i18n\\" + "lang_en_GB.properties");
+			//InputStream input = getServletContext().getResourceAsStream(path + "/WEB-INF/classes/com/ipartek/formacion/helloweb/i18n" + "lang_en_GB.properties");
+			
+			
+			
+			
+			//Abrir un properties
+			InputStream input = getServletContext().getResourceAsStream("/WEB-INF/classes/com/ipartek/formacion/helloweb/i18n/" + "lang_es_ES.properties");			
+			properties.load(input);
+			request.setAttribute("properties", properties);
+			
+			
+			
+			
+			//añado una propiedad
+			properties.put("puesta.por.el.ayuntamiento", "Sí, me han puesto");
+				
+			
+			
+			//salvar
+			//URL resourceUrl = getServletContext().getResource("/WEB-INF/classes/com/ipartek/formacion/helloweb/i18n/" + "lang_es_ES.properties");
+			
+			//File file = new File(resourceUrl.toURI());
+			File file = new File("C:\\desarrollo\\Web\\apache-tomcat-6.0.43\\webapps\\HelloWeb\\WEB-INF\\classes\\com\\ipartek\\formacion\\helloweb\\i18n\\lang_en_ES.properties");
+			
+			//File file = new File(getServletContext().getContextPath() + resourceUrl.toURI());
+			OutputStream output = new FileOutputStream(file);
+			properties.store(output, "Prueba");
+			
+			
+			
+			
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		
+		//request.getRequestDispatcher("/WEB-INF/properties.jsp").forward(request, response);
+				
+		
+		
+		
 		Message lMsg = new Message();
 		
 		//Inicializamos las variables necesarias
@@ -150,10 +216,7 @@ public class LoginServlet extends customServlet {
   				lMsg.setError(true);
   				lMsg.setText("Usuario o contraseña incorrecto");
   				lMsg.setType(ETypeAlert.DANGER);  	
-  				
-  				
-  			    
-  				
+  				  				
   			}
   		}	
 
