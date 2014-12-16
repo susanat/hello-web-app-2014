@@ -24,7 +24,7 @@ public class InitListener implements ServletContextListener,
     public static boolean LOAD_ERROR = false;
     public static String LOAD_ERROR_MSG = null;
 
-    public static final String PATH_LOG4J = "WEB-INFfgfsgdf/conf/log4j.properties";
+    public static final String PATH_LOG4J = "WEB-INF/conf/log4j.properties";
 
     public static ModeloPersona modelPersona = null;
 
