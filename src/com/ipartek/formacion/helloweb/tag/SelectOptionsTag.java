@@ -6,12 +6,13 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import com.ipartek.formacion.helloweb.Constantes;
-
 public class SelectOptionsTag extends TagSupport {
     private ArrayList<String> valor;
     private ArrayList<String> texts;
     private String selectedvalue = null;
+    String parameterName = null;
+    String className = null;
+    String idValue = null;
 
     public void setValor(ArrayList<String> valor) {
 	if (valor != null) {
@@ -39,25 +40,47 @@ public class SelectOptionsTag extends TagSupport {
 
     }
 
+    public void setParameterName(String parameterName) {
+	this.parameterName = parameterName;
+    }
+
+    public void setIdValue(String idValue) {
+	this.idValue = idValue;
+    }
+
+    public void setClassName(String className) {
+	this.className = className;
+    }
+
     @Override
     public int doEndTag() throws JspException {
 	try {
 	    JspWriter out = pageContext.getOut();
-	    out.print("<select name='" + Constantes.PARAMETRO_IDIOMA
-		    + "' class='form-control'>");
-	    for (int i = 0; i < valor.size(); i++) {
+	    if ((valor != null) && (texts != null)
+		    && (texts.size() == valor.size())) {
+		// start Tag
+		out.print("<select ");
+		out.print((parameterName != null) ? " name='" + parameterName
+			+ "'" : "");
+		out.print((idValue != null) ? " id='" + idValue + "'" : "");
+		out.print((className != null) ? " class='" + className + "'"
+			: "");
+		out.print(">");
 
-		if (valor.get(i).equals(selectedvalue)) {
-		    out.print("<option value=" + valor.get(i) + " selected>");
-		} else {
-		    out.print("<option value=" + valor.get(i) + ">");
+		for (int i = 0; i < valor.size(); i++) {
+
+		    if (valor.get(i).equals(selectedvalue)) {
+			out.print("<option value=" + valor.get(i)
+				+ " selected>");
+		    } else {
+			out.print("<option value=" + valor.get(i) + ">");
+		    }
+
+		    out.print(texts.get(i));
+		    out.print("</option>");
 		}
-
-		out.print(texts.get(i));
-		out.print("</option>");
+		out.print("</select>");
 	    }
-	    out.print("</select>");
-
 	    // out.print("<select><option value=\"a\">1</option><option value=\"2\">2</option></select>");
 	} catch (Exception e) {
 	    e.printStackTrace();

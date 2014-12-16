@@ -15,6 +15,7 @@ public class Constantes {
     public static final String PATH_LOGIN = "login";
     public static final String PATH_LOGOUT = "logout";
     public static final String CONTROLLER_PERSONA = "persona";
+    public static final String CONTROLLER_CALIFICACION = "calificacion";
 
     // JSPs
     public static final String JSP_SALUDO = "/saludo.jsp";
@@ -28,6 +29,13 @@ public class Constantes {
 	    + "persona/list.jsp";
     public static final String JSP_BACK_PERSONA_FORM = BACKOFFICE_FOLDER
 	    + "persona/form.jsp";
+
+    public static final String JSP_BACK_CALIFICACION_LIST = BACKOFFICE_FOLDER
+	    + "calificacion/list.jsp";
+
+    public static final String JSP_BACK_CALIFICACION_FORM = BACKOFFICE_FOLDER
+	    + "calificacion/form.jsp";
+    public static final String JSP_ERROR = "includes/error.jsp";
 
     // Properties
     public static final String PROPERTY_I18N = "com.ipartek.formacion.helloweb.i18n.i18nmesages";
@@ -47,6 +55,7 @@ public class Constantes {
     public static final String MSG_REG_UPDATE = "Registro modificado con éxito";
     public static final String MSG_ERR_PARAMETERS = "Error recogiendo parametros";
     public static final String MSG_ERR_DELETE = "Error eliminando registro";
+    public static final String MSG_ERR_LOAD_LOG4J = "Error cargando LOG4J";
 
     // Tipo Mensajes
     public static final String MSG_SUCCESS = "success";
@@ -57,6 +66,8 @@ public class Constantes {
     // Atributos
     public static final String ATT_PERSONAS = "personas";
     public static final String ATT_PERSONA = "persona";
+    public static final String ATT_CALIFICACIONES = "calificaciones";
+    public static final String ATT_CALIFICACION = "calificacion";
 
     // Operaciones CRUD
     public static final String OP_KEY = "op"; // Actualizar registro
