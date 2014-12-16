@@ -80,4 +80,13 @@
     <servlet-name>CalificacionServlet</servlet-name>
     <url-pattern>/calificacion</url-pattern>
   </servlet-mapping>
+  <filter>
+    <display-name>LoadErrorFilter</display-name>
+    <filter-name>LoadErrorFilter</filter-name>
+    <filter-class>com.ipartek.formacion.helloweb.filter.LoadErrorFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>LoadErrorFilter</filter-name>
+    <url-pattern>/LoadErrorFilter</url-pattern>
+  </filter-mapping>
 </web-app>
