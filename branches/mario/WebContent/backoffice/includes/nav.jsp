@@ -44,7 +44,9 @@
                         <li>
                             <a href="<%=Constantes.CONTROLLER_PERSONA %>" class="active"  title="Gestionar Personas"> Persona</a>
                         </li>
-                        
+                        <li>
+                            <a href="<%=Constantes.CONTROLLER_CALIFICACION %>" class="active"  title="Gestionar Calificaciones"> Calificacion</a>
+                        </li>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

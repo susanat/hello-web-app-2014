@@ -5,11 +5,16 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.Rol;
@@ -24,6 +29,7 @@ public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     RequestDispatcher dispatch = null;
     HttpSession session = null;
+    private static Logger log = null;
 
     ResourceBundle messages = null;
 
@@ -38,6 +44,28 @@ public class LoginServlet extends HttpServlet {
     public LoginServlet() {
 	super();
 	// TODO Auto-generated constructor stub
+    }
+
+    /**
+     * Se ejecuta una sola vez e inicializa el Servlet.
+     */
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+	log = Logger.getLogger("ACCESOS");
+	loadLog4j(config.getServletContext());
+	super.init(config);
+
+    }
+
+    /**
+     * Cargar la configuracion de Log4j
+     */
+    private void loadLog4j(ServletContext sce) {
+	String prefix = sce.getRealPath("/");
+	PropertyConfigurator
+	.configure(prefix + "WEB-INF/conf/log4j.properties");
+	log.info("LOG cargado");
+
     }
 
     /**
@@ -80,6 +108,7 @@ public class LoginServlet extends HttpServlet {
 	if (Constantes.USER_ADMIN.equals(pUser)
 		&& Constantes.PASS_ADMIN.equals(pPass)) {
 	    // correcto: redirigir a un JSP
+	    log.info("Acceso usuario ADMINISTRADOR: " + pUser + " " + pPass);
 	    dispatch = request.getRequestDispatcher(Constantes.JSP_BACK_INDEX);
 
 	    // guardar datos en session
@@ -93,20 +122,30 @@ public class LoginServlet extends HttpServlet {
 
 	    // correcto: redirigir a un JSP
 	    dispatch = request.getRequestDispatcher(Constantes.JSP_SALUDO);
-
+	    log.info("Acceso usuario NORMAL: " + pUser + " " + pPass);
 	    // guardar datos en session
 	    // TODO recuperar usuario de la BD
 	    Persona p = new Persona(pUser, 0, Rol.USUARIO);
 	    session.setAttribute(Constantes.USER_SESSION, p);
 
-	} else {
+	} else if ((pUser == null) && (pPass == null)) {
 
+	    log.trace("entrada sin submitar formulario");
+	    dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
+
+	} else {
 	    // incorrecto: enviar de nuevo a login.jsp
 	    dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
+
+	    // Si NO es null el password, no hemos entrado por el formulario de
+	    // login
+
 	    Mensaje msg = new Mensaje(
 		    messages.getString("msg.login.incorrect"),
 		    Mensaje.MSG_TYPE_DANGER);
 	    request.setAttribute(Constantes.MSG_KEY, msg);
+	    // TODO cambiar por mensajes de Properties
+	    log.warn("Usuario incorrecto [" + pUser + "," + pPass + "]");
 
 	}
 
@@ -136,6 +175,11 @@ public class LoginServlet extends HttpServlet {
      * Carga los mensajes con el idioma establecido
      */
     private void loadMessages() {
+	if (pIdioma == null) {
+	    pIdioma = Idioma.INGLES.getLocale();
+	    log.warn("NO viene parametro idioma Ponemos " + pIdioma
+		    + " por defecto");
+	}
 
 	Locale locale = new Locale(pIdioma.split("_")[0], pIdioma.split("_")[1]);
 	messages = ResourceBundle.getBundle(Constantes.PROPERTY_I18N, locale);

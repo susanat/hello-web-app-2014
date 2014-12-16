@@ -23,8 +23,8 @@
 <head>
 
   <meta charset="UTF-8">
-
-  <title><fmt:message key="login.titulo" /></title>
+  <base href="<%=request.getContextPath()+"/" %>">
+  <title><fmt:message key="login.titulo" ></fmt:message></title>
 
   <link rel='stylesheet' href='http://codepen.io/assets/libs/fullpage/jquery-ui.css'>
   <link href="<%=Constantes.BACKOFFICE_FOLDER %>css/bootstrap.min.css" rel="stylesheet">
@@ -33,14 +33,20 @@
 </head>
 
 <body>
+	<!-- Ejemplo de mensajes con parametros -->
+	<fmt:message key="ejem.parametros">
+		<fmt:param value="uno"/>
+		<fmt:param value="dos"/>
+	</fmt:message>
 	<%@include file="includes/alerts.jsp" %>
+	<!--END:  Ejemplo de mensajes con parametros -->
  	
-	<%@ taglib prefix="hello" uri="http://www.formacion.ipartek.com"%>
+	<!--  < %@ taglib prefix="hello" uri="http://www.formacion.ipartek.com"%>
 	<hello:saluda/>	 
 	
-	<hello:saluda2/> <!-- Saludo -->
-	<hello:saluda2 nombre="pepe"/> <!-- Saludo Pepe -->
-	 
+	<hello:saluda2/> 
+	<hello:saluda2 nombre="pepe"/> 
+	 -->
   <div class="login-card "> 	
   	
     <h1><fmt:message key="login.titulo" /></h1><br>
@@ -62,7 +68,12 @@
 	 	
 	 	<%@ taglib prefix="util" uri="http://www.formacion.ipartek.com/tag"%>
 	 	
-	 	<util:selectoptions valor="<%=locales %>" texts="<%=idiomas %>" selectedvalue="<%=browserLanguage %>"/>
+	 	<util:selectoptions valor="<%=locales %>" 
+	 						texts="<%=idiomas %>" 
+	 						selectedvalue="<%=browserLanguage %>"
+	 						parameterName="<%=Constantes.PARAMETRO_IDIOMA%>"
+	 						className="form-control"
+	 						 />
 	 			
   		<!--  <select name="< % =Constantes.PARAMETRO_IDIOMA%>" class="form-control">
 		    
