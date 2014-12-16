@@ -10,14 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.bean.Mensaje;
+import com.ipartek.formacion.helloweb.bean.Persona;
 
 /**
  * Servlet implementation class LogoutServlet
  */
 public class LogoutServlet extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
+	private final static Logger log = Logger.getLogger("ACCESOS");
   
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -26,8 +31,18 @@ public class LogoutServlet extends HttpServlet {
 		
 		//recuperar session del usuario
 		HttpSession session = request.getSession();
+		
+		if ( null != session.getAttribute(Constantes.USER_SESSION)){
+			Persona usuario = (Persona)session.getAttribute(Constantes.USER_SESSION);
+			log.trace( "Deslogenado a: " + usuario.toString() );
+		}else{
+			log.warn("usuario en session es nulo");
+		}
+		
 		//poner a null su session
 		session.removeAttribute(Constantes.USER_SESSION);
+		log.trace("Usuario removido de session");
+		
 		//session.invalidate();
 		
 		//forwar a login
