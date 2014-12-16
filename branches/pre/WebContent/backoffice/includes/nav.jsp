@@ -15,7 +15,9 @@
 
             <ul class="nav navbar-top-links navbar-right">
                 <li>
-                    <a href="#"><fmt:message key="menu.logout"></fmt:message></a>
+                    <a href="<%=Constantes.PATH_LOGOUT %>">
+                    	<fmt:message key="menu.logout"></fmt:message>
+                    </a>
                 </li>
                 <!-- /.dropdown -->
             </ul>

@@ -62,20 +62,7 @@ public class LoginServlet extends HttpServlet {
 		//recoger parametros del login
 		getParameters(request);
 		
-
-		loadMessages();
-		
-		//TODO borrar ejemplo mensajes con parametros
-		log.debug(  messages.getString("ejem.parametros") );
-		
-		log.debug( I18n.getStringParametros( 
-						messages,
-						"ejem.parametros",
-						"uno",
-						"dos"
-						)
-				  );
-			
+		loadMessages();		
 		
 		//validar el usuario
 		validateUser(request);		
@@ -122,10 +109,16 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute(Constantes.USER_SESSION, p);
 			log.info("acceso usuario ADMIN ["+pUser+","+pPass+"]");
 			
+		//entrada sin submitar el formulario
+		}else if ( (pUser == null) &&( pPass==null) ){
+			log.trace("entrada sin submitar formulario");
+			dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
+			
 		//Si no Validado: retornar al login
 		}else{	
 			//incorrecto: enviar de nuevo a login.jsp
 			dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
+			
 			Mensaje msg = new Mensaje( messages.getString("msg.login.incorrect") , Mensaje.MSG_TYPE_DANGER );
 			request.setAttribute( Constantes.MSG_KEY,  msg );
 			
@@ -156,6 +149,10 @@ public class LoginServlet extends HttpServlet {
 	
 	private void loadMessages() {
 		
+		if ( pIdioma == null ){
+			pIdioma = Idioma.INGLES.getLocale();
+			log.warn("NO viene parametro idioma, Ponemos " + pIdioma + " por defecto");
+		}
 		Locale locale = new Locale( pIdioma.split("_")[0] , pIdioma.split("_")[1] );
 		messages = ResourceBundle.getBundle( Constantes.PROPERTI_I18N , locale );
 		
