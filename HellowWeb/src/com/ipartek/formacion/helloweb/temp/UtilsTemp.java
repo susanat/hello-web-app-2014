@@ -1,6 +1,8 @@
 package com.ipartek.formacion.helloweb.temp;
 
 import java.io.IOException;
+import java.net.URL;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -144,18 +146,39 @@ public class UtilsTemp {
 		return getNameFromRole(roles, intIdRole); 
 	}
 
+	
+	/**
+	 * Guarda la última url visitada
+	 * @param request peticion
+	 * @param session session actual
+	 * @return
+	 */
 	public static String cargaHistorial(HttpServletRequest request, HttpSession session) 
 	{
-		//obtenemos el actual path
-		String path = request.getRequestURL().toString();
-		
 		//creamos una session anónima si no existe
 		if(session == null) {
 			session = request.getSession(true);
-		}
+		}		
+				
+		//obtenemos el actual path
+		String path = request.getRequestURL().toString();
 		
-		//añadimos el último path visitado
-		session.setAttribute(Constantes.PARAM_SESSION_LAST_URL, path);
+		//paths descartadas para almacenar en historial TODO: Dinamizar o poner en otro sitio
+		if(! "http://localhost:8080/HelloWeb/login_jstl.jsp".equals(path)) {
+			
+			//añadimos el último path visitado
+			session.setAttribute(Constantes.PARAM_SESSION_LAST_URL, path);
+			
+		} else {
+			//obtenemos el path que habí, si no vacío
+			if(session != null) {
+				Object lastUrl = session.getAttribute(Constantes.PARAM_SESSION_LAST_URL);
+				
+				if(lastUrl != null) {
+					path = (String) lastUrl;
+				}				
+			}			
+		}
 		
 		return path;
 		
@@ -360,6 +383,18 @@ public class UtilsTemp {
 			ex.printStackTrace();
 		}		
 		return res;
+	}
+	
+	public static String getStringLangParams(String propiedad, HttpSession sesion, String langDefault, Object...params) 
+	{
+		
+		String lang = UtilsTemp.getStringLang(propiedad, sesion, langDefault);		
+		lang = MessageFormat.format(lang, params); 
+		
+		return lang;
+		
+		
+		
 	}
 
 }
