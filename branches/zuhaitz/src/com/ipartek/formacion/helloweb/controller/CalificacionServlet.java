@@ -15,7 +15,6 @@ import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.bean.Calificacion;
 import com.ipartek.formacion.helloweb.bean.Mensaje;
 import com.ipartek.formacion.helloweb.i18n.I18n;
-import com.ipartek.formacion.helloweb.i18n.Idioma;
 import com.ipartek.formacion.helloweb.listener.InitListener;
 import com.ipartek.formacion.helloweb.model.ModeloCalificacion;
 import com.ipartek.formacion.helloweb.util.MensajesIdiomas;
@@ -34,7 +33,7 @@ public class CalificacionServlet extends HttpServlet {
 	Mensaje msg;
 
 	int id = Calificacion.ID_NULL;
-	String pIdioma = Idioma.INGLES.getLocale();
+	String pIdioma = Constantes.DEFAULT_LANG;
 
 	@Override
 	public void init(final ServletConfig config) throws ServletException {
@@ -114,7 +113,7 @@ public class CalificacionServlet extends HttpServlet {
 	}
 
 	/**
-	 * Insert de un registro y gestión de mensajes al usuario.
+	 * Insert de un registro.
 	 *
 	 * @param request
 	 */

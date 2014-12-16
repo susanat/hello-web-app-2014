@@ -1,5 +1,5 @@
+<%@page import="com.ipartek.formacion.helloweb.bean.Role"%>
 <%@page import="java.util.Enumeration"%>
-<%@page import="com.ipartek.formacion.helloweb.util.Rol"%>
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
@@ -19,7 +19,7 @@
 		//Recuperar usuario de session
 		Persona p = (Persona) session.getAttribute(Constantes.USER_SESSION);
 		if (p == null) {
-			p = new Persona("anónimo", 99, Rol.INVITADO);
+			p = new Persona("anónimo", 99, new Role("Invitado"));
 			response.sendRedirect(Constantes.JSP_LOGIN);
 		}
 	%>

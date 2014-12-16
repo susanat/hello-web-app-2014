@@ -1,8 +1,10 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.ipartek.formacion.helloweb.model.ModeloRol"%>
+<%@page import="com.ipartek.formacion.helloweb.bean.Role"%>
 <%@include file="../includes/head.jsp" %>
 <%@include file="../includes/nav.jsp" %>
 
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
-<%@page import="com.ipartek.formacion.helloweb.util.Rol"%>
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
 
@@ -50,11 +52,11 @@
 		<br>
 		
 		<div class="form-group">
-				<util:selectoptions tagName="rol" 
+				<util:selectoptions tagName="role" 
 									tagClass="form-control" 
-									opValues="<%=Rol.getTextoRolList()%>" 
-									opTextos="<%=Rol.getTextoRolList()%>" 
-									selectedValue="<%=persona.getRol().toString()%>"/>
+									opValues="<%=Role.getIdRolesList(ModeloRol.getListRoles())%>"
+									opTextos="<%=Role.getNombreRolesList(ModeloRol.getListRoles())%>" 
+									selectedValue="<%=persona.getRole().toString()%>"/>
 			</div>
 
 		<input type='submit' class="btn btn-primary pull-left" value='<%=buttonValue%>'>

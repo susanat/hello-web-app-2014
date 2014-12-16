@@ -10,10 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.bean.Mensaje;
+import com.ipartek.formacion.helloweb.bean.Persona;
+import com.ipartek.formacion.helloweb.filter.JspFilter;
 import com.ipartek.formacion.helloweb.i18n.I18n;
-import com.ipartek.formacion.helloweb.i18n.Idioma;
 import com.ipartek.formacion.helloweb.util.MensajesIdiomas;
 
 /**
@@ -23,12 +26,13 @@ public class LogoutServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 6606004389468135663L;
 
+	private final static Logger log = Logger.getLogger(JspFilter.class);
+
 	RequestDispatcher dispatch = null;
 	HttpSession session = null;
 
 	ResourceBundle messages = null;
-
-	String pIdioma = Idioma.INGLES.getLocale();
+	String pIdioma = Constantes.DEFAULT_LANG;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -50,10 +54,17 @@ public class LogoutServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-			IOException {
+	IOException {
 		session = request.getSession();
+
+		if (null != session.getAttribute(Constantes.USER_SESSION)) {
+			final Persona usuario = (Persona) session.getAttribute(Constantes.USER_SESSION);
+			log.trace("Deslogueando a: " + usuario.toString());
+		} else {
+			log.warn("Usuario en session es null");
+		}
+
 		session.removeAttribute(Constantes.USER_SESSION);
-		// session.setAttribute(Constantes.USER_SESSION, null);
 
 		messages = MensajesIdiomas.loadMessages(pIdioma, session);
 
