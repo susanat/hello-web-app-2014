@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.bean.Mensaje;
 import com.ipartek.formacion.helloweb.bean.Persona;
@@ -22,6 +24,8 @@ import com.ipartek.formacion.helloweb.model.ModeloPersona;
 public class PersonaServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
+	private final static Logger log = Logger.getLogger(PersonaServlet.class);
+	
 	RequestDispatcher dispatcher = null;
 	//ModeloPersona model = null;
 	Mensaje msg = null;
@@ -29,15 +33,13 @@ public class PersonaServlet extends HttpServlet {
       
 	@Override
 	public void init(ServletConfig config) throws ServletException {		
-		super.init(config);
-		//model = new ModeloPersona();
+		super.init(config);		
 	}
 	
 	
 	@Override
 	public void destroy() {	
-		super.destroy();
-		//model=null;
+		super.destroy();		
 	}
 	
     
@@ -98,7 +100,9 @@ public class PersonaServlet extends HttpServlet {
 		//pasamos los atributos
 		request.setAttribute( Constantes.ATT_PERSONAS , personas );		
 		//forward a la vista
-		dispatcher = request.getRequestDispatcher( Constantes.JSP_BACK_PERSONA_LIST );		
+		dispatcher = request.getRequestDispatcher( Constantes.JSP_BACK_PERSONA_LIST );
+		
+		log.debug( personas.size() + " recuperadas" );
 	}
 
 
@@ -160,8 +164,10 @@ public class PersonaServlet extends HttpServlet {
 		//if (model.delete(id) ){
 		if ( InitListener.modelPersona.delete(id) ){
 			msg = new Mensaje( Constantes.MSG_REG_DELETE, Mensaje.MSG_TYPE_WARNING);
+			log.info( "Persona eliminada con ID=" + id );
 		}else{
 			msg = new Mensaje( Constantes.MSG_ERR_REG_DELETE, Mensaje.MSG_TYPE_DANGER);
+			log.error( Constantes.MSG_ERR_REG_DELETE  + " con ID=" + id);
 		}		
 		getAll(request);		
 		
