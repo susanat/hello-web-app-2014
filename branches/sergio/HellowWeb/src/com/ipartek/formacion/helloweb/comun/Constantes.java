@@ -285,7 +285,7 @@ public final class Constantes {
     /**
      * Comprueba si ha ocurrido algún error en la carga
      */
-	public static final boolean LOAD_ERROR = true;
+	public static final boolean LOAD_ERROR = false;
 
 	/**
 	 * Ruta página jsp de error

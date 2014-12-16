@@ -1,3 +1,196 @@
+1ª pregunta:
+
+¿Todo ha de pasar por servlet?
+Es decir, toda entrada a JSP, mandar a través de servlet. Un main que conduzca la aplicación.
+
+2ª pregunta:
+
+Donde controlo las autorizaciones.
+
+
+Filtro:
+
+Si ve que es mantenimiento o privada la web, que para cualquier cosa necesita que el usuario
+esté autorizado. Sí que es posible necesario este filtro, que si no encuentra el permiso
+necesario, lo mande al login.
+
+
+Estas propiedades de la página, se encontrarán en un archivo de propiedades no visible al usuario:
+
+site.maintenance = true;
+site.private = true;
+
+*** Ficheros de propiedades
+
+- Propiedades del programador
+	rutas
+	nombres jsp, servlet, etc
+	constantes de propiedades
+	constantes de atributos 
+
+- Propiedades del sitio
+	Path raiz: http://localhost:8080/helloWeb
+	Datos de conexion a la base de datos
+		path:
+		database:
+		user:
+		password: (¿cifrado?)
+	
+- Lenguaje
+
+*** FIN ficheros de propiedades
+
+
+
+
+*** Permisos:
+
+Tipo: Tabla auxiliar.
+Descripción: Contendrá los permisos a incluir en los roles. Solo modificables por el programador
+ 
+Especial:
+	El alias estará hardcodeado con constantes dentro del programa. 
+
+* Tabla: permission
+
+	id
+	alias
+	name 
+	description
+
+	primary key:  alias
+	
+* Objeto Bean: permission
+
+* Interfaz Modelo: si
+* Modelo: sí
+	- GetAll
+	- GetById
+	- Borrado: no
+	- Creacion: no
+	- Edición: no	
+
+* Servlet: No	
+
+* JSP
+	Role - Lista de permisos
+	
+* Idiomas: Si
+
+Tipos de permisos: 
+	- De acceso:
+		site.access.maintenance - El sitio se encuentra en mantenimiento
+		site.access.private - El sitio se encuentra privado	
+	
+Usuario
+	Access
+		
+		(control en filtro)
+		CHECK Maintenance   Permiso de acceso a la web en modo mantenimiento
+		CHECK Private		Permiso de acceso a la web en modo privado
+		
+		(control en head de los jsp)
+		CHECK Administrator Permiso de acceso a la parte de administración del sitio
+		CHECK Profiles		Permiso de acceso a todos los profiles de los usuarios
+		CHECK Profile		Permiso de acceso a la propia configuración del usuario
+		
+	Edit
+		(control en contenido)
+		CHECK Private Post  		Acceso a posts privados  
+				CHECK Create Post 	Permite crear posts
+				CHECK Edit Post		Permite modificar posts
+				CHECK Remove Post	Permite eliminar posts
+		
+
+La zona a mostrar u ocultar tendrá un identificador relacionado con el alias del permiso. Si el usuario
+no dispone de ese identificador, no podrá acceder a él.		
+
+*** FIN permission
+
+*** RolePermission
+	
+* Tipo tabla: Modificable
+* Descripción:
+	Contendrá la relación role - permission
+	
+* Campos:
+	¿objComun?
+	id
+	idRole
+	idAlias
+
+* Objeto Bean:
+	roles
+
+* Interfaz Modelo: si
+
+* Modelo: sí
+	- GetAll
+	- GetById
+	- Borrado: si
+	- Creacion: si
+	- Edición: no	
+
+* Servlet: No
+
+* JSP
+	Role - Lista de permisos
+	
+* Idiomas: No
+
+*** FIN RolePermission
+
+
+*** Logica del lenguaje para tablas multilenguage:
+
+1. En esta tabla, como en otras auxiliares, buscará primero el lenguaje de la siguiente forma:
+
+Opción A (no dinámica): 
+
+
+En esta opción se busca una key en cada idioma por cada alias, si existe la key dentro de la tabla. 
+Las key son hardcodeadas para cada tabla, por ejemplo, el programa sabrá que la key
+que tiene que venir de la tabla permission es:
+	permission.alias.name
+	permission.alias.description
+
+donde alias es el texto del campo alias 	
+
+Se almacenará la relación en propiedades:
+
+key.tabla.permission.name = permission.alias.name 
+key.tabla.permission.description = permission.alias.description
+
+
+1. Obtiene el texto del campo
+	- ¿Tiene formato key (formato hardcodeado en la aplicación)?
+
+2. NO: muestra el valor del campo. Si el campo está vacío muestra vacío. 
+
+2. SI: Busca la key, si no la encuentra muestra la key. 
+
+Opción B:
+
+De esta manera no es necesario guardar la relación tabla key ya que se crerá dinámicamente 
+
+	Obtiene el nombre de la tabla o el bean: permission
+	Obtiene el texto del campo alias: site.private
+	Obtiene el campo o nombre de la propiedad: description
+
+2. Buscará en el leguaje actual: permission.site.private.description
+
+3. Si no lo encuentra, utilizará el situado en el campo o propiedad. 
+
+4. En caso que esté vacío. Pondrá la key.
+
+Funciones auxiliares necesarias:	
+	- Constructor de key para properties
+	- Obtención de String con key y locate + paramas
+
+
+*** FIN Funcionamiento lenguaje para tablas multilenguage
+	
+
 NOTA:
 Si es posible, iniciar los registros de id por un número aleatorio
 
