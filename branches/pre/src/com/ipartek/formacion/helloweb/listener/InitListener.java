@@ -29,7 +29,7 @@ public class InitListener implements ServletContextListener,
 	public static boolean LOAD_ERROR = false;
 	public static String  LOAD_ERROR_MSG = null;
 	
-	public static final String PATH_LOG4J = "WEB-INFfgfsgdf/conf/log4j.properties";
+	public static final String PATH_LOG4J = "WEB-INF/conf/log4j.properties";
 	
 	public static ModeloPersona modelPersona = null;
 	public static ModeloRol modelRole = null;
@@ -80,10 +80,10 @@ public class InitListener implements ServletContextListener,
 		try{
 			String pathReal = sce.getServletContext().getRealPath("/");
 			PropertyConfigurator.configure(pathReal + PATH_LOG4J );
-			//check configration, si no hay apender es que ha fallado			
+			//check configration, si apender == null ha fallado la carga de cofiguración			
 			if ( null == LogManager.exists("ACCESOS") ){
 				LOAD_ERROR = true;
-				LOAD_ERROR_MSG = Constantes.MSG_ERR_LOAD_LOG4J;
+				LOAD_ERROR_MSG = Constantes.MSG_ERR_LOAD_LOG4J + " path: " + pathReal + PATH_LOG4J;
 			}			
 			log.debug("LOG cargado");
 		}catch( Exception e ){
