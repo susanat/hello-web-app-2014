@@ -24,6 +24,10 @@
 	<title>Login</title>
 </head>
 <body>
+<fmt:message>
+	<fmt:param value="uno"/>
+	<fmt:param value="dos"/>
+</fmt:message>
 <saluda2:saluda2 nombre="Urko"/>
 <saluda2:saluda2 />
 <hello:saludo />	

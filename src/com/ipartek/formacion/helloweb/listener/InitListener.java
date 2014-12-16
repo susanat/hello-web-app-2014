@@ -1,14 +1,17 @@
 package com.ipartek.formacion.helloweb.listener;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javax.servlet.ServletContextAttributeEvent;
 import javax.servlet.ServletContextAttributeListener;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+
 import com.ipartek.formacion.helloweb.model.ModeloPersona;
+
+//import com.ipartek.formacion.helloweb.Constantes;
 
 /**
  * Application Lifecycle Listener implementation class InitListener
@@ -16,14 +19,24 @@ import com.ipartek.formacion.helloweb.model.ModeloPersona;
  */
 public class InitListener implements ServletContextListener,
 	ServletContextAttributeListener {
-    public static ModeloPersona mPersona;
+    private final static Logger log = Logger.getLogger(InitListener.class);
+
+    public static boolean LOAD_ERROR = false;
+    public static String LOAD_ERROR_MSG = null;
+
+    public static final String PATH_LOG4J = "WEB-INFfgfsgdf/conf/log4j.properties";
+
+    public static ModeloPersona modelPersona = null;
+
+    // public static ModeloRol modelRole = null;
+    // public static ModeloCalificacion modelCalificacion = null;
 
     /**
      * Default constructor.
      */
     public InitListener() {
-	Logger logger = Logger.getAnonymousLogger();
-	logger.log(Level.SEVERE, "Se ha inicializado el servidor");
+	// Logger logger = Logger.getAnonymousLogger();
+	// logger.log(Level.SEVERE, "Se ha inicializado el servidor");
     }
 
     /**
@@ -31,12 +44,32 @@ public class InitListener implements ServletContextListener,
      */
     @Override
     public void contextInitialized(final ServletContextEvent sce) {
-	Logger logger = Logger.getAnonymousLogger();
-	logger.log(Level.INFO, "Inicializar contexto servlet", sce);
+	// Logger logger = Logger.getAnonymousLogger();
+	// logger.log(Level.INFO, "Inicializar contexto servlet", sce);
 
-	// TODO Log
-	// TODO conexion BBDD y recuperar datos
-	logger.log(Level.INFO, "Modelo persona cargado", sce);
+	// logger.log(Level.INFO, "Modelo persona cargado", sce);
+    }
+
+    /**
+     * Cargar la configuracion de Log4J
+     *
+     * @param sce
+     */
+    private void loadLog4j(final ServletContextEvent sce) {
+
+	try {
+	    String pathReal = sce.getServletContext().getRealPath("/");
+	    PropertyConfigurator.configure(pathReal + PATH_LOG4J);
+	    // check configration, si no hay apender es que ha fallado
+	    if (null == LogManager.exists("ACCESOS")) {
+		LOAD_ERROR = true;
+		// LOAD_ERROR_MSG = Constante.MSG_ERR_LOAD_LOG4J;
+	    }
+	    log.debug("LOG cargado");
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
+
     }
 
     /**
@@ -70,8 +103,8 @@ public class InitListener implements ServletContextListener,
     @Override
     public void contextDestroyed(final ServletContextEvent sce) {
 	// TODO Auto-generated method stub
-	Logger logger = Logger.getAnonymousLogger();
-	logger.log(Level.INFO, "Destruyendo persona cargado", sce);
+	// Logger logger = Logger.getAnonymousLogger();
+	// logger.log(Level.INFO, "Destruyendo persona cargado", sce);
 	// TODO cerrar conexion BBDD
 	// TODO liberar memeoria y poner a null variables
 
@@ -79,6 +112,6 @@ public class InitListener implements ServletContextListener,
 
     private void initModeloPersona() {
 	ModeloPersona.init();
-	mPersona = new ModeloPersona();
+	modelPersona = new ModeloPersona();
     }
 }
