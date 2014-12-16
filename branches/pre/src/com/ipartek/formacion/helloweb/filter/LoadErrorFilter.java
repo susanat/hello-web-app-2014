@@ -8,9 +8,13 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.log4j.Logger;
 
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.listener.InitListener;
+import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
 
 /**
  * Filtro para comprobar si ha habia un error en el <code>InitListener</code>
@@ -20,12 +24,16 @@ import com.ipartek.formacion.helloweb.listener.InitListener;
 public class LoadErrorFilter implements Filter {
 	
 	public FilterConfig filterConfig; 
-    
+	private final static Logger log = Logger.getLogger(LoadErrorFilter.class);
 
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		
+		if (  request instanceof HttpServletRequest ){
+			log.trace( ((HttpServletRequest) request).getRequestURL()  );
+		}
 		
 		if ( InitListener.LOAD_ERROR ){			
 			request.getRequestDispatcher(Constantes.JSP_ERROR).forward(request, response);
@@ -44,6 +52,7 @@ public class LoadErrorFilter implements Filter {
 	}
 
 	public void destroy() {		
+		filterConfig = null;	
 	}
 
 	
