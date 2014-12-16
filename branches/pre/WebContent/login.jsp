@@ -21,7 +21,7 @@
 
 <head>
 
-<h1>Locale: <%=request.getLocale()%> </h1>
+
 
   <meta charset="UTF-8">
 
@@ -35,6 +35,12 @@
 
 <body>
    
+<!-- Ejemplo de Mensajes con paramtros -->
+   <fmt:message key="ejem.parametros">
+   		<fmt:param value="uno" />
+   		<fmt:param value="dos" />
+   </fmt:message>
+<!-- end:Ejemplo de Mensajes con paramtros -->   
    
   <div class="login-card">
     <h1><fmt:message key="login.titulo"  ></fmt:message></h1><br>
