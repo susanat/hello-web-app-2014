@@ -5,15 +5,20 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.bean.Message;
 import com.ipartek.formacion.helloweb.bean.Persona;
+import com.ipartek.formacion.helloweb.i18n.I18n;
 import com.ipartek.formacion.helloweb.i18n.Idioma;
 
 /**
@@ -21,6 +26,8 @@ import com.ipartek.formacion.helloweb.i18n.Idioma;
  */
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+
+    private final static Logger log = Logger.getLogger(LoginServlet.class);
 
     RequestDispatcher dispatch = null;
     HttpSession sesion = null;
@@ -31,12 +38,13 @@ public class LoginServlet extends HttpServlet {
     String pIdioma = Idioma.INGLES.getLocale();
     ResourceBundle messages = null;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public LoginServlet() {
-	super();
-	// TODO Auto-generated constructor stub
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+
+	super.init(config);
+	PropertyConfigurator
+		.configure("C:/desarrollo/apache-tomcat-6.0.37/webapps/log4j.properties");
+	// log.info("Log cargado");
     }
 
     /**
@@ -57,6 +65,9 @@ public class LoginServlet extends HttpServlet {
 
 	// cargar fichero de mensajes
 	loadMensajes();
+
+	System.out.println(I18n.getStringParametros(
+		messages.getString("ejem.parametros"), "uno", "dos"));
 	// Validar el usuario
 
 	// TODO: Meterlo en funcion
@@ -68,7 +79,7 @@ public class LoginServlet extends HttpServlet {
 	    // TODO: Recuperar usuario de la base de datos
 	    Persona p = new Persona(pUser);
 	    sesion.setAttribute(Constantes.USER_SESSION, p);
-
+	    log.info("Usuario " + pUser + " logeado");
 	} else if (Constantes.USER_ADMIN_NAME.equals(pUser)
 		&& Constantes.USER_ADMIN_PASS.equals(pPass)) {
 	    // Usuario de tipo administrador, tiene que ir al backoffice
@@ -78,8 +89,15 @@ public class LoginServlet extends HttpServlet {
 	    // TODO: Fallo aqui
 	    p.setRol(Persona.Rol.ADMINISTRADOR);
 	    sesion.setAttribute(Constantes.USER_SESSION, p);
+	    // Ponemos mensaje en fichero de log
+	    log.info("Usuario " + pUser + " logeado");
+	} else if (pUser == null && pPass == null) {
+	    System.out.println("Entrada sin enviar formulario");
+	    dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
+
 	} else {
 	    // Incorrecto: Enviar de nuevo a login.jsp
+	    log.warn("Error al logearse con " + pUser + " - " + pPass);
 	    // TODO: Mirar si el login es vacio
 
 	    msg.setMsg(messages.getString("msg.login.incorrect"));
@@ -97,11 +115,18 @@ public class LoginServlet extends HttpServlet {
 
     private void loadMensajes() {
 
+	if (pIdioma == null) {
+	    pIdioma = Idioma.INGLES.getLocale();
+	    System.out
+		    .println("No viene parametro de idioma, ponemos idioma por defecto en ingles");
+	}
 	Locale locale = new Locale(pIdioma.split("_")[0], pIdioma.split("_")[1]);
 	messages = ResourceBundle.getBundle(Constantes.PROPERTY_I18N, locale);
 
 	// guardar en sesion el idioma
 	sesion.setAttribute(Constantes.USER_LANGUAGE, pIdioma);
+	log.debug("Cargados mensajes de properties " + Constantes.PROPERTY_I18N
+		+ locale);
 
     }
 

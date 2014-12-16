@@ -48,7 +48,10 @@
 	%>
 
 	
-	
+	<fmt:message key="ejem.parametros">
+		<fmt:param value="uno"/>
+		<fmt:param value="dos"/>
+	</fmt:message>
 	<hello:saluda/>
 	<hello:saluda2 nombre="Joseba"/>
 	<util:selectoptions opvalues="<%=opvalues%>" texts="<%=texts%>" selectedvalue="<%=selectedValue %>"/>

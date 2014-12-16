@@ -16,6 +16,7 @@ public class Constantes {
     public static final String JSP_BACKOFFICE = "backoffice/";
     public static final String JSP_SALUDO = "saludo.jsp";
     public static final String JSP_LOGIN = "login.jsp";
+    public static final String JSP_ERROR = "backoffice/includes/error.jsp";
     public static final String JSP_BACKOFFICE_INDEX = JSP_BACKOFFICE
 	    + "index.jsp";
     public static final String JSP_BACKOFFICE_PERSONA_LIST = JSP_BACKOFFICE
