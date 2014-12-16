@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
   <display-name>HelloWeb</display-name>
   <welcome-file-list>
-    <welcome-file>login.jsp</welcome-file>
+    <welcome-file>login</welcome-file>
   </welcome-file-list>
   <servlet>
     <description>Controlador para Login de usuarios</description>
@@ -34,22 +34,49 @@
     <servlet-name>PersonaServlet</servlet-name>
     <url-pattern>/persona</url-pattern>
   </servlet-mapping>
-  
-  
+  <servlet>
+    <description>CRUD para Calificaciones</description>
+    <display-name>CalificacionServlet</display-name>
+    <servlet-name>CalificacionServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controller.CalificacionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CalificacionServlet</servlet-name>
+    <url-pattern>/calificacion</url-pattern>
+  </servlet-mapping>
   <display-name>Prueba TagLib</display-name>
- 
-	<taglib>
-	   <taglib-uri>tagHello</taglib-uri>
-       <taglib-location>/WEB-INF/tag/tag_hello.tld</taglib-location>
-	</taglib>
- 
-  
-  <display-name>Select Options</display-name>
-  
-	<taglib>
-	   <taglib-uri>tagUtil</taglib-uri>
-       <taglib-location>/WEB-INF/tag/tag_util.tld</taglib-location>
-	</taglib>
- 
-  
+  <jsp-config>
+    <taglib>
+      <taglib-uri>http://www.formacion.ipartek.com</taglib-uri>
+      <taglib-location>/WEB-INF/tag/tag_hello.tld</taglib-location>
+    </taglib>
+    <taglib>
+      <taglib-uri>http://www.formacion.ipartek.com/tag</taglib-uri>
+      <taglib-location>/WEB-INF/tag/tag_util.tld</taglib-location>
+    </taglib>
+  </jsp-config>
+  <listener>
+    <listener-class>com.ipartek.formacion.helloweb.listener.SessionListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>com.ipartek.formacion.helloweb.listener.InitListener</listener-class>
+  </listener>
+  <filter>
+    <display-name>LoadErrorFilter</display-name>
+    <filter-name>LoadErrorFilter</filter-name>
+    <filter-class>com.ipartek.formacion.helloweb.filter.LoadErrorFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>LoadErrorFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <filter>
+    <display-name>JspFilter</display-name>
+    <filter-name>JspFilter</filter-name>
+    <filter-class>com.ipartek.formacion.helloweb.filter.JspFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>JspFilter</filter-name>
+    <url-pattern>*.jsp</url-pattern>
+  </filter-mapping>
 </web-app>

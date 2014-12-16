@@ -1,25 +1,25 @@
+<%@page import="com.ipartek.formacion.helloweb.bean.Calificacion"%>
 <%@include file="../includes/head.jsp" %>
 <%@include file="../includes/nav.jsp" %>
  
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
-<%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
 
 	<div class="panel panel-primary ">
 	  <div class="panel-heading">
-		 <h1 class="panel-title"> Listado Personas</h1> 
+		 <h1 class="panel-title"> Listado Calificaciones</h1> 
 	  </div>
 	  <div class="panel-body">
 	        
 	    <!--  
-		<%
-		ArrayList<Persona> personas = (ArrayList<Persona>) request.getAttribute(Constantes.ATT_PERSONAS);
+		< %
+		ArrayList<Calificacion> califiaciones = (ArrayList<Calificacion>) request.getAttribute(Constantes.ATT_CALIFICACIONES);
 		
-		if(personas == null){
+		if(califiaciones == null){
 		%>
 			    <h2>No existe ninguna persona, por favor, cree una nueva persona</h2>
-		<%
+		< %
 		}else{%>
 		    <table id="tabla" class="display" cellspacing="0" width="100%">
 		        <thead>
@@ -44,36 +44,35 @@
 		 
 		        <tbody>
 		           
-		            <%
-					    Persona pers=null;
-					    for(int i=0; i<personas.size(); i++){
-							pers= personas.get(i);
+		            < %
+					    Calificacion califi=null;
+					    for(int i=0; i<califiaciones.size(); i++){
+							califi= califiaciones.get(i);
 					%>
 							<tr>
 								 <td>
-								 	<a href="<%= Constantes.CONTROLLER_PERSONA+"?id="+pers.getId() %>" title="id">
-								  		<%= pers.getId() %>
+								 	<a href="< %= Constantes.CONTROLLER_PERSONA+"?id="+pers.getId() %>" title="id">
+								  		< %= califi.getId() %>
 								  	</a>
 								 </td>
-								 <td><%= pers.getNombre() %></td>
-								 <td><%= pers.getEdad() %></td>
-								 <td><%= pers.getRol() %></td>
+								 <td>< %= califi.getValor() % ></td>
+								 <td>< %= califi.getDescripcion()() % ></td>
 								 <td>
-								 	  <form action="<%=request.getContextPath()+"/"+ Constantes.CONTROLLER_PERSONA %>" method="post">
+								 	  <form action="< %=request.getContextPath()+"/"+ Constantes.CONTROLLER_PERSONA %>" method="post">
 			
-										<input type="hidden" name="id" value="<%= pers.getId() %>">
-										<input type="hidden" name="<%=Constantes.OP_KEY %>" value="<%=Constantes.OP_DELETE%>">
+										<input type="hidden" name="id" value="< %= pers.getId() %>">
+										<input type="hidden" name="< %=Constantes.OP_KEY %>" value="< %=Constantes.OP_DELETE%>">
 										<input type="submit" value="Eliminar" class="btn btn-danger btn-outline btn-xs">
 									</form>
 								</td>
 							 </tr>
-						<%
+						 < % 
 					    } //end for
 					    %>
 				 	 
 			    </tbody>
 		    </table>
-		<% 
+		< % 
 			} //end:persona not null
 		%>
 		
@@ -83,9 +82,8 @@
 		        <thead>
 		            <tr>
 		                <th>id</th>
-		                <th>Nombre</th>
-		                <th>Edad</th>
-		                <th>Rol</th>
+		                <th>Valor</th>
+		                <th>Descripcion</th>
 		                <th>[<i class="fa fa-times"></i>]</th>
 		            </tr>
 		        </thead>
@@ -93,27 +91,26 @@
 		        <tfoot>
 		            <tr>
 		                <th>id</th>
-		                <th>Nombre</th>
-		                <th>Edad</th>
-		                <th>Rol</th>
+		                <th>Valor</th>
+		                <th>Descripcion</th>
 		                <th>[<i class="fa fa-times"></i>]</th>
 		            </tr>
 		        </tfoot>
 		 
 		        <tbody>
 		           
-		          <c:forEach var="item" begin="0" items="${requestScope.personas}">
+		          <c:forEach var="item" begin="0" items="${requestScope.calificaiones}">
 							<tr>
 								 <td>
-								 	<a href="<%=Constantes.CONTROLLER_PERSONA%>?id=<c:out value="${item.id}"/>" title="id">
+								 	<a href="<%=Constantes.CONTROLLER_CALIFICACION%>?id='<c:out value="${item.id}"/>'" title="id">
 								  		<c:out value="${item.id}"/> 
 								  	</a>
 								 </td>
-								 <td><c:out value="${item.nombre}"/></td>
-								 <td><c:out value="${item.edad}"/></td>
-								 <td><c:out value="${item.rol}"/></td>
+								 <td><c:out value="${item.valor}"/></td>
+								 <td><c:out value="${item.descripcion}"/></td>
+								 
 								 <td>
-								 	  <form action="<%=request.getContextPath()+"/"+ Constantes.CONTROLLER_PERSONA %>" method="post">
+								 	  <form action="<%=request.getContextPath()+"/"+ Constantes.CONTROLLER_CALIFICACION %>" method="post">
 			
 										<input type="hidden" name="id" value="<c:out value="${item.id}"/>" >
 										<input type="hidden" name="<%=Constantes.OP_KEY %>" value="<%=Constantes.OP_DELETE%>">
@@ -124,9 +121,9 @@
 					</c:forEach>  
 			    </tbody> <!-- Fin del body table -->
 		    </table><!-- Fin de tabla -->
-			<p>
-		     	<a href="<%= request.getContextPath()+"/"+Constantes.JSP_BACK_PERSONA_FORM %>" class="btn btn-primary btn-sm">
-				   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> AÃ±adir
+			<p> 
+		     	<a href="<%= request.getContextPath()+"/"+Constantes.JSP_BACK_CALIFICACION_FORM %>" class="btn btn-primary btn-sm">
+				   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Añadir
 				</a>
 		    <p>
 			

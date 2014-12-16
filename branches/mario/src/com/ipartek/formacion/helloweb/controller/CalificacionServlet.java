@@ -2,55 +2,36 @@ package com.ipartek.formacion.helloweb.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
-
 import com.ipartek.formacion.helloweb.Constantes;
-import com.ipartek.formacion.helloweb.Rol;
+import com.ipartek.formacion.helloweb.bean.Calificacion;
 import com.ipartek.formacion.helloweb.bean.Mensaje;
-import com.ipartek.formacion.helloweb.bean.Persona;
 import com.ipartek.formacion.helloweb.listener.InitListener;
 
 /**
- * Servlet implementation class PersonaServlet.
+ * Servlet implementation class CalificacionServlet.
  */
-public class PersonaServlet extends HttpServlet {
+public class CalificacionServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     RequestDispatcher dispatcher;
-    ResourceBundle messages = null;
+
     Mensaje msg = null;
-    private static Logger log = null;
-    int id = Persona.ID_NULL; // identificador persona
+    int id = Calificacion.ID_NULL; // identificador persona
 
     /**
      * Se ejecuta una sola vez e inicializa el Servlet.
      */
     @Override
     public void init(ServletConfig config) throws ServletException {
-	log = Logger.getLogger(LoginServlet.class);
-	loadLog4j(config.getServletContext());
+	// TODO Auto-generated method stub
 	super.init(config);
-
-    }
-
-    /**
-     * Cargar la configuracion de Log4j
-     */
-    private void loadLog4j(ServletContext sce) {
-	String prefix = sce.getRealPath("/");
-	PropertyConfigurator
-	.configure(prefix + "WEB-INF/conf/log4j.properties");
-	log.info("LOG cargado");
 
     }
 
@@ -70,7 +51,7 @@ public class PersonaServlet extends HttpServlet {
 	try {
 	    id = Integer.parseInt(req.getParameter("id"));
 	} catch (Exception e) {
-	    id = Persona.ID_NULL;
+	    id = Calificacion.ID_NULL;
 
 	}
 
@@ -96,7 +77,7 @@ public class PersonaServlet extends HttpServlet {
 
 	// comprobar si es getAll o getById
 
-	if (id == Persona.ID_NULL) {
+	if (id == Calificacion.ID_NULL) {
 	    getAll(request);
 	} else {
 	    getById(request);
@@ -106,26 +87,29 @@ public class PersonaServlet extends HttpServlet {
     }
 
     private void getById(HttpServletRequest request) {
-	Persona p = InitListener.modelPersona.getById(id);
+	Calificacion p = InitListener.modeloCalificacion.getById(id);
 	// pasamos los atributos
-	request.setAttribute(Constantes.ATT_PERSONA, p);
+	request.setAttribute(Constantes.ATT_CALIFICACION, p);
 	// cargamos el dispatcher
+
+	// TODO CAMBIAR A FORM CALIFICACION
 	dispatcher = request
-		.getRequestDispatcher(Constantes.JSP_BACK_PERSONA_FORM);
+		.getRequestDispatcher(Constantes.JSP_BACK_CALIFICACION_FORM);
 
     }
 
     private void getAll(HttpServletRequest request) {
 	// acceder al modelo
 
-	ArrayList<Persona> personas = InitListener.modelPersona.getAll();
+	ArrayList<Calificacion> calificaciones = InitListener.modeloCalificacion
+		.getAll();
 
 	// pasamos los atributos
-	request.setAttribute(Constantes.ATT_PERSONAS, personas);
+	request.setAttribute(Constantes.ATT_CALIFICACION, calificaciones);
 
 	// forward a la vista
 	dispatcher = request
-		.getRequestDispatcher(Constantes.JSP_BACK_PERSONA_LIST);
+		.getRequestDispatcher(Constantes.JSP_BACK_CALIFICACION_LIST);
 
     }
 
@@ -174,11 +158,11 @@ public class PersonaServlet extends HttpServlet {
      * @param request
      */
     private void create(HttpServletRequest request) {
-	Persona p = getParametrosPersona(request);
+	Calificacion p = getParametrosCalificacion(request);
 	if (p != null) {
 	    // instertalo
 	    // TODO comprobar la inserccion
-	    InitListener.modelPersona.insert(p);
+	    InitListener.modeloCalificacion.insert(p);
 	    msg = new Mensaje(Constantes.MSG_REG_CREATE,
 		    Constantes.MSG_SUCCESS, 1);
 	} else {
@@ -187,10 +171,10 @@ public class PersonaServlet extends HttpServlet {
 	}
 
 	// enviar atributos
-	request.setAttribute(Constantes.ATT_PERSONA, p);
+	request.setAttribute(Constantes.ATT_CALIFICACION, p);
 	// forward a la vista
 	dispatcher = request
-		.getRequestDispatcher(Constantes.JSP_BACK_PERSONA_FORM);
+		.getRequestDispatcher(Constantes.JSP_BACK_CALIFICACION_FORM);
     }
 
     /**
@@ -200,12 +184,12 @@ public class PersonaServlet extends HttpServlet {
      */
     private void update(HttpServletRequest request) {
 	// recoger parametros
-	Persona p = getParametrosPersona(request);
+	Calificacion p = getParametrosCalificacion(request);
 	if (p != null) {
 	    // modificar
 	    p.setId(id);
 	    // TODO comprobar que realmente se ha modificado
-	    InitListener.modelPersona.update(p);
+	    InitListener.modeloCalificacion.update(p);
 	    // enviar atributos
 	    msg = new Mensaje(Constantes.MSG_REG_UPDATE,
 		    Constantes.MSG_SUCCESS, 1);
@@ -214,11 +198,11 @@ public class PersonaServlet extends HttpServlet {
 		    Constantes.MSG_DANGER, 4);
 	}
 
-	request.setAttribute(Constantes.ATT_PERSONA, p);
+	request.setAttribute(Constantes.ATT_CALIFICACION, p);
 
 	// forward a la vista
 	dispatcher = request
-		.getRequestDispatcher(Constantes.JSP_BACK_PERSONA_FORM);
+		.getRequestDispatcher(Constantes.JSP_BACK_CALIFICACION_FORM);
     }
 
     /**
@@ -229,14 +213,12 @@ public class PersonaServlet extends HttpServlet {
      */
     private void delete(HttpServletRequest request) {
 
-	if (InitListener.modelPersona.delete(id)) {
+	if (InitListener.modeloCalificacion.delete(id)) {
 	    msg = new Mensaje(Constantes.MSG_REG_DELETE,
 		    Constantes.MSG_SUCCESS, 1);
-	    log.info("Persona eliminada con ID= " + id);
 	} else {
 	    msg = new Mensaje(Constantes.MSG_ERR_PARAMETERS,
 		    Constantes.MSG_DANGER, 4);
-	    log.error(Constantes.MSG_ERR_DELETE);
 	}
 	getAll(request);
     }
@@ -250,18 +232,13 @@ public class PersonaServlet extends HttpServlet {
      * @return <code>Persona</code> inicializada con los parametros de la
      *         request, en caso de fallo null.
      */
-    private Persona getParametrosPersona(HttpServletRequest request) {
-	Persona p = null;
+    private Calificacion getParametrosCalificacion(HttpServletRequest request) {
+	Calificacion p = null;
 	try {
-	    p = new Persona("");
-	    p.setNombre(request.getParameter("nombre"));
-	    p.setEdad(Integer.parseInt(request.getParameter("edad")));
-	    if (Rol.ADMINISTRADOR.toString()
-		    .equals(request.getParameter("rol"))) {
-		p.setRol(Rol.ADMINISTRADOR);
-	    } else {
-		p.setRol(Rol.USUARIO);
-	    }
+	    p = new Calificacion(0);
+	    p.setValor(Integer.parseInt(request.getParameter("valor")));
+	    p.setDescripcion(request.getParameter("descripcion"));
+
 	} catch (Exception e) {
 	    p = null;
 	    e.printStackTrace();
