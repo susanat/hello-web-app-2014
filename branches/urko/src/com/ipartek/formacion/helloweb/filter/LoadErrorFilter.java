@@ -23,9 +23,6 @@ public class LoadErrorFilter implements Filter {
     /**
      * Default constructor.
      */
-    public LoadErrorFilter() {
-	// TODO Auto-generated constructor stub
-    }
 
     public FilterConfig filterConfig;
     private final static Logger log = Logger.getLogger(LoadErrorFilter.class);
