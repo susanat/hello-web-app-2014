@@ -1,3 +1,4 @@
+<%@page import="com.ipartek.formacion.helloweb.listener.InitListener"%>
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
 <%@page isErrorPage="true"%>
 
@@ -19,8 +20,11 @@
                 <h2>
                     This is an error, bitch</h2>
                 <div class="error-details">
-                  <h2>  <%=exception.getMessage() %>
+                  <h2>  
                   </h2>
+                </div>
+                <div id="errorLoad">
+                	
                 </div>
                 <div class="error-actions">
                     <a href="#" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>

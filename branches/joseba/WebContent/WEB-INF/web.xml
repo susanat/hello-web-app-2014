@@ -2,7 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
   <display-name>HelloWeb</display-name>
   <welcome-file-list>
-    <welcome-file>login.jsp</welcome-file>
+    <welcome-file>login</welcome-file>
   </welcome-file-list>
   <servlet>
     <description>Controlador para login de usuarios</description>
@@ -61,4 +61,33 @@
     <servlet-name>RoleServlet</servlet-name>
     <url-pattern>/RoleServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description>Servlet para cosas comunes a todos nuestros servlets</description>
+    <display-name>ServletMaestro</display-name>
+    <servlet-name>ServletMaestro</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controller.ServletMaestro</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletMaestro</servlet-name>
+    <url-pattern>/ServletMaestro</url-pattern>
+  </servlet-mapping>
+  <filter>
+    <display-name>LoadErrorFilter</display-name>
+    <filter-name>LoadErrorFilter</filter-name>
+    <filter-class>com.ipartek.formacion.helloweb.filter.LoadErrorFilter</filter-class>
+  </filter>
+   <filter>
+    <display-name>LoadTraceFilter</display-name>
+    <filter-name>LoadTraceFilter</filter-name>
+    <filter-class>com.ipartek.formacion.helloweb.filter.LoadTraceFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>LoadErrorFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>LoadTraceFilter</filter-name>
+    <url-pattern>*.jsp</url-pattern>
+  </filter-mapping>
+ 
 </web-app>
