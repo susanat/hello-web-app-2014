@@ -21,7 +21,9 @@
 
 <head>
 
-
+  <!-- Ruta Base para todas nuestras url relativas -->
+  <base href="<%=request.getContextPath()+"/"%>">
+	
 
   <meta charset="UTF-8">
 
