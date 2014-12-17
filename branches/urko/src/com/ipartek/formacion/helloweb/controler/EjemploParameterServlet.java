@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 /**
  * Servlet implementation class EjemploParameterServlet
  */
@@ -43,6 +45,37 @@ public class EjemploParameterServlet extends HttpServlet {
     protected void doPost(final HttpServletRequest request,
 	    final HttpServletResponse response) throws ServletException,
 	    IOException {
+	String tipo = request.getParameter("tipoRespuesta");
+	if ("html".equalsIgnoreCase(tipo)) {
+	    responseHTML(request, response);
+
+	} else {
+	    if ("json".equalsIgnoreCase(tipo)) {
+		responseJSON(request, response);
+	    } else {
+		throw new ServletException();
+	    }
+	}
+
+    }
+
+    private void responseJSON(final HttpServletRequest request,
+	    final HttpServletResponse response) throws IOException {
+	response.setContentType("aplication/json");
+	response.setCharacterEncoding("utf-8");
+	PrintWriter out = response.getWriter();
+	Gson gson = new Gson();
+	// rellenar con gusto del ususario
+	String gustos[] = request.getParameterValues("pasa[]");
+	String textJson = gson.toJson(gustos);
+	out.print(textJson);
+
+	out.flush();
+
+    }
+
+    private void responseHTML(final HttpServletRequest request,
+	    final HttpServletResponse response) throws IOException {
 	response.setContentType("text/html");
 	PrintWriter out = response.getWriter();
 
@@ -53,6 +86,7 @@ public class EjemploParameterServlet extends HttpServlet {
 	out.println("<body bgcolor=\"white\">");
 	out.println("<h1>Tus gustos</h1>");
 	String gustos[] = request.getParameterValues("pasa[]");
+
 	if (gustos != null) {
 	    out.println("<ol>");
 	    for (String g : gustos) {
@@ -64,10 +98,11 @@ public class EjemploParameterServlet extends HttpServlet {
 	    out.println("</li>");
 	    out.println("</ol>");
 	} else {
-
+	    out.println("eres un soso");
 	}
 
 	out.println("</body>");
 	out.println("</html>");
+
     }
 }
