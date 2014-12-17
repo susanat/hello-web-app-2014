@@ -22,7 +22,7 @@
 				<c:set var="title" value="lasdfasdf" />
 				<!-- FIN Titulo de la pagina -->
 	        	
-	        	Contenido
+	        	<h1>Usuarios con sesiones activas</h1>
 	        	
         
 

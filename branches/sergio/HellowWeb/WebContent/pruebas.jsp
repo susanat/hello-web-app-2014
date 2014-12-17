@@ -61,14 +61,14 @@
     Prueba de paths 1: <br>    
     <% 
     
-    
+/*    
     	ServletContext sc = this.getServletContext();
     	String path = new File(sc.getRealPath("/")).getAbsolutePath();
     	List<String> files =  ClsUtilsFicheros.ListResursiveFolder(path);
     	for(String str : files) {
     		out.print(str + "<br>");
     	}
-    
+    */
     
     %>
     
@@ -108,6 +108,43 @@
 	        </tr>
 	    </c:forEach>    
 	</table>  
+	
+	
+	<div class="row">
+	
+		<h1>Ejemplo getParameterValues</h1>
+		<form action="ejemploParameterValuesServlet" method="post" >
+			<div class="options">
+				<label class="checkbox-inline">
+				  <input type="checkbox" name="checkboxEnLinea" value="opción_1"> 1
+				</label>
+				<label class="checkbox-inline">
+				  <input type="checkbox" name="checkboxEnLinea" value="opción_2"> 2
+				</label>
+				<label class="checkbox-inline">
+				  <input type="checkbox" name="checkboxEnLinea" value="opción_3"> 3
+				</label>
+				<p> Selecciona el MIME-TYPE de response:</p>
+				<div class="radio">
+				  <label>
+				    <input type="radio" name="opciones" id="opciones_1" value="text/html" checked>
+				    HTML
+				  </label>
+				</div>
+				<div class="radio">
+				  <label>
+				    <input type="radio" name="opciones" id="opciones_2" value="application/json">
+				    JSON
+				  </label>
+				</div>
+			</div>
+			
+			
+			<input type="submit" value="enviar">
+		</form>
+	</div>
+
+	
 
 </div>
            <!-- sidebar -->

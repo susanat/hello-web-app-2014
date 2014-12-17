@@ -14,7 +14,9 @@ public class ShutdownExample extends HttpServlet {
 	//Access methods for serviceCounter   
 	public synchronized void enteringServiceMethod() {		serviceCounter++;    }    
 	public synchronized void leavingServiceMethod() {		serviceCounter--;    }    
-	protected synchronized int numServices() {		return serviceCounter;} 
+	protected synchronized int numServices() {		return serviceCounter;	} 
 	
+	//puesto por mi
+	public synchronized int getNumServices() { return serviceCounter;} 
 
 }
