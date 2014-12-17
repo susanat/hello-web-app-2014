@@ -9,7 +9,7 @@
 <html>
 
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Saludo</title>
 </head>
 
@@ -53,31 +53,22 @@
  	%>
  	</ol>
  	
- 	<h2>Request Parameters</h2>
-	<ol>
-	<% 
-		response.setContentType("text/html");
-	    Enumeration par = request.getParameterNames();
-	    while (par.hasMoreElements()) {
-	    	String key = (String)par.nextElement();
-	        String value = request.getHeader(key);
-	        out.println("<li>" + key + ": <b>" + value + "</b></li>");
-	    }
- 	%>
- 	</ol>
- 	
- 	<h2>Request Attributes</h2>
-	<ol>
-	<% 
-		response.setContentType("text/html");
-	    Enumeration attr = request.getAttributeNames();
-	    while (attr.hasMoreElements()) {
-	    	String key = (String)attr.nextElement();
-	        String value = request.getHeader(key);
-	        out.println("<li>" + key + ": <b>" + value + "</b></li>");
-	    }
- 	%>
- 	</ol>
+ 	<h2>Ejemplo getParameterValues</h2>
+ 	<form action="ejemploParameterValueServlet" method="post">
+ 		¿Cuáles son tus pasatiempos favoritos?<br>
+		<input type="checkbox" name="pasa" value="tv">TV<br>
+		<input type="checkbox" name="pasa" value="libros">Libros<br>
+		<input type="checkbox" name="pasa" value="musica">Música<br>
+		<input type="checkbox" name="pasa" value="otros">Otros<br>
+		
+		Selecciona el tipo de response
+		<select name="tipoRespuesta">
+			<option value="text/html" selected>HTML</option>
+			<option value="application/json">JSON</option>
+		</select>
+		
+		<input type="submit" value="Enviar">
+	</form>
  
 </body>
 
