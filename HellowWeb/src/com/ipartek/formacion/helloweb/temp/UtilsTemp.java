@@ -376,6 +376,7 @@ public class UtilsTemp {
 			//Cargar resourceBundle o properties dependiente del idioma
 			// Debemos indicara el package donde se encuentra y el nombre del /properties sin la extension del locale
 			ResourceBundle messages = ResourceBundle.getBundle(Constantes.PACKAGE_LANG, locale );
+						
 			
 			//obtenemos el texto del mensaje
 			res = messages.getString(propiedad);			

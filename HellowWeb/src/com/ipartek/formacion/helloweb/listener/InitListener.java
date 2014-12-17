@@ -53,6 +53,10 @@ public class InitListener implements ServletContextListener, ServletContextAttri
          
        //TODO: carga de tablas auxiliares no modificables
          System.out.println("Carga de tablas auxiliares no modificables (tabla de nombres de roles, por ejemplo)");
+         
+       //TODO: preparación de objetos de estadísticas
+         System.out.println("Preparación objetos de estadísticas");
+         
     }
     
     
@@ -76,9 +80,7 @@ public class InitListener implements ServletContextListener, ServletContextAttri
 				//TODO: significa que no se han cargado los logs por alguna razón
 				System.out.println("Error en la carga del log");
 			}
-			
-			
-			
+					
 			
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block

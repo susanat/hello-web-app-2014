@@ -74,4 +74,14 @@
     <filter-name>LoadErrorFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+  <servlet>
+    <description>Ejemplo para diferentes values de checkbox y para devolución en JSON o HTML</description>
+    <display-name>EjemploParameterValuesServlet</display-name>
+    <servlet-name>EjemploParameterValuesServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controller.EjemploParameterValuesServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EjemploParameterValuesServlet</servlet-name>
+    <url-pattern>/ejemploParameterValuesServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

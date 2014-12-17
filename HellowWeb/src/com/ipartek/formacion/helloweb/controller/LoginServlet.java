@@ -43,7 +43,7 @@ public class LoginServlet extends customServlet {
 		super();
 		
 		this.nameClass = this;
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	
@@ -127,40 +127,19 @@ public class LoginServlet extends customServlet {
 		//obtenemos la sesion
 		HttpSession session = request.getSession();
 
-		
+
+		/*
 		try {
 			Properties properties = new Properties();
-			
-			/*
-			properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(
-					"/com/ipertek/formacion/helloweb/i18n/lang_en_GB.properties")
-					);
-			*/
-			
-			//String path = new File(this.getServletContext().getRealPath("/")).getAbsolutePath();
-			
-			//String pathcompletofile = "C:\\desarrollo\\Web\\apache-tomcat-6.0.43\\webapps\\HelloWeb\\WEB-INF\\classes\\com\\ipartek\\formacion\\helloweb\\i18n\\lang_en_GB.properties";
-			//InputStream input = getServletContext().getResourceAsStream(pathcompletofile); 
-			
-			//InputStream input = getServletContext().getResourceAsStream(path + "\\WEB-INF\\classes\\com\\ipartek\\formacion\\helloweb\\i18n\\" + "lang_en_GB.properties");
-			//InputStream input = getServletContext().getResourceAsStream(path + "/WEB-INF/classes/com/ipartek/formacion/helloweb/i18n" + "lang_en_GB.properties");
-			
-			
-			
 			
 			//Abrir un properties
 			InputStream input = getServletContext().getResourceAsStream("/WEB-INF/classes/com/ipartek/formacion/helloweb/i18n/" + "lang_es_ES.properties");			
 			properties.load(input);
 			request.setAttribute("properties", properties);
-			
-			
-			
-			
+						
 			//añado una propiedad
 			properties.put("puesta.por.el.ayuntamiento", "Sí, me han puesto");
-				
-			
-			
+						
 			//salvar
 			//URL resourceUrl = getServletContext().getResource("/WEB-INF/classes/com/ipartek/formacion/helloweb/i18n/" + "lang_es_ES.properties");
 			
@@ -170,18 +149,14 @@ public class LoginServlet extends customServlet {
 			//File file = new File(getServletContext().getContextPath() + resourceUrl.toURI());
 			OutputStream output = new FileOutputStream(file);
 			properties.store(output, "Prueba");
-			
-			
-			
-			
-			
+						
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 		
 		
 		//request.getRequestDispatcher("/WEB-INF/properties.jsp").forward(request, response);
-				
+		*/	
 		
 		
 		
@@ -377,6 +352,11 @@ public class LoginServlet extends customServlet {
 		finally {		
 			contador.leavingServiceMethod();	
 		}		
+		
+		
+		
+		log.info(String.valueOf(contador.getNumServices()));
+		
 		
 		//TODO comprobar Autorizacion del usuario en el servlet tambi�n		
 	}
