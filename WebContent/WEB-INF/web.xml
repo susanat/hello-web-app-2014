@@ -84,4 +84,14 @@
     <filter-name>JspFilter</filter-name>
     <url-pattern>*.jsp</url-pattern>
   </filter-mapping>
+  <servlet>
+    <description>Servlet de ejemplo para recoger parametro con varios valores y retornar en formato JSON o HMLT</description>
+    <display-name>EjemploParamaterValuesServlet</display-name>
+    <servlet-name>EjemploParamaterValuesServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controller.EjemploParamaterValuesServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EjemploParamaterValuesServlet</servlet-name>
+    <url-pattern>/ejemploParamaterValuesServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
