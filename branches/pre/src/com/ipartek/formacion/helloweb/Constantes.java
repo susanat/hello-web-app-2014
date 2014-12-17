@@ -55,6 +55,7 @@ public class Constantes {
 	public static final String PARAMETRO_USER = "user";
 	public static final String PARAMETRO_PASS = "pass";
 	public static final String PARAMETRO_IDIOMA = "idioma";
+	public static final String PARAMETRO_RECUERDAME = "recuerdame";
 
 	// Mensajes
 	public static final String MSG_KEY = "msg";
