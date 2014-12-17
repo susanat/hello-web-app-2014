@@ -45,6 +45,7 @@ public class JspFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		
 	
+		//comprobar que request sea de tipo HttpServletRequest
 		if (  request instanceof HttpServletRequest ){
 			log.trace( ((HttpServletRequest) request).getRequestURL()  );
 			requesthttp =  (HttpServletRequest) request;
