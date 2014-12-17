@@ -15,7 +15,7 @@
 <fmt:setLocale value="${languaje}"/>
 <fmt:setBundle basename="<%=Constante.PROPERTI_I18N %>"/>
 <!DOCTYPE html>
-<html lang="${languaje} }">
+<html lang="${language }">
 <head>
 	<base href="<%=request.getContextPath()+"/"%>">
 	<meta charset="utf-8">
@@ -25,10 +25,12 @@
 	<title>Login</title>
 </head>
 <body>
+<!-- 
 <fmt:message>
 	<fmt:param value="uno"/>
 	<fmt:param value="dos"/>
 </fmt:message>
+ -->
 <saluda2:saluda2 nombre="Urko"/>
 <saluda2:saluda2 />
 <hello:saludo />	
