@@ -76,7 +76,9 @@ public class LogoutServlet extends HttpServlet {
 	// request.setAttribute(Constante.MSG_KEY, Constante.MSG_LOGOUT);
 
 	// response.sendRedirect(Constante.JSP_LOGIN);
-	Mensaje ms = new Mensaje(Constante.MSG_LOGOUT, "");
+	Mensaje msg = new Mensaje(Constante.MSG_LOGOUT, Mensaje.MSG_TYPE_INFO);
+	request.setAttribute(Constante.MSG_KEY, msg);
+
 	request.getRequestDispatcher(Constante.JSP_LOGIN).forward(request,
 		response);
 

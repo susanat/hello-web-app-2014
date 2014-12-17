@@ -47,6 +47,7 @@ public class Constante {
     public static final String PARAMETRO_ID = "codigo";
     public static final String PARAMETRO_ACCION = "codigo";
     public static final String PARAMETRO_IDIOMA = "idioma";
+    public static final String PARAMETRO_RECUERDAME = "recuerdame";
 
     // mensajes
     public static final String MSG_KEY = "msg";

@@ -57,6 +57,7 @@
   	<util:selectoroptions parameterName="<%=Constante.PARAMETRO_IDIOMA %>" 
   						opValues="<%=Idioma.getIndices() %>" 
   						opTexts="<%=Idioma.getValores() %>"/>
+  	<div><label for="<%=Constante.PARAMETRO_RECUERDAME%>"><fmt:message key="login.form.recuerdame"></fmt:message></label><input id="<%=Constante.PARAMETRO_RECUERDAME%>"type ="checkbox" name="<%=Constante.PARAMETRO_RECUERDAME %>"></div>
     <input type="submit" name="enviar" class="login login-submit" value="<fmt:message key="login.form.submit"></fmt:message>">
   </form>
 
