@@ -1,7 +1,6 @@
 package com.ipartek.formacion.helloweb.controler;
 
 import java.io.IOException;
-import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -71,13 +70,14 @@ public class LoginServlet extends HttpServlet {
 	// loadMessages();
 	session = request.getSession();
 	user = UserService.find(pUser, pPass);
-/*
-	Object arguments = null;
-	log.debug(messages.getString("ejem.parametros"));
-	log.debug(I18n.getStringParametros(
-		messages.getString("ejem.paramtros"), "uno", "dos"));
-	MessageFormat.format(messages.getString("ejem.parametros"), arguments);
-*/
+	/*
+	 * Object arguments = null;
+	 * log.debug(messages.getString("ejem.parametros"));
+	 * log.debug(I18n.getStringParametros(
+	 * messages.getString("ejem.paramtros"), "uno", "dos"));
+	 * MessageFormat.format(messages.getString("ejem.parametros"),
+	 * arguments);
+	 */
 	validateLanguaje(request);
 	validateUser(request);
 
@@ -124,4 +124,5 @@ public class LoginServlet extends HttpServlet {
 	pPass = request.getParameter(Constante.PARAMETRO_PASS);
 	pIdioma = request.getParameter(Constante.PARAMETRO_IDIOMA);
     }
+
 }
