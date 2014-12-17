@@ -66,6 +66,14 @@
                        />
     			  
     <br>
+    <br>
+    
+    <input type="checkbox" name="<%=Constantes.PARAMETRO_RECUERDAME%>" id="<%=Constantes.PARAMETRO_RECUERDAME%>">
+    <label for="<%=Constantes.PARAMETRO_RECUERDAME%>">Recuerdame</label> 
+     
+    
+    <br>
+    <br>
     
     <input type="submit" name="login" class="login login-submit" 
            value="<fmt:message key="login.form.submit"></fmt:message>"
