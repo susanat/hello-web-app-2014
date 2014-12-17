@@ -8,6 +8,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>Bienvenida</title>
+		<base href="<%=request.getContextPath()+"/"%>">
 </head>
 <body>
 <% 
@@ -16,7 +17,7 @@
 	if(persona == null){
 	    persona = new Persona();
 	    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-	    response.sendRedirect(Constante.JSP_LOGIN);
+	 //   response.sendRedirect(Constante.JSP_LOGIN);
 	}
 	
 %>
@@ -78,5 +79,17 @@
 	        }
 	%>
 	</ol>
+	<form action="ejemploParameterServlet" method="post">
+		<label for="pasa_tv">TV</label><input type="checkbox" name="pasa[]" id="pasa_tv" value="tv">
+		<label for="pasa_libro">Libro</label><input type="checkbox" name="pasa[]" id="pasa_libro" value="libro">
+		<label for="pasa_musica">Musica</label><input type="checkbox" name="pasa[]" id="pasa_musica" value="musica">
+		<label for="pasa_otro">Otros</label><input type="checkbox" name="pasa[]" id="pasa_otro" value="otro">
+		<label for="tipoRespuesta">Selecciona el tipo de respuesta</label>
+		<select name="tipoRespuesta" id="tipoRespuesta">
+			<option value="json">JSON</option>
+			<option value="html">HTML</option>
+		</select> 
+		<label for=""></label><input type="submit" value="Enviar">
+	</form> 
 </body>
 </html>

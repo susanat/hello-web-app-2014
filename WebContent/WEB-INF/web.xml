@@ -98,4 +98,14 @@
     <filter-name>JspFilter</filter-name>
     <url-pattern>*.jsp</url-pattern>
   </filter-mapping>
+  <servlet>
+    <description>Que capture datos del fomrulario y lo devuelva el HTML o JSON</description>
+    <display-name>EjemploParameterServlet</display-name>
+    <servlet-name>EjemploParameterServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controler.EjemploParameterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EjemploParameterServlet</servlet-name>
+    <url-pattern>/ejemploParameterServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
