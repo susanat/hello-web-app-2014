@@ -79,5 +79,21 @@
 	<form action="${pageContext.request.contextPath}/LogoutServlet" method="post">
     <input type="submit" value="Logout" />
 	</form>
+	
+	<h1>Ejemplo getParameterValues</h1>
+	<form action="ejemploParameterValuesServlet.do" method="post">
+		<input type="checkbox" name="pasa" value="Arte y Cultura"> Arte y Cultura<br>
+		<input type="checkbox" name="pasa" value="Ciencia">Ciencia<br>
+		<input type="checkbox" name="pasa" value="Música">Música<br>
+		<input type="checkbox" name="pasa" value="tv">TV<br>
+		
+		Selecciona el tipo de response:
+		<select name="tipoRespuesta">
+		<option value="text/html" selected="selected">HTML</option>
+		<option value="application/json">JSON</option>
+		</select>
+		
+		<input type="submit" value="Enviar">
+	</form>
 </body>
 </html>
