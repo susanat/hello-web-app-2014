@@ -5,6 +5,8 @@ public class Constantes {
 	// Usuarios
 	public static final String USER_SESSION = "user_session";
 	public static final String USER_LANGUAGE = "user_language";
+	public static final String USER_LOGOUT_PETICION = "logout.pedida";
+	
 
 	public static final String USER_ADMIN_NAME = "admin";
 	public static final String USER_ADMIN_PASS = "admin";
@@ -16,9 +18,9 @@ public class Constantes {
 	public static final String PATH_LOGIN = "login";
 	public static final String PATH_LOGOUT = "logout";
 
-	public static final String CONTROLLER_PERSONA = "persona";
-	public static final String CONTROLLER_CALIFICACION = "calificacion";
-	 public static final String CONTROLLER_ROLE = "RoleServlet";
+	public static final String CONTROLLER_PERSONA = "persona.do";
+	public static final String CONTROLLER_CALIFICACION = "calificacion.do";
+	public static final String CONTROLLER_ROLE = "RoleServlet.do";
 
 	// JSPs publicas
 	public static final String JSP_SALUDO = "saludo.jsp";

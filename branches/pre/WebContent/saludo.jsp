@@ -84,7 +84,7 @@
 	</ol>
 
 	<h1>Ejemplo getParameterValues</h1>
-	<form action="ejemploParamaterValuesServlet" method="post">
+	<form action="ejemploParamaterValuesServlet.do" method="post">
 	
 		¿Cuáles son sus pasatiempos favoritos?<br>
 		<input type="checkbox" name="pasa" value="tv">TV<br>
