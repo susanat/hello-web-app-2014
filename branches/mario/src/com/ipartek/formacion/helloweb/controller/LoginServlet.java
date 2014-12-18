@@ -63,7 +63,7 @@ public class LoginServlet extends HttpServlet {
     private void loadLog4j(ServletContext sce) {
 	String prefix = sce.getRealPath("/");
 	PropertyConfigurator
-	.configure(prefix + "WEB-INF/conf/log4j.properties");
+		.configure(prefix + "WEB-INF/conf/log4j.properties");
 	log.info("LOG cargado");
 
     }
@@ -79,17 +79,49 @@ public class LoginServlet extends HttpServlet {
 	// recuperar sesion
 	session = request.getSession();
 
-	// recoger parametros del login
-	getParameters(request);
+	if (!checkSession(request)) {
+	    // recoger parametros del login
+	    getParameters(request);
 
-	// cargar fichero de mensajes
-	loadMessages();
+	    // cargar fichero de mensajes
+	    loadMessages();
 
-	// validar usuario
-	validateUser(request);
+	    // validar usuario
+	    validateUser(request);
+	}
 
 	// despachar o servir JSP
 	dispatch.forward(request, response);
+    }
+
+    /**
+     * Check si existe usuario en session y cargar el dispatcher segun su rol
+     *
+     * @param request
+     * @return true si existe session de usuario, false en caso contrario
+     */
+    private boolean checkSession(HttpServletRequest request) {
+	boolean resul = false;
+
+	if (session.getAttribute(Constantes.USER_SESSION) != null) {
+	    Persona usuario = (Persona) session
+		    .getAttribute(Constantes.USER_SESSION);
+	    // segun Rol cargar el dispatcher
+	    switch (usuario.getRol()) {
+	    case ADMINISTRADOR:
+		dispatch = request
+			.getRequestDispatcher(Constantes.JSP_BACK_INDEX);
+		resul = true;
+		break;
+	    case USUARIO:
+		dispatch = request.getRequestDispatcher(Constantes.JSP_SALUDO);
+		resul = true;
+		break;
+	    } // end switch
+
+	}
+
+	return resul;
     }
 
     /**

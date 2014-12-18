@@ -51,20 +51,14 @@ public class LogoutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request,
 	    HttpServletResponse response) throws ServletException, IOException {
 	// recuperar sesion
-	session = request.getSession();
-	if (null != session.getAttribute(Constantes.USER_SESSION)) {
-	    Persona usuario = (Persona) session
-		    .getAttribute(Constantes.USER_SESSION);
-	    log.trace("Deslogeando a: " + usuario.toString());
-	} else {
-	    log.warn("usuario en session es nulo");
-	}
+	HttpSession session = request.getSession();
 
+	session.setAttribute(Constantes.USER_LOGOUT_PETICION, true);
 	Persona per = (Persona) session.getAttribute(Constantes.USER_SESSION);
 	log.info("Desconexión de: " + per.getNombre());
 
-	// poner a null su session
-	session.removeAttribute(Constantes.USER_SESSION);
+	// invalidar la session
+	session.invalidate();
 
 	// forward a login
 	dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
