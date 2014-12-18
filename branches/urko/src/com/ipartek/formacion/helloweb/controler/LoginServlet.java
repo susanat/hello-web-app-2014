@@ -65,10 +65,12 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(final HttpServletRequest request,
 	    final HttpServletResponse response) throws ServletException,
 	    IOException {
-
+	// TODO tiempo maximo de session
+	// TODO check session activa
+	// TODO
 	getParameters(request);
 	// loadMessages();
-	session = request.getSession();
+	session = request.getSession(true);
 	user = UserService.find(pUser, pPass);
 	/*
 	 * Object arguments = null;

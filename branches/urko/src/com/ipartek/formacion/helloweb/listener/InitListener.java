@@ -37,6 +37,7 @@ public class InitListener implements ServletContextListener,
     public InitListener() {
 	// Logger logger = Logger.getAnonymousLogger();
 	// logger.log(Level.SEVERE, "Se ha inicializado el servidor");
+
     }
 
     /**
@@ -48,6 +49,8 @@ public class InitListener implements ServletContextListener,
 	// logger.log(Level.INFO, "Inicializar contexto servlet", sce);
 
 	// logger.log(Level.INFO, "Modelo persona cargado", sce);
+	loadLog4j(sce);
+	initModeloPersona();
     }
 
     /**
