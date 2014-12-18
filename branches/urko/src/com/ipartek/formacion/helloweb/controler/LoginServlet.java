@@ -67,7 +67,10 @@ public class LoginServlet extends HttpServlet {
 	    IOException {
 	// TODO tiempo maximo de session
 	// TODO check session activa
-	// TODO
+	// TODO ListenerSession motivos
+	// TODO comprobar las cookies
+	// TODO corregir URL
+	checkSession(request);
 	getParameters(request);
 	// loadMessages();
 	session = request.getSession(true);
@@ -84,6 +87,17 @@ public class LoginServlet extends HttpServlet {
 	validateUser(request);
 
 	dispatch.forward(request, response);
+    }
+
+    /**
+     * Check si existe el usuario en session y cargar el dicpatcher segun su rol
+     *
+     * @param request
+     */
+    private boolean checkSession(final HttpServletRequest request) {
+	boolean resul = false;
+
+	return resul;
     }
 
     private void validateLanguaje(final HttpServletRequest request) {
