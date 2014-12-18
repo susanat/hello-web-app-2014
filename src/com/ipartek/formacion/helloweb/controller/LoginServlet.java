@@ -59,17 +59,52 @@ public class LoginServlet extends HttpServlet {
 		//recuperar session
 		session = request.getSession();
 		
-		//recoger parametros del login
-		getParameters(request);
-		
-		loadMessages();		
-		
-		//validar el usuario
-		validateUser(request);		
+		if ( ! checkSession(request) ){	
+
+			//TODO funciona session si el navegador tiene deshabilitado las cookies
+			
+			//TODO Forward HttpServletResponse.encodeUrl
+			
+			//recoger parametros del login
+			getParameters(request);
+			
+			loadMessages();		
+			
+			//validar el usuario
+			validateUser(request);		
+		}	
 		
 		//despachar o servir JSP
 		dispatch.forward(request, response);	
 			
+	}
+
+	/**
+	 * Check si existe usuario en session y cargar el dispatcher segun su rol
+	 * @param request
+	 * @return true si existe session de usario, false en caso contrario
+	 */
+	private boolean checkSession(HttpServletRequest request) {
+		boolean resul = false;
+		
+		if ( session.getAttribute(Constantes.USER_SESSION) != null ){
+			Persona usuario = (Persona)session.getAttribute(Constantes.USER_SESSION);
+			//segun Rol cargar el dispatcher
+			switch (usuario.getRol()) {
+				case ADMINISTRADOR:
+					dispatch = request.getRequestDispatcher(Constantes.JSP_BACK_INDEX);
+					resul = true;
+					break;
+	
+				case USER:
+					dispatch = request.getRequestDispatcher(Constantes.JSP_SALUDO);
+					resul = true;
+					break;				
+			}//end switch
+			
+		}
+		
+		return resul;
 	}
 
 

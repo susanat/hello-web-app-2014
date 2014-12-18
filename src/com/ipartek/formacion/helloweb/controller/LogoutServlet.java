@@ -32,25 +32,15 @@ public class LogoutServlet extends HttpServlet {
 		//recuperar session del usuario
 		HttpSession session = request.getSession();
 		
-		if ( null != session.getAttribute(Constantes.USER_SESSION)){
-			Persona usuario = (Persona)session.getAttribute(Constantes.USER_SESSION);
-			log.trace( "Deslogenado a: " + usuario.toString() );
-		}else{
-			log.warn("usuario en session es nulo");
-		}
-		
-		//poner a null su session
-		session.removeAttribute(Constantes.USER_SESSION);
-		log.trace("Usuario removido de session");
-		
-		//session.invalidate();
+	
+		session.setAttribute( Constantes.USER_LOGOUT_PETICION , true);
+		//invalidar session
+		session.invalidate();
 		
 		//forwar a login
 		Mensaje msg = new Mensaje(Constantes.MSG_LOGOUT, Mensaje.MSG_TYPE_INFO);
 		request.setAttribute( Constantes.MSG_KEY, msg );
 		request.getRequestDispatcher(Constantes.JSP_LOGIN).forward(request, response);
-		
-		
 		
 	}
 
