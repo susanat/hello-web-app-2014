@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
 
 	super.init(config);
 	PropertyConfigurator
-		.configure("C:/desarrollo/apache-tomcat-6.0.37/webapps/log4j.properties");
+	.configure("C:/desarrollo/apache-tomcat-6.0.37/webapps/log4j.properties");
 	// log.info("Log cargado");
     }
 
@@ -59,6 +59,8 @@ public class LoginServlet extends HttpServlet {
 	msg = new Message();
 	// recuperar sesion
 	sesion = request.getSession();
+
+	// TODO Comprobar si tiene sesion
 
 	// recoger parametros del login
 	getParameters(request);
@@ -113,12 +115,41 @@ public class LoginServlet extends HttpServlet {
 	dispatch.forward(request, response);
     }
 
+    /**
+     * Check si existe usuario en sesion y cargar el dispatcher segun su rol
+     *
+     * @param request
+     * @return true si existe sesion de usuario, false en caso contrario
+     */
+    private boolean checksession(HttpServletRequest request) {
+	boolean resul = false;
+	if (sesion.getAttribute(Constantes.USER_SESSION) != null) {
+	    Persona usuario = (Persona) (sesion
+		    .getAttribute(Constantes.USER_SESSION));
+	    switch (usuario.getRol()) {
+	    case ADMINISTRADOR:
+		dispatch = request
+			.getRequestDispatcher(Constantes.JSP_BACKOFFICE_INDEX);
+		resul = true;
+		break;
+	    case USER:
+		dispatch = request.getRequestDispatcher(Constantes.JSP_SALUDO);
+		resul = true;
+		break;
+	    default:
+		dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
+		break;
+	    }
+	}
+	return resul;
+    }
+
     private void loadMensajes() {
 
 	if (pIdioma == null) {
 	    pIdioma = Idioma.INGLES.getLocale();
 	    System.out
-		    .println("No viene parametro de idioma, ponemos idioma por defecto en ingles");
+	    .println("No viene parametro de idioma, ponemos idioma por defecto en ingles");
 	}
 	Locale locale = new Locale(pIdioma.split("_")[0], pIdioma.split("_")[1]);
 	messages = ResourceBundle.getBundle(Constantes.PROPERTY_I18N, locale);
