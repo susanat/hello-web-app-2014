@@ -1,9 +1,12 @@
 package com.ipartek.formacion.helloweb.listener;
 
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
+
+import org.apache.log4j.Logger;
 
 import com.ipartek.formacion.helloweb.bean.Persona;
 import com.ipartek.formacion.helloweb.util.Constante;
@@ -14,6 +17,7 @@ import com.ipartek.formacion.helloweb.util.Constante;
  */
 public class SessionListener implements HttpSessionListener,
 	HttpSessionAttributeListener {
+    private final static Logger log = Logger.getLogger(InitListener.class);
 
     /**
      * Default constructor.
@@ -30,9 +34,9 @@ public class SessionListener implements HttpSessionListener,
     public void attributeRemoved(final HttpSessionBindingEvent se) {
 	// Logger logger = Logger.getAnonymousLogger();
 	// logger.log(Level.INFO, "Atribute Deleted" + se.getName(), se);
-	if (se.getName().equals(Constante.USER_SESSION)) {
+	if (se.getName().equalsIgnoreCase(Constante.USER_SESSION)) {
 	    Persona usuario = (Persona) se.getValue();
-	    System.out.println("usuario borrado: " + usuario.toString());
+	    log.trace("usuario deslogueado: " + usuario.toString());
 	}
     }
 
@@ -45,8 +49,7 @@ public class SessionListener implements HttpSessionListener,
 	// logger.log(Level.INFO, "Atribute Added" + se.getName(), se);
 	if (se.getName().equals(Constante.USER_SESSION)) {
 	    Persona usuario = (Persona) se.getValue();
-	    System.out.println("Nuevo usuario registrado: "
-		    + usuario.toString());
+	    log.trace("Nuevo usuario registrado: " + usuario.toString());
 	}
     }
 
@@ -59,7 +62,7 @@ public class SessionListener implements HttpSessionListener,
 	// logger.log(Level.INFO, "Atribute replaced" + se.getName(), se);
 	if (se.getName().equals(Constante.USER_SESSION)) {
 	    Persona usuario = (Persona) se.getValue();
-	    System.out.println("Nuevo usuario Registrado y modificado"
+	    log.trace("Nuevo usuario Registrado y modificado"
 		    + usuario.toString());
 	}
     }
@@ -70,7 +73,9 @@ public class SessionListener implements HttpSessionListener,
     @Override
     public void sessionCreated(final HttpSessionEvent se) {
 	// Logger logger = Logger.getAnonymousLogger();
-	// logger.log(Level.INFO, "Session creada", se);
+	log.info(se);
+	HttpSession session = se.getSession();
+	session.setMaxInactiveInterval(60 * 30);
     }
 
     /**
@@ -80,6 +85,33 @@ public class SessionListener implements HttpSessionListener,
     public void sessionDestroyed(final HttpSessionEvent se) {
 	// Logger logger = Logger.getAnonymousLogger();
 	// logger.log(Level.INFO, "Session destruida", se);
+	// log.trace("El usuario"+);
+	HttpSession session = se.getSession();
+	String motivo = "";
+
+	if (destroySessionAsked(session)) {
+	    motivo += "Deslogueado";
+	} else {
+	    motivo += "Destroyed";
+	}
+
+	if (null != session.getAttribute(Constante.USER_SESSION)) {
+	    Persona usuario = (Persona) session
+		    .getAttribute(Constante.USER_SESSION);
+	    log.trace(usuario.toString() + " " + motivo);
+	} else {
+	    log.warn("Usuario anonimo " + motivo);
+	}
+
     }
 
+    private boolean destroySessionAsked(final HttpSession session) {
+	boolean asked = false;
+	if (session.getAttribute(Constante.USER_LOGOUT_PETICION) != null
+		&& (Boolean) session
+			.getAttribute(Constante.USER_LOGOUT_PETICION)) {
+	    asked = true;
+	}
+	return asked;
+    }
 }

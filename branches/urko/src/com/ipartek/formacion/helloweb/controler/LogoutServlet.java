@@ -10,8 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.helloweb.bean.Mensaje;
 import com.ipartek.formacion.helloweb.bean.Persona;
+import com.ipartek.formacion.helloweb.listener.InitListener;
 import com.ipartek.formacion.helloweb.util.Constante;
 
 /**
@@ -21,6 +24,7 @@ public class LogoutServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private HttpSession session = null;
     private Persona user = null;
+    private final static Logger log = Logger.getLogger(InitListener.class);
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -76,6 +80,7 @@ public class LogoutServlet extends HttpServlet {
 	// request.setAttribute(Constante.MSG_KEY, Constante.MSG_LOGOUT);
 
 	// response.sendRedirect(Constante.JSP_LOGIN);
+	destruirSession();
 	Mensaje msg = new Mensaje(Constante.MSG_LOGOUT, Mensaje.MSG_TYPE_INFO);
 	request.setAttribute(Constante.MSG_KEY, msg);
 
@@ -85,7 +90,10 @@ public class LogoutServlet extends HttpServlet {
     }
 
     private void destruirSession() {
+	log.trace("Deslogueo voluntario");
+	session.setAttribute(Constante.USER_LOGOUT_PETICION, true);
 	session.invalidate();
+
     }
 
 }
