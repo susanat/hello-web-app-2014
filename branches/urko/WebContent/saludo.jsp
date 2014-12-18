@@ -1,10 +1,15 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@page import="java.util.Enumeration"%>
 <%@page import="com.ipartek.formacion.helloweb.util.Util"%>
 <%@page import="java.util.Map"%>
 <%@page import="com.ipartek.formacion.helloweb.util.Constante"%>
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
+<c:set var="language" value="<%=session.getAttribute(Constante.LANG_SESSION)  %>" />
+<fmt:setLocale value="${languaje}"/>
 <!DOCTYPE html>
-<html>
+
+<html lang="${language }">
 <head>
 	<meta charset="utf-8">
 	<title>Bienvenida</title>
