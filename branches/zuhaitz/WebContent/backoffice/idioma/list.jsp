@@ -6,6 +6,7 @@
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 	<p><a href="<%=Constantes.JSP_BACKOFFICE_IDIOMA_FORM%>" title="Añadir un nuevo idioma">Añadir un nuevo idioma</a></p>
 

@@ -16,6 +16,9 @@ import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.bean.Mensaje;
 import com.ipartek.formacion.helloweb.bean.Persona;
 import com.ipartek.formacion.helloweb.bean.Role;
+import com.ipartek.formacion.helloweb.i18n.I18n;
+import com.ipartek.formacion.helloweb.util.EIdioma;
+import com.ipartek.formacion.helloweb.util.ERole;
 import com.ipartek.formacion.helloweb.util.MensajesIdiomas;
 
 /**
@@ -33,7 +36,7 @@ public class LoginServlet extends HttpServlet {
 	// Parámetros
 	String pUser = null;
 	String pPass = null;
-	String pIdioma = Constantes.DEFAULT_LANG;
+	String pIdioma = EIdioma.INGLES.getLocale();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -48,15 +51,22 @@ public class LoginServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-	IOException {
+			IOException {
 		// Recuperar session
 		session = request.getSession();
-		// Recoger parámetros del login
-		getParameters(request);
+		pIdioma = I18n.getBrowserLocale(request.getLocale());
+
+		// Comprueba si hay session logueada
+		if (!checkSession(request)) {
+			// Recoger parámetros del login
+			getParameters(request);
+
+			// Validar el usuario
+			validateUser(request);
+		}
+
 		// Cargar los mensajes en el idioma correspondiente
 		messages = MensajesIdiomas.loadMessages(pIdioma, session);
-		// Validar el usuario
-		validateUser(request);
 
 		dispatch.forward(request, response);// Despachar o servir JSP
 	}
@@ -69,6 +79,32 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
+	}
+
+	/**
+	 * Check si existe usuario en session y cargar el dispatcher según su rol.
+	 *
+	 * @param request
+	 * @return true si existe session de usuario, false en caso contrario
+	 */
+	private boolean checkSession(final HttpServletRequest request) {
+		boolean res = false;
+		// TODO probar esto
+		if (session.getAttribute(Constantes.USER_SESSION) != null) {
+			final Persona usuario = (Persona) session.getAttribute(Constantes.USER_SESSION);
+
+			if (usuario.getRole().getNombre().equalsIgnoreCase(ERole.ADMINISTRADOR.toString())) {
+				dispatch = request.getRequestDispatcher(Constantes.JSP_BACKOFFICE_INDEX);
+				res = true;
+			} else if (usuario.getRole().getNombre().equalsIgnoreCase(ERole.USER.toString())) {
+				dispatch = request.getRequestDispatcher(Constantes.JSP_SALUDO);
+				res = true;
+			} else {
+				dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
+			}
+		}
+
+		return res;
 	}
 
 	/**
@@ -97,19 +133,17 @@ public class LoginServlet extends HttpServlet {
 		if (Constantes.USER_USER_NAME.equals(pUser) && Constantes.USER_USER_PASS.equals(pPass)) {
 			// Correcto: redirigir a saludo.jsp
 			dispatch = request.getRequestDispatcher(Constantes.JSP_SALUDO);
-			// Guardar usuario en session
-			// TODO recuperar usuario de la BBDD
 			final Persona p = new Persona(pUser, 0, new Role("Usuario"));
 			session.setAttribute(Constantes.USER_SESSION, p);
+			session.setAttribute(Constantes.USER_LANGUAGE, pIdioma);
 
 			// Administrador
 		} else if (Constantes.USER_ADMIN_NAME.equals(pUser) && Constantes.USER_ADMIN_PASS.equals(pPass)) {
 			// Correcto: redirigir a saludo.jsp
 			dispatch = request.getRequestDispatcher(Constantes.JSP_BACKOFFICE_INDEX);
-			// Guardar usuario en session
-			// TODO recuperar usuario de la BBDD
 			final Persona p = new Persona(pUser, 0, new Role("Administrador"));
 			session.setAttribute(Constantes.USER_SESSION, p);
+			session.setAttribute(Constantes.USER_LANGUAGE, pIdioma);
 
 			// Entrada sin submitar el formulario
 		} else if ((pUser == null) && (pPass == null)) {
@@ -124,4 +158,5 @@ public class LoginServlet extends HttpServlet {
 			request.setAttribute(Constantes.MSG_KEY, msg);
 		}
 	}
+
 }
