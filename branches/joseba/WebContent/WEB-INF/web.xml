@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  
   <display-name>HelloWeb</display-name>
+  
   <welcome-file-list>
     <welcome-file>login</welcome-file>
   </welcome-file-list>
+  
   <servlet>
     <description>Controlador para login de usuarios</description>
     <display-name>LoginServlet</display-name>
@@ -15,7 +18,7 @@
     <url-pattern>/login</url-pattern>
   </servlet-mapping>
   <servlet>
-    <description>Servet for logout</description>
+    <description>Servlet for logout</description>
     <display-name>LogoutServlet</display-name>
     <servlet-name>LogoutServlet</servlet-name>
     <servlet-class>com.ipartek.formacion.helloweb.controller.LogoutServlet</servlet-class>
@@ -71,12 +74,25 @@
     <servlet-name>ServletMaestro</servlet-name>
     <url-pattern>/ServletMaestro</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <description>Servlet de ejemplo para recoger parametro con varios valores y retornar en formato JSON o HTML</description>
+    <display-name>EjemploParameterValuesServlet</display-name>
+    <servlet-name>EjemploParameterValuesServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controller.EjemploParameterValuesServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EjemploParameterValuesServlet</servlet-name>
+    <url-pattern>/ejemploParameterValuesServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <!-- FILTROS -->
   <filter>
     <display-name>LoadErrorFilter</display-name>
     <filter-name>LoadErrorFilter</filter-name>
     <filter-class>com.ipartek.formacion.helloweb.filter.LoadErrorFilter</filter-class>
   </filter>
-   <filter>
+  <filter>
     <display-name>LoadTraceFilter</display-name>
     <filter-name>LoadTraceFilter</filter-name>
     <filter-class>com.ipartek.formacion.helloweb.filter.LoadTraceFilter</filter-class>
@@ -89,5 +105,13 @@
     <filter-name>LoadTraceFilter</filter-name>
     <url-pattern>*.jsp</url-pattern>
   </filter-mapping>
- 
+  <filter>
+    <display-name>ServletFilter</display-name>
+    <filter-name>ServletFilter</filter-name>
+    <filter-class>com.ipartek.formacion.helloweb.filter.ServletFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>ServletFilter</filter-name>
+    <url-pattern>*.do</url-pattern>
+  </filter-mapping>
 </web-app>

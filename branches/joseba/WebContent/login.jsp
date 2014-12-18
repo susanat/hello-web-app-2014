@@ -19,8 +19,9 @@
 
 <head>
 
+ <base href="<%=request.getContextPath()+ "/"%>">
   <meta charset="UTF-8">
-
+ 
   <title><fmt:message key="login.titulo"></fmt:message></title>
 
   <link rel='stylesheet' href='http://codepen.io/assets/libs/fullpage/jquery-ui.css'>
@@ -83,6 +84,10 @@
   			}
   		%>
   	</select>
+  	<br>
+  	<input type="checkbox" name="<%=Constantes.PARAMETRO_CHECK %>">
+  	<label for="<%=Constantes.PARAMETRO_CHECK%>">Recuerdame</span>
+  	<br>
   	<br>
     <input type="submit" name="login" class="login login-submit" value=<fmt:message key="login.form.boton"></fmt:message>>
  

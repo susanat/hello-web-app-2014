@@ -51,10 +51,12 @@ public class LogoutServlet extends HttpServlet {
 	    System.out.println("Usuario en sesion es nulo");
 	}
 
-	request.getSession().removeAttribute(Constantes.USER_SESSION);
-
+	session.setAttribute(Constantes.LOGOUT_CAUSE, true);
+	request.getSession().invalidate();
+	System.out.println("Logout a peticion del usuario");
 	// Otra opcion
-	// request.getSession().invalidate();
+	// request.getSession().removeAttribute(Constantes.USER_SESSION);
+
 	Message mensaje = new Message();
 	mensaje.setMsg(Constantes.MSG_LOGOUT);
 	mensaje.setType(Constantes.ALERT_TYPE_SUCCESS);
