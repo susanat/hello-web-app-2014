@@ -21,7 +21,7 @@
 
 <head>
   	<base href="<%=request.getContextPath()+"/"%>">
-	<title>Log-in - CodePen</title>
+	<title>Login</title>
 	<link rel='stylesheet' href='http://codepen.io/assets/libs/fullpage/jquery-ui.css'>
 	<link rel="stylesheet" href="css/style.css" media="screen" type="text/css">
 	<!-- Bootstrap Core CSS -->
@@ -44,15 +44,15 @@
 									opTextos="<%=Idioma.getIdiomaTextoList(InitListener.modeloIdioma.getAll())%>" 
 									selectedValue="<%=I18n.getBrowserLocale(request.getLocale())%>"/>
 			</div>
-			
-			<br>
-			<input type="checkbox" name="<%=Constantes.PARAMETRO_RECUERDAME%>"/>
-			<span>Recuérdame</span>
 
 			<input type="text" name="<%=Constantes.PARAMETRO_USER%>"
 				placeholder="<fmt:message key="login.form.user"></fmt:message>"/> 
 			<input type="password" name="<%=Constantes.PARAMETRO_PASS%>" 
 				placeholder="<fmt:message key="login.form.password"></fmt:message>"/>
+			<div class="form-group">
+				<input type="checkbox" name="<%=Constantes.PARAMETRO_RECUERDAME%>"/>
+				<span>Recuérdame</span>
+			</div>
 			<input type="submit" name="login" class="login login-submit"
 				value="login"/>
 		</form>

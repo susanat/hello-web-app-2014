@@ -22,11 +22,10 @@ import com.ipartek.formacion.helloweb.model.ModeloRol;
 public class InitListener implements ServletContextListener, ServletContextAttributeListener {
 
 	private final static Logger log = Logger.getLogger(InitListener.class);
+	public static final String PATH_LOG4J = "WEB-INF/conf/log4j.properties";
 
 	public static boolean LOAD_ERROR = false;
 	public static String LOAD_ERROR_MSG = null;
-
-	public static final String PATH_LOG4J = "WEB-INF/conf/log4j.properties";
 
 	public static ModeloIdioma modeloIdioma = null;
 	public static ModeloRol modeloRole = null;
@@ -37,30 +36,20 @@ public class InitListener implements ServletContextListener, ServletContextAttri
 	 * @see ServletContextListener#contextInitialized(ServletContextEvent)
 	 */
 	public void contextInitialized(final ServletContextEvent sce) {
-
 		loadLog4j(sce);
 
 		if (!LOAD_ERROR) {
-
 			// TODO establecer conexion
 			log.info("Establecer conexion BBDD OK");
-			// TODO cargar modelos de datos
+
 			initModelPersona();
 			initModelCalificacion();
 			initModelRole();
-			log.info("Mode lo Persona Cargardo");
+			log.info("Modelos cargados");
 
 		} else {
 			System.out.println("Error cargando LOG4J");
 		}
-
-	}
-
-	private void initModelRole() {
-		// TODO Auto-generated method stub
-		modeloRole = new ModeloRol();
-		ModeloRol.createTable();
-
 	}
 
 	/**
@@ -69,7 +58,6 @@ public class InitListener implements ServletContextListener, ServletContextAttri
 	 * @param sce
 	 */
 	private void loadLog4j(final ServletContextEvent sce) {
-
 		try {
 			final String pathReal = sce.getServletContext().getRealPath("/");
 			PropertyConfigurator.configure(pathReal + PATH_LOG4J);
@@ -84,7 +72,6 @@ public class InitListener implements ServletContextListener, ServletContextAttri
 		} catch (final Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	/**
@@ -132,7 +119,11 @@ public class InitListener implements ServletContextListener, ServletContextAttri
 
 		modeloIdioma = new ModeloIdioma();
 		ModeloIdioma.createTable();
+	}
 
+	private void initModelRole() {
+		modeloRole = new ModeloRol();
+		ModeloRol.createTable();
 	}
 
 }

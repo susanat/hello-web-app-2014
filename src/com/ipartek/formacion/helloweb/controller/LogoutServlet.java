@@ -17,6 +17,7 @@ import com.ipartek.formacion.helloweb.bean.Mensaje;
 import com.ipartek.formacion.helloweb.bean.Persona;
 import com.ipartek.formacion.helloweb.filter.JspFilter;
 import com.ipartek.formacion.helloweb.i18n.I18n;
+import com.ipartek.formacion.helloweb.util.EIdioma;
 import com.ipartek.formacion.helloweb.util.MensajesIdiomas;
 
 /**
@@ -32,7 +33,7 @@ public class LogoutServlet extends HttpServlet {
 	HttpSession session = null;
 
 	ResourceBundle messages = null;
-	String pIdioma = Constantes.DEFAULT_LANG;
+	String pIdioma = EIdioma.INGLES.getLocale();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -64,9 +65,12 @@ public class LogoutServlet extends HttpServlet {
 			log.warn("Usuario en session es null");
 		}
 
-		session.removeAttribute(Constantes.USER_SESSION);
-
 		messages = MensajesIdiomas.loadMessages(pIdioma, session);
+
+		// Invalidar session
+		log.trace("Logout bajo petición del usuario");
+		session.invalidate();
+		// session.removeAttribute(Constantes.USER_SESSION);
 
 		dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
 		final Mensaje msg = new Mensaje(Mensaje.MSG_TYPE_INFO, messages.getString("msg.logout"));

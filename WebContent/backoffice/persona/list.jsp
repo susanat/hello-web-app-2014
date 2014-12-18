@@ -5,6 +5,7 @@
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	
@@ -17,7 +18,7 @@
 			</p>
 		</c:when>
     	<c:otherwise>
-			<a href='<%=request.getContextPath() + "/backoffice/persona/" + Constantes.JSP_PERSONA_FORM %>' title='crear persona'>Crear Persona</a>	
+			<a href='<%=request.getContextPath() + "/backoffice/persona/" + Constantes.JSP_PERSONA_FORM %>' title='crear persona'><fmt:message key="content.header.persona.form"></fmt:message></a>	
 			<!-- Sintaxis para el plugin DataTable, paginación de los datos  --> 
 			<table id='personasList' class='display' cellspacing='0' width='100%'>
 				<thead>

@@ -17,6 +17,7 @@ import com.ipartek.formacion.helloweb.bean.Mensaje;
 import com.ipartek.formacion.helloweb.i18n.I18n;
 import com.ipartek.formacion.helloweb.listener.InitListener;
 import com.ipartek.formacion.helloweb.model.ModeloCalificacion;
+import com.ipartek.formacion.helloweb.util.EIdioma;
 import com.ipartek.formacion.helloweb.util.MensajesIdiomas;
 
 /**
@@ -31,9 +32,8 @@ public class CalificacionServlet extends HttpServlet {
 	ResourceBundle messages = null;
 
 	Mensaje msg;
-
 	int id = Calificacion.ID_NULL;
-	String pIdioma = Constantes.DEFAULT_LANG;
+	String pIdioma = EIdioma.INGLES.getLocale();
 
 	@Override
 	public void init(final ServletConfig config) throws ServletException {

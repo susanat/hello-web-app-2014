@@ -5,8 +5,8 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.bean.Idioma;
+import com.ipartek.formacion.helloweb.util.EIdioma;
 
 /**
  * Clase con utilidades oara los idiomas. <h1>Lista de locales</h1>
@@ -29,7 +29,7 @@ public class I18n {
 	 */
 	public static final String getBrowserLocale(final Locale localeBrowser) {
 		// Por defecto inglés
-		final Idioma idioma = new Idioma(Constantes.DEFAULT_LANG);
+		final Idioma idioma = new Idioma(EIdioma.INGLES.getLocale());
 		String res = idioma.getLocale();
 
 		// si no es nulo

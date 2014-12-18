@@ -19,6 +19,7 @@ import com.ipartek.formacion.helloweb.i18n.I18n;
 import com.ipartek.formacion.helloweb.listener.InitListener;
 import com.ipartek.formacion.helloweb.model.ModeloPersona;
 import com.ipartek.formacion.helloweb.model.ModeloRol;
+import com.ipartek.formacion.helloweb.util.EIdioma;
 import com.ipartek.formacion.helloweb.util.MensajesIdiomas;
 
 /**
@@ -30,12 +31,11 @@ public class PersonaServlet extends HttpServlet {
 
 	RequestDispatcher dispatcher = null;
 	HttpSession session = null;
-
 	ResourceBundle messages = null;
-	Mensaje msg;
 
+	Mensaje msg;
 	int id = Persona.ID_NULL;
-	String pIdioma = Constantes.DEFAULT_LANG;
+	String pIdioma = EIdioma.INGLES.getLocale();
 
 	@Override
 	public void init(final ServletConfig config) throws ServletException {
@@ -72,6 +72,8 @@ public class PersonaServlet extends HttpServlet {
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
 			IOException {
 		session = request.getSession();
+		// pIdioma = (String) session.getAttribute(Constantes.USER_LANGUAGE);
+
 		messages = MensajesIdiomas.loadMessages(pIdioma, session);
 
 		// Comprobar si es getAll o getById, para ir a list.jsp o form.jsp

@@ -1,9 +1,12 @@
 package com.ipartek.formacion.helloweb.listener;
 
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
+
+import org.apache.log4j.Logger;
 
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.bean.Persona;
@@ -14,57 +17,58 @@ import com.ipartek.formacion.helloweb.bean.Persona;
  */
 public class SessionListener implements HttpSessionAttributeListener, HttpSessionListener {
 
-	/**
-	 * Default constructor.
-	 */
-	public SessionListener() {
-		System.out.println("---- Constructor por defecto de SessionListener ----");
-	}
+	private final static Logger log = Logger.getLogger("ACCESOS");
 
-	/************** Eventos sobre los atributos de HttpSession **************/
-	/**
-	 * @see HttpSessionAttributeListener#attributeRemoved(HttpSessionBindingEvent)
-	 */
-	public void attributeRemoved(final HttpSessionBindingEvent se) {
-		System.out.println("---- Llamada al método attributeRemoved ----");
-		if (se.getName().equals(Constantes.USER_SESSION)) {
-			final Persona usuario = (Persona) se.getValue();
-			System.out.println("Usuario deslogueado");
-		}
-	}
-
-	/**
-	 * @see HttpSessionAttributeListener#attributeAdded(HttpSessionBindingEvent)
-	 */
-	public void attributeAdded(final HttpSessionBindingEvent se) {
-		System.out.println("---- Llamada al método attributeAdded ----");
-	}
-
-	/**
-	 * @see HttpSessionAttributeListener#attributeReplaced(HttpSessionBindingEvent)
-	 */
-	public void attributeReplaced(final HttpSessionBindingEvent se) {
-		System.out.println("---- Llamada al método attributeReplaced ----");
-		System.out.println(se.getName());
-		if (se.getName().equals(Constantes.USER_SESSION)) {
-			final Persona usuario = (Persona) se.getValue();
-			System.out.println("Nuevo usuario registrado: " + usuario.toString());
-		}
-	}
-
-	/**************** Eventos sobre el ciclo de vida de Session ****************/
 	/**
 	 * @see HttpSessionListener#sessionCreated(HttpSessionEvent)
 	 */
 	public void sessionCreated(final HttpSessionEvent se) {
 		System.out.println("---- Llamada al método sessionCreated ----");
+		// Marcar tiempo de expiración
+		final HttpSession session = se.getSession();
+		session.setMaxInactiveInterval(60 * 30);
+		log.trace("Nueva session " + session.getId() + " - " + session.getMaxInactiveInterval() + " seg");
 	}
 
 	/**
 	 * @see HttpSessionListener#sessionDestroyed(HttpSessionEvent)
 	 */
 	public void sessionDestroyed(final HttpSessionEvent se) {
-		System.out.println("---- Llamada al método sessionDestroyed ----");
+		final HttpSession session = se.getSession();
+		String msg = "";
+
+		if (session.getAttribute(Constantes.USER_LOGOUT_PETICION) != null) {
+			msg = "Logout voluntario";
+		} else {
+			msg = "Logout expiración";
+		}
+
+		if (null != session.getAttribute(Constantes.USER_SESSION)) {
+			final Persona usuario = (Persona) session.getAttribute(Constantes.USER_SESSION);
+			msg += " usuario " + usuario.toString();
+		} else {
+			msg += " usuario nulo";
+		}
+
+		log.info(msg);
+	}
+
+	public void attributeAdded(final HttpSessionBindingEvent se) {
+		if (Constantes.USER_SESSION.equalsIgnoreCase(se.getName())) {
+			log.trace("attributeAdded");
+		}
+	}
+
+	public void attributeRemoved(final HttpSessionBindingEvent se) {
+		if (Constantes.USER_SESSION.equalsIgnoreCase(se.getName())) {
+			log.trace("attributeRemoved");
+		}
+	}
+
+	public void attributeReplaced(final HttpSessionBindingEvent se) {
+		if (Constantes.USER_SESSION.equalsIgnoreCase(se.getName())) {
+			log.trace("attributeReplaced");
+		}
 	}
 
 }
