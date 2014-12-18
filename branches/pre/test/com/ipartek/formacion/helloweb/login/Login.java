@@ -46,7 +46,7 @@ public class Login {
 		assertEquals("<html lang='xx_XX'> no es correcto", Idioma.EUSKERA.getLocale(), loginAdmin( Idioma.EUSKERA.getLocale()));
 		assertEquals("<html lang='xx_XX'> no es correcto", Idioma.INGLES.getLocale(), loginAdmin( Idioma.INGLES.getLocale()));
 		assertEquals("<html lang='xx_XX'> no es correcto", Idioma.CASTELLANO.getLocale(), loginAdmin( Idioma.CASTELLANO.getLocale()));
-			
+				
 	}
 	
 	/**
