@@ -2,6 +2,7 @@
 <%@page import="com.ipartek.formacion.helloweb.bean.Role"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     
 <%@include file="../includes/head.jsp" %>
 <%@include file="../includes/nav.jsp" %>
@@ -27,9 +28,7 @@
             <tr>
                 <th>Id</th>
                 <th>Nombre</th>
-                <th>Descripcion</th>
-               
-            
+                <th>Descripcion</th>           
                 <th>Eliminar</th>
                 
             </tr>
@@ -39,9 +38,7 @@
             <tr>
                 <th>Id</th>
                 <th>Nombre</th>
-                <th>Descripcion</th>
-                
-              
+                <th>Descripcion</th>             
                 <th>Eliminar</th>
                 
             </tr>
@@ -51,16 +48,14 @@
 		    for(int i =0; i<roles.size(); i++){
 			%>
 				<tr>
-					<td><a href=<%=Constantes.CONTROLLER_ROLE +"?id=" +roles.get(i).getId()+ "&accion=" + Constantes.LETRERO_DETALLE %>><%out.print(roles.get(i).getId()); %></a>
-				
+					<td><a href=<%=Constantes.CONTROLLER_ROLE +"?id=" +roles.get(i).getId()+ "&accion=" 
+								+ Constantes.LETRERO_DETALLE %>><%out.print(roles.get(i).getId()); %></a>			
 					</td>
 					<td><%out.print(roles.get(i).getNombre()); %></td>
 					<td><%out.print(roles.get(i).getDescripcion()); %></td>
-					
-					
+									
 					<td>
-						<form action="<%=request.getContextPath()+"/"+ Constantes.CONTROLLER_ROLE %>" method="post">
-				
+						<form action="<%=request.getContextPath()+"/"+ Constantes.CONTROLLER_ROLE %>" method="post">				
 							<input type="hidden" name="id" value="<%=roles.get(i).getId() %>" >
 							<input type="hidden" name="<%=Constantes.OP_CRUD %>" value="<%=Constantes.OP_DELETE%>">
 							<input type="submit" value="Eliminar" class="btn btn-danger btn-outline btn-xs">

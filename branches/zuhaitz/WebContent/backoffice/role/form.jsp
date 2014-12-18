@@ -1,7 +1,6 @@
-
-
 <%@page import="com.ipartek.formacion.helloweb.bean.Role"%>
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     
 <%@include file="../includes/head.jsp" %>
 <%@include file="../includes/nav.jsp" %>
@@ -31,9 +30,7 @@
 			    buttonValue = "Modificar";
 			}
 		%>
-		<h1><%=cabecera %> </h1>
-		
-		
+		<h1><%=cabecera %> </h1>	
 		
 		<form action="<%=request.getContextPath() + "/" + Constantes.CONTROLLER_ROLE %>" method="post" role="form">
 			<%
@@ -71,7 +68,6 @@
 				}
 			%>
 		</form>
-		<!-- TODO: Formulario eliminar -->
 		
 		<%
 			if(!isNew && Constantes.LETRERO_BORRAR.equals(request.getParameter("accion"))){
@@ -84,4 +80,5 @@
 		<%} %>
 		<br>
 		<a href="<%=request.getContextPath() + "/" + Constantes.CONTROLLER_ROLE %>" class="btn btn-primary"><i class="fa fa-arrow-left fa-fw"></i>Volver</a>
+		
 <%@include file="../includes/footer.jsp" %>

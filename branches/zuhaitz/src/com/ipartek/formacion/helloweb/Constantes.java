@@ -5,6 +5,7 @@ public class Constantes {
 	// Usuarios
 	public static final String USER_SESSION = "user_session";
 	public static final String USER_LANGUAGE = "user_language";
+	public static final String USER_LOGOUT_PETICION = "user_logout_peticion";
 
 	public static final String USER_ADMIN_NAME = "admin";
 	public static final String USER_ADMIN_PASS = "admin";
@@ -15,16 +16,14 @@ public class Constantes {
 	public static final String ROLE_DEFAULT = "Invitado";
 	public static final String ROLE_ADMIN = "Administrador";
 
-	public static final String DEFAULT_LANG = "en_EN";
-
 	// Paths para Servlets
 	public static final String CONTROLLER_LOGIN = "login";
 	public static final String CONTROLLER_LOGOUT = "logout";
 
-	public static final String CONTROLLER_PERSONA = "persona";
-	public static final String CONTROLLER_CALIFICACION = "calificacion";
-	public static final String CONTROLLER_ROLE = "role";
-	public static final String CONTROLLER_IDIOMA = "idioma";
+	public static final String CONTROLLER_PERSONA = "persona.do";
+	public static final String CONTROLLER_CALIFICACION = "calificacion.do";
+	public static final String CONTROLLER_ROLE = "role.do";
+	public static final String CONTROLLER_IDIOMA = "idioma.do";
 
 	// JSPs
 	public static final String JSP_SALUDO = "saludo.jsp";

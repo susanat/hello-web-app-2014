@@ -2,6 +2,7 @@ package com.ipartek.formacion.helloweb.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.Servlet;
@@ -10,11 +11,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.bean.Idioma;
 import com.ipartek.formacion.helloweb.bean.Mensaje;
+import com.ipartek.formacion.helloweb.i18n.I18n;
 import com.ipartek.formacion.helloweb.listener.InitListener;
+import com.ipartek.formacion.helloweb.util.EIdioma;
+import com.ipartek.formacion.helloweb.util.MensajesIdiomas;
 
 /**
  * Servlet implementation class IdiomaServlet
@@ -23,8 +28,12 @@ public class IdiomaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	RequestDispatcher dispatcher = null;
+	HttpSession session = null;
+	ResourceBundle messages = null;
+
 	Mensaje msg = null;
-	int id = Idioma.ID_NULL; // identificador Idioma
+	String pIdioma = EIdioma.INGLES.getLocale();
+	int id = Idioma.ID_NULL;
 
 	/**
 	 * @see Servlet#init(ServletConfig)
@@ -40,17 +49,18 @@ public class IdiomaServlet extends HttpServlet {
 	}
 
 	@Override
-	protected void service(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException,
-	IOException {
+	protected void service(final HttpServletRequest request, final HttpServletResponse response)
+			throws ServletException, IOException {
+		pIdioma = I18n.getBrowserLocale(request.getLocale());
 
-		// recoger parámetro identificador Idioma
+		// Recoger parámetro identificador Idioma
 		try {
-			id = Integer.parseInt(req.getParameter(Constantes.FORM_IDIOMA_ID));
+			id = Integer.parseInt(request.getParameter(Constantes.FORM_IDIOMA_ID));
 		} catch (final Exception e) {
 			id = Idioma.ID_NULL;
 		}
 
-		super.service(req, resp);
+		super.service(request, response);
 
 	}
 
@@ -61,6 +71,8 @@ public class IdiomaServlet extends HttpServlet {
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
 	IOException {
+		session = request.getSession();
+		messages = MensajesIdiomas.loadMessages(pIdioma, session);
 
 		if (id == Idioma.ID_NULL) {
 			getAll(request);

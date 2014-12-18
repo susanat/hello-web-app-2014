@@ -16,8 +16,8 @@ import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.listener.InitListener;
 
 /**
- * Filtro para comprobar si ha habia un error en el <code>InitListener</code> al
- * arrancar la AppWeb
+ * Filtro para comprobar si ha habido un error en el <code>InitListener</code>
+ * al arrancar la AppWeb
  *
  * @see com.ipartek.formacion.helloweb.listener.InitListener
  */

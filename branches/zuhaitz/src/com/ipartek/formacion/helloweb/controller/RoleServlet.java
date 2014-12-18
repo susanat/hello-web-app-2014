@@ -2,6 +2,7 @@ package com.ipartek.formacion.helloweb.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.Servlet;
@@ -10,11 +11,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.bean.Mensaje;
 import com.ipartek.formacion.helloweb.bean.Role;
+import com.ipartek.formacion.helloweb.i18n.I18n;
 import com.ipartek.formacion.helloweb.listener.InitListener;
+import com.ipartek.formacion.helloweb.util.EIdioma;
+import com.ipartek.formacion.helloweb.util.MensajesIdiomas;
 
 /**
  * Servlet implementation class RoleServlet
@@ -23,7 +28,11 @@ public class RoleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private RequestDispatcher dispatcher = null;
+	HttpSession session = null;
+	ResourceBundle messages = null;
+
 	private int id = Role.ID_NULL;
+	String pIdioma = EIdioma.INGLES.getLocale();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -48,13 +57,10 @@ public class RoleServlet extends HttpServlet {
 		super.destroy();
 	}
 
-	/**
-	 *
-	 */
-
 	@Override
 	protected void service(final HttpServletRequest request, final HttpServletResponse resp) throws ServletException,
 			IOException {
+		pIdioma = I18n.getBrowserLocale(request.getLocale());
 
 		try {
 			id = Integer.parseInt(request.getParameter("id"));
@@ -74,6 +80,9 @@ public class RoleServlet extends HttpServlet {
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
 			IOException {
+
+		session = request.getSession();
+		messages = MensajesIdiomas.loadMessages(pIdioma, session);
 
 		Mensaje msg = null;
 
