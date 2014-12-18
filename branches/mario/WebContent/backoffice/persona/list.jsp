@@ -13,13 +13,13 @@
 	  <div class="panel-body">
 	        
 	    <!--  
-		<%
+		< %
 		ArrayList<Persona> personas = (ArrayList<Persona>) request.getAttribute(Constantes.ATT_PERSONAS);
 		
 		if(personas == null){
 		%>
 			    <h2>No existe ninguna persona, por favor, cree una nueva persona</h2>
-		<%
+		< %
 		}else{%>
 		    <table id="tabla" class="display" cellspacing="0" width="100%">
 		        <thead>
@@ -44,36 +44,36 @@
 		 
 		        <tbody>
 		           
-		            <%
+		            < %
 					    Persona pers=null;
 					    for(int i=0; i<personas.size(); i++){
 							pers= personas.get(i);
 					%>
 							<tr>
 								 <td>
-								 	<a href="<%= Constantes.CONTROLLER_PERSONA+"?id="+pers.getId() %>" title="id">
-								  		<%= pers.getId() %>
+								 	<a href="< %= Constantes.CONTROLLER_PERSONA+"?id="+pers.getId() %>" title="id">
+								  		< %= pers.getId() %>
 								  	</a>
 								 </td>
-								 <td><%= pers.getNombre() %></td>
-								 <td><%= pers.getEdad() %></td>
-								 <td><%= pers.getRol() %></td>
+								 <td>< %= pers.getNombre() %></td>
+								 <td>< %= pers.getEdad() %></td>
+								 <td>< %= pers.getRol() %></td>
 								 <td>
-								 	  <form action="<%=request.getContextPath()+"/"+ Constantes.CONTROLLER_PERSONA %>" method="post">
+								 	  <form action="< %=request.getContextPath()+"/"+ Constantes.CONTROLLER_PERSONA %>" method="post">
 			
-										<input type="hidden" name="id" value="<%= pers.getId() %>">
-										<input type="hidden" name="<%=Constantes.OP_KEY %>" value="<%=Constantes.OP_DELETE%>">
+										<input type="hidden" name="id" value="< %= pers.getId() %>">
+										<input type="hidden" name="< %=Constantes.OP_KEY %>" value="< %=Constantes.OP_DELETE%>">
 										<input type="submit" value="Eliminar" class="btn btn-danger btn-outline btn-xs">
 									</form>
 								</td>
 							 </tr>
-						<%
+						< %
 					    } //end for
 					    %>
 				 	 
 			    </tbody>
 		    </table>
-		<% 
+		 < % 
 			} //end:persona not null
 		%>
 		

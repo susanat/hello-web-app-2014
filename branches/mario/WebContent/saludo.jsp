@@ -75,5 +75,22 @@
 	
 	</ol>
 	
+	<h1>Ejemplo: getParameterValues</h1>
+	<form action="ejemploParameterValuesServlet.do" metodo="post">
+		¿Cuáles son tus pasatiempos favoritos?<br>
+		<input type="checkbox" name="pasa" value="tv">TV<br>
+		<input type="checkbox" name="pasa" value="libros">Libros<br>
+		<input type="checkbox" name="pasa" value="musica">Música<br>
+		<input type="checkbox" name="pasa" value="otros">Otros<br>
+		
+		Seleccion el MIME-TYPE de response
+		<select name="tipoRespuesta">
+			<option value = "text/html">HTML</option>
+			<option value = "application/json">JSON</option>
+		</select>
+		
+		<input type="submit" value="Enviar">
+	</form>
+	
 </body>
 </html>

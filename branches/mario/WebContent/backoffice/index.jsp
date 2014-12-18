@@ -3,8 +3,15 @@
        
   	<h1>Bienvenido/a.</h1>    
   	<br>   
-  	<img src="http://tctechcrunch2011.files.wordpress.com/2013/05/google_admin_logo.png?w=400" alt="imagen admin">
-       	
+  	<h1>Usuarios Conectados:</h1>
+    <ul>
+    	<li>
+    		<i class="glyphicon glyphicon-user"></i>Admin: 
+  		</li>
+    	<li>
+    		<i class="glyphicon glyphicon-user"></i>Users: 
+    	</li>
+    </ul>   	
 
 <%@include file="includes/footer.jsp" %>   
 
