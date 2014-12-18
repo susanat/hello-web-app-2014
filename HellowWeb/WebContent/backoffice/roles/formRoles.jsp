@@ -143,7 +143,7 @@
 							</div>
 							
 							<!-- Path de referencia para redirigir -->
-							<input type="hidden" name="<%=Constantes.PARAM_SESSION_LAST_URL%>" value="<%=path%>">
+							<input type="hidden" name="<%=Constantes.ATTR_SESSION_LAST_URL%>" value="<%=path%>">
 							<!-- Acción a realizar -->
 							<input type='hidden' value='<%=accion.getValue()%>' name='<%=Constantes.PARAM_ACTION%>' />
 							

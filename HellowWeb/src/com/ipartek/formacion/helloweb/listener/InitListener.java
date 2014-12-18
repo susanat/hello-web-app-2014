@@ -1,11 +1,8 @@
 package com.ipartek.formacion.helloweb.listener;
 
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 
-
-
-
-import javax.print.DocFlavor.URL;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextAttributeEvent;
 import javax.servlet.ServletContextAttributeListener;
@@ -16,11 +13,8 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
-
-
-
-
-import com.ipartek.formacion.helloweb.comun.Constantes;
+import com.ipartek.formacion.helloweb.bean.CargasTemporales;
+import com.ipartek.formacion.helloweb.bean.estadisticas.UserSession;
 
 /**
  * Application Lifecycle Listener implementation class InitListener
@@ -56,6 +50,9 @@ public class InitListener implements ServletContextListener, ServletContextAttri
          
        //TODO: preparación de objetos de estadísticas
          System.out.println("Preparación objetos de estadísticas");
+        
+         //usuarios activos
+         CargasTemporales.lstActiveUsers = new ArrayList<UserSession>();
          
     }
     
@@ -130,6 +127,9 @@ public class InitListener implements ServletContextListener, ServletContextAttri
     	//System.out.println("Cerrada la conexión a base de datos");
     	
     	//TODO liberar memoria y cerrar 
+    	
+    	//Borramos estadísticas
+    	CargasTemporales.lstActiveUsers = null;
     }
 	
 }

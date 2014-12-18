@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.helloweb.bean.Message;
 import com.ipartek.formacion.helloweb.bean.Persona;
+import com.ipartek.formacion.helloweb.bean.estadisticas.UserSession;
 import com.ipartek.formacion.helloweb.comun.Constantes;
 import com.ipartek.formacion.helloweb.comun.Utils;
 import com.ipartek.formacion.helloweb.model.ModeloPersona;
@@ -91,6 +92,8 @@ public class LogoutServlet extends HttpServlet {
 		*/
 		
 		
+		session.setAttribute(Constantes.ATTR_SESSION_OFF_CAUSE, UserSession.ECauseSessionOff.LOGOUT);
+		
 		//Invalido siempre (TODO: ver si cambiar y solo borrar usuario o por defecto invalidar)
 		session.invalidate();
 		//casca si no la obtenemos de nuevo
@@ -102,7 +105,7 @@ public class LogoutServlet extends HttpServlet {
 		
 		//si no ha habido fallo, modificamos la última url visitada con el login
 		if(! msg.isError()){
-			session.setAttribute(Constantes.PARAM_SESSION_LAST_URL, Constantes.JSP_LOGIN);
+			session.setAttribute(Constantes.ATTR_SESSION_LAST_URL, Constantes.JSP_LOGIN);
 		}
 		
 		
