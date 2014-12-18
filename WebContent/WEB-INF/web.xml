@@ -28,7 +28,7 @@
     <description>CRUD para Persona</description>
     <display-name>PersonaServlet</display-name>
     <servlet-name>PersonaServlet</servlet-name>
-    <servlet-class>com.ipartek.formacion.helloworld.controler.PersonaServlet</servlet-class>
+    <servlet-class>com.ipartek.formacion.helloweb.controler.PersonaServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>PersonaServlet</servlet-name>
@@ -52,12 +52,12 @@
   </listener>
   <servlet>
     <description></description>
-    <display-name>ServletIdioma</display-name>
-    <servlet-name>ServletIdioma</servlet-name>
-    <servlet-class>com.ipartek.formacion.helloweb.controler.ServletIdioma</servlet-class>
+    <display-name>IdiomaServlet</display-name>
+    <servlet-name>IdiomaServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controler.IdiomaServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>ServletIdioma</servlet-name>
+    <servlet-name>IdiomaServlet</servlet-name>
     <url-pattern>/idioma</url-pattern>
   </servlet-mapping>
   <servlet>

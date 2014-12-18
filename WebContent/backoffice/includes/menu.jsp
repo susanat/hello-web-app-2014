@@ -9,7 +9,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">${sessionScope.user_session.nombre } | ${sessionScope.user_session.rol }</a>
+                <a class="navbar-brand" href="<%=Constante.JSP_BACKOFFICE_INDEX%>">${sessionScope.user_session.nombre } | ${sessionScope.user_session.rol }</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -28,14 +28,14 @@
                             <a class="active" href="<%=Constante.CONTROLER_PERSONA%>" title="Gestionar Personas"><i class="fa fa-dashboard fa-fw"></i> Personas</a>
                         </li>    
                         <li>
-                            <a class="active" href="<%=Constante.CONTROLER_IDIOMA%>" title="Gestionar Idiomas"><i class="fa fa-dashboard fa-fw"></i> Personas</a>
+                            <a class="active" href="<%=Constante.CONTROLER_IDIOMA%>" title="Gestionar Idiomas"><i class="fa fa-dashboard fa-fw"></i> Idioma</a>
                         </li>    
                         <li>
-                            <a class="active" href="<%=Constante.CONTROLER_ROL%>" title="Gestionar Roles"><i class="fa fa-dashboard fa-fw"></i> Personas</a>
+                            <a class="active" href="<%=Constante.CONTROLER_ROL%>" title="Gestionar Roles"><i class="fa fa-dashboard fa-fw"></i> Rol</a>
                             
                         </li>        
 						<li>
-                            <a class="active" href="<%=Constante.CONTROLER_CALIFICACION%>" title="Gestionar Calificaciones"><i class="fa fa-dashboard fa-fw"></i> Personas</a>         
+                            <a class="active" href="<%=Constante.CONTROLER_CALIFICACION%>" title="Gestionar Calificaciones"><i class="fa fa-dashboard fa-fw"></i> Calificaciones</a>         
                         </li>             
                     </ul>
                 </div>
