@@ -23,6 +23,8 @@ public class Util {
 	    ruta = Constante.JSP_SALUDO;
 	    break;
 	}
+	default:
+	    ruta = Constante.JSP_LOGIN;
 	}
 	return ruta;
     }

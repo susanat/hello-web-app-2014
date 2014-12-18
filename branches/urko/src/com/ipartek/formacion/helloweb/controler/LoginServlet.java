@@ -65,16 +65,31 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(final HttpServletRequest request,
 	    final HttpServletResponse response) throws ServletException,
 	    IOException {
-	// TODO tiempo maximo de session
-	// TODO check session activa
-	// TODO ListenerSession motivos
+	boolean nSession = false;
+	String url = request.getContextPath() + "/";
+	// Se comprueba tiempo maximo de session en el listener
+
+	// ListenerSession motivos
 	// TODO comprobar las cookies
-	// TODO corregir URL
-	checkSession(request);
+
 	getParameters(request);
 	// loadMessages();
-	session = request.getSession(true);
 	user = UserService.find(pUser, pPass);
+	// check session activa
+	nSession = checkSession(request);
+	if (!nSession) {
+	    validateLanguaje(request);
+	    validateUser(request);
+	    url += Util.obtenerRutaPersona(user);
+	} else {
+	    if (checkUser()) {// usuario valido redirecionamos dentro
+		url += Util.obtenerRutaPersona(user);
+	    } else { // no existe usuario redirecionamos fuera
+		url += Constante.JSP_LOGIN;
+	    }
+	}
+	// TODO corregir URL
+	response.sendRedirect(url);
 	/*
 	 * Object arguments = null;
 	 * log.debug(messages.getString("ejem.parametros"));
@@ -83,10 +98,17 @@ public class LoginServlet extends HttpServlet {
 	 * MessageFormat.format(messages.getString("ejem.parametros"),
 	 * arguments);
 	 */
-	validateLanguaje(request);
-	validateUser(request);
 
-	dispatch.forward(request, response);
+	// dispatch.forward(request, response);
+    }
+
+    private boolean checkUser() {
+	boolean existe = false;
+	Persona p = (Persona) session.getAttribute(Constante.ATT_PERSONA);
+	if (p != null) {
+	    existe = true;
+	}
+	return existe;
     }
 
     /**
@@ -96,7 +118,10 @@ public class LoginServlet extends HttpServlet {
      */
     private boolean checkSession(final HttpServletRequest request) {
 	boolean resul = false;
-
+	session = request.getSession(true);
+	if (session.isNew()) {
+	    resul = true;
+	}
 	return resul;
     }
 
