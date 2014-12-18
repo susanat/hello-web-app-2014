@@ -1,5 +1,9 @@
-    	<%@page import="com.ipartek.formacion.helloweb.comun.Constantes"%>
-</div>	
+<%@page import="com.ipartek.formacion.helloweb.comun.Globales"%>
+<%@page import="com.ipartek.formacion.helloweb.comun.Constantes"%>
+
+
+	</div> <!-- FIN container -->	
+        
         <!-- /.row -->
         <hr>
 
@@ -41,11 +45,16 @@
 		 		 	
 	  	%>
 			Etiqueta language tl: ${language} <br>
-			Session locale: <%= session.getAttribute(Constantes.PARAM_SESSION_LOCALE) %>
+			Session locale: <%=session.getAttribute(Constantes.ATTR_SESSION_LOCALE)%>
 		</div>
+		
+		<div class="alert alert-success">
+			<ul>
+				<li> Theme FrontOffice: <%= Globales.SITE_FRONTOFFICE_THEME %>
+				<li> Theme BackOffice: <%= Globales.SITE_BACKOFFICE_THEME %>
+			</ul>		
+		</div>		
         <!--********** FIN Temporal, para visualizar los datos -->
-        
-        
 
     </div>
     <!-- /.container -->

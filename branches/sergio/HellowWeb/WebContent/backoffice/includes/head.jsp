@@ -68,13 +68,17 @@
 	
 	<% //TODO Pasar a theme-head %>
 	 <!-- Bootstrap Core CSS -->
-	 <link href="<%=Constantes.PATH_BACK_ABS_THEME %>css/bootstrap.min.css" rel="stylesheet">	
+	 <link href="<%=Constantes.PATH_BACK_ABS_THEME %>css/bootstrap.min.css" rel="stylesheet">
+	 	
 	 <!-- MetisMenu CSS -->
-	 <link href="<%=Constantes.PATH_BACK_ABS_THEME %>css/metisMenu/metisMenu.min.css" rel="stylesheet">	 	
+	 <link href="<%=Constantes.PATH_BACK_ABS_THEME %>css/metisMenu/metisMenu.min.css" rel="stylesheet">
+	 	 	
 	 <!-- Custom CSS -->
-	 <link href="<%=Constantes.PATH_BACK_ABS_THEME %>css/main.css" rel="stylesheet">	 	
+	 <link href="<%=Constantes.PATH_BACK_ABS_THEME %>css/main.css" rel="stylesheet">
+	 	 	
 	 <!-- Custom Fonts -->
-	 <link href="<%=Constantes.PATH_BACK_ABS_THEME %>fonts/css/font-awesome.min.css" rel="stylesheet" type="text/css">	
+	 <link href="<%=Constantes.PATH_BACK_ABS_THEME %>fonts/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	 	
 	 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	 <!--[if lt IE 9]>

@@ -3,11 +3,14 @@ package com.ipartek.formacion.helloweb.bean;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ipartek.formacion.helloweb.bean.estadisticas.UserSession;
+
 public class CargasTemporales {
 
 	public static List<Roles> roles = null;
 	public static List<Permiso> permisos = null;
 	public static List<Persona> personas = null;
+	public static List<UserSession> lstActiveUsers = null;
 	
 	/**
 	 * Empty constructor

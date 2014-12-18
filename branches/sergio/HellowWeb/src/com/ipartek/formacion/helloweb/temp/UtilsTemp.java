@@ -17,6 +17,7 @@ import com.ipartek.formacion.helloweb.bean.Message;
 import com.ipartek.formacion.helloweb.bean.Persona;
 import com.ipartek.formacion.helloweb.bean.Roles;
 import com.ipartek.formacion.helloweb.comun.Constantes;
+import com.ipartek.formacion.helloweb.comun.Globales;
 
 public class UtilsTemp {
 
@@ -49,8 +50,7 @@ public class UtilsTemp {
 				//si coincide con el pasado, selected				
 				if (idRole.equals(String.valueOf(role.getId()))) {
 					str.append("selected");
-				}
-				
+				}				
 				
 				str.append(">"); //cierre de la apertura del option
 				str.append(role.getNombre());
@@ -62,9 +62,7 @@ public class UtilsTemp {
 		//cerramos el combo
 		str.append("</select>");	
 		
-		return str.toString();
-		
-		
+		return str.toString();		
 	}
 	
 	
@@ -167,12 +165,12 @@ public class UtilsTemp {
 		if(! "http://localhost:8080/HelloWeb/login_jstl.jsp".equals(path)) {
 			
 			//añadimos el último path visitado
-			session.setAttribute(Constantes.PARAM_SESSION_LAST_URL, path);
+			session.setAttribute(Constantes.ATTR_SESSION_LAST_URL, path);
 			
 		} else {
 			//obtenemos el path que habí, si no vacío
 			if(session != null) {
-				Object lastUrl = session.getAttribute(Constantes.PARAM_SESSION_LAST_URL);
+				Object lastUrl = session.getAttribute(Constantes.ATTR_SESSION_LAST_URL);
 				
 				if(lastUrl != null) {
 					path = (String) lastUrl;
@@ -235,8 +233,8 @@ public class UtilsTemp {
 		Persona p = null;		
 		
 		if(session != null) {
-			if( session.getAttribute(Constantes.PARAM_SESSION_AUTHENTICATED) != null) {				
-				p = (Persona) session.getAttribute(Constantes.PARAM_SESSION_USER);			
+			if( session.getAttribute(Constantes.ATTR_SESSION_AUTHENTICATED) != null) {				
+				p = (Persona) session.getAttribute(Constantes.ATTR_SESSION_USER);			
 			}
 		}
 		
@@ -301,7 +299,7 @@ public class UtilsTemp {
 			propiedad = propiedad.replace("alias", obj.getAlias().toLowerCase().trim()); 
 			
 				
-			resTemp = getStringLang(propiedad, sesion, Constantes.SITE_DEFAULT_LANG);
+			resTemp = getStringLang(propiedad, sesion, Globales.SITE_DEFAULT_LANG);
 			if("".equals(res.trim())) {
 				resTemp = propiedad; 
 			} else {
@@ -332,8 +330,8 @@ public class UtilsTemp {
 			locale = new Locale(langSplit[0], langSplit[1].toUpperCase());
 
 			//obtener lenguaje de la session del usuario
-			if(sesion.getAttribute(Constantes.PARAM_SESSION_LOCALE) != null) {
-				language = sesion.getAttribute(Constantes.PARAM_SESSION_LOCALE).toString();
+			if(sesion.getAttribute(Constantes.ATTR_SESSION_LOCALE) != null) {
+				language = sesion.getAttribute(Constantes.ATTR_SESSION_LOCALE).toString();
 			}
 			
 			if(language != null) {				
