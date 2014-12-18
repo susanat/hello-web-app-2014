@@ -123,7 +123,7 @@ public class PersonaServlet extends HttpServlet {
 							
 		///////////////// Obtención de urls
 		//obtenemos la url de referencia y de destino. Asumimos destino igual a referencia si no se dice lo contrario.
-		String urlReferer = (String) request.getSession().getAttribute(Constantes.PARAM_SESSION_LAST_URL);
+		String urlReferer = (String) request.getSession().getAttribute(Constantes.ATTR_SESSION_LAST_URL);
 		String urlTo = urlReferer;
 		
 		//obtenemos la página de origen (si no existe se asume que es la que ha relizado la petición):

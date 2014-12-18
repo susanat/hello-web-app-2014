@@ -20,7 +20,7 @@ import com.ipartek.formacion.helloweb.model.ModeloPersona;
 import com.ipartek.formacion.helloweb.model.interfaces.IModeloPersona.onModelPersonaError;
 import com.ipartek.formacion.helloweb.temp.ShutdownExample;
 
-public class customServlet extends HttpServlet {
+public class CustomServlet extends HttpServlet {
 
 	public Logger log = null;
 	public Object nameClass = "";
@@ -31,7 +31,7 @@ public class customServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = -8432805520586334696L;
 
-	public customServlet() {
+	public CustomServlet() {
 		super();
 		
 		//this.nameClass = obj.getClass();		

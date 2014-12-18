@@ -86,13 +86,13 @@ Usuario
 	Access
 		
 		(control en filtro)
-		CHECK Maintenance   Permiso de acceso a la web en modo mantenimiento
-		CHECK Private		Permiso de acceso a la web en modo privado
+		per.auth.maintenance 	CHECK Maintenance   Permiso de acceso a la web en modo mantenimiento
+		per.auth.site.private 	CHECK Private		Permiso de acceso a la web en modo privado
 		
 		(control en head de los jsp)
-		CHECK Administrator Permiso de acceso a la parte de administración del sitio
-		CHECK Profiles		Permiso de acceso a todos los profiles de los usuarios
-		CHECK Profile		Permiso de acceso a la propia configuración del usuario
+		per.auth.backoffice 	CHECK Administrator Permiso de acceso a la parte de administración del sitio
+		per.auth.profiles		CHECK Profiles		Permiso de acceso a todos los profiles de los usuarios
+		per.auth.profile		CHECK Profile		Permiso de acceso a la propia configuración del usuario
 		
 	Edit
 		(control en contenido)
@@ -189,6 +189,34 @@ Funciones auxiliares necesarias:
 
 
 *** FIN Funcionamiento lenguaje para tablas multilenguage
+	
+	
+*** Control de usuario con sesión
+
+Creación de sesión:
+
+Cuando una sesión se crea, está sesión será registrada mayormente como anónima (simplemente no se le ha añadido usuario).
+
+Cuando un usuario se identifique (servlet login), se modificará su sesión. 
+
+Finalización de sesión:
+
+Cuando una sesión se destruye sea por el motivo que sea, el listener de sesión recogerá este evento
+y es en ese momento cuando registraremos sea donde sea que el usuario ha finalizado la sesión (BD, lista, log, etc)
+
+Dos puntos de finalización de sesiones:
+	A - Servlet de logout
+	B - Sesión expirada
+
+A- Cuando un usuario utiliza el logout, pasará siempre por el servlet, desde el cual se inavilitará la sesión.
+	En este punto, se añadirá un flag a la sesión (flat del enum de usersession) la cual, cuando pase por el listener de sesión destruida
+	se harán las operaciones pertinentes.
+	
+B- Se recogerá únicamente en el listener de sesión destruida. Si no existe el flag de razón de sesión, éste será puesto como sesión expirada
+
+
+*** FIN estadísticas de sesiones
+
 	
 
 NOTA:

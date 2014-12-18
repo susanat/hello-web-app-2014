@@ -34,7 +34,7 @@ import com.ipartek.formacion.helloweb.temp.UtilsTemp;
 /**
  * Servlet implementation class LoginServlet
  */
-public class LoginServlet extends customServlet {
+public class LoginServlet extends CustomServlet {
 	
 	private static final long serialVersionUID = 1L;
        	
@@ -42,6 +42,7 @@ public class LoginServlet extends customServlet {
 	public LoginServlet() {
 		super();
 		
+		//añado el nombre de la clase para el log, sito en el CustomServlet
 		this.nameClass = this;
 		
 	}
@@ -124,8 +125,9 @@ public class LoginServlet extends customServlet {
 	private Message doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		log.trace("Entrando en doProcess");
 		
-		//obtenemos la sesion
-		HttpSession session = request.getSession();
+		//obtenemos la sesion y la creamos si es necesario
+		HttpSession session = request.getSession(true);
+		
 
 
 		/*
@@ -202,9 +204,9 @@ public class LoginServlet extends customServlet {
 		
 		//Preparamos la sesion:
 		// usuario (puede ser null)		
-		session.setAttribute(Constantes.PARAM_SESSION_USER, perSesion);
+		session.setAttribute(Constantes.ATTR_SESSION_USER, perSesion);
 		// autentificación (true o false)
-		session.setAttribute(Constantes.PARAM_SESSION_AUTHENTICATED, autentificado);
+		session.setAttribute(Constantes.ATTR_SESSION_AUTHENTICATED, autentificado);
 	
 		return lMsg;
 		
@@ -240,7 +242,7 @@ public class LoginServlet extends customServlet {
 		
 		//si no ha habido fallo, modificamos la última url visitada con el login (evitamos problemas de redirección)
 		if(!msg.isError()){
-			session.setAttribute(Constantes.PARAM_SESSION_LAST_URL, Constantes.JSP_LOGIN);
+			session.setAttribute(Constantes.ATTR_SESSION_LAST_URL, Constantes.JSP_LOGIN);
 		}
 		
 		if(msg.isError()) {
@@ -249,8 +251,11 @@ public class LoginServlet extends customServlet {
 			log.info("Info: Proceso de logueado correcto");
 		}
 		
+				
+		//codificamos la url
+		urlTo = response.encodeRedirectURL(urlTo);
 		
-		//redirigimos necesario
+		//redirigimos
 		dispatcher = request.getRequestDispatcher(Utils.getUriFile(urlTo));	    
 		dispatcher.forward(request, response);			
 	}
@@ -277,7 +282,7 @@ public class LoginServlet extends customServlet {
 		HttpSession session = request.getSession();		
 		
 		//comprobamos si ya está logueado	    
-	    if(session.getAttribute(Constantes.PARAM_SESSION_USER) != null){	    	
+	    if(session.getAttribute(Constantes.ATTR_SESSION_USER) != null){	    	
 	    		isAutentificado = true;
 	    		
 	    		//TODO: log en el server de como ha llegado de nuevo al login estando autentificado, posible problema

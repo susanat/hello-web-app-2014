@@ -75,9 +75,13 @@ public final class Constantes {
 	}
 	
 	//*************** PROPIEDADES DEL PROGRAMA
-	public final static String SITE_DEFAULT_LANG = "es_ES";
+	
+	
+	
+	
 	
 	public final static String PACKAGE_LANG = "com.ipartek.formacion.helloweb.i18n.lang.properties";
+	
 	
 	///tengo que obtener el archivo properties
 
@@ -108,17 +112,13 @@ public final class Constantes {
 	public final static String NAME_FOLDER_FRONT_THEMES = "themes/";
 	
 	
-	private final static String theme_back_prueba = "st-admin-2/";
-	private final static String theme_back_default = "default/";
 
-	private final static String theme_front_prueba = "blog-post/";
-	private final static String theme_front_default = "default/";
 		
 	
-	public final static  String PATH_BACK_REL_THEME = NAME_FOLDER_BACK + NAME_FOLDER_BACK_THEMES + theme_back_default;
+	public final static  String PATH_BACK_REL_THEME = NAME_FOLDER_BACK + NAME_FOLDER_BACK_THEMES + Globales.SITE_BACKOFFICE_THEME + "/";
 	public final static  String PATH_BACK_ABS_THEME = PATH_SITE + PATH_BACK_REL_THEME;
 	
-	public final static  String PATH_FRONT_REL_THEME = NAME_FOLDER_FRONT + NAME_FOLDER_FRONT_THEMES + theme_front_prueba;
+	public final static  String PATH_FRONT_REL_THEME = NAME_FOLDER_FRONT + NAME_FOLDER_FRONT_THEMES + Globales.SITE_FRONTOFFICE_THEME + "/";
 	public final static  String PATH_FRONT_ABS_THEME = PATH_SITE + PATH_FRONT_REL_THEME;
 	
 
@@ -190,36 +190,41 @@ public final class Constantes {
 	//**************Session
 	//*** general
 	/**
-	 * Contendra la Ãºltima url visitada (String)
+	 * Contendra la Última url visitada (String)
 	 */
-	public final static  String PARAM_SESSION_LAST_URL = "lasturl";
+	public final static  String ATTR_SESSION_LAST_URL = "lasturl";
 
 	/**
-	 * Contendra un mensaje
+	 * Contendra un mensaje de tipo message
 	 */
-	public final static  String PARAM_SESSION_MSJ = "msj";
+	public final static  String ATTR_SESSION_MSJ = "msj";
 
 	/**
 	 * Contendra el usuario  (Persona)
 	 */
-	public final static  String PARAM_SESSION_USER = "user_session";
+	public final static  String ATTR_SESSION_USER = "user_session";
 	
 	/**
 	 * Contendrá el locale del usuario
 	 */
-	public final static  String PARAM_SESSION_LOCALE = "locale_user";
+	public final static  String ATTR_SESSION_LOCALE = "user_locale";
 
 	//*** login
 	/**
 	 * Contendra si se ha autentificado un usuario    
 	 */
-	public final static  String PARAM_SESSION_AUTHENTICATED = "authenticated";
+	public final static  String ATTR_SESSION_AUTHENTICATED = "authenticated";
 
 	//*** logout
 	/**
 	 * Si se desea mantener datos o invalidar la sessiÃ³n completamente
 	 */
 	public final static  String PARAM_SESSION_INVALIDATE = "invalidate";
+	
+	/**
+	 * Causa fin de sesión
+	 */
+	public static final String ATTR_SESSION_OFF_CAUSE = "session_cause_off";
 
 	////************** Servlet General
 	//*Atributtes
@@ -291,6 +296,8 @@ public final class Constantes {
 	 * Ruta página jsp de error
 	 */
 	public static final String JSP_ERROR = "error.jsp";
+
+	
 	
 	
 }

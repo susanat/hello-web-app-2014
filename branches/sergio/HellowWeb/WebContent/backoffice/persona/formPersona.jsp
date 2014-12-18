@@ -41,7 +41,6 @@
 
 
 <%
-
 	out.print(request.getRequestURL().toString());
 
 	//*********************************************** Obtención del path y creación de session si no existe
@@ -54,12 +53,12 @@
 	}
 	
 	//añadimos el último path visitado
-	session.setAttribute(Constantes.PARAM_SESSION_LAST_URL, path);
+	session.setAttribute(Constantes.ATTR_SESSION_LAST_URL, path);
 	//*********************************************** FIN Obtención del path y creación de session si no existe
 %>
 
 
-<% 
+<%
 	//********************************************** Logica de entrada
 	
 	//ORIGEN: nos ha llegado la persona por el servlet (en una lista)
@@ -70,14 +69,14 @@
 		
 		//si existe la cargamos
 		if(personas != null && personas.size() > 0) {		
-			//inicializamos los datos con los datos de la persona
-			id = String.valueOf(personas.get(0).getId());		
-			nombre = personas.get(0).getNombre();
-			edad = String.valueOf(personas.get(0).getEdad());
-			role = String.valueOf(personas.get(0).getRol());
-			
-			//se trata de una actualización
-			accion = EModeloAccion.UPDATE;
+	//inicializamos los datos con los datos de la persona
+	id = String.valueOf(personas.get(0).getId());		
+	nombre = personas.get(0).getNombre();
+	edad = String.valueOf(personas.get(0).getEdad());
+	role = String.valueOf(personas.get(0).getRol());
+	
+	//se trata de una actualización
+	accion = EModeloAccion.UPDATE;
 		}
 		
 	} else	if (request.getParameter(Constantes.PARAM_PERSONAS_ID) != null) {
@@ -86,7 +85,7 @@
 		//llamamos para que nos cargue persona
 		
 		//TODO ¿Necesario?
-			%> 
+%> 
 			<!--  
 				<form id="get_from_id" action="<%=Constantes.PATH_SITE +  Constantes.CONTROLLER_PERSONA%>" method="post">
 						<input type='hidden' value='<%=request.getParameter(Constantes.PARAM_PERSONAS_ID)%>' name='<%=Constantes.PARAM_PERSONAS_ID%>' />						
@@ -98,11 +97,11 @@
 				</script>
 			-->
 			<%
-	} else {
-		//ORIGEN: ninguno. Para crear una nueva persona
-		accion = EModeloAccion.INSERT;
-	}
-%>
+				} else {
+					//ORIGEN: ninguno. Para crear una nueva persona
+					accion = EModeloAccion.INSERT;
+				}
+			%>
 	
 	<div class="container row-centered">		
 		<div class="col-xs-4 col-centered">
@@ -111,20 +110,20 @@
 			    	<div class="panel-heading">
 			      		<h3 class="panel-title">
 			      			<%
-							if (accion == EModeloAccion.UPDATE) {
-								out.print("Actualizar la persona");
-							} else {
-								out.print("Crear nueva persona");
-							}																
-							%>
+			      				if (accion == EModeloAccion.UPDATE) {
+			      									out.print("Actualizar la persona");
+			      								} else {
+			      									out.print("Crear nueva persona");
+			      								}
+			      			%>
 			      		</h3>
 			    	</div>
 			    	<div class="panel-body">		
 			    	
 						<form class="" role="form" method="post" id="frm_personas" action="<%=Constantes.PATH_SITE +  Constantes.CONTROLLER_PERSONA%>">
-							<%							
-							if (accion.equals(EModeloAccion.UPDATE)) 
-							{							
+							<%
+								if (accion.equals(EModeloAccion.UPDATE)) 
+												{
 							%>
 								<div class="form-group form-group-install col-md-12">
 								<label class="control-label" for="cont1">Id</label>
@@ -133,7 +132,7 @@
 								 	placeholder="" readonly="readonly">
 								</div>
 							<%
-							}						
+								}
 							%>
 							
 						
@@ -156,17 +155,17 @@
 								<label class="control-label" for="cont4">Rol</label>
 								<%
 									if (accion == EModeloAccion.UPDATE) {
-										out.print(UtilsTemp.getComboRoles(CargasTemporales.getListRoles(), role));
-									} else {
-										out.print(UtilsTemp.getComboRoles(CargasTemporales.getListRoles(), role));
-									}																
+																out.print(UtilsTemp.getComboRoles(CargasTemporales.getListRoles(), role));
+															} else {
+																out.print(UtilsTemp.getComboRoles(CargasTemporales.getListRoles(), role));
+															}
 								%>
 								
 								
 							</div>
 							
 							<!-- Path de referencia para redirigir -->
-							<input type="hidden" name="<%=Constantes.PARAM_SESSION_LAST_URL%>" value="<%=path%>">
+							<input type="hidden" name="<%=Constantes.ATTR_SESSION_LAST_URL%>" value="<%=path%>">
 							<!-- Acción a realizar -->
 							<input type='hidden' value='<%=accion.getValue()%>' name='<%=Constantes.PARAM_ACTION%>' />
 							

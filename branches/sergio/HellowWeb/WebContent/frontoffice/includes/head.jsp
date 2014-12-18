@@ -56,7 +56,6 @@
 
 <!DOCTYPE html>
 <html lang="${language}">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -64,7 +63,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Blog Post - Start Bootstrap Template</title>
+    <title>${title}</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<%=Constantes.PATH_FRONT_ABS_THEME %>css/bootstrap.min.css" rel="stylesheet">
