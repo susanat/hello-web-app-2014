@@ -92,9 +92,14 @@
 		    	}
 		    
    		 </select>-->
-	 		 
+	 	<br>
+	 		
+	 		<input type="checkbox" name="<%=Constantes.PARAMETRO_RECUERDAME%>" >
+	 		<label for="<%=Constantes.PARAMETRO_RECUERDAME%>">Recuerdame</label>
+		<br>	 
  	</form>
-
+	
+	
 	<div class="login-help">
 	    <a href="#">Register</a> • <a href="#">Forgot Password</a>
 	</div> 
