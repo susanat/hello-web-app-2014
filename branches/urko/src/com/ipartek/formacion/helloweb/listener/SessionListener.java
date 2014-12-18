@@ -25,6 +25,7 @@ public class SessionListener implements HttpSessionListener,
     public SessionListener() {
 	// Logger logger = Logger.getAnonymousLogger();
 	// logger.log(Level.INFO, "Session Listener Default constructor");
+	log.trace("control de session");
     }
 
     /**
@@ -73,9 +74,9 @@ public class SessionListener implements HttpSessionListener,
     @Override
     public void sessionCreated(final HttpSessionEvent se) {
 	// Logger logger = Logger.getAnonymousLogger();
-	log.info(se);
+	log.trace(se + " fijado el tiempo maximo de la session");
 	HttpSession session = se.getSession();
-	session.setMaxInactiveInterval(60 * 30);
+	session.setMaxInactiveInterval(1 * 3);
     }
 
     /**
