@@ -3,8 +3,8 @@
 <%@page import="com.ipartek.formacion.helloweb.i18n.I18n"%>
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="util" uri="http://www.formacion.ipartek.com/tags/util"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="util" uri="http://www.formacion.ipartek.com/tags/util"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="hello" uri="http://www.formacion.ipartek.com"%>
 <%@ taglib prefix="saluda2" uri="http://www.formacion.ipartek.com"%>
@@ -43,7 +43,9 @@
     <input type="text" name="<%= Constante.PARAMETRO_USER %>" placeholder="<fmt:message key="login.form.username"></fmt:message>">
     <input type="password" name="<%=Constante.PARAMETRO_PASS %>" placeholder="<fmt:message key="login.form.password"></fmt:message>">
     <div class="form-control">
+    <!-- 
     <select name="<%=Constante.PARAMETRO_IDIOMA%>">
+    
   	<c:forEach items="<%=Idioma.getNames() %>" var="idioma">
   		<c:choose>
   		<c:when test="${fn:containsIgnoreCase(idioma.key, language)}">
@@ -54,7 +56,9 @@
   		</c:otherwise>
   		</c:choose>
   	</c:forEach>
+  	
   	</select>
+  	 -->
   	</div>
   	<util:selectoroptions parameterName="<%=Constante.PARAMETRO_IDIOMA %>" 
   						opValues="<%=Idioma.getIndices() %>" 
