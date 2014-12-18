@@ -4,6 +4,7 @@ public class Constante {
 
     public static final String USER_SESSION = "user_session";
     public static final String LANG_SESSION = "lang_session";
+    public static final String USER_LOGOUT_PETICION = "logout.pedida";
 
     public static final String USER_ADMIN_CODE = "0";
     public static final String USER_ADMIN_NAME = "admin";
