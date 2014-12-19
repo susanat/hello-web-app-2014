@@ -89,10 +89,16 @@ Usuario
 		per.auth.maintenance 	CHECK Maintenance   Permiso de acceso a la web en modo mantenimiento
 		per.auth.site.private 	CHECK Private		Permiso de acceso a la web en modo privado
 		
+		Si no está autentificado o no tiene permisos, se le redirige directamente al login.
+		
+		
+		
 		(control en head de los jsp)
 		per.auth.backoffice 	CHECK Administrator Permiso de acceso a la parte de administración del sitio
 		per.auth.profiles		CHECK Profiles		Permiso de acceso a todos los profiles de los usuarios
 		per.auth.profile		CHECK Profile		Permiso de acceso a la propia configuración del usuario
+		
+		Si no está autentificado o no tiene permisos, se le redirige directamente al login.
 		
 	Edit
 		(control en contenido)

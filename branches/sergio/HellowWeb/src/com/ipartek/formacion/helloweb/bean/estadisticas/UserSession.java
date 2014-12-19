@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.helloweb.bean.Persona;
+import com.ipartek.formacion.helloweb.comun.Constantes;
 import com.ipartek.formacion.helloweb.comun.Constantes.EModeloAccion;
 
 public class UserSession {
@@ -63,12 +64,12 @@ public class UserSession {
 	/**
 	 * Fecha de inicio de sesión
 	 */
-	private Date init;
+	private Long init;
 		
 	/**
 	 * Fecha de fin de sesión
 	 */
-	private Date finish;
+	private Long finish;
 	
 	/**
 	 * Objeto del usuario
@@ -111,19 +112,19 @@ public class UserSession {
 		this.sesion = sesion;
 	}
 
-	public Date getInit() {
+	public Long getInit() {
 		return init;
 	}
 
-	public void setInit(Date init) {
+	public void setInit(Long init) {
 		this.init = init;
 	}
 
-	public Date getFinish() {
+	public Long getFinish() {
 		return finish;
 	}
 
-	public void setFinish(Date finish) {
+	public void setFinish(Long finish) {
 		this.finish = finish;
 	}
 
@@ -146,11 +147,11 @@ public class UserSession {
 	
 	///////// Funciones de apoyo
 	public void setDateFinishNow() {
-		finish = new Date();
+		finish = System.currentTimeMillis();
 	}	
 	
 	public void setDateInitNow() {
-		init = new Date();
+		init = System.currentTimeMillis();
 	}
 	
 	
@@ -161,6 +162,31 @@ public class UserSession {
 	public boolean isSessionTerminated() {
 		return finish != null;
 	}
+	
+	
+	/**
+	 * Constructor de creación de usuario activo
+	 * @param session
+	 */
+	public UserSession(HttpSession session) 
+	{
+		//obtenemos el id de la sesión
+		this.idSession = session.getId();
+		this.init = session.getLastAccessedTime();
+		
+		this.sesion = session;
+		
+		if(session.getAttribute(Constantes.ATTR_SESSION_USER) != null) {
+			this.usuario = (Persona) session.getAttribute(Constantes.ATTR_SESSION_USER);
+		}
+		
+		this.finish = null;
+		this.causeSessionOf = null;
+		
+	}
+	
+	
+	
 	
 
 }
