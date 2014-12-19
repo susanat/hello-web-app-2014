@@ -14,6 +14,17 @@ public class Constantes {
 
 	public static final String USER_SESSION = "user_session";
 	public static final String USER_LANGUAGE = "user_language";
+	public static final String USER_LOGOUT_PETICION = "logout.pedida";
+
+	public static final String PARAMETRO_RECUERDAME = "recuerdame";
+
+	public static final String USER_ADMIN_CONT = "cont_admin";
+	public static final String USER_USER_CONT = "cont_user";
+
+	// cookies
+	public static final String COOKIE_USER_NAME = "cuser";
+	public static final String COOKIE_USER_PASS = "cpass";
+	public static final String COOKIE_USER_IDIOM = "cidiom";
 
 	// Paths para Servlets
 	public static final String PATH_LOGIN = "login";
@@ -21,11 +32,13 @@ public class Constantes {
 
 	public static final String CONTROLLER_PERSONA = "persona";
 	public static final String CONTROLLER_CALIFICACION = "calificacion";
+	public static final String CONTROLLER_USUARIOS = "usuarios";
 
 	// JSPs publicas
 
 	public static final String JSP_SALUDO = "/saludo.jsp";
 	public static final String JSP_LOGIN = "login.jsp";
+	public static final String JSP_ERROR = "includes/error.jsp";
 
 	// JSPs Backoffice
 	public static final String JSP_BACKOFFICE = "backoffice/";
@@ -63,6 +76,7 @@ public class Constantes {
 
 	public static final String MSG_ERROR_PARAMETERS = "Error recogiendo parametros";
 	public static final String MSG_ERROR_REG_DELETE = "Error eliminando registros";
+	public static final String MSG_ERROR_LOAD_PATH4J = "Error path log4j";
 
 	// /Atributos
 

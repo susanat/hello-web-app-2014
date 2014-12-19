@@ -2,12 +2,13 @@ package com.ipartek.formacion.helloweb.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.Logger;
 
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.bean.Message;
@@ -18,16 +19,7 @@ import com.ipartek.formacion.helloweb.bean.Message;
  */
 public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	RequestDispatcher dispatch = null;
-	HttpSession session = null;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public LogoutServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	private final static Logger log = Logger.getLogger("ACCESOS");
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -35,24 +27,19 @@ public class LogoutServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		processRequestGET(request, response);
 
-	}
+		// recuperar session del usuario
+		HttpSession session = request.getSession();
 
-	// método encargado de la gestión del método GET
-	protected void processRequestGET(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+		session.setAttribute(Constantes.USER_LOGOUT_PETICION, true);
+		// invalidar session
+		session.invalidate();
 
-		// recuperar sesion
-		session = request.getSession();
-		// poner el objeto de la sesion a null
-		session.removeAttribute(Constantes.USER_SESSION);
-		// redireccionar a login
-		dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
-		// request.setAttribute(Constantes.MSG_KEY_OUT, Constantes.MSG_LOGOUT);
+		// forwar a login
 		Message msg = new Message(Constantes.MSG_LOGOUT, Message.MSG_TYPE_INFO);
 		request.setAttribute(Constantes.MSG_KEY, msg);
-		dispatch.forward(request, response);
+		request.getRequestDispatcher(Constantes.JSP_LOGIN).forward(request,
+				response);
 
 	}
 

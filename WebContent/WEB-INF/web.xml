@@ -2,8 +2,99 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
   <display-name>HelloWeb</display-name>
   <welcome-file-list>
-    <welcome-file>login.jsp</welcome-file>
+    <welcome-file>login</welcome-file>
   </welcome-file-list>
+  
+<!--  JSP Config -->  
+  
+  <display-name>Prueba TagLib</display-name>
+  <jsp-config>
+    <taglib>
+      <taglib-uri>http://www.formacion.ipartek.com</taglib-uri>
+      <taglib-location>/WEB-INF/tag/tag_hello.tld</taglib-location>
+    </taglib>
+    <taglib>
+      <taglib-uri>http://www.formacion.ipartek.com/tag/util</taglib-uri>
+      <taglib-location>/WEB-INF/tag/util.tld</taglib-location>
+    </taglib>
+  </jsp-config>
+  
+<!--End:  JSP Config -->  
+  
+<!-- LISTENERS -->  
+  <listener>
+    <listener-class>com.ipartek.formacion.helloweb.listener.SessionListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>com.ipartek.formacion.helloweb.listener.InitListener</listener-class>
+  </listener>
+<!-- End:LISTENERS -->
+
+<!-- FILTERS -->
+  <filter>
+    <display-name>LoadErrorFilter</display-name>
+    <filter-name>LoadErrorFilter</filter-name>
+    <filter-class>com.ipartek.formacion.helloweb.filter.LoadErrorFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>LoadErrorFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <filter>
+    <display-name>JspFilter</display-name>
+    <filter-name>JspFilter</filter-name>
+    <filter-class>com.ipartek.formacion.helloweb.filter.JspFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>JspFilter</filter-name>
+    <url-pattern>*.jsp</url-pattern>
+  </filter-mapping>
+<!-- FILTERS -->  
+
+
+<!-- SERVLETS -->
+  <servlet>
+    <description>Servlet de ejemplo para recoger parametro con varios valores y retornar en formato JSON o HTML</description>
+    <display-name>EjemploParameterValuesServlet</display-name>
+    <servlet-name>EjemploParameterValuesServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controller.EjemploParameterValuesServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EjemploParameterValuesServlet</servlet-name>
+    <url-pattern>/ejemploParameterValuesServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UsuariosServlet</display-name>
+    <servlet-name>UsuariosServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controller.UsuariosServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UsuariosServlet</servlet-name>
+    <url-pattern>/usuariosServlet</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+    <description></description>
+    <display-name>CalificacionServlet</display-name>
+    <servlet-name>CalificacionServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controller.CalificacionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CalificacionServlet</servlet-name>
+    <url-pattern>/calificacionServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ServletMaestro</display-name>
+    <servlet-name>ServletMaestro</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controller.ServletMaestro</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletMaestro</servlet-name>
+    <url-pattern>/servletMaestro</url-pattern>
+  </servlet-mapping>
+  
   <servlet>
     <description>Controlador para login de usuarios</description>
     <display-name>LoginServlet</display-name>
@@ -34,31 +125,5 @@
     <servlet-name>PersonaServlet</servlet-name>
     <url-pattern>/persona</url-pattern>
   </servlet-mapping>
-  <display-name>Prueba TagLib</display-name>
-  <jsp-config>
-    <taglib>
-      <taglib-uri>http://www.formacion.ipartek.com</taglib-uri>
-      <taglib-location>/WEB-INF/tag/tag_hello.tld</taglib-location>
-    </taglib>
-    <taglib>
-      <taglib-uri>http://www.formacion.ipartek.com/tag/util</taglib-uri>
-      <taglib-location>/WEB-INF/tag/util.tld</taglib-location>
-    </taglib>
-  </jsp-config>
-  <listener>
-    <listener-class>com.ipartek.formacion.helloweb.listener.SessionListener</listener-class>
-  </listener>
-  <listener>
-    <listener-class>com.ipartek.formacion.helloweb.listener.InitListener</listener-class>
-  </listener>
-  <servlet>
-    <description></description>
-    <display-name>CalificacionServlet</display-name>
-    <servlet-name>CalificacionServlet</servlet-name>
-    <servlet-class>com.ipartek.formacion.helloweb.controller.CalificacionServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>CalificacionServlet</servlet-name>
-    <url-pattern>/calificacionServlet</url-pattern>
-  </servlet-mapping>
+<!-- End: SERVLETS -->
 </web-app>

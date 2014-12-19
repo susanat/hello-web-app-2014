@@ -1,98 +1,52 @@
+<%@page import="com.ipartek.formacion.helloweb.listener.InitListener"%>
 <%@page isErrorPage="true"%>
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Simple Error Page Template by BINARY THEME</title>
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <!-- Fontawesome core CSS -->
-    <link href="css/font-awesome.min.css" rel="stylesheet" />
-    <!--GOOGLE FONT -->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    <!-- custom CSS here -->
-    <link href="css/style.css" rel="stylesheet" />
-</head>
-<body>
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="htttp://www.binarytheme.com">YOUR LOGO </a>
-            </div>
-            <!-- Collect the nav links for toggling -->
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="#">Home</a>
-                    </li>
-                    <li><a href="#">About</a>
-                    </li>
-                    <li><a href="#">Team</a>
-                    </li>
-                    <li><a href="#">Contact</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-    <!--jumbotron-->
-    <div class="jumbotron  text-center ">
-        <h1 class="top-pad head-main"><strong>ERROR ! 404</strong>  </h1>
-        <b>Message:</b><%=exception.getMessage()%>
-         <a href="#"><i class="fa fa-mail-reply"></i>&nbsp;PLEASE GO BACK</a>
-    </div>
-    <!--End jumbotron-->
-    <div class="container">
-        <!--Search Section Start-->
-        <div class="row ">
-            <div class="form-group input-group col-md-6 col-md-offset-3">
-                <input type="text" class="form-control" placeholder="Enter Your E-mail" />
-                <span class="input-group-btn">
-                    <button class="btn btn-primary" type="button">
-                        <i class="fa fa-gear fa-spin"></i>&nbsp;&nbsp;SEARCH HERE
-                    </button>
-                </span>
-            </div>
-            <br />
-
-        </div>
-        <!--Search Section end-->
-
-
-    </div>
-    <!-- /.container -->
-     <!--jumbotron social-->
-    <div class="jumbotron  text-center ">
-        <h2 class="color-green"><strong>Our Social Places</strong>  </h2>
-        <br />
-        <a href="#"><i class="fa fa-facebook fa-3x "></i></a>
-        <a href="#"><i class="fa fa-twitter fa-3x"></i></a>
-        <a href="#"><i class="fa fa-google-plus fa-3x"></i></a>
-        <a href="#"><i class="fa fa-linkedin fa-3x"></i></a>
-         <a href="#"><i class="fa fa-vk fa-3x"></i></a>
-    </div>
-    <!--End jumbotron social-->
-    <!--Footer -->
-    <div class="col-md-12 top-margin footer-section">
-        &copy; 2014 | &nbsp; All Rights Reserved | &nbsp; www.yourdomain.com
-    </div>
-    <!--Footer end -->
-    <!--Core JavaScript file  -->
-    <script src="js/jquery-1.10.2.js"></script>
-    <!--bootstrap JavaScript file  -->
-    <script src="js/bootstrap.js"></script>
-</body>
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<title>WOOPSIE DAISY! Something went wrong!!!</title>
+		
+		<style type="text/css">
+			body{ margin:0; padding:0; background:#efefef; font-family:Georgia, Times, Verdana, Geneva, Arial, Helvetica, sans-serif; }
+			div#mother{ margin:0 auto; width:943px; height:572px; position:relative; }
+			div#errorBox{ background: url(bg-404.png) no-repeat top left; width:943px; height:572px; margin:auto; }
+			div#errorText{ color:#39351e; padding:146px 0 0 446px }
+			div#errorText p{ width:303px; font-size:14px; line-height:26px; }
+			div.link{ /*background:#f90;*/ height:50px; width:145px; float:left; }
+			div#home{ margin:20px 0 0 444px;}
+			div#contact{ margin:20px 0 0 25px;}
+			h1{ font-size:40px; margin-bottom:35px; }
+		</style>
+		
+	</head>
+	<body>
+		<div id="mother">
+			<div id="errorBox">
+				<div id="errorLoad">
+					<% 
+						if ( InitListener.LOAD_ERROR_MSG != null ){
+							out.println( InitListener.LOAD_ERROR_MSG );
+						} 
+					%>
+				</div>
+			
+				<% if ( exception != null ) { %>
+				<div id="errorText">
+					<h1>Error: Disculpa las Moletias</h1>
+					<p>
+						<b>Message:</b> <%=exception.getMessage()%>	
+					</p>
+				<% } %>	
+					
+				</div>
+				<a href="/" title="Home...">
+					<div class="link" id="home"></div>
+				</a>
+				<a href="/contact" title="Contact...">
+					<div class="link" id="contact"></div>
+				</a>
+			</div>
+		</div>
+	</body>
 </html>
+
