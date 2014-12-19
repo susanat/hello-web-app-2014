@@ -38,6 +38,8 @@ public class Constante {
 	    + "idioma/listado.jsp";
     public static final String JSP_BACKOFFICE_IDIOMA_FORM = JSP_BACKOFFICE
 	    + "idioma/form.jsp";
+    public static final String JSP_BACKOFFICE_SESSION_LIST = JSP_BACKOFFICE
+	    + "session/listado.jsp";
     /* servlets */
     public static final String SERVLET_LOGIN = "login";
     public static final String SERVLET_LOGOUT = "logout";
@@ -45,6 +47,7 @@ public class Constante {
     public static final String CONTROLER_IDIOMA = "idioma";
     public static final String CONTROLER_ROL = "rol";
     public static final String CONTROLER_CALIFICACION = "calificacion";
+    public static final String CONTROLER_SESSION = "session";
     // properties
     public static final String PROPERTI_I18N = "com.ipartek.formacion.helloweb.i18n.i18nmesages";
     // parametros
@@ -69,6 +72,7 @@ public class Constante {
     public static final String ATT_PERSONAS = "personas";
     public static final String ATT_PERSONA = "persona";
     public static final String ATT_OPERACION = "op";
+    public static final String ATT_REGISTERED_USERS = "usuarios";
 
     // Operacion CRUD
     public static final String OP_KEY = "op";
