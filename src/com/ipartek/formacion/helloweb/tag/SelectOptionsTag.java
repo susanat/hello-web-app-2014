@@ -89,9 +89,10 @@ public class SelectOptionsTag extends TagSupport {
 	int len = opValues.size();
 
 	for (int i = 0; i < len; i++) {
-	    System.out.println(opValues.get(i) + "- valor - " + selectedValue);
+	    // System.out.println(opValues.get(i) + "- valor - " +
+	    // selectedValue);
 	    if (opValues.get(i).equalsIgnoreCase(selectedValue)) {
-		System.out.println("cogido");
+		// System.out.println("cogido");
 		cadena.append("<option selected='selected' value='"
 			+ opValues.get(i) + "'>" + opTexts.get(i) + "</option>");
 	    } else {
