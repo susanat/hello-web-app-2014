@@ -14,7 +14,6 @@ import org.apache.log4j.Logger;
 
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.bean.Mensaje;
-import com.ipartek.formacion.helloweb.bean.Persona;
 
 /**
  * Servlet implementation class LogoutServlet
@@ -50,22 +49,18 @@ public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request,
 	    HttpServletResponse response) throws ServletException, IOException {
-	// recuperar sesion
+	// recuperar session del usuario
 	HttpSession session = request.getSession();
 
 	session.setAttribute(Constantes.USER_LOGOUT_PETICION, true);
-	Persona per = (Persona) session.getAttribute(Constantes.USER_SESSION);
-	log.info("Desconexión de: " + per.getNombre());
-
-	// invalidar la session
+	// invalidar session
 	session.invalidate();
 
-	// forward a login
-	dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
-	Mensaje msg = new Mensaje(Constantes.MSG_LOGOUT,
-		Constantes.MSG_SUCCESS, 1);
+	// forwar a login
+	Mensaje msg = new Mensaje(Constantes.MSG_LOGOUT, Mensaje.MSG_TYPE_INFO);
 	request.setAttribute(Constantes.MSG_KEY, msg);
-	dispatch.forward(request, response);
+	request.getRequestDispatcher(Constantes.JSP_LOGIN).forward(request,
+		response);
 
     }
 
