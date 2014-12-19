@@ -1,5 +1,6 @@
 package com.ipartek.formacion.helloweb.listener;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
@@ -38,6 +39,7 @@ public class SessionListener implements HttpSessionAttributeListener, HttpSessio
     public void attributeAdded(HttpSessionBindingEvent se)  { 
     	if ( Constantes.USER_SESSION.equalsIgnoreCase(se.getName())){
     		log.trace("attributeAdded");
+    		gestionContadorUsuarios(se.getSession(), true);
     	}
     }
 
@@ -49,6 +51,7 @@ public class SessionListener implements HttpSessionAttributeListener, HttpSessio
     public void attributeReplaced(HttpSessionBindingEvent se)  { 
     	if ( Constantes.USER_SESSION.equalsIgnoreCase(se.getName())){
     		log.trace("attributeReplaced");
+    		gestionContadorUsuarios(se.getSession(), true);
     	}
     }
 
@@ -62,13 +65,15 @@ public class SessionListener implements HttpSessionAttributeListener, HttpSessio
     	HttpSession session = se.getSession();
     	session.setMaxInactiveInterval( 60 * 30 );    	
     	log.trace("nueva session id:" + session.getId() + " - " + session.getMaxInactiveInterval() + " s");
+    	  	
+    	
     }
     
 	/**
      * @see HttpSessionListener#sessionDestroyed(HttpSessionEvent)
      */
     public void sessionDestroyed(HttpSessionEvent se)  { 
-    	HttpSession session = se.getSession();
+    	HttpSession session = se.getSession();   	
     	String motivo = "";
     	
     	if ( session.getAttribute(Constantes.USER_LOGOUT_PETICION) != null ){    	
@@ -81,6 +86,7 @@ public class SessionListener implements HttpSessionAttributeListener, HttpSessio
     	if ( null != session.getAttribute(Constantes.USER_SESSION)){
 			Persona usuario = (Persona)session.getAttribute(Constantes.USER_SESSION);
 			motivo += " usuario " + usuario.toString();
+			gestionContadorUsuarios(session, false);
 		}else{
 			motivo += " usuario nulo";
 		}
@@ -89,5 +95,42 @@ public class SessionListener implements HttpSessionAttributeListener, HttpSessio
     	
 		
     }
+    
+    /**
+     * Compruba si hay un usuario nuevo en session y guarda en el contexto de los servlet un contador
+     * @param se 
+     */
+    private synchronized void gestionContadorUsuarios (HttpSession session , boolean isSumar ){
+    	ServletContext sc = session.getServletContext();
+    	    	
+    	Persona usuario = (Persona)session.getAttribute(Constantes.USER_SESSION);    	
+    	if ( usuario != null ){
+    		switch (usuario.getRol()) {
+				case ADMINISTRADOR:
+						int contAdmin = (Integer)sc.getAttribute(Constantes.USER_ADMIN_CONT);
+						contAdmin = ( isSumar )? ++contAdmin: --contAdmin;
+						sc.setAttribute(Constantes.USER_ADMIN_CONT,contAdmin);
+						if ( isSumar){
+							log.trace(">> Nuevo Administrador en session");
+						}else{
+							log.trace("<< Sale Administrador en session");
+						}	
+					break;
+	
+				case USER:
+						int contUser = (Integer)sc.getAttribute(Constantes.USER_USER_CONT);
+						contUser = ( isSumar )? ++contUser: --contUser;
+						sc.setAttribute(Constantes.USER_USER_CONT, contUser);
+						if ( isSumar){
+							log.trace(">> Nuevo Usuario en session");
+						}else{
+							log.trace("<< Sale Usuario en session");
+						}	
+					break;
+			}
+    	}
+
+    }
+    
 	
 }
