@@ -16,6 +16,11 @@ public class Constantes {
 	public static final String ROLE_DEFAULT = "Invitado";
 	public static final String ROLE_ADMIN = "Administrador";
 
+	// Cookies
+	public static final String COOKIE_USER_NAME = "cuser";
+	public static final String COOKIE_USER_PASS = "cpass";
+	public static final String COOKIE_USER_LANG = "clang";
+
 	// Paths para Servlets
 	public static final String CONTROLLER_LOGIN = "login";
 	public static final String CONTROLLER_LOGOUT = "logout";
