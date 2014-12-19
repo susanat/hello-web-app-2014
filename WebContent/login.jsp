@@ -51,8 +51,8 @@
   	
     <h1><fmt:message key="login.titulo" /></h1><br>
   	<form action="<%=Constantes.PATH_LOGIN %>" method="post"> 
-	    <input type="text" name="<%=Constantes.PARAMETRO_USER %>" placeholder= <fmt:message key="login.form.usuario"/> >
-	    <input type="password" name="<%=Constantes.PARAMETRO_PASS %>" placeholder=<fmt:message key="login.form.password" />>
+	    <input type="text" name="<%=Constantes.PARAMETRO_USER %>" placeholder= "<fmt:message key="login.form.usuario"></fmt:message>" value="${cookie.cuser.value}">
+	    <input type="password" name="<%=Constantes.PARAMETRO_PASS %>" placeholder="<fmt:message key="login.form.password"></fmt:message>" value="${cookie.cpass.value}">
 	    
 	    <input type="submit" name="login" class="login login-submit" 
 	    value="<fmt:message key="login.form.submit"></fmt:message>">
@@ -68,9 +68,28 @@
 	 	
 	 	<%@ taglib prefix="util" uri="http://www.formacion.ipartek.com/tag"%>
 	 	
+	 	
+	 	<%
+	 		//determinar el idioma
+	 		
+	 		//primero lo buscamos en las cookies del usuario
+	 		
+	 		//Si no encuentra: obtenerlo del navegador
+	 		String idioma = Idioma.INGLES.getLocale();
+	 		Cookie cookies[] = request.getCookies();
+	 		if(cookies!=null){
+		 		for(int i=0; i< cookies.length; i++){
+		 		    Cookie cookie = cookies[i];
+		 		    if(Constantes.COOKIE_USER_IDIOM.equals(cookie.getName())){
+		 			   idioma =  cookie.getValue();
+		 		    }
+		 		}
+	 		}
+	 	%>
+	 	
 	 	<util:selectoptions valor="<%=locales %>" 
 	 						texts="<%=idiomas %>" 
-	 						selectedvalue="<%=browserLanguage %>"
+	 						selectedvalue="<%=idioma %>"
 	 						parameterName="<%=Constantes.PARAMETRO_IDIOMA%>"
 	 						className="form-control"
 	 						 />
@@ -93,8 +112,7 @@
 		    
    		 </select>-->
 	 	<br>
-	 		
-	 		<input type="checkbox" name="<%=Constantes.PARAMETRO_RECUERDAME%>" >
+	 		<input type="checkbox" name="<%=Constantes.PARAMETRO_RECUERDAME%>" ${(cookie.cuser==null)?"":"checked"} >
 	 		<label for="<%=Constantes.PARAMETRO_RECUERDAME%>">Recuerdame</label>
 		<br>	 
  	</form>

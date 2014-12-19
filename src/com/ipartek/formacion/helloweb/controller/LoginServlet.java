@@ -8,6 +8,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,19 +33,13 @@ public class LoginServlet extends HttpServlet {
     private static Logger log = null;
 
     ResourceBundle messages = null;
-
+    private HttpServletRequest request;
+    private HttpServletResponse response;
     // parametros
     String pUser = null;
     String pPass = null;
     String pIdioma = Idioma.INGLES.getLocale();
-
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public LoginServlet() {
-	super();
-	// TODO Auto-generated constructor stub
-    }
+    boolean pRecuerdame = false;
 
     /**
      * Se ejecuta una sola vez e inicializa el Servlet.
@@ -63,7 +58,7 @@ public class LoginServlet extends HttpServlet {
     private void loadLog4j(ServletContext sce) {
 	String prefix = sce.getRealPath("/");
 	PropertyConfigurator
-		.configure(prefix + "WEB-INF/conf/log4j.properties");
+	.configure(prefix + "WEB-INF/conf/log4j.properties");
 	log.info("LOG cargado");
 
     }
@@ -75,7 +70,8 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request,
 	    HttpServletResponse response) throws ServletException, IOException {
-
+	this.request = request;
+	this.response = response;
 	// recuperar sesion
 	session = request.getSession();
 
@@ -110,7 +106,7 @@ public class LoginServlet extends HttpServlet {
 	    switch (usuario.getRol()) {
 	    case ADMINISTRADOR:
 		dispatch = request
-			.getRequestDispatcher(Constantes.JSP_BACK_INDEX);
+		.getRequestDispatcher(Constantes.JSP_BACK_INDEX);
 		resul = true;
 		break;
 	    case USUARIO:
@@ -148,6 +144,8 @@ public class LoginServlet extends HttpServlet {
 	    Persona p = new Persona(pUser, 0, Rol.ADMINISTRADOR);
 	    session.setAttribute(Constantes.USER_SESSION, p);
 
+	    gestionCookies();
+
 	    // Usuario: ir a saludo
 	} else if (Constantes.USER.equals(pUser)
 		&& Constantes.PASS.equals(pPass)) {
@@ -159,6 +157,7 @@ public class LoginServlet extends HttpServlet {
 	    // TODO recuperar usuario de la BD
 	    Persona p = new Persona(pUser, 0, Rol.USUARIO);
 	    session.setAttribute(Constantes.USER_SESSION, p);
+	    gestionCookies();
 
 	} else if ((pUser == null) && (pPass == null)) {
 
@@ -183,6 +182,30 @@ public class LoginServlet extends HttpServlet {
 
     }
 
+    private void gestionCookies() {
+
+	Cookie cUser = new Cookie(Constantes.COOKIE_USER_NAME, pUser);
+	Cookie cPass = new Cookie(Constantes.COOKIE_USER_PASS, pPass);
+	Cookie cIdioma = new Cookie(Constantes.COOKIE_USER_IDIOM, pIdioma);
+
+	cPass.setMaxAge(60 * 60 * 24 * 30);// 1 mes
+	cUser.setMaxAge(60 * 60 * 24 * 30);
+	cIdioma.setMaxAge(60 * 60 * 24 * 30);
+
+	// Si no quiere recordar expiramos cookies
+
+	if (!pRecuerdame) {
+
+	    cUser.setMaxAge(0);
+	    cPass.setMaxAge(0);
+	    cIdioma.setMaxAge(0);
+	    // Si es recordado creamos cookies
+	}
+	response.addCookie(cUser);
+	response.addCookie(cPass);
+	response.addCookie(cIdioma);
+    }
+
     /**
      * Recoger parametros de request
      */
@@ -190,6 +213,8 @@ public class LoginServlet extends HttpServlet {
 	pUser = request.getParameter(Constantes.PARAMETRO_USER);
 	pPass = request.getParameter(Constantes.PARAMETRO_PASS);
 	pIdioma = request.getParameter(Constantes.PARAMETRO_IDIOMA);
+	pRecuerdame = (request.getParameter(Constantes.PARAMETRO_RECUERDAME) == null) ? false
+		: true;
     }
 
     /**
