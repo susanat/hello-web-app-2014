@@ -1,7 +1,6 @@
 <%@include file="../includes/head.jsp" %>
 <%@include file="../includes/nav.jsp" %>
 
-
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <%@page import="java.util.ArrayList"%>
@@ -18,7 +17,7 @@
 			<%
 		}else{
 			%>
-			<table id="tabla" cellspacing="0" width="100%" class="table table-bordered table-hover table-striped">
+			<table id="tabla" cellspacing="0" width="100%">
 		        <thead>
 		            <tr>
 		                <th>id</th>
@@ -60,21 +59,15 @@
 				<%				
 			}//end:For
 		%>	
-		
-		
-		
-		
 		 	</tbody>
     	</table>
 		<% 
 		}//end:persona not null
 	%>
-	       
 	
-
-
-
-
+	
+	
+                   
        
 	
 	

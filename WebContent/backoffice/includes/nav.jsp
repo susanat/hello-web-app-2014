@@ -9,13 +9,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">${sessionScope.user_session.nombre} | ${sessionScope.user_session.rol}</a>
+                <a class="navbar-brand" href="#">${sessionScope.user_session.nombre } | ${sessionScope.user_session.rol }</a>
             </div>
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
                 <li>
-                    <a href="#">[x] <fmt:message key="menu.logout"></fmt:message></a>
+                    <a href="<%=Constantes.PATH_LOGOUT %>">
+                    	<fmt:message key="menu.logout"></fmt:message>
+                    </a>
                 </li>
                 <!-- /.dropdown -->
             </ul>
@@ -26,10 +28,11 @@
                     <ul class="nav" id="side-menu">                        
                         <li>
                             <a class="active" href="<%=Constantes.CONTROLLER_PERSONA%>" title="Gestionar Personas"><i class="fa fa-dashboard fa-fw"></i> Personas</a>
+                            <a class="active" href="<%=Constantes.CONTROLLER_CALIFICACION %>"title="Gestionar Calificaciones"> <fmt:message key="menu.calificacion"></fmt:message></a>
                         </li>
                         <li>
-                            <a ><i class="fa fa-dashboard fa-fw"></i> Calificaciones</a>
-                        </li>                  
+                            <a class="active" href="<%= Constantes.CONTROLLER_ROLE %>" title="Gestionar roles"><i class="fa fa-user fa-fw"></i>Roles</a>
+                        </li>                       
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
@@ -43,7 +46,7 @@
        
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Cambiar titulo</h1>
+                    <h1 class="page-header">CAmbiar titulo</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>

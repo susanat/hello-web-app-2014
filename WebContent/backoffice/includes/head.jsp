@@ -3,11 +3,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
-<%@page  errorPage="includes/error.jsp"  %>
+<%@page errorPage="includes/error.jsp" %>
+
 
 <c:set var="language" value="<%= (session.getAttribute(Constantes.USER_LANGUAGE)!=null)?session.getAttribute(Constantes.USER_LANGUAGE):Idioma.INGLES.getLocale()%>" />
 <fmt:setLocale value="${language}" />
-<fmt:setBundle basename="<%=Constantes.PROPIERTY_I18N%>" /> 
+<fmt:setBundle basename="<%=Constantes.PROPERTI_I18N%>" /> 
 
 <!DOCTYPE html>
 
@@ -15,8 +16,7 @@
 
 <head>
 
-	<!-- Este es para las pruebas para que casque y se carga includes/error.jsp   -->
-	<!-- int x  = 2/0; -->
+	
 
 	<!-- Ruta Base para todas nuestras url relativas -->
 	<base href="<%=request.getContextPath()+"/"%>">
@@ -51,5 +51,7 @@
 </head>
 
 <body>
+
+
 
     <div id="wrapper">
