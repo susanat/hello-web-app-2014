@@ -9,6 +9,10 @@
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <%@page import="com.ipartek.formacion.helloweb.comun.Constantes"%>
 
+<!-- Título de la página para el head (TODO) Temporal ya que no se pueden utilizar idiomas por que la lógica se encuentra en el head -->
+<c:set var="pgTitle" value="Login" scope="request" />
+
+
 <%@include file="frontoffice/includes/head.jsp" %>
 	<%@include file="frontoffice/includes/nav.jsp" %>
 
@@ -41,21 +45,89 @@
 							</c:choose>			      					      		
 			      		</h3>
 			    	</div>			    	
+			    	
+			    	
+			    	<!-- Creo las variables para usuario y contraseña y busco si existen en cookies http://stackoverflow.com/questions/10883251/retriving-cookie-and-array-values-in-jstl-tags -->
+			    	<c:set var="username" value="" scope="page" />
+			    	<c:set var="password" value="" scope="page" />
+			    	<c:set var="check_active" value="false" scope="page" />
+			    	
+			    	<c:forEach items="${cookie}" var="currentCookie">			    	
+			    		<c:set var="c_name_user" value="<%=Constantes.cookie_user_name %>" scope="page" />
+			    		<c:set var="c_name_pass" value="<%=Constantes.cookie_user_pass %>" scope="page" />		    	
+			    	 
+					    <c:if test="${currentCookie.value.name == c_name_user }">
+					    	<c:set var="username" value="${currentCookie.value.value}" scope="page" />
+					    </c:if>
+					    
+					    <c:if test="${currentCookie.value.name == c_name_pass}">
+					    	<c:set var="password" value="${currentCookie.value.value}" scope="page" />
+					    	<c:set var="check_active" value="true" scope="page" />
+					    </c:if>
+					    
+					    <!--   
+					    	Cookie name as map entry key: ${currentCookie.key}<br/>
+					    	Cookie object as map entry value: ${currentCookie.value}<br/>
+					    	Name property of Cookie object: ${currentCookie.value.name}<br/>
+					    	Value property of Cookie object: ${currentCookie.value.value}<br/>
+					    -->
+					    
+					</c:forEach>
+			    	
+			    	
+			    	
+			    	
+			    	
 			    	<div class="panel-body">
 			    		<!-- Si no está autentificado, mostramos el formulario de login -->			    	
 						<c:if test="${isAuthenticated == false}">
 							<form class="" role="form" method="post" id="frm_login" action="login">
+							
+								<!-- Usuario -->
 								<div class="form-group form-group-install col-md-12">
 									<label class="control-label" for="cont1"><fmt:message key="login.page.label.username" /> * </label>
-									<input class="form-control" type="text" name="<%=Constantes.PARAMETRO_USER%>" id="cont1" value="" required="required" 
-									placeholder="<fmt:message key="login.page.placeholder.username" />">
+									<input class="form-control" 
+										type="text" name="<%=Constantes.PARAMETRO_USER%>" 
+										id="<%=Constantes.PARAMETRO_USER%>" 
+										value = "${username}" 
+										required="required" 
+										placeholder="<fmt:message key="login.page.placeholder.username" />">
 								</div>
 									
+								<!-- Password -->
 								<div class="form-group form-group-install col-md-12">
 									<label class="control-label" for="cont2"><fmt:message key="login.page.label.password" /> * </label>
-									<input class="form-control" type="password" name="<%=Constantes.PARAMETRO_PASSWORD%>" id="cont2" required="required" 
-									placeholder="<fmt:message key="login.page.placeholder.password" />">
+									<input class="form-control" type="password" 
+										name="<%=Constantes.PARAMETRO_PASSWORD%>" 
+										id="cont2" 
+										required="required"
+										value = "${password}" 
+										placeholder="<fmt:message key="login.page.placeholder.password" />"
+									>
 								</div>
+								
+								<div class="form-group form-group-install col-md-12">
+								
+								
+								<!-- Activamos el checked si se encuentran las cookies -->
+								<c:if test="${check_active == true}">
+									<input type="checkbox" 
+										name="<%=Constantes.PARAM_LOGIN_REMEMBER%>" 
+										id="<%=Constantes.PARAM_LOGIN_REMEMBER%>"
+										checked
+									>									
+								</c:if>								
+								<c:if test="${check_active == false}">
+									<input type="checkbox" 
+										name="<%=Constantes.PARAM_LOGIN_REMEMBER%>" 
+										id="<%=Constantes.PARAM_LOGIN_REMEMBER%>"										
+									>									
+								</c:if>
+								
+									
+    								<label for="<%=Constantes.PARAM_LOGIN_REMEMBER%>">Recuerdame</label>
+    							</div> 
+								
 								
 								<!-- Path de referencia para redirigir -->
 								<input type="hidden" name="<%=Constantes.PARAM_URL_TO%>" value="${lastUrl}">
@@ -76,9 +148,10 @@
 									<li> Home Page </li>
 									<li> Panel de usuario </li>										
 									<c:if test="${isAuthenticated == true}">
+										<%//TODO: Puesto a pelo %>
 										<c:if test="${sessionScope.user_session.idRol == 2}">
 											<li>
-												<a href='<%=Constantes.JSP_BACK_ADMIN %>' title='Administracion'>
+												<a href='<%=Constantes.JSP_ABS_BACK_INDEX %>' title='Administracion'>
 													<fmt:message key="page.admin" />
 												</a>
 											</li>										
@@ -89,7 +162,7 @@
 							<div class="row">
 								<form class="" role="form" method="post" id="frm_login" action="logout">
 									<!-- Path de referencia para redirigir (actualmente decidimos index) -->
-									<input type="hidden" name="<%=Constantes.PARAM_URL_TO%>" value="<%= Constantes.JSP_INDEX %>">
+									<input type="hidden" name="<%=Constantes.PARAM_URL_TO%>" value="<%= Constantes.JSP_ABS_INDEX %>">
 									
 									<!-- Invalidamos la sesión, no borramos los datos nada más -->
 									<input type="hidden" name="<%=Constantes.PARAM_SESSION_INVALIDATE%>" value="true">

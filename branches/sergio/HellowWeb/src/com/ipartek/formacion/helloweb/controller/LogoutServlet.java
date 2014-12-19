@@ -55,7 +55,7 @@ public class LogoutServlet extends HttpServlet {
 		
 		//obtenemos la redireccion por defecto
 		//TODO parametrizable, por ahora, login o index
-		String urlToDefault = Constantes.JSP_LOGIN;
+		String urlToDefault = Constantes.JSP_REL_LOGIN;
 		String urlTo = urlToDefault;
 		
 		//redirigimos al login por defecto no a donde se ha deslogueado
@@ -105,14 +105,14 @@ public class LogoutServlet extends HttpServlet {
 		
 		//si no ha habido fallo, modificamos la última url visitada con el login
 		if(! msg.isError()){
-			session.setAttribute(Constantes.ATTR_SESSION_LAST_URL, Constantes.JSP_LOGIN);
+			session.setAttribute(Constantes.ATTR_SESSION_LAST_URL, Constantes.JSP_REL_LOGIN);
 		}
 		
 		
 		//request.setAttribute(Constantes.ATTR_LOGOUT_ACTION, true);
 		
 		//redirigimos con redirect
-		response.sendRedirect(Constantes.JSP_LOGIN);
+		response.sendRedirect(Constantes.JSP_REL_LOGIN);
 		
 		
 		

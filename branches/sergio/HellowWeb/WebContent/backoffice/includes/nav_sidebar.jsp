@@ -14,7 +14,7 @@
 			</li>
 			
 			<!--  
-			<li><a class="active" href="<%= Constantes.JSP_BACK_ADMIN %>">
+			<li><a class="active" href="<%= Constantes.JSP_ABS_BACK_INDEX %>">
 					<i class="fa fa-dashboard fa-fw"></i> 
 					Dashboard
 				</a>

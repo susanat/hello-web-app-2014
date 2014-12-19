@@ -32,7 +32,7 @@
 					</li>
 
 					<!-- boton de login -->
-					<li id="nav-login-btn" class=""><a href="<%=Constantes.JSP_LOGIN%>">
+					<li id="nav-login-btn" class=""><a href="<%=Constantes.JSP_ABS_LOGIN%>">
 						<i class="icon-login"></i>
 							<fmt:message key="page.login" />
 						</a>
@@ -63,7 +63,7 @@
 							<c:if test="${isAuthenticated == true}">
 								<c:if test="${sessionScope.user_session.idRol == 2}">
 									<li>										
-										<a href='<%=Constantes.JSP_BACK_ADMIN %>' title='Administracion'>
+										<a href='<%=Constantes.JSP_ABS_BACK_INDEX %>' title='Administracion'>
 											<i class="fa fa-gear fa-fw"></i>
 											<fmt:message key="page.admin" />
 										</a>

@@ -1,5 +1,9 @@
 
-    <%@include file="includes/head.jsp" %>
+    <%@page import="com.ipartek.formacion.helloweb.bean.estadisticas.UserSession"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map.Entry"%>
+<%@page import="com.ipartek.formacion.helloweb.bean.CargasTemporales"%>
+<%@include file="includes/head.jsp" %>
 		<%@include file="includes/nav.jsp" %>
 
 		<% 
@@ -23,8 +27,37 @@
 				<!-- FIN Titulo de la pagina -->
 	        	
 	        	<h1>Usuarios con sesiones activas</h1>
-	        	
+	        	<% 
+	        		if(CargasTemporales.activeUsers != null ) {
+	        			for(Entry<String, UserSession> entry : CargasTemporales.activeUsers.entrySet()) {
+	        			    String key = entry.getKey();
+	        			    UserSession value = entry.getValue();
+
+	        			    out.print("********************" + "<br>");
+	        			    out.print("Id session: " + key + "<br>");
+	        			    
+	        			    if(value.getUsuario() != null) {
+	        			    	out.print("Usuario: " + value.getUsuario().getNombre() + "<br>");
+	        			    } else {
+	        			    	out.print("Usuario: " + "Anonimo" + "<br>");	
+	        			    }
+	        			    
+	        			    
+	        			    
+	        			    out.print("********************" + "<br>");	        			    
+	        			}	        			
+	        		}	        	
+	        	%>
         
+        	<form action="<%=Constantes.CONTROLLER_LOG_OUT%>" method="post">        		        	
+        		<input type="hidden" name="" value="">
+	        	<input 
+	        		type='submit' 
+	        		name='login' 
+	        		class='login login-submit' 
+	           		value='<fmt:message key='admin.button.session.out' />'
+     			/>
+     		</form>        	
 
 		<% 
 			}
@@ -33,4 +66,5 @@
 		
   
  <!-- Include footer -->
- 	<%@include file="includes/footer.jsp" %>
+ 	<c:set var="footer" value="<%= Constantes.PATH_BACK_ABS_INCLUDE %>" /> 	
+ 	<jsp:include page="${footer}" />

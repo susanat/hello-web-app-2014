@@ -30,8 +30,8 @@
 	<nav>
 		<!-- Insert breadcrumb -->
 		<ol class="breadcrumb">
-			<li><a href="<%=Constantes.JSP_BACK_ADMIN%>">Administracion</a></li>
-			<li><a href="<%=Constantes.JSP_BACK_PERSONA_LIST%>">Listado Personas</a></li>
+			<li><a href="<%=Constantes.JSP_ABS_BACK_INDEX%>">Administracion</a></li>
+			<li><a href="<%=Constantes.JSP_BACK_ROLES_LIST%>">Listado Personas</a></li>
 			<li>Formulario Persona</li>
 		</ol>
 	</nav>
@@ -45,6 +45,7 @@
 		//obtenemos la persona
 		List<Roles> lstRoles = (List<Roles>)request.getAttribute(Constantes.ATTR_ROLES_LIST);
 		
+		/*
 		//si existe la cargamos
 		if(personas != null && personas.size() > 0) {		
 			//inicializamos los datos con los datos de la persona
@@ -56,6 +57,7 @@
 			//se trata de una actualización
 			accion = EModeloAccion.UPDATE;
 		}
+		*/
 		
 	} else	if (request.getParameter(Constantes.PARAM_PERSONAS_ID) != null) {
 		//ORIGEN: nos ha llegado por post un parámetro de identificador

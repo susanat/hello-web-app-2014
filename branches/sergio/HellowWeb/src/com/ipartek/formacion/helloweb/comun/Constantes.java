@@ -89,9 +89,8 @@ public final class Constantes {
 	
 	/**
 	 * path del sitio
-	 */
-	public final static  String PATH_SITE = "http://localhost:8080/HelloWeb/";
-	//public final static  String PATH_SITE = "http://localhost:8090/HelloWeb/";
+	 */	
+	public static  String PATH_SITE = Globales.SITE_ROOT_PATH;
 	
 	
 
@@ -101,13 +100,14 @@ public final class Constantes {
 	
 	
 
-	//** INCLUDES
+	//** INCLUDES (head, footer, nav, side_nav, etc)
 	public final static String NAME_FOLDER_BACK_INC = "include/";
 	
+	//** Folder for backofice
 	public final static String PATH_BACK_REL_INCLUDE = NAME_FOLDER_BACK + NAME_FOLDER_BACK_INC;
-	public final static String PATH_BACK_ABS_INCLUDE = PATH_SITE + PATH_BACK_REL_INCLUDE;
+	public final static String PATH_BACK_ABS_INCLUDE = PATH_SITE + NAME_FOLDER_FRONT + PATH_BACK_REL_INCLUDE;
 		
-	//** THEMES
+	//** Folder for THEMES
 	public final static String NAME_FOLDER_BACK_THEMES = "themes/";
 	public final static String NAME_FOLDER_FRONT_THEMES = "themes/";
 	
@@ -121,6 +121,25 @@ public final class Constantes {
 	public final static  String PATH_FRONT_REL_THEME = NAME_FOLDER_FRONT + NAME_FOLDER_FRONT_THEMES + Globales.SITE_FRONTOFFICE_THEME + "/";
 	public final static  String PATH_FRONT_ABS_THEME = PATH_SITE + PATH_FRONT_REL_THEME;
 	
+	//*************** JSP'S
+	public final static  String JSP_REL_INDEX = "index.jsp";
+	public final static  String JSP_ABS_INDEX = PATH_SITE + "index.jsp";
+
+	public final static  String JSP_REL_SALUDO = "saludo.jsp";
+	public final static  String JSP_ABS_SALUDO = PATH_SITE + "saludo.jsp";
+
+	
+	public final static  String JSP_REL_LOGIN = PATH_SITE + "login_jstl.jsp";
+	public final static  String JSP_ABS_LOGIN = PATH_SITE + "login_jstl.jsp";
+	
+	
+	public final static  String JSP_REL_LOGOUT = "logout.jsp";
+	public final static  String JSP_ABS_LOGOUT = PATH_SITE + "logout.jsp";
+
+
+	public final static String JSP_REL_BACK_INDEX = NAME_FOLDER_BACK + "index.jsp";
+	public final static String JSP_ABS_BACK_INDEX = PATH_SITE + NAME_FOLDER_BACK + "index.jsp";
+		
 
 	//*************** Ã�rbol de Servlet
 	
@@ -136,38 +155,27 @@ public final class Constantes {
 	public final static  String CONTROLLER_ABS_LOG_OUT = PATH_SITE + CONTROLLER_LOG_OUT;
 	
 
-	//*************** JSP'S
-	public final static  String JSP_INDEX = PATH_SITE + "index.jsp";
-
-	public final static  String JSP_SALUDO = PATH_SITE + "saludo.jsp";
-
-	public final static  String JSP_LOGIN = PATH_SITE + "login_jstl.jsp";
-	public final static  String JSP_LOGOUT = PATH_SITE + "logout.jsp";
-
-
-	public final static  String JSP_PATH_BACK = PATH_SITE + "backoffice/";
-
-	public final static  String JSP_BACK_ADMIN = JSP_PATH_BACK + "index.jsp";
+	
 	
 	/**
 	 * Ruta completa para <a> del jsp lista de personas
 	 */
-	public final static  String JSP_BACK_PERSONA_LIST = JSP_PATH_BACK + "persona/listPersonas.jsp";
+	public final static  String JSP_BACK_PERSONA_LIST = PATH_SITE + NAME_FOLDER_BACK + "persona/listPersonas.jsp";
 	
 	/**
 	 * Ruta completa para <a> del jsp formulario de persona
 	 */
-	public final static  String JSP_BACK_PERSONA_FORM = JSP_PATH_BACK + "persona/formPersona.jsp";
+	public final static  String JSP_BACK_PERSONA_FORM = PATH_SITE + NAME_FOLDER_BACK + "persona/formPersona.jsp";
 	
 	/**
 	 * Ruta completa para <a> del jsp lista de roles
 	 */
-	public final static  String JSP_BACK_ROLES_LIST = JSP_PATH_BACK + "roles/listRoles.jsp";
+	public final static  String JSP_BACK_ROLES_LIST = PATH_SITE + NAME_FOLDER_BACK + "roles/listRoles.jsp";
 	
 	/**
 	 * Ruta completa para <a> del jsp formulario de roles
 	 */
-	public final static  String JSP_BACK_ROLES_FORM = JSP_PATH_BACK + "roles/formRoles.jsp";
+	public final static  String JSP_BACK_ROLES_FORM = PATH_SITE + NAME_FOLDER_BACK + "roles/formRoles.jsp";
 
 	
 	public final static String JSP_BACK_FOOTER = "footer.jsp";
@@ -185,6 +193,7 @@ public final class Constantes {
 	//*** Formulario login
 	public final static  String PARAMETRO_USER = "cont1";
 	public final static  String PARAMETRO_PASSWORD = "cont2";      
+	public final static  String PARAM_LOGIN_REMEMBER = "cont3";
 
 
 	//**************Session
@@ -298,6 +307,9 @@ public final class Constantes {
 	public static final String JSP_ERROR = "error.jsp";
 
 	
-	
+	//********************** coockies
+	public static final String cookie_user_name = "ADFDSFGSDFGASFE21234WDGASER";
+	public static final String cookie_user_pass = "GHJFGHJRTYE345634523Q2AWEVR";
+	public static final String cookie_user_lang = "clang";
 	
 }
