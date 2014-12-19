@@ -52,23 +52,49 @@
   
     <input type="text" name="<%=Constantes.PARAMETRO_USER%>" 
            placeholder="<fmt:message key="login.form.usuario"></fmt:message>"
+           value="${cookie.cuser.value}"
     >
     
     <input type="password" name="<%=Constantes.PARAMETRO_PASS%>" 
     	   placeholder="<fmt:message key="login.form.password"></fmt:message>"
+    	   value="${cookie.cpass.value}"
     >
     
-    <util:selecoptions opValues="<%=Idioma.getLocalesList()%>" 
-                       opTexts="<%=Idioma.getTextosList()%>"
-                       selectedValue="<%=I18n.getBrowserLocale(request.getLocale())%>"
-                       parameterName="<%=Constantes.PARAMETRO_IDIOMA%>"
-                       
-                       />
+    
+    <% // determinar el idioma para el select option
+    	
+    	// primero lo buscamos en las cookies del usuario    	
+    	String idioma = null;
+    	Cookie cookies[] = request.getCookies();    	
+    	for ( int i=0; i < cookies.length; i++){
+    		Cookie cookie  = cookies[i];
+    		if ( Constantes.COOKIE_USER_IDIOM.equals( cookie.getName())){
+    			idioma =  cookie.getValue();
+    		}
+    	}
+    	// Si no encuentra: obtenerlo del navgeador
+    	if ( idioma == null ){
+    		idioma = I18n.getBrowserLocale(request.getLocale());
+    	}
+    	
+    
+    %>    
+    
+	<util:selecoptions opValues="<%=Idioma.getLocalesList()%>" 
+	                   opTexts="<%=Idioma.getTextosList()%>"
+	                   selectedValue="<%=idioma%>"
+	                   parameterName="<%=Constantes.PARAMETRO_IDIOMA%>"
+	 />
     			  
     <br>
     <br>
+      
+    <input type="checkbox" 
+           name="<%=Constantes.PARAMETRO_RECUERDAME%>" 
+           id="<%=Constantes.PARAMETRO_RECUERDAME%>"
+    	   ${(cookie.cuser==null) ? "" : "checked"}    
+    >
     
-    <input type="checkbox" name="<%=Constantes.PARAMETRO_RECUERDAME%>" id="<%=Constantes.PARAMETRO_RECUERDAME%>">
     <label for="<%=Constantes.PARAMETRO_RECUERDAME%>">Recuerdame</label> 
      
     

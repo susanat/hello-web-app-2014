@@ -13,6 +13,12 @@ public class Constantes {
 
 	public static final String USER_USER_NAME = "user";
 	public static final String USER_USER_PASS = "user";
+	
+	//cookies
+	public static final String COOKIE_USER_NAME  = "cuser";
+	public static final String COOKIE_USER_PASS  = "cpass";
+	public static final String COOKIE_USER_IDIOM = "cidiom";
+	
 
 	// Paths para Servlets
 	public static final String PATH_LOGIN = "login";
