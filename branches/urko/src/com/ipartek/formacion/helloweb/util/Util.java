@@ -12,8 +12,10 @@ public class Util {
 
     public static String obtenerRutaPersona(final Persona p) {
 	String ruta = null;
-	int rol = Integer.parseInt(p.getRol().getCodigo());
-
+	int rol = -1;
+	if (p.getRol() != null) {
+	    rol = Integer.parseInt(p.getRol().getCodigo());
+	}
 	switch (rol) {
 	case 0: {
 	    ruta = Constante.JSP_BACKOFFICE_INDEX;

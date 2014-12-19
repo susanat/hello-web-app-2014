@@ -9,6 +9,10 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 
 public class SelectOptionsTag extends TagSupport {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -9020784013052104549L;
     private String parameterName, idName, className, selectedValue;
     private ArrayList<String> opValues, opTexts;
 
@@ -81,11 +85,13 @@ public class SelectOptionsTag extends TagSupport {
 
     private String cargarValores() {
 	StringBuffer cadena = new StringBuffer();
-	// String cadena = "";
+
 	int len = opValues.size();
 
 	for (int i = 0; i < len; i++) {
-	    if (opTexts.get(i).equalsIgnoreCase(selectedValue)) {
+	    System.out.println(opValues.get(i) + "- valor - " + selectedValue);
+	    if (opValues.get(i).equalsIgnoreCase(selectedValue)) {
+		System.out.println("cogido");
 		cadena.append("<option selected='selected' value='"
 			+ opValues.get(i) + "'>" + opTexts.get(i) + "</option>");
 	    } else {
