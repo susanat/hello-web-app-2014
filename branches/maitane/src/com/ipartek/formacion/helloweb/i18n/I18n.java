@@ -1,6 +1,9 @@
 package com.ipartek.formacion.helloweb.i18n;
 
+import java.text.MessageFormat;
 import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 /**
  * Clase con utilidades para i18n
@@ -44,4 +47,46 @@ public class I18n {
 		return result;
 	}
 
+	/**
+	 * Esta es una utilidad para mostrar mensajes de properties con parametros
+	 * 
+	 * @param cadenaMesnaje
+	 *            cadena del mesnaje con los parametros a cambiar
+	 * @param params
+	 *            numero indeterminado de parametros (por eso lleva 3 puntos) a
+	 *            sustituirse en la cadenaMensaje
+	 * @return cadena mensajes con los parametros inyectados, Exception return
+	 *         "! no existe mensaje !"
+	 */
+
+	public static String getStringParametros(String cadenaMesnaje,
+			Object... params) {
+		try {
+			return MessageFormat.format(cadenaMesnaje, params);
+		} catch (Exception e) {
+			return "! no existe mensaje !";
+		}
+	}
+
+	/**
+	 * Esta es una utilidad para mostrar mensajes de properties con parametros
+	 * 
+	 * @param resource
+	 *            ResourceBundle en los .properties
+	 * @param key
+	 *            llave a buscar en ResourceBundle
+	 * @param params
+	 *            numero indeterminado de parametros a sustituir
+	 * @return cadena mensajes con los parametros inyectados,
+	 *         MissingResourceException return "!" + key + " !"
+	 */
+
+	public static Object getStringParametros(ResourceBundle resource,
+			String key, Object... params) {
+		try {
+			return MessageFormat.format(resource.getString(key), params);
+		} catch (MissingResourceException e) {
+			return "!" + key + " !";
+		}
+	}
 }

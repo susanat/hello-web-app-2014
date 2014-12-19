@@ -5,6 +5,11 @@ import javax.servlet.ServletContextAttributeListener;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+
+import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.model.ModeloCalificacion;
 import com.ipartek.formacion.helloweb.model.ModeloPersona;
 
@@ -15,6 +20,13 @@ import com.ipartek.formacion.helloweb.model.ModeloPersona;
 public class InitListener implements ServletContextListener,
 		ServletContextAttributeListener {
 
+	private final static Logger log = Logger.getLogger(InitListener.class);
+
+	public static boolean LOAD_ERROR = false;
+	public static String LOAD_ERROR_MSG = null;
+
+	public static final String PATH_LOG4J = "WEB-INF/conf/log4j.properties";
+
 	public static ModeloPersona modelPersona = null;
 	public static ModeloCalificacion modelCalificacion = null;
 
@@ -22,18 +34,48 @@ public class InitListener implements ServletContextListener,
 	 * @see ServletContextListener#contextInitialized(ServletContextEvent)
 	 */
 	public void contextInitialized(ServletContextEvent sce) {
-		System.out.println("Inicializar Contexto Servlet");
-		// TODO log
 
-		System.out.println("Log4j Configurado");
+		loadLog4j(sce);
 
-		// TODO conexion BBDD y recuperar modelos
-		System.out.println("Establecer conexion BBDD OK");
+		if (!LOAD_ERROR) {
 
-		// TODO cargar modelos de datos
-		initModelPersona();
-		initModelCalificacion();
-		System.out.println("Modelo Persona Cargado");
+			// TODO establecer conexion
+			log.info("Establecer conexion BBDD OK");
+			// TODO cargar modelos de datos
+			initModelPersona();
+			initModelCalificacion();
+			// initModelRole();
+			log.info("Mode lo Persona Cargardo");
+			initContadoresSessionesUsuarios(sce);
+
+		} else {
+			System.out.println("Error cargando LOG4J");
+		}
+
+	}
+
+	private void initContadoresSessionesUsuarios(ServletContextEvent sce) {
+		sce.getServletContext().setAttribute(Constantes.USER_ADMIN_CONT, 0);
+		sce.getServletContext().setAttribute(Constantes.USER_USER_CONT, 0);
+	}
+
+	/**
+	 * Cargar la configuracion de Log4j
+	 */
+	private void loadLog4j(ServletContextEvent sce) {
+		try {
+			String pathReal = sce.getServletContext().getRealPath("/");
+			PropertyConfigurator.configure(pathReal + PATH_LOG4J);
+			// check configration, si no hay apender es que ha fallado
+			if (null == LogManager.exists("ACCESOS")) {
+				LOAD_ERROR = true;
+				LOAD_ERROR_MSG = Constantes.MSG_ERROR_LOAD_PATH4J;
+			}
+			log.debug("LOG cargado");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	/**
@@ -45,6 +87,7 @@ public class InitListener implements ServletContextListener,
 		System.out.println("Desconexion BBDD OK");
 		// TODO liberar memoria y poner a null variables
 		System.out.println("Liberada la memoria");
+		initContadoresSessionesUsuarios(sce);
 	}
 
 	/**

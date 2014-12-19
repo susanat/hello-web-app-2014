@@ -13,7 +13,7 @@
 
             <ul class="nav navbar-top-links navbar-right">
                 <li>
-                    <a href="#"><fmt:message key="menu.logout"></fmt:message></a>
+                    <a href="<%=Constantes.PATH_LOGOUT%>"><fmt:message key="menu.logout"></fmt:message></a>
                 </li>
                 <!-- /.dropdown -->
             </ul>
@@ -37,6 +37,7 @@
                         
                             <a class="active" href="<%=Constantes.CONTROLLER_PERSONA %>"title="Gestionar Personas"> Personas</a>
                             <a class="active" href="<%=Constantes.CONTROLLER_CALIFICACION %>"title="Gestionar Calificaciones"> Calificaciones</a>
+                             <a class="active" href="<%=Constantes.CONTROLLER_USUARIOS %>"title="Gestionar Usuarios"> Usuarios conectados</a>
                         </li>                            
                                 
                             

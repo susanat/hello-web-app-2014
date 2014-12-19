@@ -18,6 +18,7 @@
 
 <body>
  <h1>Hello World 2</h1>
+ <P><%=request.getAttribute("entraJsp")%></P>
  
  <% out.print("HOLA MUNDO!!!!"); 
  
