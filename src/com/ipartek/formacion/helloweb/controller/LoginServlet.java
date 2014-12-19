@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,14 +30,15 @@ public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = -986747240512475180L;
 	private final static Logger log = Logger.getLogger("ACCESOS");
 
-	RequestDispatcher dispatch = null;
-	HttpSession session = null;
-	ResourceBundle messages = null;
+	private RequestDispatcher dispatch = null;
+	private HttpSession session = null;
+	private ResourceBundle messages = null;
 
 	// Parámetros
-	String pUser = null;
-	String pPass = null;
-	String pIdioma = EIdioma.INGLES.getLocale();
+	private String pUser = null;
+	private String pPass = null;
+	private String pIdioma = EIdioma.INGLES.getLocale();
+	private boolean pRecuerdame = false;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -51,7 +53,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-			IOException {
+	IOException {
 		// Recuperar session
 		session = request.getSession();
 		pIdioma = I18n.getBrowserLocale(request.getLocale());
@@ -62,7 +64,7 @@ public class LoginServlet extends HttpServlet {
 			getParameters(request);
 
 			// Validar el usuario
-			validateUser(request);
+			validateUser(request, response);
 		}
 
 		// Cargar los mensajes en el idioma correspondiente
@@ -89,7 +91,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	private boolean checkSession(final HttpServletRequest request) {
 		boolean res = false;
-		// TODO probar esto
+
 		if (session.getAttribute(Constantes.USER_SESSION) != null) {
 			final Persona usuario = (Persona) session.getAttribute(Constantes.USER_SESSION);
 
@@ -114,6 +116,7 @@ public class LoginServlet extends HttpServlet {
 		pUser = request.getParameter(Constantes.PARAMETRO_USER);
 		pPass = request.getParameter(Constantes.PARAMETRO_PASS);
 		pIdioma = request.getParameter(Constantes.PARAMETRO_LANG);
+		pRecuerdame = (request.getParameter(Constantes.PARAMETRO_RECUERDAME)) == null ? false : true;
 	}
 
 	/**
@@ -127,15 +130,18 @@ public class LoginServlet extends HttpServlet {
 	 *
 	 * @param request
 	 *            HttpServletRequest con la request
+	 * @param response
 	 */
-	private void validateUser(final HttpServletRequest request) {
+	private void validateUser(final HttpServletRequest request, final HttpServletResponse response) {
 		// Usuario
 		if (Constantes.USER_USER_NAME.equals(pUser) && Constantes.USER_USER_PASS.equals(pPass)) {
 			// Correcto: redirigir a saludo.jsp
 			dispatch = request.getRequestDispatcher(Constantes.JSP_SALUDO);
-			final Persona p = new Persona(pUser, 0, new Role("Usuario"));
+			final Persona p = new Persona(pUser, 0, new Role("User"));
 			session.setAttribute(Constantes.USER_SESSION, p);
 			session.setAttribute(Constantes.USER_LANGUAGE, pIdioma);
+			log.info("Acceso usuario USER " + pUser + " /// " + pPass);
+			gestionCookies(request, response);
 
 			// Administrador
 		} else if (Constantes.USER_ADMIN_NAME.equals(pUser) && Constantes.USER_ADMIN_PASS.equals(pPass)) {
@@ -144,6 +150,8 @@ public class LoginServlet extends HttpServlet {
 			final Persona p = new Persona(pUser, 0, new Role("Administrador"));
 			session.setAttribute(Constantes.USER_SESSION, p);
 			session.setAttribute(Constantes.USER_LANGUAGE, pIdioma);
+			log.info("Acceso usuario ADMIN " + pUser + " /// " + pPass);
+			gestionCookies(request, response);
 
 			// Entrada sin submitar el formulario
 		} else if ((pUser == null) && (pPass == null)) {
@@ -159,4 +167,25 @@ public class LoginServlet extends HttpServlet {
 		}
 	}
 
+	private void gestionCookies(final HttpServletRequest request, final HttpServletResponse response) {
+		final Cookie cUser = new Cookie(Constantes.COOKIE_USER_NAME, pUser);
+		final Cookie cPass = new Cookie(Constantes.COOKIE_USER_PASS, pPass);
+		final Cookie cLang = new Cookie(Constantes.COOKIE_USER_LANG, pIdioma);
+
+		// Si no quiere recordar expiramos cookies
+		if (!pRecuerdame) {
+			cUser.setMaxAge(0);
+			cPass.setMaxAge(0);
+			cLang.setMaxAge(0);
+		} else {
+			// Si quiere recordar que las cookies duren un mes
+			cUser.setMaxAge(60 * 60 * 24 * 30);
+			cPass.setMaxAge(60 * 60 * 24 * 30);
+			cLang.setMaxAge(60 * 60 * 24 * 30);
+		}
+
+		response.addCookie(cUser);
+		response.addCookie(cPass);
+		response.addCookie(cLang);
+	}
 }

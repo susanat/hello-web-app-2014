@@ -1,5 +1,6 @@
 package com.ipartek.formacion.helloweb.listener;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -13,6 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
+
+import com.ipartek.formacion.helloweb.Constantes;
+import com.ipartek.formacion.helloweb.bean.Persona;
+import com.ipartek.formacion.helloweb.util.ERole;
 
 //NO IMPLEMENTADA
 //Lo siguiente es lo que se pondría en cada servlet
@@ -62,6 +67,23 @@ public class SessionCounter implements HttpSessionListener, ServletContextListen
 
 	public int getCount(final String remoteAddr) {
 		return Collections.frequency(sessions.values(), remoteAddr);
+	}
+
+	public Map<HttpSession, String> getSessions() {
+		return sessions;
+	}
+
+	public ArrayList<Persona> getSessionsUsers(final ERole role) {
+		final ArrayList<Persona> usuarios = new ArrayList<Persona>();
+		int index = 0;
+
+		for (final Map.Entry<HttpSession, String> entry : this.getSessions().entrySet()) {
+			final Persona usuario = (Persona) entry.getKey().getAttribute(Constantes.USER_SESSION);
+			if (usuario.getRole().getNombre().equalsIgnoreCase(role.toString())) {
+				usuarios.add(index++, usuario);
+			}
+		}
+		return usuarios;
 	}
 
 }
