@@ -9,9 +9,6 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
-
-
-
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.model.ModeloCalificacion;
 import com.ipartek.formacion.helloweb.model.ModeloPersona;
@@ -53,6 +50,7 @@ public class InitListener implements ServletContextListener,
 			initModelCalificacion();
 			initModelRole();
 			log.info("Mode lo Persona Cargardo");
+			initContadoresPersonas(sce);
 			
 		}else{
 			System.out.println("Error cargando LOG4J");
@@ -63,7 +61,12 @@ public class InitListener implements ServletContextListener,
 	} 
 
 	
-	 private void initModelRole() {
+	private void initContadoresPersonas(ServletContextEvent sce) {
+		sce.getServletContext().setAttribute("numAdministradores", 0);
+		sce.getServletContext().setAttribute("numUsuarios", 0);
+	}
+
+	private void initModelRole() {
 			// TODO Auto-generated method stub
 			modelRole = new ModeloRol();
 			ModeloRol.createTable();
