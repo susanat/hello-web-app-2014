@@ -41,6 +41,7 @@ public class InitListener implements ServletContextListener,
 	 */
 	public void contextInitialized(ServletContextEvent sce) {
 		
+			
 		loadLog4j( sce );
 		
 		if ( !LOAD_ERROR ){
@@ -54,6 +55,9 @@ public class InitListener implements ServletContextListener,
 			initModelRole();
 			log.info("Mode lo Persona Cargardo");
 			
+			initContadoresSessionesUsuarios(sce);
+			
+			
 		}else{
 			System.out.println("Error cargando LOG4J");
 		}		
@@ -63,7 +67,13 @@ public class InitListener implements ServletContextListener,
 	} 
 
 	
-	 private void initModelRole() {
+	 private void initContadoresSessionesUsuarios(ServletContextEvent sce) {
+		sce.getServletContext().setAttribute(Constantes.USER_ADMIN_CONT, 0);
+		sce.getServletContext().setAttribute(Constantes.USER_USER_CONT, 0);		
+	}
+
+
+	private void initModelRole() {
 			// TODO Auto-generated method stub
 			modelRole = new ModeloRol();
 			ModeloRol.createTable();
@@ -102,6 +112,8 @@ public class InitListener implements ServletContextListener,
 		// TODO liberar memoria y poner a null varaibles
 		System.out.println("Liberado memoria");
 		modelPersona = null;
+		
+		initContadoresSessionesUsuarios(sce);
 
 	}
 

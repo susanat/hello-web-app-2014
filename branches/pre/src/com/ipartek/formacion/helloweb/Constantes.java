@@ -14,6 +14,10 @@ public class Constantes {
 	public static final String USER_USER_NAME = "user";
 	public static final String USER_USER_PASS = "user";
 	
+	public static final String USER_ADMIN_CONT = "cont_admin";
+	public static final String USER_USER_CONT  = "cont_user";
+	
+	
 	//cookies
 	public static final String COOKIE_USER_NAME  = "cuser";
 	public static final String COOKIE_USER_PASS  = "cpass";
