@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
 </head>
 <body>
+ <P><%=request.getAttribute("entraJsp")%></P>
 <div class="login-card">
     <h1>Log-out</h1><br>
   <form action=<%=Constantes.JSP_LOGIN %> method="post">

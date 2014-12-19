@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.bean.Calificacion;
 import com.ipartek.formacion.helloweb.bean.Message;
-import com.ipartek.formacion.helloweb.bean.Persona;
 import com.ipartek.formacion.helloweb.listener.InitListener;
 
 /**
@@ -24,7 +23,7 @@ public class CalificacionServlet extends HttpServlet {
 
 	RequestDispatcher dispatcher = null;
 	Message msg = null;
-	int id = Persona.ID_NULL; // identificador Calificacion
+	int id = Calificacion.ID_NULL; // identificador Calificacion
 	Calificacion c = null;
 
 	/**
@@ -106,6 +105,30 @@ public class CalificacionServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
+	private void opNotSuported(HttpServletRequest request) {
+		getAll(request);
+		msg = new Message(Constantes.MSG_NOT_ALLOWED, Message.MSG_TYPE_DANGER);
+
+	}
+
+	/**
+	 * Elimina la Calificacion por su ID y nos retorna a list.jsp
+	 * 
+	 * @param request
+	 */
+	private void delete(HttpServletRequest request) {
+
+		if (InitListener.modelCalificacion.delete(id)) {
+			msg = new Message(Constantes.MSG_REG_DELETE,
+					Message.MSG_TYPE_SUCCESS);
+		} else {
+			msg = new Message(Constantes.MSG_ERROR_REG_DELETE,
+					Message.MSG_TYPE_DANGER);
+		}
+		getAll(request);
+
+	}
+
 	private void update(HttpServletRequest request) {
 		Calificacion c = getParametrosCalificacion(request);
 		if (c != null) {
@@ -143,4 +166,34 @@ public class CalificacionServlet extends HttpServlet {
 
 		return p;
 	}
+
+	/**
+	 * Crear nueva calificacion e insertarla en la BBDD
+	 * 
+	 * @param request
+	 */
+	private void create(HttpServletRequest request) {
+		// recoger parametros y validar
+		Calificacion c = getParametrosCalificacion(request);
+
+		if (c != null) {
+			// insertarlo
+			// TODO comprobar la inserccion
+			InitListener.modelCalificacion.insert(c);
+			// enviar atributos
+			msg = new Message(Constantes.MSG_REG_CREATE,
+					Message.MSG_TYPE_SUCCESS);
+		} else {
+			msg = new Message(Constantes.MSG_ERROR_PARAMETERS,
+					Message.MSG_TYPE_DANGER);
+		}
+
+		request.setAttribute(Constantes.ATT_CALIFICACION, c);
+
+		// forward vista
+		dispatcher = request
+				.getRequestDispatcher(Constantes.JSP_BACK_PERSONA_FORM);
+
+	}
+
 }

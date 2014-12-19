@@ -26,6 +26,14 @@
     <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
 </head>
 <body>
+
+<!-- Ejemplo de mensajes con parametros -->
+<fmt:message key="ejem.parametros">
+	<fmt:param value="uno"/>
+	<fmt:param value="dos"/>
+<!-- End:Ejemplo de mensajes con parametros -->
+
+</fmt:message>
 <%@ taglib prefix="hello" uri="http://www.formacion.ipartek.com"%>
 
 <hello:saluda/><!--  Saludo -->
@@ -33,7 +41,7 @@
 <hello:saluda2/><!-- Saludo -->
 <hello:saluda2 nombre="pepe"/><!-- Saludo Pepe -->
 
-
+ <P><%=request.getAttribute("entraJsp")%></P>
 <div class="login-card">
 
 
@@ -48,12 +56,41 @@
   
 
 
-    <input type="text" name="<%=Constantes.PARAMETRO_USER%>" placeholder="<fmt:message key="login.form.usuario"></fmt:message>">
-    <input type="password" name="<%=Constantes.PARAMETRO_PASS%>" placeholder="<fmt:message key="login.form.password"></fmt:message>">
+    <input type="text" name="<%=Constantes.PARAMETRO_USER%>" placeholder="<fmt:message key="login.form.usuario"></fmt:message>" value="${cookie.cuser.value}">
+    <input type="password" name="<%=Constantes.PARAMETRO_PASS%>" placeholder="<fmt:message key="login.form.password"></fmt:message>"value="${cookie.cpass.value}">
+    
+    
+    <%
+    	//determinar el idioma
+    	
+    	
+    	//primero lo buscamos en las cookies del usuario
+    	
+    	//Si no se encuentra obtenerlo del navegador
+    	
+    	String idioma=null;
+    	Cookie cookies[]=request.getCookies();
+    	for (int i =0; i<cookies.length;i++){
+    		Cookie cookie= cookies[i];
+    		if(Constantes.COOKIE_USER_IDIOM.equals(cookie.getName())){;	
+    		idioma=cookie.getValue();
+    		}
+    	
+    	}
+    	
+    	//Si no encuentra idioma obtenerlo del navegador
+    	if(idioma==null){
+    		idioma=I18n.getBrowserLocale(request.getLocale());
+    	}
+    
+    
+    
+    
+    %>
     
     <util:SelectOptionsTag opValues="<%=Idioma.devuelvelistaLocale()%>" 
     					  opTexts="<%=Idioma.devuelveListaIdioma()%>"
-    					  selectedValue="<%=I18n.getBrowserLocale(request.getLocale()) %>"
+    					  selectedValue="<%=idioma %>"
     					  parameterName="<%=Constantes.PARAMETRO_IDIOMA %>"
     					  className="form-control"/>
     					  
@@ -74,6 +111,9 @@
 		
 			</select>
 			 --> 
+			 <input type="checkbox" name="<%=Constantes.PARAMETRO_RECUERDAME %>" 
+			 ${(cookie.cuser==null)? "": "checked" }>
+			 <label for="<%=Constantes.PARAMETRO_RECUERDAME %>">Recuerdame</label>
     
     <input type="submit" name="login" class="login login-submit" value="login">
   </form>
