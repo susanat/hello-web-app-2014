@@ -37,39 +37,8 @@
   <div class="login-card">
     <h1><fmt:message key="login.titulo"></fmt:message></h1>
    <h2><c:out value="${language }"/></h2>
-  <form action="<%=Constante.SERVLET_LOGIN %>" method="post">
-  	<%@ include file="includes/alerts.jsp" 	%>
-
-    <input type="text" name="<%= Constante.PARAMETRO_USER %>" placeholder="<fmt:message key="login.form.username"></fmt:message>">
-    <input type="password" name="<%=Constante.PARAMETRO_PASS %>" placeholder="<fmt:message key="login.form.password"></fmt:message>">
-    <div class="form-control">
-    <!-- 
-    <select name="<%=Constante.PARAMETRO_IDIOMA%>">
-    
-  	<c:forEach items="<%=Idioma.getNames() %>" var="idioma">
-  		<c:choose>
-  		<c:when test="${fn:containsIgnoreCase(idioma.key, language)}">
-  			<option selected="selected" value="${idioma.key}">${idioma.value}</option>
-  		</c:when>
-  		<c:otherwise>
-  			<option value="${idioma.key}">${idioma.value}</option>
-  		</c:otherwise>
-  		</c:choose>
-  	</c:forEach>
-  	
-  	</select>
-  	 -->
-  	</div>
-  	<util:selectoroptions parameterName="<%=Constante.PARAMETRO_IDIOMA %>" 
-  						opValues="<%=Idioma.getIndices() %>" 
-  						opTexts="<%=Idioma.getValores() %>"/>
-  	<div><label for="<%=Constante.PARAMETRO_RECUERDAME%>"><fmt:message key="login.form.recuerdame"></fmt:message></label><input id="<%=Constante.PARAMETRO_RECUERDAME%>"type ="checkbox" name="<%=Constante.PARAMETRO_RECUERDAME %>"></div>
-    <input type="submit" name="enviar" class="login login-submit" value="<fmt:message key="login.form.submit"></fmt:message>">
-  </form>
-
-  <div class="login-help">
-    <a href="#">Register</a> • <a href="#">Forgot Password</a>
-  </div>
+   <%@ include file="includes/alerts.jsp" 	%>
+	<%@ include file="includes/loginForm.jsp" 	%>
 </div>
 
 <!-- <div id="error"><img src="https://dl.dropboxusercontent.com/u/23299152/Delete-icon.png" /> Your caps-lock is on.</div> -->

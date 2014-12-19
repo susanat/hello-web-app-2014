@@ -13,7 +13,12 @@ public class Constante {
     public static final String USER_USER_CODE = "1";
     public static final String USER_USER_NAME = "user";
     public static final String USER_USER_PASS = "user";
-
+    // cookies
+    public static final String COOKIE_USER_NAME = "c_user";
+    public static final String COOKIE_USER_PASS = "c_pass";
+    public static final String COOKIE_USER_IDIOMA = "c_idioma";
+    public static final int COOKIE_DEFAULT_TIME = 3600 * 24 * 365 * 1000;
+    // roles
     public static final String ROL_USER_CODE = "1";
     public static final String ROL_USER_NAME = "user";
     public static final String ROL_ADMIN_CODE = "0";
