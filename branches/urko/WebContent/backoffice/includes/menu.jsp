@@ -9,7 +9,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="<%=Constante.JSP_BACKOFFICE_INDEX%>">${sessionScope.user_session.nombre } | ${sessionScope.user_session.rol }</a>
+                <a class="navbar-brand" href="<%=Constante.JSP_BACKOFFICE_INDEX%>">${sessionScope.user_session.nombre } | ${sessionScope.user_session.rol.nombre }</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -36,6 +36,9 @@
                         </li>        
 						<li>
                             <a class="active" href="<%=Constante.CONTROLER_CALIFICACION%>" title="Gestionar Calificaciones"><i class="fa fa-dashboard fa-fw"></i> Calificaciones</a>         
+                        </li>  
+                     	<li>
+                            <a class="active" href="<%=Constante.CONTROLER_SESSION%>" title="Gestionar Sesion"><i class="fa fa-dashboard fa-fw"></i> Session</a>         
                         </li>             
                     </ul>
                 </div>

@@ -84,6 +84,7 @@ public class LoginServlet extends HttpServlet {
 	    validateUser(request);
 	    url += Util.obtenerRutaPersona(user);
 	    gestionCookies(request, response);
+	    // addSession(request);
 	} else { // usuario que ya existe
 	    if (checkUser()) {// usuario valido redirecionamos dentro
 		url += Util.obtenerRutaPersona(user);
@@ -103,6 +104,10 @@ public class LoginServlet extends HttpServlet {
 	 */
 
 	// dispatch.forward(request, response);
+    }
+
+    private void addSession(final HttpServletRequest request) {
+
     }
 
     private void gestionCookies(final HttpServletRequest request,

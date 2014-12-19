@@ -1,5 +1,8 @@
 package com.ipartek.formacion.helloweb.listener;
 
+import java.util.ArrayList;
+
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
@@ -18,6 +21,12 @@ import com.ipartek.formacion.helloweb.util.Constante;
 public class SessionListener implements HttpSessionListener,
 	HttpSessionAttributeListener {
     private final static Logger log = Logger.getLogger(SessionListener.class);
+
+    private static int totalActiveSessions = 0;
+
+    public static int getTotalActiveSession() {
+	return totalActiveSessions;
+    }
 
     /**
      * Default constructor.
@@ -46,12 +55,22 @@ public class SessionListener implements HttpSessionListener,
      */
     @Override
     public void attributeAdded(final HttpSessionBindingEvent se) {
-	// Logger logger = Logger.getAnonymousLogger();
-	// logger.log(Level.INFO, "Atribute Added" + se.getName(), se);
-	if (se.getName().equals(Constante.USER_SESSION)) {
-	    Persona usuario = (Persona) se.getValue();
-	    log.trace("Nuevo usuario registrado: " + usuario.toString());
+	HttpSession session = se.getSession();
+	ServletContext context = session.getServletContext();
+	ArrayList<Persona> personas = null;
+	Persona p = null;
+
+	personas = (ArrayList<Persona>) context
+		.getAttribute(Constante.ATT_REGISTERED_USERS);
+
+	if (personas == null) {
+	    personas = new ArrayList<Persona>();
 	}
+	p = (Persona) session.getAttribute(Constante.USER_SESSION);
+
+	log.trace("Nuevo usuario registrado: " + p.toString());
+	personas.add(p);
+	context.setAttribute(Constante.ATT_REGISTERED_USERS, personas);
     }
 
     /**
@@ -74,9 +93,10 @@ public class SessionListener implements HttpSessionListener,
     @Override
     public void sessionCreated(final HttpSessionEvent se) {
 	// Logger logger = Logger.getAnonymousLogger();
-	log.trace(se + " fijado el tiempo maximo de la session");
 	HttpSession session = se.getSession();
+	log.trace(se + " fijado el tiempo maximo de la session");
 	session.setMaxInactiveInterval(60 * 30);
+	totalActiveSessions++;
     }
 
     /**
@@ -88,7 +108,13 @@ public class SessionListener implements HttpSessionListener,
 	// logger.log(Level.INFO, "Session destruida", se);
 	// log.trace("El usuario"+);
 	HttpSession session = se.getSession();
+	ServletContext context = session.getServletContext();
 	String motivo = "";
+	ArrayList<Persona> personas = null;
+
+	Persona p = null;
+
+	totalActiveSessions--;
 
 	if (destroySessionAsked(session)) {
 	    motivo += "Deslogueado";
@@ -103,16 +129,24 @@ public class SessionListener implements HttpSessionListener,
 	} else {
 	    log.warn("Usuario anonimo " + motivo);
 	}
+	personas = (ArrayList<Persona>) context
+		.getAttribute(Constante.ATT_REGISTERED_USERS);
 
+	p = (Persona) session.getAttribute(Constante.ATT_PERSONA);
+
+	personas.remove(p);
+	context.setAttribute(Constante.ATT_REGISTERED_USERS, personas);
     }
 
     private boolean destroySessionAsked(final HttpSession session) {
+
 	boolean asked = false;
 	if (session.getAttribute(Constante.USER_LOGOUT_PETICION) != null
 		&& (Boolean) session
 			.getAttribute(Constante.USER_LOGOUT_PETICION)) {
 	    asked = true;
 	}
+
 	return asked;
     }
 }
