@@ -43,7 +43,7 @@ public class ServletFilter implements Filter {
 	    // no existe usuario en session, forward al LoginServlet
 	} else {
 	    requestHttp.getRequestDispatcher("/" + Constantes.PATH_LOGIN)
-	    .forward(request, response);
+		    .forward(request, response);
 	    return;
 	}
 

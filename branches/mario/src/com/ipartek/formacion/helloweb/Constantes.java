@@ -6,11 +6,20 @@ public class Constantes {
     public static final String USER_LANGUAGE = "user_language";
     public static final String USER_LOGOUT_PETICION = "logout.pedida";
 
+    public static final String USER_ADMIN_CONT = "cont_admin";
+    public static final String USER_USER_CONT = "cont_user";
+
     public static final String USER_ADMIN = "admin";
     public static final String PASS_ADMIN = "admin";
 
     public static final String USER = "user";
     public static final String PASS = "user";
+
+    // Cookies
+
+    public static final String COOKIE_USER_NAME = "cuser";
+    public static final String COOKIE_USER_PASS = "cpass";
+    public static final String COOKIE_USER_IDIOM = "cidiom";
 
     // Paths para Servlets
     public static final String PATH_LOGIN = "login";

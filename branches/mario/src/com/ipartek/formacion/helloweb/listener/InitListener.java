@@ -18,13 +18,14 @@ import com.ipartek.formacion.helloweb.model.ModeloPersona;
  *
  */
 public class InitListener implements ServletContextListener,
-ServletContextAttributeListener {
+	ServletContextAttributeListener {
     public static boolean LOAD_ERROR = false;
     public static String LOAD_ERROR_MSG = null;
     public final static String LOG4J_PATH = "WEB-INF/conf/log4j.properties";
     public static ModeloPersona modelPersona = null;
     public static ModeloCalificacion modeloCalificacion = null;
     private final static Logger log = Logger.getLogger(InitListener.class);
+    ServletContextEvent sce = null;
 
     /**
      * Default constructor.
@@ -37,6 +38,7 @@ ServletContextAttributeListener {
      * @see ServletContextListener#contextInitialized(ServletContextEvent)
      */
     public void contextInitialized(ServletContextEvent sce) {
+	this.sce = sce;
 	loadLog4j(sce);
 	if (!LOAD_ERROR) {
 	    // TODO conexion BBDD y recuperar modelos
@@ -47,9 +49,16 @@ ServletContextAttributeListener {
 	    initModelCalificacion();
 	    log.info("Modelo Persona Cargado");
 	    System.out.println("Modelo Calificacion Cargado");
+	    initContadoresSessionesUsuarios(sce);
 	} else {
 	    System.out.println("Error cargando LOG4J");
 	}
+
+    }
+
+    private void initContadoresSessionesUsuarios(ServletContextEvent sce2) {
+	sce.getServletContext().setAttribute(Constantes.USER_USER_CONT, 0);
+	sce.getServletContext().setAttribute(Constantes.USER_ADMIN_CONT, 0);
 
     }
 
@@ -88,6 +97,7 @@ ServletContextAttributeListener {
 	// TODO liberar memoria y poner a null variables
 	System.out.println("Liberado memoria");
 	modelPersona = null;
+	initContadoresSessionesUsuarios(sce);
     }
 
     /**
