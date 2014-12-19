@@ -6,21 +6,19 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
 	<tlib-version>1.0</tlib-version>
 	<jsp-version>1.2</jsp-version>
 	<short-name>util</short-name>
-	<uri>http://www.formacion.ipartek.com/tag/util</uri>
+	<uri>http://www.formacion.ipartek.com/tags/util</uri>
 	<description>
-		Ejemplo TagLib para el Select
+		Librerias de utilidades 
 	</description>
 
 	<tag>
-		<name>selectoptions</name>
-		<!-- Lo implementa esta clase -->
-		<tag-class>com.ipartek.formacion.helloweb.tag.util.TagSelect</tag-class>
-		<!-- El cuerpo puede tener o no, en este caso no tiene -->
+		<name>selecoptions</name>
+		<tag-class>com.ipartek.formacion.helloweb.tag.SelectOptionsTag</tag-class>
 		<body-content>empty</body-content>
 		<description>
-			Muestra el Select Option con los posibles Idiomas que tenemos en nuestra web
+			Genera un select options
 		</description>
-				<attribute> 
+		<attribute> 
 			<name>opValues</name>												
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>	
@@ -57,6 +55,5 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
 			<description>Identificador de la etiqueta para HTML</description>				
 		</attribute>
 	</tag>
-
-		
+	
 </taglib>
