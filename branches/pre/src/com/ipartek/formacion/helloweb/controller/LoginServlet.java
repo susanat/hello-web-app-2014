@@ -22,6 +22,7 @@ import org.apache.log4j.Logger;
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.bean.Mensaje;
 import com.ipartek.formacion.helloweb.bean.Persona;
+import com.ipartek.formacion.helloweb.bean.Persona.Rol;
 import com.ipartek.formacion.helloweb.i18n.I18n;
 import com.ipartek.formacion.helloweb.i18n.Idioma;
 import com.ipartek.formacion.helloweb.listener.InitListener;
@@ -138,6 +139,7 @@ public class LoginServlet extends HttpServlet {
 				//guardar usuario en session
 				//TODO recuperar usuario de la BBDD
 				Persona p = new Persona(pUser, 0);
+				p.setRol(Rol.USER);
 				session.setAttribute(Constantes.USER_SESSION, p);
 				log.info("acceso usuario NORMAL ["+pUser+","+pPass+"]");
 				

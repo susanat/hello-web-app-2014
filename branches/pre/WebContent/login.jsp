@@ -65,13 +65,15 @@
     	
     	// primero lo buscamos en las cookies del usuario    	
     	String idioma = null;
-    	Cookie cookies[] = request.getCookies();    	
-    	for ( int i=0; i < cookies.length; i++){
-    		Cookie cookie  = cookies[i];
-    		if ( Constantes.COOKIE_USER_IDIOM.equals( cookie.getName())){
-    			idioma =  cookie.getValue();
-    		}
-    	}
+    	Cookie cookies[] = request.getCookies();
+    	if ( cookies != null ){
+	    	for ( int i=0; i < cookies.length; i++){
+	    		Cookie cookie  = cookies[i];
+	    		if ( Constantes.COOKIE_USER_IDIOM.equals( cookie.getName())){
+	    			idioma =  cookie.getValue();
+	    		}
+	    	}
+    	}	
     	// Si no encuentra: obtenerlo del navgeador
     	if ( idioma == null ){
     		idioma = I18n.getBrowserLocale(request.getLocale());
