@@ -28,6 +28,12 @@
 	
 	<a href="<%=Constantes.PATH_LOGOUT%>" title="Cierra tu seccion" > [x] Cerrar Session </a>
 
+ <h2>Usuarios Activos</h2>
+<ol>
+<li><b>ADMINISTADORES:</b><%=getServletContext().getAttribute(Constantes.NUM_ADMIN) %></li>
+<li><b>USUARIOS:</b><%=getServletContext().getAttribute(Constantes.NUM_USER) %></li>
+</ol>
+
 
 	<h1>Request Info</h1>
 	<ol>		

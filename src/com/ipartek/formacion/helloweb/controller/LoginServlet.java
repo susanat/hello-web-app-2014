@@ -61,6 +61,7 @@ public class LoginServlet extends HttpServlet {
 
 		// recuperar session
 		session = request.getSession();
+		session.setMaxInactiveInterval(60);
 
 		if (!checkSession(request)) {
 
@@ -149,7 +150,9 @@ public class LoginServlet extends HttpServlet {
 			// guardar usuario en session
 			// TODO recuperar usuario de la BBDD
 			Persona p = new Persona(pUser, 0);
-			p.setRol(Persona.Rol.ADMINISTRADOR);
+			Persona.Rol rol = Constantes.USER_ADMIN_PASS.equals(pPass) ? Persona.Rol.ADMINISTRADOR
+					: Persona.Rol.USER;
+			p.setRol(rol);
 			session.setAttribute(Constantes.USER_SESSION, p);
 			log.info("acceso usuario ADMIN [" + pUser + "," + pPass + "]");
 

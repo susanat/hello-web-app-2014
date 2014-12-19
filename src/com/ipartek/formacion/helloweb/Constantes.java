@@ -18,6 +18,12 @@ public class Constantes {
 	public static final String COOKIE_USER_PASS = "cpass";
 	public static final String COOKIE_USER_IDIOM = "cidiom";
 
+	// cookies para contar el numero de sesiones y el ultimo acceso
+	public static final String NUM_ADMIN = "cadminnumconect";
+	public static final String ULT_ACCESO_ADMIN = "cadminultacceso";
+	public static final String NUM_USER = "cusernumconect";
+	public static final String ULT_ACCESO_USER = "cuserultacceso";
+
         // Paths para Servlets
 	public static final String PATH_LOGIN = "login";
 	public static final String PATH_LOGOUT = "logout";
