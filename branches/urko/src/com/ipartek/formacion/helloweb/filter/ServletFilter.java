@@ -13,25 +13,27 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.ipartek.formacion.helloweb.bean.Mensaje;
 import com.ipartek.formacion.helloweb.util.Constante;
 
 /**
- * Servlet Filter implementation class FilterJsp
+ * Servlet Filter implementation class ServletFilter
  */
-public class JspFilter implements Filter {
-
+public class ServletFilter implements Filter {
     public FilterConfig filterConfig;
     private final static Logger log = Logger.getLogger(JspFilter.class);
     private HttpServletRequest requesthttp = null;
     private HttpServletResponse responsehttp = null;
+
+    public ServletFilter() {
+	// TODO Auto-generated constructor stub
+    }
 
     /**
      * @see Filter#destroy()
      */
     @Override
     public void destroy() {
-	filterConfig = null;
+	// TODO Auto-generated method stub
     }
 
     /**
@@ -44,47 +46,24 @@ public class JspFilter implements Filter {
 
 	if (request instanceof HttpServletRequest) {
 	    log.trace(((HttpServletRequest) request).getRequestURI());
-
 	    requesthttp = (HttpServletRequest) request;
-
-	    if (null == requesthttp.getSession().getAttribute(
-		    Constante.USER_SESSION)
-		    && checkWebPages(requesthttp.getServletPath())) {
-
-		// URL url = new URL(requesthttp.getRequestURL().toString());
-
-		// System.out.println(requesthttp.getServletPath());
-		Mensaje msg = new Mensaje(Constante.MSG_SIN_PERMISOS,
-			Mensaje.MSG_TYPE_DANGER);
-		requesthttp.setAttribute(Constante.MSG_KEY, msg);
-		String url = requesthttp.getContextPath() + "/";
-		responsehttp.sendRedirect(url + Constante.JSP_LOGIN);
-		// response.sendRedirect(url);
+	    String url = requesthttp.getContextPath() + "/";
+	    if (null != requesthttp.getSession().getAttribute(
+		    Constante.USER_SESSION)) {
+		// pass the request along the filter chain
+		chain.doFilter(request, response);
+		return;
+	    } else {
 		/*
 		 * requesthttp.getRequestDispatcher("/" + Constante.JSP_LOGIN)
 		 * .forward(request, response);
 		 */
-
-	    } else {
-		chain.doFilter(request, response);
+		log.trace(url);
+		responsehttp.sendRedirect(url + Constante.JSP_LOGIN);
 		return;
 	    }
-	} else {
-	    log.warn("");
 	}
-	// pass the request along the filter chain
-	chain.doFilter(request, response);
-	return;
-    }
 
-    private boolean checkWebPages(final String path) {
-	boolean exito = true;
-	if (path.equalsIgnoreCase("/" + Constante.JSP_LOGIN)
-		|| path.equalsIgnoreCase("/" + Constante.JSP_SALUDO)) {
-	    exito = false;
-
-	}
-	return exito;
     }
 
     /**
@@ -92,7 +71,7 @@ public class JspFilter implements Filter {
      */
     @Override
     public void init(final FilterConfig fConfig) throws ServletException {
-	this.filterConfig = fConfig;
+	// TODO Auto-generated method stub
     }
 
 }

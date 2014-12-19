@@ -8,6 +8,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,6 +32,7 @@ public class LoginServlet extends HttpServlet {
     private String pUser = null;
     private String pPass = null;
     private String pIdioma = Idioma.INGLES.getLocale();
+    private String[] pRecuerdame = null;
     private Persona user = null;
     private RequestDispatcher dispatch = null;
     private HttpSession session = null;
@@ -77,11 +79,12 @@ public class LoginServlet extends HttpServlet {
 	user = UserService.find(pUser, pPass);
 	// check session activa
 	nSession = checkSession(request);
-	if (!nSession) {
+	if (!nSession) {// usuario que no existe
 	    validateLanguaje(request);
 	    validateUser(request);
 	    url += Util.obtenerRutaPersona(user);
-	} else {
+	    gestionCookies(request, response);
+	} else { // usuario que ya existe
 	    if (checkUser()) {// usuario valido redirecionamos dentro
 		url += Util.obtenerRutaPersona(user);
 	    } else { // no existe usuario redirecionamos fuera
@@ -100,6 +103,26 @@ public class LoginServlet extends HttpServlet {
 	 */
 
 	// dispatch.forward(request, response);
+    }
+
+    private void gestionCookies(final HttpServletRequest request,
+	    final HttpServletResponse response) {
+	Cookie cUser = new Cookie(Constante.COOKIE_USER_NAME, pUser);
+	Cookie cPass = new Cookie(Constante.COOKIE_USER_PASS, pPass);
+	Cookie cIdioma = new Cookie(Constante.COOKIE_USER_IDIOMA, pIdioma);
+
+	if (pRecuerdame != null) {
+	    cUser.setMaxAge(Constante.COOKIE_DEFAULT_TIME);
+	    cPass.setMaxAge(Constante.COOKIE_DEFAULT_TIME);
+	    cIdioma.setMaxAge(Constante.COOKIE_DEFAULT_TIME);
+	} else {
+	    cUser.setMaxAge(0);
+	    cPass.setMaxAge(0);
+	    cIdioma.setMaxAge(0);
+	}
+	response.addCookie(cUser);
+	response.addCookie(cPass);
+	response.addCookie(cIdioma);
     }
 
     private boolean checkUser() {
@@ -164,6 +187,8 @@ public class LoginServlet extends HttpServlet {
 	pUser = request.getParameter(Constante.PARAMETRO_USER);
 	pPass = request.getParameter(Constante.PARAMETRO_PASS);
 	pIdioma = request.getParameter(Constante.PARAMETRO_IDIOMA);
+	pRecuerdame = request
+		.getParameterValues(Constante.PARAMETRO_RECUERDAME);
     }
 
 }

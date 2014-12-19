@@ -22,7 +22,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>LogoutServlet</servlet-name>
-    <url-pattern>/logout</url-pattern>
+    <url-pattern>/logout.do</url-pattern>
   </servlet-mapping>
   <servlet>
     <description>CRUD para Persona</description>
@@ -32,7 +32,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>PersonaServlet</servlet-name>
-    <url-pattern>/persona</url-pattern>
+    <url-pattern>/persona.do</url-pattern>
   </servlet-mapping>
   <jsp-config>
     <taglib>
@@ -50,6 +50,15 @@
   <listener>
     <listener-class>com.ipartek.formacion.helloweb.listener.InitListener</listener-class>
   </listener>
+  <filter>
+    <display-name>ServletFilter</display-name>
+    <filter-name>ServletFilter</filter-name>
+    <filter-class>com.ipartek.formacion.helloweb.filter.ServletFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>ServletFilter</filter-name>
+    <url-pattern>*.do</url-pattern>
+  </filter-mapping>
   <servlet>
     <description></description>
     <display-name>IdiomaServlet</display-name>
@@ -58,7 +67,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>IdiomaServlet</servlet-name>
-    <url-pattern>/idioma</url-pattern>
+    <url-pattern>/idioma.do</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -68,7 +77,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>RolServlet</servlet-name>
-    <url-pattern>/rol</url-pattern>
+    <url-pattern>/rol.do</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -78,7 +87,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>CalificacionServlet</servlet-name>
-    <url-pattern>/calificacion</url-pattern>
+    <url-pattern>/calificacion.do</url-pattern>
   </servlet-mapping>
   <filter>
     <display-name>LoadErrorFilter</display-name>

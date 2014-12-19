@@ -17,7 +17,7 @@ import com.ipartek.formacion.helloweb.util.Constante;
  */
 public class SessionListener implements HttpSessionListener,
 	HttpSessionAttributeListener {
-    private final static Logger log = Logger.getLogger(InitListener.class);
+    private final static Logger log = Logger.getLogger(SessionListener.class);
 
     /**
      * Default constructor.
@@ -76,7 +76,7 @@ public class SessionListener implements HttpSessionListener,
 	// Logger logger = Logger.getAnonymousLogger();
 	log.trace(se + " fijado el tiempo maximo de la session");
 	HttpSession session = se.getSession();
-	session.setMaxInactiveInterval(1 * 3);
+	session.setMaxInactiveInterval(60 * 30);
     }
 
     /**
