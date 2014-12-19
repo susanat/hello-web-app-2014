@@ -60,8 +60,7 @@ public class SessionListener implements HttpSessionAttributeListener, HttpSessio
     public void sessionCreated(HttpSessionEvent se)  { 
     	//marcar el tiempo de expiracion 30 min
     	HttpSession session = se.getSession();
-    	//session.setMaxInactiveInterval( 60 * 30 );
-    	session.setMaxInactiveInterval( 3 );
+    	session.setMaxInactiveInterval( 60 * 30 );    	
     	log.trace("nueva session id:" + session.getId() + " - " + session.getMaxInactiveInterval() + " s");
     }
     

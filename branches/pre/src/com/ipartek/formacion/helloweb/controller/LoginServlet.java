@@ -11,6 +11,7 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +25,7 @@ import com.ipartek.formacion.helloweb.bean.Persona;
 import com.ipartek.formacion.helloweb.i18n.I18n;
 import com.ipartek.formacion.helloweb.i18n.Idioma;
 import com.ipartek.formacion.helloweb.listener.InitListener;
+import com.opera.core.systems.scope.protos.UmsProtos.Response;
 
 /**
  * Servlet implementation class LoginServlet
@@ -42,6 +44,10 @@ public class LoginServlet extends HttpServlet {
     String pUser = null;
     String pPass = null;
     String pIdioma = Idioma.INGLES.getLocale();
+    boolean pRecuerdame = false;
+    
+    private HttpServletRequest request;
+    private HttpServletResponse response;
 	
 	
     @Override
@@ -55,6 +61,9 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		this.request = request;
+		this.response = response;
 		
 		//recuperar session
 		session = request.getSession();
@@ -132,6 +141,9 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute(Constantes.USER_SESSION, p);
 				log.info("acceso usuario NORMAL ["+pUser+","+pPass+"]");
 				
+				gestionCookies();
+				
+				
 		//Administrador: ir a backoffice 		
 		}else if ( Constantes.USER_ADMIN_NAME.equals(pUser) && 
 				 Constantes.USER_ADMIN_PASS.equals(pPass)	 ){
@@ -143,6 +155,8 @@ public class LoginServlet extends HttpServlet {
 			p.setRol(Persona.Rol.ADMINISTRADOR);
 			session.setAttribute(Constantes.USER_SESSION, p);
 			log.info("acceso usuario ADMIN ["+pUser+","+pPass+"]");
+			
+			gestionCookies();
 			
 		//entrada sin submitar el formulario
 		}else if ( (pUser == null) &&( pPass==null) ){
@@ -163,6 +177,33 @@ public class LoginServlet extends HttpServlet {
 		
 	}
 
+	private void gestionCookies() {
+		
+		
+		Cookie cUser  = new Cookie( Constantes.COOKIE_USER_NAME , pUser );		
+		Cookie cPass  = new Cookie( Constantes.COOKIE_USER_PASS , pPass );
+		Cookie cIdiom = new Cookie( Constantes.COOKIE_USER_IDIOM , pIdioma );
+				
+		cUser.setMaxAge(60*60*24*30); // 1 mes
+		cPass.setMaxAge(60*60*24*30); // 1 mes
+		cIdiom.setMaxAge(60*60*24*30); // 1 mes
+		
+		//Si no quiere recordar expiramos cookies
+		if (! pRecuerdame){		
+			cUser.setMaxAge(0);
+			cPass.setMaxAge(0);
+			cIdiom.setMaxAge(0);
+			
+		}
+		
+		response.addCookie(cUser);
+		response.addCookie(cPass);
+		response.addCookie(cIdiom);
+		
+		
+	}
+
+
 	/**
 	 * Recoger parametros de request
 	 */
@@ -170,6 +211,7 @@ public class LoginServlet extends HttpServlet {
 		pUser = request.getParameter( Constantes.PARAMETRO_USER );
 		pPass = request.getParameter( Constantes.PARAMETRO_PASS );
 		pIdioma = request.getParameter( Constantes.PARAMETRO_IDIOMA );
+		pRecuerdame = (request.getParameter(Constantes.PARAMETRO_RECUERDAME)==null)?false:true;
 	}
 
 
