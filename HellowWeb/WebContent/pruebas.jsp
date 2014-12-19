@@ -4,9 +4,14 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@include file="frontoffice/includes/head.jsp" %>
-	<%@include file="frontoffice/includes/nav.jsp" %>
+<%@include file="frontoffice/includes/nav.jsp" %>
 
 <div class="col-xs-8">
+
+	<div class="alert alert-danger">
+		<h1>Página temporal solo para pruebas</h1>
+	</div>
+
 
 	<%@ taglib uri="/WEB-INF/tag/tag_hello.tld" prefix="hello" %>		
 	<hello:saluda />

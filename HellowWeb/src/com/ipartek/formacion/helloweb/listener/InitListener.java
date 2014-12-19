@@ -2,6 +2,7 @@ package com.ipartek.formacion.helloweb.listener;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextAttributeEvent;
@@ -52,7 +53,7 @@ public class InitListener implements ServletContextListener, ServletContextAttri
          System.out.println("Preparación objetos de estadísticas");
         
          //usuarios activos
-         CargasTemporales.lstActiveUsers = new ArrayList<UserSession>();
+         CargasTemporales.activeUsers = new HashMap<String, UserSession>();
          
     }
     
@@ -129,7 +130,7 @@ public class InitListener implements ServletContextListener, ServletContextAttri
     	//TODO liberar memoria y cerrar 
     	
     	//Borramos estadísticas
-    	CargasTemporales.lstActiveUsers = null;
+    	CargasTemporales.activeUsers = null;
     }
 	
 }

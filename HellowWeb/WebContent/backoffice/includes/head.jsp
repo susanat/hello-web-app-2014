@@ -9,26 +9,51 @@
 <%@page import="com.ipartek.formacion.helloweb.comun.Constantes"%>
 
 <!-- ******************** LOGICA DEL LENGUAGE JSTL ******************* -->
-<!-- Lenguage: prioridad si pasa el parámetro language --> 
-<c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
+<!--1º
+	Lenguage: prioridad si pasa el parámetro language 
+	significa que quiere cambiar de lenguaje
+	si no, se marca con el lenguaje del navegador 
+--> 
+<c:set var="language" value="${param.language}" scope="session" />
 
-<!-- Si le ha pasado el parámetro, prioriza sobre lo que esté puesto en session, así que modificamos session -->
-<c:if test="${not empty language}">
-	<c:set var="locale_user" value="${language}" scope="session" />
+
+
+<!-- Si existe, añadimos a sessión -->
+<c:if test="${not empty param.language}" >
+	<c:set var="user_locale" value="${language}" scope="session" />
 </c:if>
 
-<!-- No hay parámetro de lenguage -->
-	<!-- buscamos y obtenemos el de sessión -->
-	<!-- si no, como último recurso, obtenemos el del navegador -->
-<c:choose>  
-  <c:when test="${sessionScope.locale_user != null}">  	
-    <c:set var="language" value="${sessionScope.locale_user}"/>
-  </c:when>    
-  <c:otherwise>
-    <c:set var="language" value="${pageContext.request.locale}"/>
-  </c:otherwise>  						  
-</c:choose>	
 
+
+<!-- 2º  
+	No ha querido cambiar, por lo tanto comprobamos session. 
+	Si no existe en sesión:
+		- 1 - Obtenemos el de la cookie
+		- 2 - Por último cojemos el del navegador
+-->
+	<c:choose>  
+	  <c:when test="${sessionScope.user_locale != null}">  	
+	    <c:set var="language" value="${sessionScope.user_locale}"/>
+	  </c:when>    
+	  <c:otherwise>	  	
+	  		<c:forEach items="${cookie}" var="currentCookie">			    	
+		    	<c:set var="cookie_locale" value="<%=Constantes.cookie_user_lang %>" scope="page" />
+		    			    	 
+				<c:if test="${currentCookie.value.name == cookie_locale }">
+			    	<c:set var="language" value="${currentCookie.value.value}" scope="page" />
+			    	<c:set var="user_locale" value="${language}" scope="session" />
+				</c:if>				    
+			</c:forEach>
+			<c:if test="${empty language}">
+				<c:set var="language" value="${pageContext.request.locale}"/>
+		    	<c:set var="user_locale" value="${language}" scope="session" />
+			</c:if>
+		    
+	  </c:otherwise>  						  
+	</c:choose>	
+
+
+<!-- Activamos el idioma -->
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="com.ipartek.formacion.helloweb.i18n.lang" />
 
@@ -53,7 +78,6 @@
 <!-- ******************** URL Actual *************** -->
 <c:set var="lastUrl" scope="page" value="<%= UtilsTemp.cargaHistorial(request, session) %>"/>
 <!-- ******************** FIN URL Actual *************** -->
-
 
 <!DOCTYPE html>
 <html lang="${language}">

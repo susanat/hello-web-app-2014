@@ -14,6 +14,7 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +25,7 @@ import com.ipartek.formacion.helloweb.bean.Message;
 import com.ipartek.formacion.helloweb.bean.Message.ETypeAlert;
 import com.ipartek.formacion.helloweb.bean.Persona;
 import com.ipartek.formacion.helloweb.comun.Constantes;
+import com.ipartek.formacion.helloweb.comun.Globales;
 import com.ipartek.formacion.helloweb.comun.Utils;
 import com.ipartek.formacion.helloweb.listener.InitListener;
 import com.ipartek.formacion.helloweb.model.ModeloPersona;
@@ -103,7 +105,7 @@ public class LoginServlet extends CustomServlet {
 		msg.setError(true);
 		msg.setText("LoginServlet.java: Error en el modelo de datos de persona.");
 		msg.setException(ex);
-		msg.setType(ETypeAlert.DANGER);
+		msg.setType(ETypeAlert.DANGER);		
 	}
 	
 	@Override
@@ -180,13 +182,26 @@ public class LoginServlet extends CustomServlet {
 	    //si el usuario es válido, obtenemos el  por nombre el usuario
   		if (validarUsuario(username, password)) {
   			
-  			//obtenemos el usuario del origen de datos
+  			//***obtenemos el usuario del origen de datos
   			perSesion = model.getByName(username);			
   						
   			//TODO: falta campo de password en el usuario
-  			//usuario autentificado 
+  			//*********************************usuario autentificado y valido 
   			if(perSesion != null) {				
-  				autentificado = true;				
+  				
+  				//***marcamos como autentificado
+  				autentificado = true;		
+  				
+  				Object remember = request.getParameter(Constantes.PARAM_LOGIN_REMEMBER);
+  				if(remember != null) {
+  					//1- creamos la cookie y la guardamos
+  					gestionCoockies(response, request, session, username, password, false );
+  				} else {
+  					//1- Expiramos las existentes de username y password si existen
+  					gestionCoockies(response, request, session, username, password, true );
+  				}
+  				
+  				
   			} else {				
   				validado = false;
   				
@@ -208,11 +223,50 @@ public class LoginServlet extends CustomServlet {
 		// autentificación (true o false)
 		session.setAttribute(Constantes.ATTR_SESSION_AUTHENTICATED, autentificado);
 	
+		
+		//ESTADÍSTICAS
+		UtilsTemp.setStadistics(session);
+		
+		
 		return lMsg;
 		
 	}
 	  
     
+	private void gestionCoockies(HttpServletResponse response, HttpServletRequest request, HttpSession session, 
+			String username, String password, boolean expirar) {
+
+			if(!expirar) {
+				//creamos la cookie
+				Cookie user = new Cookie(Constantes.cookie_user_name, username);
+				user.setMaxAge(Globales.COOKIES_MAX_EXP);
+				response.addCookie(user);
+			
+				Cookie pass = new Cookie(Constantes.cookie_user_pass, password);
+				pass.setMaxAge(Globales.COOKIES_MAX_EXP);
+				response.addCookie(pass);
+			
+				if(session.getAttribute(Constantes.ATTR_SESSION_LOCALE) != null) {
+					Cookie lang = new Cookie(Constantes.cookie_user_lang, session.getAttribute(Constantes.ATTR_SESSION_LOCALE).toString() );
+					lang.setMaxAge(Globales.COOKIES_MAX_EXP);
+					response.addCookie(lang);
+				}
+			} else {
+				
+				//expiramos las existentes
+				Cookie[] cookies = request.getCookies();
+				for(Cookie cookie : cookies) {
+					if(cookie.getName().equalsIgnoreCase(Constantes.cookie_user_name) || 
+							cookie.getName().equals(Constantes.cookie_user_pass)) {
+						cookie.setMaxAge(0);
+						response.addCookie(cookie);
+					}
+					
+				}				
+			}
+		
+	}
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -223,7 +277,7 @@ public class LoginServlet extends CustomServlet {
 		HttpSession session = request.getSession();
 		
 		//obtenemos la redireccion por defecto
-		String urlToDefault = Constantes.JSP_LOGIN;
+		String urlToDefault = Constantes.JSP_REL_LOGIN;
 		String urlTo = urlToDefault;
 		
 		//obtenemos la redireccion si nos la pasan
@@ -242,7 +296,7 @@ public class LoginServlet extends CustomServlet {
 		
 		//si no ha habido fallo, modificamos la última url visitada con el login (evitamos problemas de redirección)
 		if(!msg.isError()){
-			session.setAttribute(Constantes.ATTR_SESSION_LAST_URL, Constantes.JSP_LOGIN);
+			session.setAttribute(Constantes.ATTR_SESSION_LAST_URL, Constantes.JSP_REL_LOGIN);
 		}
 		
 		if(msg.isError()) {

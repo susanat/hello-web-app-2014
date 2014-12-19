@@ -12,7 +12,7 @@
 		<!-- Insert breadcrumb
 		<nav>			
 			<ol class="breadcrumb">
-				<li><a href="<%=Constantes.JSP_BACK_ADMIN%>">Administracion</a></li>
+				<li><a href="<%=Constantes.JSP_ABS_BACK_INDEX%>">Administracion</a></li>
 				<li>Listado Personas</li>
 			</ol>
 		</nav>

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -16,6 +17,7 @@ import com.ipartek.formacion.helloweb.bean.CargasTemporales;
 import com.ipartek.formacion.helloweb.bean.Message;
 import com.ipartek.formacion.helloweb.bean.Persona;
 import com.ipartek.formacion.helloweb.bean.Roles;
+import com.ipartek.formacion.helloweb.bean.estadisticas.UserSession;
 import com.ipartek.formacion.helloweb.comun.Constantes;
 import com.ipartek.formacion.helloweb.comun.Globales;
 
@@ -274,7 +276,7 @@ public class UtilsTemp {
 	public static void goToLogin(HttpServletResponse response) throws IOException {
 		
 		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-   		response.sendRedirect(Constantes.JSP_LOGIN);
+   		response.sendRedirect(Constantes.JSP_REL_LOGIN);
    		
 	}
 	
@@ -384,6 +386,15 @@ public class UtilsTemp {
 		return res;
 	}
 	
+	/**
+	 * Obtiene el texto en el idioma seleccionado, con parámetros
+	 * @param propiedad String key de la propiedad
+	 * @param sesion Session del usuario  (para obtener el locate actual)
+	 * @param langDefault Idioma por defecto en cuando no se disponga en la sesión (configuración)
+	 * @param params Parámetros a añadir al texto
+	 * @return String texto con el string relativo a la clave
+	 * @see getStringLang
+	 */
 	public static String getStringLangParams(String propiedad, HttpSession sesion, String langDefault, Object...params) 
 	{
 		
@@ -392,8 +403,52 @@ public class UtilsTemp {
 		
 		return lang;
 		
+	}
+	
+	
+	public boolean checkAuthorization(HttpSession session, String ... aliasPermisos) {
+		boolean res  = false;
 		
+		//1- obtiene el usuario, 
+			//si no existe y la lista de permisos está a null, se devuelve true
+		
+			//si no existe y la lista de permisos tiene algo, se devuelve false
+		
+		
+		//2- obtenemos el role y los permisos del usuario y comparamos si dispone de el
+		
+		
+		return res;
 		
 	}
+	
+	/**
+     * Función que añade o reemplaza un usuario en las estadísticas
+     * @param session HttpSession del usuario
+     */
+	public static void setStadistics(HttpSession session) {
+		
+		UserSession userSession = new UserSession(session);
+		
+		if(CargasTemporales.activeUsers == null) {
+			CargasTemporales.activeUsers = new HashMap<String, UserSession>();
+		}
+			
+		
+		CargasTemporales.activeUsers.put(session.getId(), userSession);	
+		
+	}
+	
+	/**
+	 * Función que elimina una sessión de las estadísticas
+	 * @param session HttpSession del usuario
+	 */
+	public static void delStadistics(HttpSession session) {
+		if(CargasTemporales.activeUsers != null) {
+			CargasTemporales.activeUsers.remove(session.getId());
+		}
+		
+	}
+	
 
 }
