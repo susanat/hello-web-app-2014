@@ -46,7 +46,7 @@
 		<div class="form-group">
 			<label>Rol</label>
 			<select name="rol">
-			<% for ( Rol rol : Rol.values() ) { 
+			<% for ( Rol rol: Rol.values() ) { 
 				if ( rol == p.getRol() ){
 					out.print("<option selected value="+rol+" >"+rol+"</option>");	
 				}else{
