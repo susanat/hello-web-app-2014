@@ -1,5 +1,8 @@
 <!DOCTYPE>
 
+<%@page import="com.ipartek.formacion.helloweb.util.EIdioma"%>
+<%@page import="org.eclipse.jdt.internal.compiler.ast.ForeachStatement"%>
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@page import="com.ipartek.formacion.helloweb.listener.InitListener"%>
 <%@page import="com.ipartek.formacion.helloweb.bean.Idioma"%>
 <%@page import="java.util.Arrays"%>
@@ -37,20 +40,40 @@
 		
 			<%@include file="includes/alert.jsp"%>
 
+			<%
+				// Determinar el idioma
+				// Primero se busca en las cookies del usuario
+				// Si no encuentra: obtenerlo del navegador
+				String lang = null;
+				if(request.getCookies() != null){
+					for(Cookie cookie : request.getCookies()) {
+						if(Constantes.COOKIE_USER_LANG.equalsIgnoreCase(cookie.getName())) {
+							lang = cookie.getValue();
+						}
+					}
+				}
+				
+				//Si no encuentra: obtener del navegador
+				if(lang == null) {
+					lang = I18n.getBrowserLocale(request.getLocale());
+				}
+			%>
 			<div class="form-group">
 				<util:selectoptions tagName="lang" 
 									tagClass="form-control" 
 									opValues="<%=Idioma.getLocalesList(InitListener.modeloIdioma.getAll())%>" 
 									opTextos="<%=Idioma.getIdiomaTextoList(InitListener.modeloIdioma.getAll())%>" 
-									selectedValue="<%=I18n.getBrowserLocale(request.getLocale())%>"/>
+									selectedValue="<%=lang%>"/>
 			</div>
 
 			<input type="text" name="<%=Constantes.PARAMETRO_USER%>"
-				placeholder="<fmt:message key="login.form.user"></fmt:message>"/> 
+				placeholder="<fmt:message key="login.form.user"></fmt:message>"
+				value="${cookie.cuser.value}"> 
 			<input type="password" name="<%=Constantes.PARAMETRO_PASS%>" 
-				placeholder="<fmt:message key="login.form.password"></fmt:message>"/>
+				placeholder="<fmt:message key="login.form.password"></fmt:message>"
+				value="${cookie.cpass.value}">
 			<div class="form-group">
-				<input type="checkbox" name="<%=Constantes.PARAMETRO_RECUERDAME%>"/>
+				<input type="checkbox" name="<%=Constantes.PARAMETRO_RECUERDAME%>" ${(cookie.cuser == null) ? "" : "checked"} >
 				<span>Recuérdame</span>
 			</div>
 			<input type="submit" name="login" class="login login-submit"
