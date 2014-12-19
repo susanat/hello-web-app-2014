@@ -6,15 +6,19 @@ public class Constantes {
 	public static final String USER_SESSION = "user_session";
 	public static final String USER_LANGUAGE = "user_language";
 	public static final String USER_LOGOUT_PETICION = "logout.pedida";
-	
 
-	public static final String USER_ADMIN_NAME = "admin";
+        public static final String USER_ADMIN_NAME = "admin";
 	public static final String USER_ADMIN_PASS = "admin";
 
 	public static final String USER_USER_NAME = "user";
 	public static final String USER_USER_PASS = "user";
 
-	// Paths para Servlets
+	// cookies
+	public static final String COOKIE_USER_NAME = "cuser";
+	public static final String COOKIE_USER_PASS = "cpass";
+	public static final String COOKIE_USER_IDIOM = "cidiom";
+
+        // Paths para Servlets
 	public static final String PATH_LOGIN = "login";
 	public static final String PATH_LOGOUT = "logout";
 
@@ -45,10 +49,10 @@ public class Constantes {
 			+ "calificacion/form.jsp";
 
 	public static final String JSP_BACKOFFICE_ROLE_LIST = JSP_BACKOFFICE
-		    + "role/list.jsp";
+			+ "role/list.jsp";
 
 	public static final String JSP_BACKOFFICE_ROLE_FORM = JSP_BACKOFFICE
-		    + "role/form.jsp";
+			+ "role/form.jsp";
 
 	// Properties
 	public static final String PROPERTI_I18N = "com.ipartek.formacion.helloweb.i18n.i18nmesages";
@@ -72,7 +76,7 @@ public class Constantes {
 
 	public static final String MSG_ERR_PARAMETERS = "Error recogiendo Parametros";
 	public static final String MSG_ERR_REG_DELETE = "Error Elimnando Registro";
-	
+
 	public static final String MSG_ERR_LOAD_LOG4J = "Error cargando LOG4J";
 
 	public static final String MSG_UNAUTHORIZED = "No le esta permitido el acceso";
@@ -82,7 +86,7 @@ public class Constantes {
     public static final String MSG_ERROR_PARAMETERS = "Error recogiendo parametros";
     public static final String MSG_REG_NOT_DELETED = "Error borrando registro";
     public static final String MSG_NOT_UPDATED = "Error modificando registro";
-	
+
 	// Atrinuttos
 	public static final String ATT_PERSONAS = "personas";
 	public static final String ATT_PERSONA = "persona";
@@ -92,14 +96,14 @@ public class Constantes {
 
 	public static final String ATT_CALIFICACIONES = "calificaciones";
 	public static final String ATT_CALIFICACION = "calificacion";
-	
+
 	public static final String ALERT_TYPE_SUCCESS = "alert-success";
     public static final String ALERT_TYPE_DANGER = "alert-danger";
-    
+
     public static final String LETRERO_CREAR = "Crear";
     public static final String LETRERO_BORRAR = "Borrar";
     public static final String LETRERO_DETALLE = "Detalle";
-    
+
 	// Operaciones CRUD
 	public static final String OP_KEY = "op"; // Actualizar Registro
 	public static final String OP_UPDATE = "0"; // Actualizar Registro
@@ -109,3 +113,4 @@ public class Constantes {
 	public static final String OP_CREATE = "4"; // Crear o insertar Registro
 
 }
+
