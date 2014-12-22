@@ -7,7 +7,7 @@ import com.ipartek.formacion.helloweb.util.Constante;
 public class UserService {
     public static Persona find(final String userName, final String userPass) {
 	Persona p = null;
-	System.out.println(userName + " - " + userPass);
+	// System.out.println(userName + " - " + userPass);
 	if (Constante.USER_ADMIN_NAME.equals(userName)
 		&& Constante.USER_ADMIN_PASS.equals(userPass) ||
 
