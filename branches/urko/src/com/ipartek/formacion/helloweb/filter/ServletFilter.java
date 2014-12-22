@@ -20,20 +20,16 @@ import com.ipartek.formacion.helloweb.util.Constante;
  */
 public class ServletFilter implements Filter {
     public FilterConfig filterConfig;
-    private final static Logger log = Logger.getLogger(JspFilter.class);
+    private final static Logger log = Logger.getLogger(ServletFilter.class);
     private HttpServletRequest requesthttp = null;
     private HttpServletResponse responsehttp = null;
-
-    public ServletFilter() {
-	// TODO Auto-generated constructor stub
-    }
 
     /**
      * @see Filter#destroy()
      */
     @Override
     public void destroy() {
-	// TODO Auto-generated method stub
+	filterConfig = null;
     }
 
     /**
@@ -47,11 +43,15 @@ public class ServletFilter implements Filter {
 	if (request instanceof HttpServletRequest) {
 	    log.trace(((HttpServletRequest) request).getRequestURI());
 	    requesthttp = (HttpServletRequest) request;
+	    responsehttp = (HttpServletResponse) response;
 	    String url = requesthttp.getContextPath() + "/";
+	    // System.out.println(url);
 	    if (null != requesthttp.getSession().getAttribute(
-		    Constante.USER_SESSION)) {
+		    Constante.USER_SESSION)
+		    || checkWebPages(requesthttp.getServletPath())) {
 		// pass the request along the filter chain
 		chain.doFilter(request, response);
+
 		return;
 	    } else {
 		/*
@@ -59,11 +59,22 @@ public class ServletFilter implements Filter {
 		 * .forward(request, response);
 		 */
 		log.trace(url);
-		responsehttp.sendRedirect(url + Constante.JSP_LOGIN);
+		// responsehttp.sendRedirect(url + Constante.JSP_LOGIN);
 		return;
 	    }
 	}
 
+    }
+
+    private boolean checkWebPages(final String path) {
+	boolean exito = false;
+	System.out.println(path + "-" + "/" + Constante.SERVLET_LOGIN);
+	if (path.equalsIgnoreCase("/" + Constante.SERVLET_LOGIN)
+	/* || path.equalsIgnoreCase("/" + Constante.JSP_SALUDO) */) {
+	    exito = true;
+
+	}
+	return exito;
     }
 
     /**
@@ -71,7 +82,7 @@ public class ServletFilter implements Filter {
      */
     @Override
     public void init(final FilterConfig fConfig) throws ServletException {
-	// TODO Auto-generated method stub
+	this.filterConfig = fConfig;
     }
 
 }

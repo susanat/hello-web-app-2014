@@ -15,7 +15,7 @@
 
             <ul class="nav navbar-top-links navbar-right">
                 <li>
-                    <a href="#">[x] Desconectar</a>
+                    <a href="<%=Constante.SERVLET_LOGOUT%>">[x] Desconectar</a>
                 </li>
                 <!-- /.dropdown -->
             </ul>
@@ -53,7 +53,7 @@
        
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">CAmbiar titulo</h1>
+                    <h1 class="page-header">Cambiar titulo</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>

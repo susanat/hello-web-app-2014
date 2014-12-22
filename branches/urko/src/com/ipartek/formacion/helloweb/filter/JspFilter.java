@@ -46,7 +46,7 @@ public class JspFilter implements Filter {
 	    log.trace(((HttpServletRequest) request).getRequestURI());
 
 	    requesthttp = (HttpServletRequest) request;
-
+	    responsehttp = (HttpServletResponse) response;
 	    if (null == requesthttp.getSession().getAttribute(
 		    Constante.USER_SESSION)
 		    && checkWebPages(requesthttp.getServletPath())) {
@@ -58,6 +58,7 @@ public class JspFilter implements Filter {
 			Mensaje.MSG_TYPE_DANGER);
 		requesthttp.setAttribute(Constante.MSG_KEY, msg);
 		String url = requesthttp.getContextPath() + "/";
+		// System.out.println(url);
 		responsehttp.sendRedirect(url + Constante.JSP_LOGIN);
 		// response.sendRedirect(url);
 		/*
@@ -80,7 +81,7 @@ public class JspFilter implements Filter {
     private boolean checkWebPages(final String path) {
 	boolean exito = true;
 	if (path.equalsIgnoreCase("/" + Constante.JSP_LOGIN)
-		|| path.equalsIgnoreCase("/" + Constante.JSP_SALUDO)) {
+	/* || path.equalsIgnoreCase("/" + Constante.JSP_SALUDO) */) {
 	    exito = false;
 
 	}
