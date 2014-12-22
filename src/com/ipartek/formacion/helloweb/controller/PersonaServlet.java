@@ -145,7 +145,6 @@ public class PersonaServlet extends HttpServlet {
 
 		if (p != null) {
 			p.setId(id);
-			// modelo.update(p);
 			InitListener.modeloPersona.update(p);
 			msg = new Mensaje(Mensaje.MSG_TYPE_WARNING, messages.getString("msg.reg.updated"));
 		} else {
@@ -162,7 +161,6 @@ public class PersonaServlet extends HttpServlet {
 	 * @param request
 	 */
 	private void delete(final HttpServletRequest request) {
-		// if (modelo.delete(id)) {
 		if (InitListener.modeloPersona.delete(id)) {
 			msg = new Mensaje(Mensaje.MSG_TYPE_SUCCESS, messages.getString("msg.reg.deleted"));
 		} else {

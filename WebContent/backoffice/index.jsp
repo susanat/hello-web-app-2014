@@ -1,11 +1,13 @@
+<%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <%@page import="com.ipartek.formacion.helloweb.listener.SessionListener"%>
 <%@page import="com.ipartek.formacion.helloweb.util.ERole"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Map"%>
 <%@page import="com.ipartek.formacion.helloweb.listener.SessionCounter"%>
-<%@include file="includes/head.jsp" %>
-<%@include file="includes/nav.jsp" %>
-                
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@include file="includes/head.jsp"%>
+<%@include file="includes/nav.jsp"%>  
+           
 	<span><%=SessionListener.getCount()%></span>
 	<%
 		ArrayList<Persona> administradores = SessionListener.getSessionsByRole(ERole.ADMINISTRADOR);
