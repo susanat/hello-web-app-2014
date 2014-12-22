@@ -5,6 +5,11 @@
 <div>
        
         <h1><fmt:message key="page.content"></fmt:message></h1> 
+        <h1>Numero de usuarios logeados</h1>
+        <ul>
+        	<li>Administradores: <%=session.getAttribute("adminUsers") %> </li>
+        	<li>Usuarios: 	<%=session.getAttribute("userUsers") %></li>
+        </ul>
         
 </div>
       

@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,6 +37,7 @@ public class LoginServlet extends HttpServlet {
     String pUser = null;
     String pPass = null;
     String pIdioma = Idioma.INGLES.getLocale();
+    boolean pRecuerdame = false;
     ResourceBundle messages = null;
 
     @Override
@@ -82,6 +84,9 @@ public class LoginServlet extends HttpServlet {
 	    Persona p = new Persona(pUser);
 	    sesion.setAttribute(Constantes.USER_SESSION, p);
 	    log.info("Usuario " + pUser + " logeado");
+
+	    gestionCookies(request, response);
+
 	} else if (Constantes.USER_ADMIN_NAME.equals(pUser)
 		&& Constantes.USER_ADMIN_PASS.equals(pPass)) {
 	    // Usuario de tipo administrador, tiene que ir al backoffice
@@ -93,6 +98,9 @@ public class LoginServlet extends HttpServlet {
 	    sesion.setAttribute(Constantes.USER_SESSION, p);
 	    // Ponemos mensaje en fichero de log
 	    log.info("Usuario " + pUser + " logeado");
+
+	    gestionCookies(request, response);
+
 	} else if (pUser == null && pPass == null) {
 	    System.out.println("Entrada sin enviar formulario");
 	    dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
@@ -113,6 +121,31 @@ public class LoginServlet extends HttpServlet {
 	// despachar o servir el jsp
 
 	dispatch.forward(request, response);
+    }
+
+    private void gestionCookies(HttpServletRequest request,
+	    HttpServletResponse response) {
+	Cookie cUser = new Cookie(Constantes.COOKIE_USER_NAME, pUser);
+	Cookie cPass = new Cookie(Constantes.COOKIE_USER_PASS, pPass);
+	Cookie cIdioma = new Cookie(Constantes.COOKIE_USER_LANG, pIdioma);
+
+	if (!pRecuerdame) {
+	    // No quiere ser recordado, nos cargamos la cookie
+	    cUser.setMaxAge(0);
+	    cPass.setMaxAge(0);
+	    cIdioma.setMaxAge(0);
+	} else {
+
+	    // Colocamos los tiempos de expiracion a 1 mes
+	    cUser.setMaxAge(((60 * 60) * 24) * 30);
+	    cPass.setMaxAge(((60 * 60) * 24) * 30);
+	    cIdioma.setMaxAge(((60 * 60) * 24) * 30);
+	}
+
+	// añadimos la cookie al response
+	response.addCookie(cUser);
+	response.addCookie(cPass);
+	response.addCookie(cIdioma);
     }
 
     /**
@@ -170,6 +203,8 @@ public class LoginServlet extends HttpServlet {
 	pUser = request.getParameter(Constantes.PARAMETRO_USER);
 	pPass = request.getParameter(Constantes.PARAMETRO_PASS);
 	pIdioma = request.getParameter(Constantes.PARAMETRO_IDIOMA);
+	pRecuerdame = (request.getParameter(Constantes.PARAMETRO_CHECK) == null) ? false
+		: true;
     }
 
     /**

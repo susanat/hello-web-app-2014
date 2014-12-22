@@ -69,4 +69,8 @@ public class Constantes {
 
     public static final String PROPERTY_I18N = "com.ipartek.formacion.helloweb.i18n.i18nmesages";
 
+    public static final String COOKIE_USER_NAME = "cuser";
+    public static final String COOKIE_USER_PASS = "cpass";
+    public static final String COOKIE_USER_LANG = "clang";
+
 }

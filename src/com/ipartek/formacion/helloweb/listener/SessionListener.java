@@ -14,7 +14,10 @@ import com.ipartek.formacion.helloweb.bean.Persona;
  *
  */
 public class SessionListener implements HttpSessionAttributeListener,
-HttpSessionListener {
+	HttpSessionListener {
+
+    private int adminUserCount = 0;
+    private int userUserCount = 0;
 
     /**
      * @see HttpSessionListener#sessionCreated(HttpSessionEvent)
@@ -23,9 +26,12 @@ HttpSessionListener {
 
 	// marcar el tiempo de expiracion 30 minutos
 	HttpSession session = se.getSession();
-	session.setMaxInactiveInterval(3);
+	session.setMaxInactiveInterval(30);
 	System.out.println("Nueva sesion ID:" + session.getId()
 		+ " Intervalo expiracion: " + session.getMaxInactiveInterval());
+
+	adminUserCount++;
+	System.out.println("Numero de sesiones: " + adminUserCount);
 
     }
 
@@ -46,6 +52,9 @@ HttpSessionListener {
 	    Persona usuario = (Persona) (session
 		    .getAttribute(Constantes.USER_SESSION));
 	    System.out.println(motivo + " " + usuario.toString());
+
+	    adminUserCount--;
+	    System.out.println("Numero de sesiones: " + adminUserCount);
 	} else {
 	    System.out.println(motivo + " usuario nulo");
 	}
