@@ -6,6 +6,12 @@
 <div class="row">
 	<div class="col-lg-12">
 		<fmt:message key="backoffice.index.bienvenida"></fmt:message>
+		<br>
+		<span>Admin: ${applicationScope.contAdmin}</span>
+		<br>
+		<span>User: ${applicationScope.contUser}</span>
+		<br>
+		<%=variableGlobal%>
 	</div>
 </div>
 

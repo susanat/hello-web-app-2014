@@ -5,6 +5,10 @@ import javax.servlet.ServletContextAttributeListener;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+
 import com.ipartek.formacion.helloweb.model.ModeloPersona;
 
 /**
@@ -12,7 +16,11 @@ import com.ipartek.formacion.helloweb.model.ModeloPersona;
  *
  */
 public class InitListener implements ServletContextListener,
-ServletContextAttributeListener {
+		ServletContextAttributeListener {
+
+	private final static Logger log = Logger.getLogger(InitListener.class);
+	public static boolean LOAD_ERROR = false;
+	public static String LOAD_ERROR_MSG = null;
 
 	/**
 	 * Default constructor.
@@ -25,11 +33,34 @@ ServletContextAttributeListener {
 	 * @see ServletContextListener#contextInitialized(ServletContextEvent)
 	 */
 	public void contextInitialized(ServletContextEvent sce) {
-		System.out.println("Inicializar contexto server");
-		System.out.println("Log4j configurado");
-		System.out.println("Establecer conexión bbdd ok");
-		System.out.println("Modelo persona cargardo");
-		ModeloPersona.createTable();
+		loadLog4(sce);
+
+		if (!LOAD_ERROR) {
+			/*
+			 * log.trace("trace"); log.debug("debug"); log.info("info");
+			 * log.warn("warn"); log.error("error"); log.fatal("fatal");
+			 */
+
+			log.info("Inicializar contexto server");
+
+			ModeloPersona.createTable();
+		} else {
+			System.out.println("Error al cargar log4j");
+		}
+	}
+
+	/**
+	 * Cargar la configuración de Log4j.
+	 */
+	private void loadLog4(ServletContextEvent sce) {
+		PropertyConfigurator.configure(sce.getServletContext().getRealPath("/")
+				+ "WEB-INF/conf/log4j.properties");
+		if (LogManager.exists("ACCESOS") == null) {
+			LOAD_ERROR = true;
+			LOAD_ERROR_MSG = "ERROR";
+		} else {
+			log.info("LOG cargado");
+		}
 	}
 
 	/**

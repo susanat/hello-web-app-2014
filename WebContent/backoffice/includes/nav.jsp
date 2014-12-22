@@ -1,5 +1,6 @@
         <!-- Navigation -->
-        <%@page import="com.ipartek.formacion.helloweb.constantes.Constantes"%>
+        <%@page import="com.ipartek.formacion.helloweb.constantes.Constantes"%> 
+        
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -23,7 +24,7 @@
                             <a class="active" href="<%=Constantes.CONTROLLER_PERSONA%>"><fmt:message key="backoffice.nav.persona"></fmt:message></a>
                         </li>
                         <li>
-                            <a href="<%=Constantes.CONTROLLER_CALIF%>"><fmt:message key="backoffice.nav.calificacion"></fmt:message></a>
+                            <a href="#"><fmt:message key="backoffice.nav.calificacion"></fmt:message></a>
                         </li>
                     </ul>
                 </div>
@@ -35,7 +36,7 @@
        <div id="page-wrapper">
         	<div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Dashboard</h1>
+                    <h1 class="page-header">Backoffice</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>

@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.helloweb.constantes.Constantes;
 
 /**
@@ -18,6 +20,8 @@ public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private RequestDispatcher rd = null;
 	private HttpSession session = null;
+
+	private final static Logger log = Logger.getLogger("ACCESOS");
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -35,8 +39,11 @@ public class LogoutServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// Recuperar session
 		session = request.getSession();
-		session.setAttribute(Constantes.USER_SESSION, null);
-		session.setAttribute(Constantes.USER_SESSION_IDIOMA, null);
+
+		log.trace("Logout por petición de usuario");
+		// session.setAttribute(Constantes.USER_SESSION, null);
+		// session.setAttribute(Constantes.USER_SESSION_IDIOMA, null);
+		session.invalidate();
 
 		rd = request.getRequestDispatcher(Constantes.JSP_LOGIN);
 		rd.forward(request, response);

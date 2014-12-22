@@ -101,18 +101,6 @@
 					<%
 						}
 					%>><%=Persona.Rol.USER%>
-					
-					<!-- 
-					< %
-						ArrayList<String> valores = new ArrayList<String>();
-						ArrayList<String> texts = new ArrayList<String>();
-						for ( Rol rol : Rol.values() ) {
-							valores.add(rol.toString());
-							texts.add(rol.toString());
-						}
-					% >
-					<util:selectoptions nombre="rolOp" valores="< %=valores % >" selected="< %=p.getRole().toString() % >" texts="< %=texts % >"/>
-					 -->
 					</div>
 				</div>
 			</div>

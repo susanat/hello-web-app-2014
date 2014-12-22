@@ -14,7 +14,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Saludo</title>
 </head>
 <body>
 
@@ -66,5 +66,22 @@
 	        } 
 		%>
 	</ul>
+	
+	<h1>Ejemplo getParameterValues</h1>
+	<form action="ejemploParameterValueServlet.do" method="post">
+		<input type="checkbox" name="pasa" value="tv">TV<br>
+		<input type="checkbox" name="pasa" value="libros">Libros<br>
+		<input type="checkbox" name="pasa" value="musica">Música<br>
+		<input type="checkbox" name="pasa" value="otros">Otros<br>
+		
+		<span>Selecciona el tipo de respone</span>
+		<select name="tipoRespuesta">
+			<option value="text/html">HTML</option>
+			<option value="application/json">JSON</option>			
+		</select>
+		<br>
+		
+		<input type="submit" value="Enviar">
+	</form>
 </body>
 </html>
