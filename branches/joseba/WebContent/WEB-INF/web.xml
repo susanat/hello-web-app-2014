@@ -85,6 +85,10 @@
     <servlet-name>EjemploParameterValuesServlet</servlet-name>
     <url-pattern>/ejemploParameterValuesServlet.do</url-pattern>
   </servlet-mapping>
+  <error-page>
+		<error-code>404</error-code>
+		<location>/error-404.jsp</location>
+	</error-page>
   
   <!-- FILTROS -->
   <filter>

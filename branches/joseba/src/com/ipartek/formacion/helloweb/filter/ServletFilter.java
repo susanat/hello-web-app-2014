@@ -39,18 +39,19 @@ public class ServletFilter implements Filter {
      */
     public void doFilter(ServletRequest request, ServletResponse response,
 	    FilterChain chain) throws IOException, ServletException {
+
 	HttpServletRequest requestHttp = (HttpServletRequest) request;
 	HttpSession session = requestHttp.getSession();
-	if (session.getAttribute(Constantes.USER_SESSION) != null) {
-	    // existe sesion
+
+	// existe usuario en session continua
+	if (null != session.getAttribute(Constantes.USER_SESSION)) {
 	    chain.doFilter(request, response);
 	    return;
+	    // No existe usuario en session, forwar al LoginServlet
 	} else {
-	    // No existe sesion, redirigimos al servlet
-	    request.getRequestDispatcher(Constantes.PATH_LOGIN).forward(
-		    requestHttp, response);
-	    ;
-
+	    requestHttp.getRequestDispatcher("/" + Constantes.PATH_LOGIN)
+		    .forward(request, response);
+	    return;
 	}
 
     }
