@@ -7,21 +7,27 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%
-	//ArrayList<Persona> personas = (ArrayList<Persona>)request.getSession().getServletContext().getAttribute(Constante.ATT_REGISTERED_USERS);
+	ArrayList<Persona> personas = (ArrayList<Persona>)request.getSession().getServletContext().getAttribute(Constante.ATT_REGISTERED_USERS);
+
 %>
-<c:set var="usuarios" value="usuarios"
+<%=personas.size() %>
+<c:set var="users" value="<%=Constante.ATT_REGISTERED_USERS %>"
     scope="application" />
 	<table>
-      <TH>nombre</th>
-      <TH>Rol</th>
-      <c:forEach items="${usuarios}" var="p">
+	<thead>
+		<tr>
+      	<th>Nombre</th>
+      	<th>Rol</th>
+      </tr>
+      </thead>
+      <% for(Persona p: personas) { %>
         <tr>
         
-          <td><c:out value="${p.nombre}" /><td>
-          <td><c:out value="${p.rol.nombre}" /><td>
+          <td><c:out value="<%=p.getNombre() %>" /></td>
+          <td><c:out value="<%=p.getRol().getNombre() %>" /></td>
            
         </tr>
-      </c:forEach>
+     <% } %>
     </table>
 	
                    
