@@ -10,7 +10,7 @@
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
 
 
-<c:set var="language" value="<%=I18n.getBrowserLocale(request.getLocale())%>" />
+<c:set var="language" value="<%= I18n.getBrowserLocale(request.getLocale())%>" />
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="<%=Constantes.PROPERTY_I18N %>" /> 
 <!DOCTYPE html>
@@ -65,15 +65,33 @@
     <h1><fmt:message key="login.titulo"></fmt:message></h1><br>
   <form action="<%=Constantes.PATH_LOGIN %>" method="post">
  	<%@include file="include/alerts.jsp" %>
-    <input type="text" name="<%=Constantes.PARAMETRO_USER %>" placeholder=<fmt:message key="login.form.usuario"></fmt:message>>
-    <input type="password" name="<%=Constantes.PARAMETRO_PASS %>" placeholder=<fmt:message key="login.form.password"></fmt:message>>
+    <input type="text" name="<%=Constantes.PARAMETRO_USER %>" placeholder=<fmt:message key="login.form.usuario"></fmt:message>
+    value ="${cookie.cuser.value }">
+    <input type="password" name="<%=Constantes.PARAMETRO_PASS %>" placeholder=<fmt:message key="login.form.password"></fmt:message>
+     value ="${cookie.cpass.value }">
+     
+     
+     <%
+     	String idioma = null;
+     	Cookie cookies[] = request.getCookies();
+     	for(int i = 0; i < cookies.length; i++){
+     	    Cookie cookie = cookies[i];
+     	   if( Constantes.COOKIE_USER_LANG.equals(cookie.getName())){
+     	       idioma = cookie.getValue();
+     	   }
+     	}
+     	if(idioma == null){
+     	    idioma = I18n.getBrowserLocale(request.getLocale());
+     	}
+     
+     %>
     <select name="<%=Constantes.PARAMETRO_IDIOMA %>" class="form-control">
   		<%
   			for(Idioma id: Idioma.values()){
   			  %>
   			  <c:set var="idiomaLocale" value="<%=id.getLocale()%>"/>
   			  <c:choose>
-  			   <c:when test="${language==idiomaLocale}">
+  			   <c:when test="<%=idioma.equals(id.getLocale()) %>">
                 <option value=<%=id.getLocale()%> selected="selected"><%=id.toString()%></option>
               </c:when>
                <c:otherwise>
@@ -85,8 +103,8 @@
   		%>
   	</select>
   	<br>
-  	<input type="checkbox" name="<%=Constantes.PARAMETRO_CHECK %>">
-  	<label for="<%=Constantes.PARAMETRO_CHECK%>">Recuerdame</span>
+  	<input type="checkbox" name="<%=Constantes.PARAMETRO_CHECK %>" ${(cookie.cuser==null) ? "" : "checked"}>
+  	<label for="<%=Constantes.PARAMETRO_CHECK%>">Recuerdame</label>
   	<br>
   	<br>
     <input type="submit" name="login" class="login login-submit" value=<fmt:message key="login.form.boton"></fmt:message>>
