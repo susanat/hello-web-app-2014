@@ -426,7 +426,7 @@ public class UtilsTemp {
      * Función que añade o reemplaza un usuario en las estadísticas
      * @param session HttpSession del usuario
      */
-	public static void setStadistics(HttpSession session) {
+	public synchronized static void setStadistics(HttpSession session) {
 		
 		UserSession userSession = new UserSession(session);
 		
@@ -443,12 +443,28 @@ public class UtilsTemp {
 	 * Función que elimina una sessión de las estadísticas
 	 * @param session HttpSession del usuario
 	 */
-	public static void delStadistics(HttpSession session) {
+	public synchronized static void delStadistics(HttpSession session) {
 		if(CargasTemporales.activeUsers != null) {
 			CargasTemporales.activeUsers.remove(session.getId());
 		}
 		
 	}
+	
+	public static String changeTittle(String newTittle) {
+		StringBuffer text = new StringBuffer();
+		
+		
+		text.append("<script type='text/javascript'>").append(Constantes.SALTO_DE_LINEA);
+		text.append("    $(document).ready(function() {").append(Constantes.SALTO_DE_LINEA);
+			text.append("	document.title = ");
+			text.append("'").append(newTittle).append("'").append(Constantes.SALTO_DE_LINEA);	
+		text.append("});").append(Constantes.SALTO_DE_LINEA);		
+		text.append("</script>").append(Constantes.SALTO_DE_LINEA);
+		
+		return text.toString();
+	}
+	
+	
 	
 
 }

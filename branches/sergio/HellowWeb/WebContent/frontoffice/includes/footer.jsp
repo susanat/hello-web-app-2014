@@ -1,3 +1,4 @@
+<%@page import="com.ipartek.formacion.helloweb.temp.UtilsTemp"%>
 <%@page import="com.ipartek.formacion.helloweb.comun.Globales"%>
 <%@page import="com.ipartek.formacion.helloweb.comun.Constantes"%>
 
@@ -72,6 +73,22 @@
 	<script src="<%=Constantes.PATH_SITE%>bootstrap/js/vendor/toastr/toastr.js"></script>
     
     <script src="<%=Constantes.PATH_FRONT_ABS_THEME %>js/main.js"></script>
+    
+    
+    
+    
+    <% 
+    	//out.print(UtilsTemp.changeTittle("Holaaaa")); 
+    %>
+	
+	
+	<script type='text/javascript'>
+    $(document).ready(function() {
+		document.title = '${documentTittle}';
+	});
+	</script>
+	
+	
 
 </body>
 
