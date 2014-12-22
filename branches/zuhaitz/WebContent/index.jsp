@@ -1,8 +1,7 @@
 <!doctype html>
 <%@page import="com.ipartek.formacion.helloweb.bean.Role"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ page import="com.ipartek.formacion.helloweb.bean.Persona"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <html lang="en">
 
 <head>

@@ -53,7 +53,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-	IOException {
+			IOException {
 		// Recuperar session
 		session = request.getSession();
 		pIdioma = I18n.getBrowserLocale(request.getLocale());
@@ -115,7 +115,7 @@ public class LoginServlet extends HttpServlet {
 	private void getParameters(final HttpServletRequest request) {
 		pUser = request.getParameter(Constantes.PARAMETRO_USER);
 		pPass = request.getParameter(Constantes.PARAMETRO_PASS);
-		pIdioma = request.getParameter(Constantes.PARAMETRO_LANG);
+		// pIdioma = request.getParameter(Constantes.PARAMETRO_LANG);
 		pRecuerdame = (request.getParameter(Constantes.PARAMETRO_RECUERDAME)) == null ? false : true;
 	}
 
@@ -162,6 +162,7 @@ public class LoginServlet extends HttpServlet {
 		} else {
 			// Incorrecto: enviar de nuevo a login.jsp
 			dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
+			// messages = MensajesIdiomas.loadMessages("en_EN", session);
 			final Mensaje msg = new Mensaje(Mensaje.MSG_TYPE_WARNING, messages.getString("msg.login_incorrect"));
 			request.setAttribute(Constantes.MSG_KEY, msg);
 		}
