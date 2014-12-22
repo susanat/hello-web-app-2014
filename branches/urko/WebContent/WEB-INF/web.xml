@@ -127,4 +127,8 @@
     <servlet-name>SessionServlet</servlet-name>
     <url-pattern>/session</url-pattern>
   </servlet-mapping>
+ <error-page>
+  <error-code>404</error-code>
+  <location>/errorpage.jsp</location>
+</error-page>   
 </web-app>

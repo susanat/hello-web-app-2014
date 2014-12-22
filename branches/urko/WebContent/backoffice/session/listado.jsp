@@ -10,7 +10,7 @@
 	ArrayList<Persona> personas = (ArrayList<Persona>)request.getSession().getServletContext().getAttribute(Constante.ATT_REGISTERED_USERS);
 
 %>
-<%=personas.size() %>
+
 <c:set var="users" value="<%=Constante.ATT_REGISTERED_USERS %>"
     scope="application" />
 	<table>
