@@ -15,6 +15,7 @@ public class Constantes {
 	// JSPs púbicas
 	public static final String JSP_SALUDO = "/saludo.jsp";
 	public static final String JSP_LOGIN = "/login.jsp";
+	public static final String JSP_ERROR = "backoffice/includes/error.jsp";
 
 	// JSPs backoffice
 	public static final String JSP_BACKOFFICE = "backoffice";
@@ -31,13 +32,14 @@ public class Constantes {
 	// Path para servlets
 	public static final String PATH_LOGIN = "login";
 	public static final String PATH_LOGOUT = "logout";
-	public static final String CONTROLLER_PERSONA = "persona";
+	public static final String CONTROLLER_PERSONA = "persona.do";
 	public static final String CONTROLLER_CALIF = "calificacion";
 
 	// Parámetros
 	public static final String PARAMETRO_USER = "user";
 	public static final String PARAMETRO_PASS = "pass";
 	public static final String PARAMETRO_IDIOMA = "idioma";
+	public static final String PARAMETRO_RECUERDAME = "recuerdame";
 
 	// Mensajes
 	public static final String MSG_KEY = "msg";
@@ -61,6 +63,8 @@ public class Constantes {
 	public static final String ATT_PERSONA = "persona";
 	public static final String ATT_CALIFICACIONES = "calificaciones";
 	public static final String ATT_CALIFICACION = "calificacion";
+	public static final String ATT_CONTADMIN = "contAdmin";
+	public static final String ATT_CONTUSER = "contUser";
 
 	// Operaciones
 	public static final String OP_KEY = "mode";
@@ -72,4 +76,9 @@ public class Constantes {
 
 	// Properties
 	public static final String PROPERTI_I18N = "com.ipartek.formacion.helloweb.i18n.i18nmesages";
+
+	// Cookies
+	public static final String COOKIE_USER_NAME = "cuser";
+	public static final String COOKIE_USER_PASS = "cpass";
+	public static final String COOKIE_USER_IDIOMA = "cidioma";
 }

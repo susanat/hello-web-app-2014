@@ -27,6 +27,8 @@ public class PersonaServlet extends HttpServlet {
 	private Mensaje objMensaje;
 	private ResourceBundle messages;
 
+	// private final static Logger log = Logger.getLogger(PersonaServlet.class);
+
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
@@ -42,6 +44,8 @@ public class PersonaServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		// log.info("Peticion realizada");
+
 		// Aquí podriamos comprobar la autorización del usuario que hace la
 		// petición
 		// Si esta autorizado se le deja servir a los métodos doGet, doPost...
@@ -102,7 +106,7 @@ public class PersonaServlet extends HttpServlet {
 		getAll(request);
 		// Mensaje despues por si acaso el método crea otro mensaje
 		objMensaje = new Mensaje(messages.getString("mensaje.not_allowed"),
-		// Constantes.MSG_NOT_ALLOWED,
+				// Constantes.MSG_NOT_ALLOWED,
 				Mensaje.MsgType.LOG, Constantes.COD_NOT_ALLOWED);
 		// msg = Constantes.MSG_NOT_ALLOWED;
 	}
@@ -148,12 +152,12 @@ public class PersonaServlet extends HttpServlet {
 
 		if (model.delete(id)) {
 			objMensaje = new Mensaje(messages.getString("mensaje.reg_delete"),
-			// Constantes.MSG_REG_DELETE,
+					// Constantes.MSG_REG_DELETE,
 					Mensaje.MsgType.REG, Constantes.COD_REG_DELETE);
 			// msg = Constantes.MSG_REG_DELETE;
 		} else {
 			objMensaje = new Mensaje(messages.getString("mensaje.err_delete"),
-			// Constantes.MSG_ERR_DELETE,
+					// Constantes.MSG_ERR_DELETE,
 					Mensaje.MsgType.ERR, Constantes.COD_ERR_DELETE);
 			// msg = Constantes.MSG_ERR_DELETE;
 		}
@@ -175,12 +179,12 @@ public class PersonaServlet extends HttpServlet {
 		if (p != null) {
 			model.update(p);
 			objMensaje = new Mensaje(messages.getString("mensaje.reg_update"),
-			// Constantes.MSG_REG_UPDATE,
+					// Constantes.MSG_REG_UPDATE,
 					Mensaje.MsgType.REG, Constantes.COD_REG_UPDATE);
 			// msg = Constantes.MSG_REG_UPDATE;
 		} else {
 			objMensaje = new Mensaje(messages.getString("mensaje.err_param"),
-			// Constantes.MSG_ERR_PARAM,
+					// Constantes.MSG_ERR_PARAM,
 					Mensaje.MsgType.ERR, Constantes.COD_ERR_PARAM);
 			// msg = Constantes.MSG_ERR_PARAM;
 		}
@@ -206,12 +210,12 @@ public class PersonaServlet extends HttpServlet {
 			// insertarlo
 			model.insert(p);
 			objMensaje = new Mensaje(messages.getString("mensaje.reg_create"),
-			// Constantes.MSG_REG_CREATE,
+					// Constantes.MSG_REG_CREATE,
 					Mensaje.MsgType.REG, Constantes.COD_REG_CREATE);
 			// msg = Constantes.MSG_REG_CREATE;
 		} else {
 			objMensaje = new Mensaje(messages.getString("mensaje.err_param"),
-			// Constantes.MSG_ERR_PARAM,
+					// Constantes.MSG_ERR_PARAM,
 					Mensaje.MsgType.ERR, Constantes.COD_ERR_PARAM);
 			// msg = Constantes.MSG_ERR_PARAM;
 		}

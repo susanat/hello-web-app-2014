@@ -20,10 +20,12 @@
   <meta charset="UTF-8">
 
   <title><fmt:message key="login.titulo"></fmt:message></title>
+  
+  <base href="<%=request.getContextPath()%>/">
 
   <link rel='stylesheet' href='http://codepen.io/assets/libs/fullpage/jquery-ui.css'>
 
-    <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
+  <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
 
 </head>
 
@@ -33,6 +35,12 @@
  <hello:saludo2/>
  <hello:saludo2 nombre="sss"/>
  -->
+ 
+ <fmt:message key="ejem.parametros">
+ 	<fmt:param value="uno" />
+ 	<fmt:param value="dos" />
+ </fmt:message>
+ 
  <div class="login-card">
  
   <h1><fmt:message key="login.titulo"></fmt:message></h1><br>
@@ -59,9 +67,14 @@
 			texts.add(idioma.toString());
 		}
 	%>
-	<util:selectoptions nombre="idioma" valores="<%=valores %>" selected="${language}" texts="<%=texts %>"/>
-    <input type="text" name="<%=Constantes.PARAMETRO_USER%>" placeholder="<fmt:message key="login.form.usuario"></fmt:message>">
-    <input type="password" name="<%=Constantes.PARAMETRO_PASS %>" placeholder="<fmt:message key="login.form.password"></fmt:message>">
+	
+	<util:selectoptions nombre="idioma" valores="<%=valores %>" selected="${(cookie.cidioma) == null? language:cookie.cidioma.value}" texts="<%=texts %>"/>
+    <input type="text" name="<%=Constantes.PARAMETRO_USER%>" placeholder="<fmt:message key="login.form.usuario"></fmt:message>" value="${cookie.cuser.value}">
+    <input type="password" name="<%=Constantes.PARAMETRO_PASS %>" placeholder="<fmt:message key="login.form.password"></fmt:message>" value="${cookie.cpass.value}">
+    <input type="checkbox" name="<%=Constantes.PARAMETRO_RECUERDAME %>" id="check"
+    ${(cookie.cuser == null)?"":"checked" }
+    >
+    <label for="check">Recuerdame</label>
     <input type="submit" name="login" class="login login-submit" value="<fmt:message key="login.form.submit"></fmt:message>">	
   </form>
 </div>

@@ -1,6 +1,9 @@
 package com.ipartek.formacion.helloweb.i18n;
 
+import java.text.MessageFormat;
 import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 public class I18n {
 
@@ -23,5 +26,26 @@ public class I18n {
 			}
 		}
 		return resul;
+	}
+
+	/**
+	 * Función para mostrar mensajes con parámetros.
+	 * 
+	 * @param resource
+	 *            fichero de mensajes.
+	 * @param key
+	 *            clave del mensaje en el fichero de mensajes.
+	 * @param params
+	 *            valores de los parámetros a incrustar en el mensaje.
+	 * @return mensaje con los valores incrustados en el mensaje.
+	 */
+	public static String getStringParametros(ResourceBundle resource,
+			String key, Object... params) {
+		try {
+			return MessageFormat.format(resource.getString(key), params);
+		} catch (MissingResourceException e) {
+			return "| no existe mensaje |";
+		}
+
 	}
 }

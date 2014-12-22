@@ -3,10 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<%! String variableGlobal = "Variable global"; %>
+
 <c:set var="language" value="<%=session.getAttribute(Constantes.USER_SESSION_IDIOMA)%>" />
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="com.ipartek.formacion.helloweb.i18n.i18nmesages" /> 
-<html lang="es">
+<html lang="${language}">
 
 <head>
 
