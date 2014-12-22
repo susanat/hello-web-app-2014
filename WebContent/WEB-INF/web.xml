@@ -128,4 +128,11 @@
   
 <!-- End:SERVLETS -->
 
+<!--  Error pages -->
+	<error-page>
+    <error-code>404</error-code>
+    <location>/404.jsp</location>
+</error-page> 
+<!--  end:Error pages -->
+
 </web-app>
