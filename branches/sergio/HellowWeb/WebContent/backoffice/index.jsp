@@ -1,10 +1,13 @@
 
-    <%@page import="com.ipartek.formacion.helloweb.bean.estadisticas.UserSession"%>
+<%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
+<%@page import="com.ipartek.formacion.helloweb.bean.estadisticas.UserSession"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map.Entry"%>
 <%@page import="com.ipartek.formacion.helloweb.bean.CargasTemporales"%>
-<%@include file="includes/head.jsp" %>
-		<%@include file="includes/nav.jsp" %>
+
+
+<%@include file="/backoffice/includes/head.jsp" %>
+		<%@include file="/backoffice/includes/nav.jsp" %>
 
 		<% 
 			//comprueba autentificacion y autorización
@@ -64,7 +67,11 @@
 		%>
 		
 		
+		
+		
   
  <!-- Include footer -->
- 	<c:set var="footer" value="<%= Constantes.PATH_BACK_ABS_INCLUDE %>" /> 	
- 	<jsp:include page="${footer}" />
+ 	
+ 	
+ 	<%@include file="/backoffice/includes/footer.jsp" %>
+ 	

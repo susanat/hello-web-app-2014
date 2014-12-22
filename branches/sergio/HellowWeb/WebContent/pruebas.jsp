@@ -6,6 +6,10 @@
 <%@include file="frontoffice/includes/head.jsp" %>
 <%@include file="frontoffice/includes/nav.jsp" %>
 
+
+<!-- Título de la página -->
+<c:set var="documentTittle" value="holaaa 2"/>
+
 <div class="col-xs-8">
 
 	<div class="alert alert-danger">
@@ -17,6 +21,7 @@
 	<hello:saluda />
 	<br>
 	<hello:saluda nombre="Sergio"/>
+	
 	
 	
 	
