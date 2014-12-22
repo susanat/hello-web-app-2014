@@ -67,10 +67,11 @@ public class SessionListener implements HttpSessionListener,
 	    personas = new ArrayList<Persona>();
 	}
 	p = (Persona) session.getAttribute(Constante.USER_SESSION);
-
-	log.trace("Nuevo usuario registrado: " + p.toString());
-	personas.add(p);
-	context.setAttribute(Constante.ATT_REGISTERED_USERS, personas);
+	if (p != null) {
+	    log.trace("Nuevo usuario registrado: " + p.toString());
+	    personas.add(p);
+	    context.setAttribute(Constante.ATT_REGISTERED_USERS, personas);
+	}
     }
 
     /**
@@ -132,7 +133,7 @@ public class SessionListener implements HttpSessionListener,
 	personas = (ArrayList<Persona>) context
 		.getAttribute(Constante.ATT_REGISTERED_USERS);
 
-	p = (Persona) session.getAttribute(Constante.ATT_PERSONA);
+	p = (Persona) session.getAttribute(Constante.USER_SESSION);
 
 	personas.remove(p);
 	context.setAttribute(Constante.ATT_REGISTERED_USERS, personas);

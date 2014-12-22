@@ -77,6 +77,7 @@ public class LoginServlet extends HttpServlet {
 	getParameters(request);
 	// loadMessages();
 	user = UserService.find(pUser, pPass);
+	System.out.println(user.toString());
 	// check session activa
 	nSession = checkSession(request);
 	if (!nSession) {// usuario que no existe

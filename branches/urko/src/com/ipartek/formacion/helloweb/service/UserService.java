@@ -16,10 +16,12 @@ public class UserService {
 
 	    if (Constante.USER_USER_NAME.equals(userName)) {
 		p = new Persona(Integer.parseInt(Constante.USER_USER_CODE),
-			"Administrador", userName, userPass, Rol.USUARIO);
+			Constante.USER_USER_NAME, userName, userPass,
+			Rol.USUARIO);
 	    } else {
 		p = new Persona(Integer.parseInt(Constante.USER_ADMIN_CODE),
-			"Administrador", userName, userPass, Rol.ADMINISTRADOR);
+			Constante.USER_ADMIN_NAME, userName, userPass,
+			Rol.ADMINISTRADOR);
 	    }
 	}
 	return p;
