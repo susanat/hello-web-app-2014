@@ -2,7 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
   <display-name>HelloWeb</display-name>
   <welcome-file-list>
-    <welcome-file>login.jsp</welcome-file>
+    <welcome-file>login</welcome-file>
   </welcome-file-list>
   <servlet>
     <description>Controlador para logueo de usuarios</description>
@@ -32,7 +32,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>PersonaServlet</servlet-name>
-    <url-pattern>/persona</url-pattern>
+    <url-pattern>/persona.do</url-pattern>
   </servlet-mapping>
   <jsp-config>
     <taglib>
@@ -46,4 +46,49 @@
   <listener>
     <listener-class>com.ipartek.formacion.helloweb.listener.InitListener</listener-class>
   </listener>
+  <filter>
+    <display-name>LoadErrorFilter</display-name>
+    <filter-name>LoadErrorFilter</filter-name>
+    <filter-class>com.ipartek.formacion.helloweb.filter.LoadErrorFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>LoadErrorFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <filter>
+    <display-name>TraceJsp</display-name>
+    <filter-name>TraceJsp</filter-name>
+    <filter-class>com.ipartek.formacion.helloweb.filter.TraceJsp</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>TraceJsp</filter-name>
+    <url-pattern>*.jsp</url-pattern>
+  </filter-mapping>
+  <servlet>
+    <description>Servlet de ejemplo para recoger parametro con varios valores y retornar en formato json o html</description>
+    <display-name>EjemploParameterValueServlet</display-name>
+    <servlet-name>EjemploParameterValueServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controller.EjemploParameterValueServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EjemploParameterValueServlet</servlet-name>
+    <url-pattern>/ejemploParameterValueServlet.do</url-pattern>
+  </servlet-mapping>
+  <filter>
+    <display-name>ServletFilter</display-name>
+    <filter-name>ServletFilter</filter-name>
+    <filter-class>com.ipartek.formacion.helloweb.filter.ServletFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>ServletFilter</filter-name>
+    <url-pattern>*.do</url-pattern>
+    <url-pattern>/backoffice/index.jsp</url-pattern>
+  </filter-mapping>
+  <listener>
+    <listener-class>com.ipartek.formacion.helloweb.listener.ContextServlet</listener-class>
+  </listener>
+  <error-page>
+	<error-code>404</error-code>
+	<location>/404.jsp</location>
+  </error-page>
 </web-app>

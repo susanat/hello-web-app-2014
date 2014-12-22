@@ -18,7 +18,7 @@
 	 </c:if>
 <div class="row">
 	<div class="col-lg-4">
-		<div class="alert ${clase}" role="alert">
+		<div id="msg" class="alert ${clase}" role="alert">
 			${requestScope.msg.msg}
 		</div>
 	</div>
