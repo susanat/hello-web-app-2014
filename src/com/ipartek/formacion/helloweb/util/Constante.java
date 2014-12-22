@@ -41,13 +41,13 @@ public class Constante {
     public static final String JSP_BACKOFFICE_SESSION_LIST = JSP_BACKOFFICE
 	    + "session/listado.jsp";
     /* servlets */
-    public static final String SERVLET_LOGIN = "login";
-    public static final String SERVLET_LOGOUT = "logout";
-    public static final String CONTROLER_PERSONA = "persona";
-    public static final String CONTROLER_IDIOMA = "idioma";
-    public static final String CONTROLER_ROL = "rol";
-    public static final String CONTROLER_CALIFICACION = "calificacion";
-    public static final String CONTROLER_SESSION = "session";
+    public static final String SERVLET_LOGIN = "login.do";
+    public static final String SERVLET_LOGOUT = "logout.do";
+    public static final String CONTROLER_PERSONA = "persona.do";
+    public static final String CONTROLER_IDIOMA = "idioma.do";
+    public static final String CONTROLER_ROL = "rol.do";
+    public static final String CONTROLER_CALIFICACION = "calificacion.do";
+    public static final String CONTROLER_SESSION = "session.do";
     // properties
     public static final String PROPERTI_I18N = "com.ipartek.formacion.helloweb.i18n.i18nmesages";
     // parametros
