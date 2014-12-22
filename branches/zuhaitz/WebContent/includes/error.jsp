@@ -1,3 +1,5 @@
+<%@page import="java.io.PrintWriter"%>
+<%@page import="java.io.StringWriter"%>
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
 <%@ page isErrorPage="true" %>
     
@@ -54,6 +56,18 @@
 				<a href="#"><img src="<%=Constantes.JSP_BACKOFFICE%>images/yt.png" alt=""></a>
 				<a href="#"><img src="<%=Constantes.JSP_BACKOFFICE%>images/rss.png" alt=""></a>
 			</div>
+			
+			
+
+			<%
+				exception.getMessage();
+				StringWriter stringWriter = new StringWriter();
+				PrintWriter printWriter = new PrintWriter(stringWriter);
+				exception.printStackTrace(printWriter);
+				out.println("<span id='error' hidden>" + stringWriter + "</span>");
+				printWriter.close();
+				stringWriter.close();
+			%>
 			
 			<footer>
 				<span>Akerbetz</span>

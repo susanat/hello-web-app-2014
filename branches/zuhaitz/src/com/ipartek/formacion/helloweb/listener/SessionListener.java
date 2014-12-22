@@ -80,15 +80,15 @@ public class SessionListener implements HttpSessionAttributeListener, HttpSessio
 		}
 	}
 
-	public static int getCount() {
+	public synchronized static int getCount() {
 		return ((sessions != null) && (sessions.size() > 0)) ? sessions.size() : 0;
 	}
 
-	public static ArrayList<HttpSession> getSessions() {
+	public synchronized static ArrayList<HttpSession> getSessions() {
 		return sessions;
 	}
 
-	public static ArrayList<Persona> getSessionsByRole(final ERole role) {
+	public synchronized static ArrayList<Persona> getSessionsByRole(final ERole role) {
 		final ArrayList<Persona> usuarios = new ArrayList<Persona>();
 		int index = 0;
 
