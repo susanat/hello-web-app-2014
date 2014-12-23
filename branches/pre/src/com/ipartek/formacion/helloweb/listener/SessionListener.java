@@ -51,7 +51,7 @@ public class SessionListener implements HttpSessionAttributeListener, HttpSessio
     public void attributeReplaced(HttpSessionBindingEvent se)  { 
     	if ( Constantes.USER_SESSION.equalsIgnoreCase(se.getName())){
     		log.trace("attributeReplaced");
-    		gestionContadorUsuarios(se.getSession(), true);
+    		//gestionContadorUsuarios(se.getSession(), true);
     	}
     }
 
@@ -97,7 +97,7 @@ public class SessionListener implements HttpSessionAttributeListener, HttpSessio
     }
     
     /**
-     * Compruba si hay un usuario nuevo en session y guarda en el contexto de los servlet un contador
+     * Comprueba si hay un usuario nuevo en session y guarda en el contexto de los servlet un contador
      * @param se 
      */
     private synchronized void gestionContadorUsuarios (HttpSession session , boolean isSumar ){
