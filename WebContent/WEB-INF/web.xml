@@ -2,42 +2,11 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
   <display-name>HelloWeb</display-name>
   <welcome-file-list>
-    <welcome-file>Login.jsp</welcome-file>
+    <welcome-file>login</welcome-file>
   </welcome-file-list>
-  <servlet>
-    <description>controlador para login de usuarios</description>
-    <display-name>LoginServlet</display-name>
-    <servlet-name>LoginServlet</servlet-name>
-    <servlet-class>com.ipartek.formacion.helloweb.controller.LoginServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>LoginServlet</servlet-name>
-    <url-pattern>/login</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description>controlador para logout de usuario</description>
-    <display-name>LogoutServlet</display-name>
-    <servlet-name>LogoutServlet</servlet-name>
-    <servlet-class>com.ipartek.formacion.helloweb.controller.LogoutServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>LogoutServlet</servlet-name>
-    <url-pattern>/Logout</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description>CRUD para personas</description>
-    <display-name>PersonaServlet</display-name>
-    <servlet-name>PersonaServlet</servlet-name>
-    <servlet-class>com.ipartek.formacion.helloweb.controller.PersonaServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>PersonaServlet</servlet-name>
-    <url-pattern>/Personas</url-pattern>
-  </servlet-mapping>
-  <display-name>Prueba TagLib</display-name>
   <jsp-config>
     <taglib>
-      <taglib-uri>tagHello</taglib-uri>
+      <taglib-uri>http://www.formacion.ipartek.com</taglib-uri>
       <taglib-location>/WEB-INF/tag/tag_hello.tld</taglib-location>
     </taglib>
   </jsp-config>
@@ -47,4 +16,95 @@
   <listener>
     <listener-class>com.ipartek.formacion.helloweb.listener.InitListener</listener-class>
   </listener>
+  <filter>
+    <display-name>ServletFilter</display-name>
+    <filter-name>ServletFilter</filter-name>
+    <filter-class>com.ipartek.formacion.helloweb.filter.ServletFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>ServletFilter</filter-name>
+    <url-pattern>*.do</url-pattern>
+  </filter-mapping>
+  <filter>
+    <display-name>LoadErrorFilter</display-name>
+    <filter-name>LoadErrorFilter</filter-name>
+    <filter-class>com.ipartek.formacion.helloweb.filter.LoadErrorFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>LoadErrorFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <filter>
+    <display-name>JspFilter</display-name>
+    <filter-name>JspFilter</filter-name>
+    <filter-class>com.ipartek.formacion.helloweb.filter.JspFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>JspFilter</filter-name>
+    <url-pattern>*.jsp</url-pattern>
+  </filter-mapping>
+  <servlet>
+    <description>Controlador para Login de usuarios</description>
+    <display-name>LoginServlet</display-name>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controller.LoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/login</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>Control de Cerrar Session del Usuario</description>
+    <display-name>LogoutServlet</display-name>
+    <servlet-name>LogoutServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controller.LogoutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogoutServlet</servlet-name>
+    <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>CRUD para Personas</description>
+    <display-name>PersonaServlet</display-name>
+    <servlet-name>PersonaServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controller.PersonaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PersonaServlet</servlet-name>
+    <url-pattern>/persona.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>CRUD para Calificacion</description>
+    <display-name>CalificacionServlet</display-name>
+    <servlet-name>CalificacionServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controller.CalificacionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CalificacionServlet</servlet-name>
+    <url-pattern>/calificacion.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>Servlet para gestionar los roles</description>
+    <display-name>RoleServlet</display-name>
+    <servlet-name>RoleServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controller.RoleServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RoleServlet</servlet-name>
+    <url-pattern>/RoleServlet.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>Servlet de ejemplo para recoger parametro con varios valores y retornar en formato JSON o HMLT</description>
+    <display-name>EjemploParamaterValuesServlet</display-name>
+    <servlet-name>EjemploParamaterValuesServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.helloweb.controller.EjemploParamaterValuesServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EjemploParamaterValuesServlet</servlet-name>
+    <url-pattern>/ejemploParamaterValuesServlet.do</url-pattern>
+  </servlet-mapping>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/404.jsp</location>
+  </error-page>
 </web-app>
