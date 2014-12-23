@@ -10,54 +10,51 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.helloweb.Constantes;
 import com.ipartek.formacion.helloweb.bean.Mensaje;
 import com.ipartek.formacion.helloweb.bean.Persona;
 import com.ipartek.formacion.helloweb.listener.InitListener;
-import com.ipartek.formacion.helloweb.model.ModeloPersona;
 
 /**
- * Servlet implementation class PersonasServlet
+ * Servlet implementation class PersonaServlet
  */
 public class PersonaServlet extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
+	private final static Logger log = Logger.getLogger(PersonaServlet.class);
 
 	RequestDispatcher dispatcher = null;
-	// ModeloPersona model = null; cambiamos model por InitListener.modelPersona
+	// ModeloPersona model = null;
 	Mensaje msg = null;
-	int id = Persona.ID_NULL;// identificador persona
+	int id = Persona.ID_NULL; // identificador Persona
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
-
 		super.init(config);
-
-		InitListener.modelPersona = new ModeloPersona();
 	}
 
 	@Override
 	public void destroy() {
-
 		super.destroy();
-
-		InitListener.modelPersona = null;
 	}
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
-		// TODO comprobar autorizaciones del usuario
+		// TODO comprobar Autorizacion del usuario
 
 		// recoger paramtro identificador Persona
 		try {
 			id = Integer.parseInt(req.getParameter("id"));
-
 		} catch (Exception e) {
 			id = Persona.ID_NULL;
 		}
 
 		super.service(req, resp);
+
 	}
 
 	/**
@@ -75,34 +72,31 @@ public class PersonaServlet extends HttpServlet {
 			getById(request);
 		}
 
-		// forward a la vista
 		dispatcher.forward(request, response);
+
 	}
 
 	private void getById(HttpServletRequest request) {
-
-		// acceder al modelo
+		// Persona p = model.getById(id);
 		Persona p = InitListener.modelPersona.getById(id);
-
 		// pasamos los atributos
 		request.setAttribute(Constantes.ATT_PERSONA, p);
-
+		// forward a la vista del formulario
 		dispatcher = request
 				.getRequestDispatcher(Constantes.JSP_BACK_PERSONA_FORM);
 
 	}
 
 	private void getAll(HttpServletRequest request) {
-
-		// acceder al modelo
+		// ArrayList<Persona> personas = model.getAll();
 		ArrayList<Persona> personas = InitListener.modelPersona.getAll();
-
 		// pasamos los atributos
 		request.setAttribute(Constantes.ATT_PERSONAS, personas);
-
+		// forward a la vista
 		dispatcher = request
 				.getRequestDispatcher(Constantes.JSP_BACK_PERSONA_LIST);
 
+		log.debug(personas.size() + " recuperadas");
 	}
 
 	/**
@@ -113,7 +107,7 @@ public class PersonaServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// chek operacion
+		// check Operacion
 		String op = request.getParameter(Constantes.OP_KEY);
 		if (Constantes.OP_UPDATE.equals(op)) {
 			update(request);
@@ -128,125 +122,115 @@ public class PersonaServlet extends HttpServlet {
 		request.setAttribute(Constantes.MSG_KEY, msg);
 
 		dispatcher.forward(request, response);
-
 	}
 
 	/**
-	 * si no existe la operaciona arealizar mensaje y forwar al lisado.jsp
-	 *
-	 * @param request
-	 */
-	private void opNotSuported(HttpServletRequest request) {
-
-		getAll(request);
-		msg = new Mensaje(Constantes.MSG_NOT_ALLOWED, Mensaje.MSG_TYPE_DANGER);
-
-	}
-
-	/**
-	 * crear nueva persona e insertarla en la bbdd
-	 *
-	 * @param request
-	 */
-	private void create(HttpServletRequest request) {
-		// recoger parametros
-		Persona p = getParametrosPersona(request);
-
-		if (p != null) {
-			// insert
-			// TODO comprobar insert
-			InitListener.modelPersona.insert(p);
-
-			msg = new Mensaje(Constantes.MSG_REG_CREATE,
-					Mensaje.MSG_TYPE_SUCCESS);
-		} else {
-			msg = new Mensaje(Constantes.MSG_ERROR_PARAMETERS,
-					Mensaje.MSG_TYPE_DANGER);
-		}
-
-		// enviar atributos
-		request.setAttribute(Constantes.ATT_PERSONA, p);
-
-		// forward
-		dispatcher = request
-				.getRequestDispatcher(Constantes.JSP_BACK_PERSONA_FORM);
-
-	}
-
-	/**
-	 * elimina la perona por su id y retorna a listado.jsp
-	 *
-	 * @param request
-	 */
-	private void delete(HttpServletRequest request) {
-
-		if (InitListener.modelPersona.delete(id)) {
-			msg = new Mensaje(Constantes.MSG_REG_DELETE,
-					Mensaje.MSG_TYPE_WARNING);
-		} else {
-			msg = new Mensaje(Constantes.MSG_REG_NOT_DELETE,
-					Mensaje.MSG_TYPE_DANGER);
-		}
-
-		getAll(request);
-		// request.setAttribute(Constantes.MSG_KEY, msg);
-		// forward
-		// dispatcher =
-		// request.getRequestDispatcher(Constantes.JSP_BACK_PERSONA_LIST);
-
-	}
-
-	/**
-	 * actualizar los datos de una persona y forward a form.jsp
-	 *
+	 * Actulizar los datos de una Persona, foward a form.jsp
+	 * 
 	 * @param request
 	 */
 	private void update(HttpServletRequest request) {
 
 		Persona p = getParametrosPersona(request);
-
 		if (p != null) {
-
 			// modificar
 			p.setId(id);
 			// TODO comprobar que realmente se a modificado
+			// model.update(p);
 			InitListener.modelPersona.update(p);
-
+			// enviar atributos
 			msg = new Mensaje(Constantes.MSG_REG_UPDATE,
 					Mensaje.MSG_TYPE_SUCCESS);
 		} else {
-			msg = new Mensaje(Constantes.MSG_ERROR_PARAMETERS,
+			msg = new Mensaje(Constantes.MSG_ERR_PARAMETERS,
 					Mensaje.MSG_TYPE_DANGER);
 		}
 
 		request.setAttribute(Constantes.ATT_PERSONA, p);
 
-		// forward
+		// forward vista
 		dispatcher = request
 				.getRequestDispatcher(Constantes.JSP_BACK_PERSONA_FORM);
 
 	}
 
 	/**
-	 * Recoger los parametros de la request crear <code>Persona</code> Tambien
-	 * gestiona los mensajes para el usuario
-	 *
+	 * Elimina la Persona por su ID y nos retorna a list.jsp
+	 * 
+	 * @param request
+	 */
+	private void delete(HttpServletRequest request) {
+
+		// if (model.delete(id) ){
+		if (InitListener.modelPersona.delete(id)) {
+			msg = new Mensaje(Constantes.MSG_REG_DELETE,
+					Mensaje.MSG_TYPE_WARNING);
+			log.info("Persona eliminada con ID=" + id);
+		} else {
+			msg = new Mensaje(Constantes.MSG_ERR_REG_DELETE,
+					Mensaje.MSG_TYPE_DANGER);
+			log.error(Constantes.MSG_ERR_REG_DELETE + " con ID=" + id);
+		}
+		getAll(request);
+
+	}
+
+	/**
+	 * Si no existe la Operacion a realizar mensaje y forward al list.jsp
+	 * 
+	 * @param request
+	 */
+	private void opNotSuported(HttpServletRequest request) {
+		getAll(request);
+		msg = new Mensaje(Constantes.MSG_NOT_ALLOWED, Mensaje.MSG_TYPE_DANGER);
+	}
+
+	/**
+	 * Crear nueva persona e insertarla en la BBDD
+	 * 
+	 * @param request
+	 */
+	private void create(HttpServletRequest request) {
+		// recoger parametros y validar
+		Persona p = getParametrosPersona(request);
+
+		if (p != null) {
+			// insertarlo
+			// TODO comprobar la inserccion
+			// model.insert(p);
+			InitListener.modelPersona.insert(p);
+			// enviar atributos
+			msg = new Mensaje(Constantes.MSG_REG_CREATE,
+					Mensaje.MSG_TYPE_SUCCESS);
+		} else {
+			msg = new Mensaje(Constantes.MSG_ERR_PARAMETERS,
+					Mensaje.MSG_TYPE_DANGER);
+		}
+
+		request.setAttribute(Constantes.ATT_PERSONA, p);
+
+		// forward vista
+		dispatcher = request
+				.getRequestDispatcher(Constantes.JSP_BACK_PERSONA_FORM);
+
+	}
+
+	/**
+	 * Recoger los parametros de la request y crear <code>Persona</code>.
+	 * Tambien gestiona los mensajes para el usuario
+	 * 
 	 * @param request
 	 * @return <code>Persona</code> inicializada con los parametros de la
-	 *         request
+	 *         request, en caso de fallo null
 	 */
 	private Persona getParametrosPersona(HttpServletRequest request) {
 		Persona p = null;
-
 		try {
-
 			p = new Persona("");
-			p.setNombre(request.getParameter("nombre"));
+			p.setNombre(request.getParameter("name"));
 			p.setEdad(Integer.parseInt(request.getParameter("edad")));
-			p.setRoll(Persona.Roll.valueOf(request.getParameter("roll")));
-
+			p.setRol(Persona.Rol.valueOf(request.getParameter("rol")));
 		} catch (Exception e) {
-
 			p = null;
 			e.printStackTrace();
 		}
