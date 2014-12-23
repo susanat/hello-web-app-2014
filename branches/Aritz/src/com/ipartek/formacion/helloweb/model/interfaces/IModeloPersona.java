@@ -5,54 +5,53 @@ import java.util.ArrayList;
 import com.ipartek.formacion.helloweb.bean.Persona;
 
 /**
- * nodelo para gestionar el bean de <code>Persona</code>.
- *
- * @author Aritz Tellaeche
+ * Modelo para gestionar el bean de <code>Persona</code>
+ * @author ur00
  *
  */
 public interface IModeloPersona {
 
 	/**
-	 * retorna todas las personas de la bbdd alfabeticamente.
-	 *
-	 * @return <code>Persona</code>, si no existe null
+	 * Retorna todas las perosnas de la BBDD alfabeticamente
+	 * @return listado <code>Persona</code>, si no existen null
 	 */
 	ArrayList<Persona> getAll();
+	
+	/**
+	 * Recuperar <code>Persona</code> por su identificador
+	 * @param id identificador <code>Persona</code>
+	 * @return <code>Persona</code>, si no existe null 
+	 */
+	Persona getById( int id );
+	
 
 	/**
-	 * <code>Persona</code> obtenida por su identificador.
-	 * 
-	 * @param id
-	 *            identificador de la <code>Persona</code>
-	 * @return <code>Persona</code>, si no existe null
+	 * Insertar nueva  <code>Persona</code>
+	 * @param p  <code>Persona</code> a insertar
+	 * @return identificador de la  <code>Persona</code>, -1 si error 
 	 */
-	Persona getById(int id);
-
+	int insert ( Persona p );
+	
 	/**
-	 * Inserta nueva <code>Persona</code>.
-	 *
-	 * @param p
-	 *            <code>Persona</code> a insertar
-	 * @return identificador de la <code>Persona</code>, -1 si es error
+	 * Modifica una  <code>Persona</code>
+	 * @param p  <code>Persona</code> a insertar
+	 * @return identificador de la  <code>Persona</code>, -1 si error
 	 */
-	int insert(Persona p);
+	int update ( Persona p );
 
+	
 	/**
-	 * Modifica nueva <code>Persona</code>.
-	 *
-	 * @param p
-	 *            <code>Persona</code> a modificar
-	 * @return identificador de la <code>Persona</code>, -1 si es error
+	 * Eliminamos logicamente <code>Persona</code> por su identificador
+	 * @param id identificador <code>Persona</code>
+	 * @return true si eliminado, false en caso contrario
 	 */
-	int update(Persona p);
-
-	/**
-	 * eliminar logicamente una <code>Persona</code> por su id.
-	 *
-	 * @param id
-	 *            de <code>Persona</code> a eliminar
-	 * @return true si eliminad, false en caso contrario
-	 */
-	boolean delete(int id);
-
+	boolean delete( int id );
+	
 }
+
+
+
+
+
+
+
