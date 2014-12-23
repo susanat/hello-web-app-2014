@@ -1,6 +1,8 @@
 <%@page import="com.ipartek.formacion.helloweb.listener.InitListener"%>
 <%@include file="includes/head.jsp" %>
 <%@include file="includes/nav.jsp" %>
+  
+       
        
   	<h1>Bienvenido/a.</h1>    
   	<br>   
@@ -13,6 +15,8 @@
     		<i class="glyphicon glyphicon-user"></i>Users: ${applicationScope.cont_user} 
     	</li>
     </ul>   	
+    
+    
 
 <%@include file="includes/footer.jsp" %>   
 

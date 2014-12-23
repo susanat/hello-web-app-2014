@@ -17,7 +17,7 @@ import com.ipartek.formacion.helloweb.bean.Persona;
  *
  */
 public class SessionListener implements HttpSessionListener,
-	HttpSessionAttributeListener {
+HttpSessionAttributeListener {
 
     private static Logger log = Logger.getLogger("ACCESOS");
 
@@ -92,6 +92,13 @@ public class SessionListener implements HttpSessionListener,
 	log.info(motivo);
     }
 
+    /**
+     * Comprueba si hay un usuario en session y guarda en el contexto de los
+     * servlets un contador
+     * 
+     * @param session
+     * @param isSumar
+     */
     private synchronized void gestionContadorUsuarios(HttpSession session,
 	    boolean isSumar) {
 	ServletContext sc = session.getServletContext();
@@ -102,7 +109,7 @@ public class SessionListener implements HttpSessionListener,
 	    switch (usuario.getRol()) {
 	    case ADMINISTRADOR:
 		int contAdmin = (Integer) sc
-			.getAttribute(Constantes.USER_ADMIN_CONT);
+		.getAttribute(Constantes.USER_ADMIN_CONT);
 		contAdmin = (isSumar) ? ++contAdmin : --contAdmin;
 		sc.setAttribute(Constantes.USER_ADMIN_CONT, contAdmin);
 		if (isSumar) {
@@ -114,7 +121,7 @@ public class SessionListener implements HttpSessionListener,
 
 	    case USUARIO:
 		int contUser = (Integer) sc
-			.getAttribute(Constantes.USER_USER_CONT);
+		.getAttribute(Constantes.USER_USER_CONT);
 		contUser = (isSumar) ? ++contUser : --contUser;
 		sc.setAttribute(Constantes.USER_USER_CONT, contUser);
 		if (isSumar) {
