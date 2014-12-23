@@ -114,4 +114,12 @@
     <servlet-name>EjemploParameterValuesServlet</servlet-name>
     <url-pattern>/ejemploParameterValuesServlet.do</url-pattern>
   </servlet-mapping>
+  
+  <!-- Errores -->
+  <error-page>
+	<error-code>404</error-code>
+	<location>/404.jsp</location>
+  </error-page>
+  
+
 </web-app>
