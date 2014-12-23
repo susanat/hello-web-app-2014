@@ -1,56 +1,48 @@
-<!doctype html>
-
 <%@page import="com.ipartek.formacion.helloweb.bean.Persona"%>
 <%@page import="com.ipartek.formacion.helloweb.Constantes"%>
 
-<html lang="es">
-<head>
-  <meta charset="utf-8">
 
-	<%@include file="/includes/alert.jsp" %>
-
-  <title>Backoffice</title>
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <link rel="stylesheet" href="css/styles.css?v=1.0">
-
- 
-</head>
-
-<body>
-	
-	<%
-		//recuperar usuario de sesion
+<%
+		//recuperar usuario de session
 		Persona p = (Persona)session.getAttribute(Constantes.USER_SESSION);
+		if ( (p == null) || ( p.getRol() != Persona.Rol.ADMINISTRADOR ) ){			
+			p = new Persona("anonimo", 99 );			
+			
+			String root = request.getContextPath();			
+			System.out.println ( root + "/" + Constantes.JSP_LOGIN );
+			
+			response.sendRedirect( root + "/" + Constantes.JSP_LOGIN );
+		}
+		
+	%>
+
+
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>BAKOFFICE</title>
+</head>
+<body>
+
+	<%@include file="/includes/alerts.jsp" %>
+
+	<h1>BAKOFFICE</h1>
+	<h2>Ongi Etorri Cheriff</h2>
 	
-	if(p == null || p.getRoll()!=Persona.Roll.ADMINISTRADOR){
-		//p = new Persona("Anonimo",99);		
-		String root = request.getContextPath();  //devuelve la ruta de donde esta en el servidor
-		String root2 = request.getSession().getServletContext().getRealPath("/"); //devuelve la ruta de donde esta en el disco duro
-		response.sendRedirect(root + Constantes.JSP_LOGIN);
-						
-	}
+	<a href="<%=Constantes.PATH_LOGOUT%>" title="Cierra tu seccion" > [x] Cerrar Session </a>
+
 	
-	
-	 %>
-  <h1>Hello <%= p.getNombre() %></h1>
-  
-  <p>Has entrado como: <%= p.getNombre() %></p>
-  
-  <a href="<%=Constantes.PATH_LOGOUT %>" title="Cierra tu sesion">Logout</a>	
-  
-  <nav>
-  	<h3>Menu administracion</h3>
-  	<ul>
-  		<li><a href="<%=Constantes.CONTROLLER_PERSONA %>" title="Gestionar personas">Personas</a></li> 		
-  	
-  	</ul>
-  	
-  </nav>
-  
-  
-  
- 
+	<nav>
+		<h3>Menu Administracion</h3>
+		<ul>
+			<li><a href="<%=Constantes.CONTROLLER_PERSONA%>" title="Gestionar Personas"> Personas</a></li>
+		</ul>
+		
+	</nav>
+
 </body>
 </html>
