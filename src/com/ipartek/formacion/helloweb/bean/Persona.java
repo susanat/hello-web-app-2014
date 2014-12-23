@@ -5,24 +5,26 @@ public class Persona {
 	private int id;
 	private String nombre;
 	private int edad;
-	private Roll roll;
-
-	public static final int ID_NULL = -1;
+	private Rol rol;
+	
+	public static final int ID_NULL = -1;	
 	public static final int EDAD_NULL = 0;
 
-	public Persona(String nombre, int edad) {
-		super();
-		this.nombre = nombre;
-		this.edad = EDAD_NULL;
-		this.roll = roll.USER;
-		this.id = ID_NULL;
-	}
-
+	
 	public Persona(String nombre) {
 		super();
 		this.nombre = nombre;
 		this.edad = EDAD_NULL;
-		this.roll = roll.USER;
+		this.rol = Rol.USER;
+		this.id = ID_NULL;
+	}
+	
+	
+	public Persona(String nombre, int edad) {
+		super();
+		this.nombre = nombre;
+		this.edad = edad;
+		this.rol = Rol.USER;
 		this.id = ID_NULL;
 	}
 
@@ -41,39 +43,37 @@ public class Persona {
 	public void setEdad(int edad) {
 		this.edad = edad;
 	}
-
-	public Roll getRoll() {
-		return roll;
+	
+	public Rol getRol() {
+		return rol;
 	}
 
-	public void setRoll(Roll roll) {
-		this.roll = roll;
+	public void setRol(Rol rol) {
+		this.rol = rol;
 	}
-
+	
 	public int getId() {
 		return id;
 	}
 
+
+
 	public void setId(int id) {
-		this.id = id;
+		this.id = id;		
 	}
 
 	/**
-	 * enumeracion para los rolles de personas
-	 *
-	 * @author Aritz Tellaeche
-	 *
+	 * Enumeracion para los Roles de las Personas
 	 */
-	public enum Roll {
-		ADMINISTRADOR, USER
-
+	public enum Rol {
+		 ADMINISTRADOR, USER;
 	}
 
 	@Override
 	public String toString() {
-		return "Persona [id=" + id + ", roll=" + roll + ", nombre=" + nombre
-				+ ", edad=" + edad + "]";
-
+		return "Persona [id=" + id + ", rol=" + rol + ", nombre=" + nombre + ", edad=" + edad + "]";
 	}
-
+	
+	
+	
 }
