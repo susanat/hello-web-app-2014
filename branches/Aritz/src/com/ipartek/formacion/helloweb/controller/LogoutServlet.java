@@ -2,7 +2,6 @@ package com.ipartek.formacion.helloweb.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,18 +15,8 @@ import com.ipartek.formacion.helloweb.bean.Mensaje;
  * Servlet implementation class LogoutServlet
  */
 public class LogoutServlet extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
-
-	RequestDispatcher dispatch = null;
-
-	// private String pUser = null;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public LogoutServlet() {
-		super();
-	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -37,21 +26,19 @@ public class LogoutServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// recuperar sesionde usuario
-		HttpSession sesion = request.getSession();
+		// recuperar session del usuario
+		HttpSession session = request.getSession();
 
-		// poner a null su sesion
-		sesion.removeAttribute(Constantes.USER_SESSION);
+		session.setAttribute(Constantes.USER_LOGOUT_PETICION, true);
+		// invalidar session
+		session.invalidate();
 
-		dispatch = request.getRequestDispatcher(Constantes.JSP_LOGIN);
-		request.setAttribute(Constantes.MSG_KEY, Constantes.MSG_LOGOUT_CORRECT);
-
-		// despachar o servir jsp
-		Mensaje msg = new Mensaje(Constantes.MSG_LOGOUT_CORRECT,
-				Mensaje.MSG_TYPE_INFO);
+		// forwar a login
+		Mensaje msg = new Mensaje(Constantes.MSG_LOGOUT, Mensaje.MSG_TYPE_INFO);
 		request.setAttribute(Constantes.MSG_KEY, msg);
 		request.getRequestDispatcher(Constantes.JSP_LOGIN).forward(request,
 				response);
+
 	}
 
 	/**
