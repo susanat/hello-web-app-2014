@@ -6,17 +6,21 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 public class TagHello extends TagSupport {
 
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1622325344462950064L;
+
 	@Override
 	public int doEndTag() throws JspException {
 		try {
 			JspWriter out = pageContext.getOut();
-			out.print("Hello TAG");
-			// out.print("<select><option value=\"a\">1</option><option value=\"2\">2</option></select>");
+			out.print("Hello");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return EVAL_PAGE;
+
 	}
 
 }
