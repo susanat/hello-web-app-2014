@@ -6,10 +6,12 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 
 
@@ -62,10 +64,26 @@ public class SearchServlet extends HttpServlet {
 		
 		try
 		{
+			
+		/*	
 		   //1.- cargar driver	
 		   Class.forName("com.mysql.jdbc.Driver");
 		   //2.- Establecer conexion
 		   conexion = DriverManager.getConnection("jdbc:mysql://localhost/test", "root", "");
+		 */  
+		   
+		//Cargar DataSource
+			
+			InitialContext ctx = new InitialContext();
+			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+			conexion = ds.getConnection();
+
+
+
+
+
+		   
+		   
 		   
 		   //3.- Crear Stament a traves de la conexion
 		   //insertar persona nueva
@@ -88,8 +106,7 @@ public class SearchServlet extends HttpServlet {
 		   }
 		   
 		   
-		}catch ( ClassNotFoundException e){   
-			e.printStackTrace();
+		
 			
 		}catch(Exception e){
 			
