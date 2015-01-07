@@ -17,7 +17,7 @@ import com.ipartek.formacion.helloweb.util.EIdioma;
 
 public class LoginTest {
 
-	private static final String URL_APP = "http://localhost:8080/HelloWeb/";
+	private static final String URL_APP = "https://es.linkedin.com/";
 
 	public LoginTest() {
 	}
