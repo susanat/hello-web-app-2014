@@ -54,19 +54,30 @@ public class SearchServlet extends HttpServlet {
 
 	private String conectar( String first, String last) {
 		String personas="";
+		
+		Connection conexion = null;
+		Statement st2 = null;
+		Statement st = null;
+		ResultSet rs = null;	
+		
 		try
 		{
+		   //1.- cargar driver	
 		   Class.forName("com.mysql.jdbc.Driver");
-		   Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/test", "root", "");
+		   //2.- Establecer conexion
+		   conexion = DriverManager.getConnection("jdbc:mysql://localhost/test", "root", "");
 		   
+		   //3.- Crear Stament a traves de la conexion
 		   //insertar persona nueva
-		   Statement st2 = conexion.createStatement();
+		   st2 = conexion.createStatement();
 		   String sqlInsert = "INSERT INTO persona ( nombre, apellido1, edad) VALUES ( '"+first+"', '"+last+"', 34);";
+		   //4.- Ejecutar la sentencia
 		   st2.executeUpdate( sqlInsert );
 		   
 		   //consultar tabla personas
-		   Statement st = conexion.createStatement();
-		   ResultSet rs = st.executeQuery("select * from persona");
+		   st = conexion.createStatement();
+		   //5.- Recoger resultados
+		   rs = st.executeQuery("select * from persona");
 		   
 		   while( rs.next() ){
 			   
@@ -77,10 +88,51 @@ public class SearchServlet extends HttpServlet {
 		   }
 		   
 		   
-		   
-		   
-		}catch(Exception e){
+		}catch ( ClassNotFoundException e){   
 			e.printStackTrace();
+			
+		}catch(Exception e){
+			
+			e.printStackTrace();
+			
+		}finally{ //cerrar todos los objetos creados para el acceso a BBDD 
+			
+			//cerrar ResultSet
+			if ( rs != null ){
+				try{
+					rs.close();
+				}catch ( Exception e){
+					e.printStackTrace();
+				}	
+			}
+			
+			//cerrar Statements
+			if ( st != null ){
+				try{
+					st.close();
+				}catch ( Exception e){
+					e.printStackTrace();
+				}	
+			}
+			
+			if ( st2 != null ){
+				try{
+					st2.close();
+				}catch ( Exception e){
+					e.printStackTrace();
+				}	
+			}
+			
+			
+			//cerrar conexion
+			if ( conexion != null ){
+				try{
+					conexion.close();
+				}catch ( Exception e){
+					e.printStackTrace();
+				}	
+			}
+			
 		}
 		
 		return personas;
