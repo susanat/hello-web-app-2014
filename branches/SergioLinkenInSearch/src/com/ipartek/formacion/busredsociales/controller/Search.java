@@ -91,8 +91,9 @@ public class Search extends HttpServlet {
 	                //obtengo el nombre y apellidos
 	                String nombre = el.getElementsByClass("given-name").text();
 	                String apellidos = el.getElementsByClass("family-name").text();
-	               	                
-	                lista.add(new Usuario(nombre, apellidos));
+	               	String foto = el.getElementsByClass("photo").attr("src");                
+	                
+	               	lista.add(new Usuario(nombre, apellidos, foto));
 	            }
 			}
 		} catch (Exception ex) {
