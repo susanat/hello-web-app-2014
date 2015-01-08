@@ -47,11 +47,12 @@ public class PersonaServlet extends HttpServlet {
 	} else {
 	    String nombre = request.getParameter("nombre");
 	    String apellidos = request.getParameter("apellido");
+	    String urlImagen = request.getParameter("urlImagen");
 
 	    Persona p1 = new Persona(nombre, apellidos);
 
 	    // insertamos en BBDD
-	    insertar(p1);
+	    insertar(p1, urlImagen);
 	    request.setAttribute("personas", listar());
 	    request.getRequestDispatcher("listadoPersonas.jsp").forward(
 		    request, response);
@@ -67,20 +68,27 @@ public class PersonaServlet extends HttpServlet {
 	ResultSet rs = null;
 
 	try {
-	    Class.forName("com.mysql.jdbc.Driver");
-	    conexion = DriverManager.getConnection(
-		    "jdbc:mysql://localhost/test", "root", "");
+	    conexion = crearConexion();
 
 	    st = conexion.createStatement();
-	    rs = st.executeQuery("SELECT nombre,apellidos FROM persona");
+	    rs = st.executeQuery("SELECT nombre,apellidos, URLImagen FROM persona");
 
 	    while (rs.next()) {
-
+		personas += "<img src='" + rs.getString("URLImagen") + "'><br>";
 		personas += rs.getString("nombre");
 		personas += "    ";
 		personas += rs.getString("apellidos");
 		personas += "     ";
 		personas += "<form method='post' action='BorradoServlet'>"
+			+ "<input type='text' hidden name='accion' value='actualizar'> "
+			+ "<input type='text' name='nombre' hidden value='"
+			+ rs.getString("nombre")
+			+ "'><input type='text' name='apellidos' hidden value='"
+			+ rs.getString("apellidos")
+			+ "'><input type=submit value='Actualizar'>"
+			+ "</form>";
+		personas += "<form method='post' action='BorradoServlet'>"
+			+ "<input type='text' hidden name='accion' value='borrar'> "
 			+ "<input type='text' name='nombre' hidden value='"
 			+ rs.getString("nombre")
 			+ "'><input type='text' name='apellidos' hidden value='"
@@ -91,84 +99,77 @@ public class PersonaServlet extends HttpServlet {
 	} catch (Exception ex) {
 	    ex.printStackTrace();
 	} finally {
-	    if (rs != null) {
-		try {
-		    rs.close();
-		} catch (Exception e) {
-
-		    e.printStackTrace();
-		}
-	    }
-
-	    if (st != null) {
-		try {
-		    st.close();
-		} catch (Exception e) {
-
-		    e.printStackTrace();
-		}
-	    }
-
-	    if (conexion != null) {
-		try {
-		    conexion.close();
-		} catch (Exception e) {
-
-		    e.printStackTrace();
-		}
-	    }
+	    cerrarConexion(conexion, st, rs);
 
 	}
 	return personas;
 
     }
 
-    private void insertar(Persona p1) {
+    private void insertar(Persona p1, String urlImagen) {
 
 	Connection conexion = null;
 	PreparedStatement st = null;
 	ResultSet rs = null;
 	try {
-	    Class.forName("com.mysql.jdbc.Driver");
-	    conexion = DriverManager.getConnection(
-		    "jdbc:mysql://localhost/test", "root", "");
+	    conexion = crearConexion();
 	    st = conexion
-		    .prepareStatement("INSERT INTO persona(nombre, apellidos) VALUES(?,?)");
+		    .prepareStatement("INSERT INTO persona(nombre, apellidos, URLImagen) VALUES(?,?,?)");
 	    st.setString(1, p1.getNombre());
 	    st.setString(2, p1.getApellidos());
+	    st.setString(3, urlImagen);
 	    st.executeUpdate();
 	} catch (Exception e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	} finally {
-	    if (rs != null) {
-		try {
-		    rs.close();
-		} catch (Exception e) {
+	    cerrarConexion(conexion, st, rs);
+	}
 
-		    e.printStackTrace();
-		}
-	    }
+    }
 
-	    if (st != null) {
-		try {
-		    st.close();
-		} catch (Exception e) {
+    public static Connection crearConexion() {
+	Connection conexion = null;
+	try {
+	    Class.forName("com.mysql.jdbc.Driver");
 
-		    e.printStackTrace();
-		}
-	    }
+	    conexion = DriverManager.getConnection(
+		    "jdbc:mysql://localhost/test", "root", "");
+	} catch (Exception e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+	return conexion;
+    }
 
-	    if (conexion != null) {
-		try {
-		    conexion.close();
-		} catch (Exception e) {
+    public static void cerrarConexion(Connection conexion, Statement st,
+	    ResultSet rs) {
+	if (rs != null) {
+	    try {
+		rs.close();
+	    } catch (Exception e) {
 
-		    e.printStackTrace();
-		}
+		e.printStackTrace();
 	    }
 	}
 
+	if (st != null) {
+	    try {
+		st.close();
+	    } catch (Exception e) {
+
+		e.printStackTrace();
+	    }
+	}
+
+	if (conexion != null) {
+	    try {
+		conexion.close();
+	    } catch (Exception e) {
+
+		e.printStackTrace();
+	    }
+	}
     }
 
     /**
