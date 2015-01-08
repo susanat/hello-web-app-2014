@@ -1,18 +1,22 @@
 package ipt.fm.ipartek.test.linkedin;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
-
+import com.ipartek.formacion.linkedin.bean.Persona;
 
 public class LinkedInParse {
 
 	private static String SEARCH_URL = "https://es.linkedin.com/pub/dir/?";
 	private String first;
 	private String last;
+	
+	private ArrayList<Persona> personas = null;
 	
 	public LinkedInParse(String first, String last) {
 		super();
@@ -36,19 +40,34 @@ public class LinkedInParse {
 		return last;
 	}
 
-	public String getHtml() {
+	public ArrayList<Persona> getHtml() {
 		String resul  = "";
+		
+		personas = new ArrayList<Persona>();
+		
 		
 		try {
 			
 			Document doc = Jsoup.connect( SEARCH_URL+getFirst()+getLast() ).get();
 			Element listaResultados = doc.getElementById("result-set");
+			
 			if ( listaResultados != null ){
 				
 				resul = listaResultados.html();
+				Elements personas2 = doc.getElementsByTag("h2");
 				
+				for (Element p:personas2){
+					System.out.println(p.html());
+					Elements nombre = p.getElementsByClass("given-name");
+					Elements apellidos = p.getElementsByClass("family-name");
+					
+					System.out.println(nombre.html()+' '+apellidos.html());
+					personas.add(new Persona(0,nombre.html(), apellidos.html()));
+					
+				}
 			}else{
-				resul = "<h1> 0 resultados </h1>";
+				return null;
+				//resul = "<h1> 0 resultados </h1>";
 			}
 			
 			
@@ -60,7 +79,8 @@ public class LinkedInParse {
 
 		
 		
-		return resul;
+		//return resul;
+		return personas;
 	}
 	
 	
