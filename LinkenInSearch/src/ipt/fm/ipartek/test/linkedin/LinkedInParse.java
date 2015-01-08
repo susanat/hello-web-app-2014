@@ -2,6 +2,7 @@ package ipt.fm.ipartek.test.linkedin;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -55,14 +56,20 @@ public class LinkedInParse {
 				
 				resul = listaResultados.html();
 				Elements personas2 = doc.getElementsByTag("h2");
+				Elements fotos = doc.getElementsByClass("profile-photo");
+				Iterator<Element> it = fotos.iterator();
 				
 				for (Element p:personas2){
 					System.out.println(p.html());
 					Elements nombre = p.getElementsByClass("given-name");
 					Elements apellidos = p.getElementsByClass("family-name");
+					String foto = null;
+					if(it.hasNext()){
+						foto = ((Element)it.next()).getElementsByTag("img").first().attr("src");
+					}
 					
 					System.out.println(nombre.html()+' '+apellidos.html());
-					personas.add(new Persona(0,nombre.html(), apellidos.html()));
+					personas.add(new Persona(0,nombre.html(), apellidos.html(), foto));
 					
 				}
 			}else{

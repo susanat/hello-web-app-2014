@@ -20,7 +20,9 @@ out.println("</form>");
 
 for(Persona p:personas){
 	out.println("<form action='PersonaServlet' method='post'>");
+	out.println("<img width='40' height='40' src='"+p.getFoto()+"'>");
 	out.println("<input type='text' name='cmd' value='insert' hidden>");
+	out.println("<input type='text' name='foto' value='"+p.getFoto()+"' hidden>");
 	out.println("<input type='text' name='nombre' value='"+p.getNombre()+"' hidden>");
 	out.println("<input type='text' name='apellido' value='"+p.getApellido()+"' hidden>");
 	out.println("<span>"+p.getNombre()+" "+p.getApellido()+"</span>");
