@@ -1,28 +1,39 @@
-<!doctype html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.ipartek.formacion.linkedin.Constantes"%>
 <%@page import="com.ipartek.formacion.linkedin.bean.Persona"%>
 <html>
 <head>
-  <meta charset="utf-8">
-
+ 
+  <base href="<%=request.getContextPath()+"/"%>">
   <title>Linkedin search</title>
-
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
+   
 </head>
 
 <body>
-  <h1>Búscate en Linkedin</h1>
-   
-  <form action="searchProfile" method="post"> 	
-	<input type=text name="first" placeholder="Nombre..." required>
-	<input type=text name="last" placeholder="Apellidos..." required>
-	<input type="submit" value="Buscar">
-  </form>
   
-  <form action="persona" method="get"> 	
-		<input type="submit" value="Ver todos">
-  </form>
- 
+  <div class="panel panel-primary">
+	<div class="panel-heading">
+        <h2 class="panel-title">Búscate en LinkedIn</h2>
+    </div>
+    
+    <div class="panel-body">
+       <form action="searchProfile" method="post"> 	
+			<input type=text name="first" placeholder="Nombre..." required>
+			<input type=text name="last" placeholder="Apellidos..." required>
+			<input type="submit" class="btn btn-primary btn-sm" value="Buscar">
+		</form>
+	  	<br>
+		<form action="persona" method="get"> 	
+			<input type="submit" class="btn btn-primary btn-sm" value="Ver todos">
+		</form>
+    </div>
+	
+   </div>
 </body>
 </html>

@@ -42,21 +42,28 @@ public class LinkedInParse {
 	    if (listaResultados != null) {
 		String nombre = "";
 		String apellidos = "";
+		String foto = "";
 		int cant = listaResultados.getElementsByClass("vcard").size();
 		for (int i = 0; i < cant; i++) {
 		    nombre = listaResultados.getElementsByClass("given-name")
 			    .get(i).text();
 		    apellidos = listaResultados
 			    .getElementsByClass("family-name").get(i).text();
+		    foto = listaResultados.getElementsByTag("img").get(i)
+			    .absUrl("src");
+
 		    form = "<form action='persona' method='post'>";
 		    form += "<input type='hidden' name='nombre' value='"
 			    + nombre + "'>";
 		    form += "<input type='hidden' name='apellidos' value='"
 			    + apellidos + "'>";
+		    form += "<input type='hidden' name='foto' value='" + foto
+			    + "'>";
 		    form += "<input type='hidden' name='operacion' value='1'>";
+
 		    form += "<input type='submit' value='Añadir'></form>";
 		    listaResultados.getElementsByClass("vcard").get(i)
-			    .append(form);
+		    .append(form);
 		}
 
 		resul = listaResultados.html();
