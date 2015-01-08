@@ -62,7 +62,7 @@
             </div>
             <!-- /.row -->
             
-            <div class"">
+            <div>
 	            <%@include file="/includes/alert.jsp"%>
             </div>
             
