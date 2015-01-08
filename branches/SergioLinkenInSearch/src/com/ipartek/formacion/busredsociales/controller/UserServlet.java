@@ -19,6 +19,7 @@ import javax.sql.DataSource;
 
 import com.ipartek.formacion.busredsociales.bean.Usuario;
 import com.ipartek.formacion.busredsociales.comun.Constantes;
+import com.ipartek.formacion.busredsociales.comun.FactoriaMysql;
 
 
 
@@ -172,7 +173,7 @@ public class UserServlet extends HttpServlet {
 		{
 		   
 		   //Establecemos la conexión con la base de datos.
-		   conexion = conectar();
+		   conexion = FactoriaMysql.conectar();
 		   
 		   //INSERT INTO `srncodesnippet`.`user` (`id`, `username`, `apellidos`, `password`, `email`, `status`, `timezone`) VALUES (NULL, 'Antonio', 'Segundo Puesto', '', NULL, '1', NULL);					
 			
@@ -210,7 +211,7 @@ public class UserServlet extends HttpServlet {
 			}
 			
 			
-			desconectar(conexion);
+			FactoriaMysql.desconectar();
 			
 		}		   
 	}
@@ -226,7 +227,7 @@ public class UserServlet extends HttpServlet {
 		{
 		   
 		   //Establecemos la conexión con la base de datos.
-		   conexion = conectar();
+		   conexion = FactoriaMysql.conectar();
 				   
 		   //sentencia sql para el prepare statement
 		   String sqlInsert = "delete from `srncodesnippet`.`user` where `id` = ?;";
@@ -254,7 +255,7 @@ public class UserServlet extends HttpServlet {
 			}
 			
 			
-			desconectar(conexion);
+			FactoriaMysql.desconectar();
 			
 		}		   
 	}
@@ -272,7 +273,7 @@ public class UserServlet extends HttpServlet {
 		{
 		   
 		   //Establecemos la conexión con la base de datos.
-		   conexion = conectar();
+		   conexion = FactoriaMysql.conectar();
 		   
 		// Preparamos la consulta
 		   s = conexion.createStatement();
@@ -305,7 +306,7 @@ public class UserServlet extends HttpServlet {
 			}
 			
 			
-			desconectar(conexion);
+			FactoriaMysql.desconectar();
 			
 		}
 		
