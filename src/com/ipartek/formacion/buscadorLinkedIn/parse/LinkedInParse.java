@@ -41,6 +41,7 @@ public class LinkedInParse {
 	String boton = "<button type='submit' form='formboton'>Insertar en BBDD</button>";
 	String nombre = "";
 	String apellido = "";
+	String urlImagen = "";
 	try {
 	    Document doc = Jsoup.connect(SEARCH_URL + getFirst() + getLast())
 		    .get();
@@ -55,13 +56,17 @@ public class LinkedInParse {
 			    .get(i).text();
 		    apellido = listaResultados
 			    .getElementsByClass("family-name").get(i).text();
+		    urlImagen = listaResultados.getElementsByClass("photo")
+			    .attr("src");
 
 		    formulario = "<form method='post' action='PersonaServlet'>"
 			    + "<input type='text' hidden value='"
 			    + nombre
 			    + "' name='nombre'> <input type='text' hidden value='"
-			    + apellido
-			    + "' name='apellido'> <input type='submit' value='Añadir'>"
+			    + apellido + "' name='apellido'> "
+			    + "<input type='text' hidden value='" + urlImagen
+			    + "' name='urlImagen'>"
+			    + "<input type='submit' value='Añadir'>"
 			    + "</form>";
 
 		    listaResultados.getElementsByClass("family-name").get(i)
