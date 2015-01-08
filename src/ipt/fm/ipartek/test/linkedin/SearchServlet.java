@@ -81,9 +81,8 @@ public class SearchServlet extends HttpServlet {
 		   
 		//Cargar DataSource
 			
-			InitialContext ctx = new InitialContext();
-			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
-			conexion = ds.getConnection();
+			
+		   conexion = FactoriaMySql.conectar();
 
 		   
 		   //3.- Crear Stament a traves de la conexion
@@ -148,13 +147,16 @@ public class SearchServlet extends HttpServlet {
 			
 			
 			//cerrar conexion
-			if ( conexion != null ){
+			/*if ( conexion != null ){
 				try{
 					conexion.close();
 				}catch ( Exception e){
 					e.printStackTrace();
 				}	
-			}
+			}*/
+			
+			FactoriaMySql.desconectar();
+			
 			
 		}
 		
