@@ -1,0 +1,8 @@
+UTF8=>Anita,Morgan,null,23,AnitaJMorgan@spambob.com,75193179S,CLIENTE,
+UTF8=>Anita,Morgan,null,23,AnitaJMorgan@spambob.com,75193179S,CLIENTE,
+Raymond,Rojas,null,37,RaymondTRojas@dodgit.com,94387805Z,TRABAJADOR,
+Raymond,Rojas,null,37,RaymondTRojas@dodgit.com,94387805Z,TRABAJADOR,
+UTF8=>Mark,Ellis,null,21,MarkGEllis@dodgit.com,730804W,JEFE,
+UTF8=>Mark,Ellis,null,21,MarkGEllis@dodgit.com,730804W,JEFE,
+James,Fuller,null,23,JamesBFuller@pookmail.com,65036368G,CLIENTE,
+James,Fuller,null,23,JamesBFuller@pookmail.com,65036368G,CLIENTE,
