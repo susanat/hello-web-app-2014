@@ -74,7 +74,9 @@ public class PersonaServlet extends HttpServlet {
 	    rs = st.executeQuery("SELECT nombre,apellidos, URLImagen FROM persona");
 
 	    while (rs.next()) {
-		personas += "<img src='" + rs.getString("URLImagen") + "'><br>";
+		personas += "<div class='container'><img src='"
+			+ rs.getString("URLImagen")
+			+ "' class='img-circle'><br>";
 		personas += rs.getString("nombre");
 		personas += "    ";
 		personas += rs.getString("apellidos");
@@ -85,7 +87,7 @@ public class PersonaServlet extends HttpServlet {
 			+ rs.getString("nombre")
 			+ "'><input type='text' name='apellidos' hidden value='"
 			+ rs.getString("apellidos")
-			+ "'><input type=submit value='Actualizar'>"
+			+ "'><input type=submit value='Actualizar' class='btn btn-primary'><br>"
 			+ "</form>";
 		personas += "<form method='post' action='BorradoServlet'>"
 			+ "<input type='text' hidden name='accion' value='borrar'> "
@@ -93,7 +95,8 @@ public class PersonaServlet extends HttpServlet {
 			+ rs.getString("nombre")
 			+ "'><input type='text' name='apellidos' hidden value='"
 			+ rs.getString("apellidos")
-			+ "'><input type=submit value='borrar'>" + "</form>";
+			+ "'><input type=submit value='borrar' class='btn btn-danger'>"
+			+ "</form></div>";
 		personas += "<br>";
 	    }
 	} catch (Exception ex) {
