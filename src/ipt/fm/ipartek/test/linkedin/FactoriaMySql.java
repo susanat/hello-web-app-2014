@@ -10,7 +10,6 @@ package ipt.fm.ipartek.test.linkedin;
 import java.sql.Connection;
 
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 public class FactoriaMySql {
@@ -20,7 +19,7 @@ public class FactoriaMySql {
 	
 	public static Connection conectar() {
 		//patron singleton, si ya esta creada para que volver hacerlo ?
-		if ( con != null ){
+		if ( con == null ){
 			try{
 				InitialContext ctx = new InitialContext();
 				DataSource ds = (DataSource) ctx.lookup(DATA_SOURCE);
@@ -37,7 +36,7 @@ public class FactoriaMySql {
 		
 		if ( con  != null ){
 			try{
-				con.close();
+				con.close();				
 			}catch( Exception e){
 				e.printStackTrace();
 			};	
