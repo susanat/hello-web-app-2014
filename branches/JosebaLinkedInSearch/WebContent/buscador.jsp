@@ -17,5 +17,6 @@
 		<input type="text" name="last" id="last" required><br>
 		<input type="submit" value="buscar">
 	</form>
+	<h2><a href="PersonaServlet">Ver todos</a></h2>
 </body>
 </html>
