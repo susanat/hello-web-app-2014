@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Listado personas</title>
+<link rel="stylesheet" type="text/css" href="css/styles.css"/>
 </head>
 <body>
 	<h1>Listado Personas</h1>
