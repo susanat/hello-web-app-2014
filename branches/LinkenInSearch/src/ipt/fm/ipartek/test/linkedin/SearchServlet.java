@@ -3,6 +3,7 @@ package ipt.fm.ipartek.test.linkedin;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -34,9 +35,15 @@ public class SearchServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		
+		//TODO mirar tema de acentos y Ñ desde HTML en los JSPs
+		request.setCharacterEncoding("UTF-8");
+		
 		//recoger parametros
 		String first  = request.getParameter("first");
 		String last  = request.getParameter("last");
+		
+		
 		
 		//conectar BBDD
 		request.setAttribute("personas",  conectar(first, last) );
@@ -58,7 +65,7 @@ public class SearchServlet extends HttpServlet {
 		String personas="";
 		
 		Connection conexion = null;
-		Statement st2 = null;
+		PreparedStatement st2 = null;
 		Statement st = null;
 		ResultSet rs = null;	
 		
@@ -78,19 +85,18 @@ public class SearchServlet extends HttpServlet {
 			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
 			conexion = ds.getConnection();
 
-
-
-
-
-		   
-		   
 		   
 		   //3.- Crear Stament a traves de la conexion
 		   //insertar persona nueva
-		   st2 = conexion.createStatement();
-		   String sqlInsert = "INSERT INTO persona ( nombre, apellido1, edad) VALUES ( '"+first+"', '"+last+"', 34);";
+		   String sqlInsert = "INSERT INTO persona ( nombre, apellido1, edad) VALUES ( ?, ? ,? );";
+		   st2 = conexion.prepareStatement(sqlInsert);
+		   //sustituir ? por valores en la sentencia SQL del prepareStatement
+		   st2.setString(1, first );
+		   st2.setString(2, last );
+		   st2.setInt   (3, 69 );
+		   
 		   //4.- Ejecutar la sentencia
-		   st2.executeUpdate( sqlInsert );
+		   st2.executeUpdate();
 		   
 		   //consultar tabla personas
 		   st = conexion.createStatement();
