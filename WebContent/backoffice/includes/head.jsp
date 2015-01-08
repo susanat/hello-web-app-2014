@@ -15,9 +15,6 @@
 
 <head>
 
-	<%//Object o =null; 
-	//o.toString();%>
-
 	<base href="<%=request.getContextPath() + "/"%>"/>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
