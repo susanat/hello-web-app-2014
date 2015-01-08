@@ -12,6 +12,12 @@
 
 
 ${requestScope.personas}
+<%
+out.println("<form action='PersonaServlet' method='post'>");
+out.println("<input type='text' name='cmd' value='list' hidden>");
+out.println("<input type='submit' value='Ver Todos'>");
+out.println("</form>");
+%>
 
 <form action="searchProfile" method="post">
 	

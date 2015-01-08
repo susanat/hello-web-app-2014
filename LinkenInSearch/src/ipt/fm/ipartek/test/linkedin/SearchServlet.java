@@ -37,23 +37,25 @@ public class SearchServlet extends HttpServlet {
 		String last  = request.getParameter("last");
 		
 		//conectar BBDD
-		request.setAttribute("personas",  conectar(first, last) );
+		//request.setAttribute("personas",  conectar(first, last) );
 		
+		LinkedInParse parse = new LinkedInParse(first, last);
+		request.setAttribute("personas", parse.getHtml());
 		
 		//buscar el linkedin
-		LinkedInParse parse = new LinkedInParse(first, last);
-		String htmlResult = parse.getHtml ();
+		//LinkedInParse parse = new LinkedInParse(first, last);
+		//String htmlResult = parse.getHtml ();
 		
 		//pasar attributo resultado
-		request.setAttribute("resulthtml", htmlResult );
+		//request.setAttribute("resulthtml", htmlResult );
 		
 		//forwad a jsp de busqueda
-		request.getRequestDispatcher("index.jsp").forward(request, response);
-		
+		//request.getRequestDispatcher("index.jsp").forward(request, response);
+		request.getRequestDispatcher("resultados.jsp").forward(request, response);
 	}
 
-	private String conectar( String first, String last) {
-		String personas="";
+/*	private String conectar( String first, String last) {
+	String personas="";
 		
 		Connection conexion = null;
 		Statement st2 = null;
@@ -136,7 +138,8 @@ public class SearchServlet extends HttpServlet {
 		}
 		
 		return personas;
-	}
+		
+	}*/
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

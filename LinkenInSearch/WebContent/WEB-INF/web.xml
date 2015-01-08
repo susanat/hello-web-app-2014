@@ -19,4 +19,21 @@
     <servlet-name>SearchServlet</servlet-name>
     <url-pattern>/searchProfile</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PersonaServlet</display-name>
+    <servlet-name>PersonaServlet</servlet-name>
+    <servlet-class>ipt.fm.ipartek.test.linkedin.PersonaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PersonaServlet</servlet-name>
+    <url-pattern>/PersonaServlet</url-pattern>
+  </servlet-mapping>
+  
+  <resource-ref>
+	<description>DB Connection de pruebas</description>
+	<res-ref-name>jdbc/TestDB</res-ref-name>
+	<res-type>javax.sql.DataSource</res-type>
+	<res-auth>Container</res-auth>
+  </resource-ref>
 </web-app>
