@@ -63,3 +63,5 @@ URL Actual:
 		session.getAttribute(Constantes.PARAM_SESSION_LAST_URL);		
 */
 %>
+
+	<div class="container">

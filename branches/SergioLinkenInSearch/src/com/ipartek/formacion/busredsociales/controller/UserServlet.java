@@ -51,6 +51,7 @@ public class UserServlet extends HttpServlet {
 		//-- necesarios para la insercción y actualización
 		String nombre = null;
 		String apellidos = null;
+		String photo = null;
 		
 		//-- necesario para la eliminación y actualización
 		String index = null;
@@ -62,21 +63,24 @@ public class UserServlet extends HttpServlet {
 			
 			String action = request.getParameter("action");
 			
-			if("A".equalsIgnoreCase(action.trim())) {
-				
-				nombre = request.getParameter("nombre");
-				apellidos = request.getParameter("apellidos");
-				
-				//insertamos el usuario
-				insertarUsuario(nombre, apellidos);
-				
-			} else if("E".equalsIgnoreCase(action.trim())) {
-				
-				index = request.getParameter("index");
-				
-				//insertamos el usuario
-				eliminarUsuario(index);
-				
+			if(action != null) {
+				if("A".equalsIgnoreCase(action.trim())) {
+					
+					nombre = request.getParameter("nombre");
+					apellidos = request.getParameter("apellidos");
+					photo = request.getParameter("photo");
+					
+					//insertamos el usuario
+					insertarUsuario(nombre, apellidos, photo);
+					
+				} else if("E".equalsIgnoreCase(action.trim())) {
+					
+					index = request.getParameter("index");
+					
+					//insertamos el usuario
+					eliminarUsuario(index);
+					
+				}
 			}
 						
 		} catch (SQLException e) {
@@ -157,7 +161,7 @@ public class UserServlet extends HttpServlet {
 	}
 	
 	
-	private void insertarUsuario(String nombre, String apellidos) throws SQLException {
+	private void insertarUsuario(String nombre, String apellidos, String photo) throws SQLException {
 		
 		
 		Connection conexion = null;
@@ -178,7 +182,7 @@ public class UserServlet extends HttpServlet {
 		   //String sqlInsert = "INSERT INTO `srncodesnippet`.`user` (`id`, `username`, `apellidos`, `password`, `email`, `status`, `timezone`) VALUES (NULL, '" + nombre + "', '" + apellidos + "', '', NULL, '1', NULL);";
 		   
 		   //sentencia sql para el prepare statement
-		   String sqlInsert = "INSERT INTO `srncodesnippet`.`user` (`id`, `username`, `apellidos`, `password`, `email`, `status`, `timezone`) VALUES (NULL, ?, ?, '', NULL, '1', NULL);";
+		   String sqlInsert = "INSERT INTO `srncodesnippet`.`user` (`id`, `username`, `apellidos`, `password`, `email`, `status`, `timezone`, `photo`) VALUES (NULL, ?, ?, '', NULL, '1', NULL, ?);";
 		   		   
 		   s = conexion.prepareStatement(sqlInsert);
 		   
@@ -186,6 +190,7 @@ public class UserServlet extends HttpServlet {
 		   //añadimos los campos
 		   s.setString(1, nombre);
 		   s.setString(2, apellidos);
+		   s.setString(3, photo);
 		   
 		   s.executeUpdate();
 		   		
@@ -281,7 +286,7 @@ public class UserServlet extends HttpServlet {
 				   lstUsuario = new ArrayList<Usuario>();
 			   }
 			   
-			   lstUsuario.add(new Usuario(rs.getInt(1), rs.getString(2), rs.getString(3)));		       
+			   lstUsuario.add(new Usuario(rs.getInt(1), rs.getString(2),rs.getString(3), rs.getString(8)));		       
 			   	
 		   }
 		   

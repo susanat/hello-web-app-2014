@@ -5,6 +5,7 @@ public class Usuario
 	private int id;
 	private String username;
 	private String apellidos;
+	private String photo;
 	private String password;
 	private String eMail;
 	private String status;
@@ -51,6 +52,15 @@ public class Usuario
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
 	}
+	
+	
+	
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 	public Usuario(String username, String apellidos) {
 		super();
 		this.username = username;
@@ -62,7 +72,20 @@ public class Usuario
 		this.username = username;
 		this.apellidos = apellidos;
 	}
+	public Usuario(String username, String apellidos, String photo) {
+		super();
+		this.username = username;
+		this.apellidos = apellidos;		
+		this.photo = photo;
+	}
 	
+	public Usuario(int id, String username, String apellidos, String photo) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.apellidos = apellidos;
+		this.photo = photo;
+	}
 	
 	
 	

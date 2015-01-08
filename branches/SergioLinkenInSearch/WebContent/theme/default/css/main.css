@@ -11,3 +11,8 @@ body {
 footer {
     margin: 50px 0;
 }
+
+.col-centered{
+	float: none;
+	margin: 0 auto;
+}
