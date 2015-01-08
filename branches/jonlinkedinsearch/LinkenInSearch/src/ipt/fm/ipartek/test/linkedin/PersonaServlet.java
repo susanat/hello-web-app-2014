@@ -64,7 +64,7 @@ public class PersonaServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		*/
-		
+		/*
 		InitialContext ctx = null;
 		try {
 			ctx = new InitialContext();
@@ -85,6 +85,10 @@ public class PersonaServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		*/
+		
+		conn = FactoriaMySql.conectar();
+		
 		/*
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -103,6 +107,7 @@ public class PersonaServlet extends HttpServlet {
 		if(command.equalsIgnoreCase("insert")){
 			String nombre = request.getParameter("nombre");
 			String apellido = request.getParameter("apellido");
+			String foto = request.getParameter("foto");
 			System.out.println("insert "+nombre+' '+apellido);
 			
 			try {
@@ -112,7 +117,7 @@ public class PersonaServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-			String sqlInsert = "INSERT INTO persona ( nombre, apellido1, edad) VALUES ( '"+nombre+"', '"+apellido+"',0);";
+			String sqlInsert = "INSERT INTO persona ( nombre, apellido1, edad, foto) VALUES ( '"+nombre+"', '"+apellido+"',0,'"+foto+"');";
 			
 			try {
 				st.executeUpdate( sqlInsert );
@@ -151,13 +156,15 @@ public class PersonaServlet extends HttpServlet {
 			try {
 				String nombre;
 				String apellido;
+				String foto;
 				int id;
 				
 				while(rs.next()){
 					id = rs.getInt("id");
 					nombre = rs.getString("nombre");
 					apellido = rs.getString("apellido1");
-					personas.add(new Persona(id, nombre, apellido));
+					foto = rs.getString("foto");
+					personas.add(new Persona(id, nombre, apellido, foto));
 					
 				}
 				request.setAttribute("personas",personas);
