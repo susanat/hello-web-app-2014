@@ -17,6 +17,8 @@
 			out.print("Nombre: " + lst.getUsername() + "<br>") ;
 			out.print("Apellidos: " + lst.getApellidos());
 			out.print("<br>");
+			out.print("<img src='" + lst.getPhoto() + "' class='photo' height='60' width='60' alt='" + lst.getUsername() + " " + lst.getApellidos() + "'>");
+			out.print("<br>");
 			
 			%>
 			<form action="user" method="post">	

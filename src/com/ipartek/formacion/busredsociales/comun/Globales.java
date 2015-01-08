@@ -7,7 +7,7 @@ public class Globales {
 	/**
 	 * url ROOT del sitio
 	 */
-	public static String SITE_ROOT_PATH = "http://192.168.1.59:8080/Busqueda_en_Red_Social/";
+	public static String SITE_ROOT_PATH = "http://192.168.1.55:8080/Busqueda_en_Red_Social/";
 		
 	public static String SITE_DEFAULT_LANG = "es_ES";	
 	public static int SESSION_MAX_MINUTES = 30;
