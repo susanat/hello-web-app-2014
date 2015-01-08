@@ -57,6 +57,7 @@ public class PersonaServlet extends HttpServlet {
 
 	    while (rs.next()) {
 		personas += "<form action='persona' method='post'>";
+
 		personas += "<input type='hidden' name='id' value='"
 			+ rs.getInt("id") + "'>";
 		personas += "<input type='text' name='nombre' value='"
@@ -66,10 +67,11 @@ public class PersonaServlet extends HttpServlet {
 		personas += "<input type='text' name='edad' value='"
 			+ rs.getInt("edad") + "'>";
 		personas += "<input type='hidden' name='operacion' value='2'>";
-		personas += "<input type='submit' value='Eliminar'>";
+		personas += "<br>";
+		personas += "<input type='submit' value='Actualizar'>";
+
 		personas += "</form>";
 
-		personas += rs.getInt("edad");
 		personas += "<form action='persona' method='post'>";
 		personas += "<input type='hidden' name='id' value='"
 			+ rs.getInt("id") + "'>";
@@ -137,11 +139,14 @@ public class PersonaServlet extends HttpServlet {
 		System.out.println("mal insertada");
 	    }
 	} else if (op.equals("2")) {
+
 	    nombre = request.getParameter("nombre");
 	    apellidos = request.getParameter("apellidos");
+	    String edad = request.getParameter("edad");
 	    id = request.getParameter("id");
 
-	    if (actualizar(Integer.parseInt(id), nombre, apellidos)) {
+	    if (actualizar(Integer.parseInt(id), nombre, apellidos,
+		    Integer.parseInt(edad))) {
 		System.out.println("bien actualizado");
 	    } else {
 		System.out.println("mal actualizado");
@@ -215,7 +220,7 @@ public class PersonaServlet extends HttpServlet {
 	return correcto;
     }
 
-    private boolean actualizar(int id, String nombre, String apellidos) {
+    private boolean actualizar(int id, String nombre, String apellidos, int edad) {
 	boolean correcto = false;
 	Connection conexion = null;
 	java.sql.PreparedStatement st = null;
@@ -226,12 +231,13 @@ public class PersonaServlet extends HttpServlet {
 		    .lookup("java:comp/env/jdbc/TestDB");
 	    conexion = ds.getConnection();
 
-	    String sqlInsert = "UPDATE persona SET (nombre,apellidos,edad) VALUES ( ? , ? , ?)";
+	    String sqlInsert = "UPDATE persona SET nombre=?,apellidos=?,edad=? WHERE id=?";
 
 	    st = conexion.prepareStatement(sqlInsert);
 	    st.setString(1, nombre);
 	    st.setString(2, apellidos);
-	    st.setInt(3, 18);
+	    st.setInt(3, edad);
+	    st.setInt(4, id);
 
 	    st.executeUpdate();
 	    correcto = true;
