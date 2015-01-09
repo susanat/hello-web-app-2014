@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.buscadorLinkedIn.bean.Persona;
+import com.ipartek.formacion.buscadorLinkedIn.modelo.dao.DAOFactory;
+import com.ipartek.formacion.buscadorLinkedIn.modelo.dao.interfaz.IPersonaDAO;
 
 /**
  * Servlet implementation class PersonaServlet
@@ -41,7 +44,9 @@ public class PersonaServlet extends HttpServlet {
 	if (request.getParameter("nombre") == null) {
 	    // venimos desde el enlace de listar, no hay que crear o recoger
 	    // nada
-	    request.setAttribute("personas", listar());
+	    request.setAttribute("personas", listarConDAO());// Estamos usando
+							     // listar con DAO
+
 	    request.getRequestDispatcher("listadoPersonas.jsp").forward(
 		    request, response);
 	} else {
@@ -52,8 +57,8 @@ public class PersonaServlet extends HttpServlet {
 	    Persona p1 = new Persona(nombre, apellidos);
 
 	    // insertamos en BBDD
-	    insertar(p1, urlImagen);
-	    request.setAttribute("personas", listar());
+	    insertarConDAO(p1, urlImagen); // Estamos usando insertar con DAO
+	    request.setAttribute("personas", listarConDAO());
 	    request.getRequestDispatcher("listadoPersonas.jsp").forward(
 		    request, response);
 	}
@@ -109,6 +114,45 @@ public class PersonaServlet extends HttpServlet {
 
     }
 
+    private String listarConDAO() {
+	String personas = "";
+	ArrayList<Persona> listaPersonas = new ArrayList<Persona>();
+
+	DAOFactory factoria = DAOFactory.getFactoriaDAO(DAOFactory.MYSQL);
+	IPersonaDAO DAOPersona = factoria.getPersonaDAO();
+	listaPersonas = DAOPersona.getAll();
+
+	for (int i = 0; i < listaPersonas.size(); i++) {
+	    personas += "<div class='container'><img src='"
+		    + listaPersonas.get(i).getUrlImagen()
+		    + "' class='img-circle'><br>";
+	    personas += listaPersonas.get(i).getNombre();
+	    personas += "    ";
+	    personas += listaPersonas.get(i).getApellidos();
+	    personas += "     ";
+	    personas += "<form method='post' action='BorradoServlet'>"
+		    + "<input type='text' hidden name='accion' value='actualizar'> "
+		    + "<input type='text' name='nombre' hidden value='"
+		    + listaPersonas.get(i).getNombre()
+		    + "'><input type='text' name='apellidos' hidden value='"
+		    + listaPersonas.get(i).getApellidos()
+		    + "'><input type=submit value='Actualizar' class='btn btn-primary'><br>"
+		    + "</form>";
+	    personas += "<form method='post' action='BorradoServlet'>"
+		    + "<input type='text' hidden name='accion' value='borrar'> "
+		    + "<input type='text' name='nombre' hidden value='"
+		    + listaPersonas.get(i).getNombre()
+		    + "'><input type='text' name='apellidos' hidden value='"
+		    + listaPersonas.get(i).getApellidos()
+		    + "'><input type=submit value='borrar' class='btn btn-danger'>"
+		    + "</form></div>";
+	    personas += "<br>";
+	}
+
+	return personas;
+
+    }
+
     private void insertar(Persona p1, String urlImagen) {
 
 	Connection conexion = null;
@@ -128,6 +172,14 @@ public class PersonaServlet extends HttpServlet {
 	} finally {
 	    cerrarConexion(conexion, st, rs);
 	}
+
+    }
+
+    private void insertarConDAO(Persona p1, String urlImagen) {
+	Persona p = new Persona(p1.getNombre(), p1.getApellidos(), urlImagen);
+	DAOFactory factoria = DAOFactory.getFactoriaDAO(DAOFactory.MYSQL);
+	IPersonaDAO DAOPersona = factoria.getPersonaDAO();
+	DAOPersona.insert(p);
 
     }
 
