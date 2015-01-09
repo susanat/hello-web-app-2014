@@ -1,5 +1,8 @@
 package ipt.fm.ipartek.test.linkedin;
 
+import ipt.fm.ipartek.test.linkedin.modelo.dao.DAOFactory;
+import ipt.fm.ipartek.test.linkedin.modelo.dao.IPersonaDAO;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -44,65 +47,9 @@ public class PersonaServlet extends HttpServlet {
 		String urlforward = "index.jsp";
 		command = request.getParameter("cmd");
 	
-		Connection conn = null;
-		Statement st = null;
-		ResultSet rs = null;
-
+		DAOFactory factory = DAOFactory.getDAOFactory(DAOFactory.MYSQL);
 		
-		/*
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/test", "root", "");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
-		/*
-		InitialContext ctx = null;
-		try {
-			ctx = new InitialContext();
-		} catch (NamingException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		DataSource ds = null;
-		try {
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
-		} catch (NamingException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			conn = ds.getConnection();
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		*/
-		
-		conn = FactoriaMySql.conectar();
-		
-		/*
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/test", "root", "");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/   
+		IPersonaDAO personaDAO = factory.getPersonaDAO();
 		
 		if(command.equalsIgnoreCase("insert")){
 			String nombre = request.getParameter("nombre");
@@ -110,68 +57,16 @@ public class PersonaServlet extends HttpServlet {
 			String foto = request.getParameter("foto");
 			System.out.println("insert "+nombre+' '+apellido);
 			
-			try {
-				st = conn.createStatement();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			String sqlInsert = "INSERT INTO persona ( nombre, apellido1, edad, foto) VALUES ( '"+nombre+"', '"+apellido+"',0,'"+foto+"');";
-			
-			try {
-				st.executeUpdate( sqlInsert );
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
+			personaDAO.insert(new Persona(-1,nombre,apellido,foto));
+					
 			urlforward = "index.jsp";
-			
 		}
 		
 		if(command.equalsIgnoreCase("list")){
-			
-			   
-			try {
-				st = conn.createStatement();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			String sqlSelect = "SELECT * FROM persona;";
-			
-			try {
-				rs = st.executeQuery( sqlSelect );
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
 			ArrayList<Persona> personas = null;
-			personas = new ArrayList<Persona>();
 			
-			
-			try {
-				String nombre;
-				String apellido;
-				String foto;
-				int id;
-				
-				while(rs.next()){
-					id = rs.getInt("id");
-					nombre = rs.getString("nombre");
-					apellido = rs.getString("apellido1");
-					foto = rs.getString("foto");
-					personas.add(new Persona(id, nombre, apellido, foto));
-					
-				}
-				request.setAttribute("personas",personas);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			personas = personaDAO.getAll();
+			request.setAttribute("personas", personas);
 			
 			urlforward = "listadoPersonas.jsp";
 		}
@@ -179,31 +74,11 @@ public class PersonaServlet extends HttpServlet {
 		if(command.equalsIgnoreCase("delete")){
 			String id = request.getParameter("id");
 			
-			//String nombre = request.getParameter("nombre");
-			//String apellido = request.getParameter("apellido");
-			//System.out.println("insert "+nombre+' '+apellido);
-			
-			try {
-				st = conn.createStatement();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			String sqlDelete = "DELETE FROM persona WHERE id="+id+";";
-			
-			try {
-				st.executeUpdate( sqlDelete );
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			personaDAO.delete(new Persona(Integer.parseInt(id), "", "", ""));
 			
 			urlforward = "index.jsp";
-			
 		}
-		
-		
+				
 		request.getRequestDispatcher(urlforward).forward(request, response);
 	}
 
