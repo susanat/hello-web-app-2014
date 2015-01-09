@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.buscadorLinkedIn.bean.Persona;
+import com.ipartek.formacion.buscadorLinkedIn.modelo.dao.DAOFactory;
+import com.ipartek.formacion.buscadorLinkedIn.modelo.dao.interfaz.IPersonaDAO;
 
 /**
  * Servlet implementation class BorradoServlet
@@ -117,6 +119,13 @@ public class BorradoServlet extends HttpServlet {
 	    }
 	}
 
+    }
+
+    private void borrarConDAO(Persona p1) {
+	DAOFactory factoria = DAOFactory.getFactoriaDAO(DAOFactory.MYSQL);
+	IPersonaDAO DAOPersona = factoria.getPersonaDAO();
+	DAOPersona.delete(p1); // returns boolean so we can check if operation
+			       // was sucessful
     }
 
     private String listar() {
