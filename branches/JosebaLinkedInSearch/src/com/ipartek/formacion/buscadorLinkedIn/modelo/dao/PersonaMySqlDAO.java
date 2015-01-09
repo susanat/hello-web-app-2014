@@ -77,7 +77,6 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 	    conexion = MYSQLDAOFactory.conectarDriver();
 	    st = conexion
 		    .prepareStatement("DELETE FROM persona WHERE nombre = ? AND apellidos = ?");
-	    // completar de preparar la sentencia
 	    st.setString(1, p.getNombre());
 	    st.setString(2, p.getApellidos());
 	    st.executeUpdate();
