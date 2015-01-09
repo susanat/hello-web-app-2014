@@ -1,27 +1,29 @@
-package ipt.fm.ipartek.bean;
+package ipt.fm.ipartek.test.linkedin.bean;
 
 public class Persona {
 
 	private int id;
 	private String nombre;
 	private String apellido1;
-	private int edad;
+	private String foto;
 
 	public static final int ID_NULL = -1;
-	public static final int EDAD_NULL = 0;
+
+	public Persona() {
+		super();
+	}
 
 	public Persona(String nombre, String _ape) {
 		super();
 		this.nombre = nombre;
-		this.edad = EDAD_NULL;
+		this.foto = null;
 		this.apellido1 = _ape;
 		this.id = ID_NULL;
 	}
 
-	public Persona(String nombre, int edad) {
+	public Persona(String nombre) {
 		super();
 		this.nombre = nombre;
-		this.edad = edad;
 
 		this.id = ID_NULL;
 	}
@@ -32,14 +34,6 @@ public class Persona {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	public int getEdad() {
-		return edad;
-	}
-
-	public void setEdad(int edad) {
-		this.edad = edad;
 	}
 
 	public int getId() {
@@ -58,10 +52,18 @@ public class Persona {
 		this.apellido1 = apellido1;
 	}
 
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
 	@Override
 	public String toString() {
 		return "Persona [id=" + id + ", nombre=" + nombre + ", apellido1="
-				+ apellido1 + ", edad=" + edad + "]";
+				+ apellido1 + "]";
 	}
 
 }
