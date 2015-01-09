@@ -1,7 +1,12 @@
 package com.ipartek.formacion.busredsociales.comun;
 
+import com.ipartek.formacion.busredsociales.dao.factoria.DAOFactory;
+
 public class Globales {
 	
+	static {
+		
+	}
 	
 	
 	/**
@@ -20,5 +25,9 @@ public class Globales {
 	//public static String SITE_FRONTOFFICE_THEME = "blog-post";
 	
 	public static int COOKIES_MAX_EXP = 60*60*24*30;
+	
+	public static int GLOBAL_MOTOR = DAOFactory.MYSQL;
+	
+	public static DAOFactory factoria = null;
 
 }
