@@ -4,14 +4,30 @@ public class Persona {
 	private int id;
 	private String nombre;
 	private String apellidos;
+	private String foto;
 
 	public static final int ID_NULL = -1;
 
+	/**
+	 * Constructor de una Persona con un id Nulo y una fota Nula
+	 * 
+	 * @param nombre
+	 * @param apellidos
+	 */
 	public Persona(String nombre, String apellidos) {
 		super();
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.id = ID_NULL;
+		this.foto = null;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getNombre() {
@@ -30,12 +46,12 @@ public class Persona {
 		this.apellidos = apellidos;
 	}
 
-	public int getId() {
-		return id;
+	public String getFoto() {
+		return foto;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setFoto(String foto) {
+		this.foto = foto;
 	}
 
 	@Override
