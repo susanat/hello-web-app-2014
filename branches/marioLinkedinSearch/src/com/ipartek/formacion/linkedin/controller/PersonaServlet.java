@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.naming.InitialContext;
 import javax.servlet.ServletException;
@@ -11,6 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
+
+import com.ipartek.formacion.linkedin.bean.Persona;
+import com.ipartek.formacion.linkedin.modelo.dao.DAOFactory;
+import com.ipartek.formacion.linkedin.modelo.dao.IPersonaDAO;
 
 /**
  * Servlet implementation class PersonaServlet
@@ -26,11 +31,16 @@ public class PersonaServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request,
 	    HttpServletResponse response) throws ServletException, IOException {
 	request.setCharacterEncoding("UTF-8");
+	DAOFactory factoria = DAOFactory.getDAOFactory(DAOFactory.MYSQL);
+
+	IPersonaDAO daoPersona = factoria.getPersonaDAO();
+	ArrayList<Persona> pers = daoPersona.getAll();
+
 	// conectar BBDD
-	String resultado = consultarPersonas();
+	// String resultado = consultarPersonas();
 
 	// pasar attributo resultado
-	request.setAttribute("personas", resultado);
+	request.setAttribute("personas", pers);
 	// forward a jsp de busqueda
 	request.getRequestDispatcher("listadoPersonas.jsp").forward(request,
 		response);
@@ -44,38 +54,49 @@ public class PersonaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request,
 	    HttpServletResponse response) throws ServletException, IOException {
 	request.setCharacterEncoding("UTF-8");
-	String nombre = "";
-	String apellidos = "";
 	String id = "";
-	String foto = "";
 	String op = request.getParameter("operacion");
+	DAOFactory factoria = DAOFactory.getDAOFactory(DAOFactory.MYSQL);
+	IPersonaDAO daoPersona = factoria.getPersonaDAO();
+	Persona p = null;
 
 	if (op.equals("1")) {
-	    nombre = request.getParameter("nombre");
-	    apellidos = request.getParameter("apellidos");
-	    foto = request.getParameter("foto");
-	    if (insertar(nombre, apellidos, foto)) {
+
+	    p = new Persona(0, request.getParameter("nombre"),
+		    request.getParameter("apellidos"), 18,
+		    request.getParameter("foto"));
+
+	    if (daoPersona.insert(p) != 0) {
 		System.out.println("bien insertada");
 	    } else {
 		System.out.println("mal insertada");
 	    }
-	} else if (op.equals("2")) {
 
-	    nombre = request.getParameter("nombre");
-	    apellidos = request.getParameter("apellidos");
+	} else if (op.equals("2")) {
 	    String edad = request.getParameter("edad");
 	    id = request.getParameter("id");
 
-	    if (actualizar(Integer.parseInt(id), nombre, apellidos,
-		    Integer.parseInt(edad))) {
+	    p = new Persona(Integer.parseInt(id),
+		    request.getParameter("nombre"),
+		    request.getParameter("apellidos"), Integer.parseInt(edad),
+		    request.getParameter("foto"));
+
+	    if (daoPersona.update(p)) {
 		System.out.println("bien actualizado");
 	    } else {
 		System.out.println("mal actualizado");
 	    }
+
 	} else if (op.equals("3")) {
+	    String edad = request.getParameter("edad");
 	    id = request.getParameter("id");
 
-	    if (borrar(Integer.parseInt(id))) {
+	    p = new Persona(Integer.parseInt(id),
+		    request.getParameter("nombre"),
+		    request.getParameter("apellidos"), Integer.parseInt(edad),
+		    request.getParameter("foto"));
+
+	    if (daoPersona.delete(p)) {
 		System.out.println("bien borrado");
 	    } else {
 		System.out.println("mal borrado");
