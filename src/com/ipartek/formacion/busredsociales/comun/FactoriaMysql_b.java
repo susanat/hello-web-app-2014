@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-public final class FactoriaMysql {
+public final class FactoriaMysql_b {
 
 	private static final String STR_LOOKUP = "java:comp/env/jdbc/MyConexion";
 	
@@ -16,14 +16,11 @@ public final class FactoriaMysql {
 	/**
 	 * Constructor privado
 	 */
-	private FactoriaMysql() {
+	private FactoriaMysql_b() {
 
 	}
 
 	public static Connection conectar() throws Exception {
-
-		
-
 			if (conexion == null) {
 				/*
 				 * CONEXIÓN DIRECTA CON LA BASE DE DATOS

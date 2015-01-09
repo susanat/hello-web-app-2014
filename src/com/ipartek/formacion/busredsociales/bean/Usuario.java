@@ -2,14 +2,21 @@ package com.ipartek.formacion.busredsociales.bean;
 
 public class Usuario 
 {
-	private int id;
-	private String username;
-	private String apellidos;
-	private String photo;
+	
+	public static final int DEFAULT_ID = -1;
+	public static final String DEFAULT_PHOTO = null;
+	
+	
+	private int id = DEFAULT_ID;
+	private String username = "";
+	private String apellidos = "";
+	private String photo = DEFAULT_PHOTO;
+	
 	private String password;
 	private String eMail;
 	private String status;
 	private String timezone;
+	
 	public int getId() {
 		return id;
 	}
@@ -51,16 +58,15 @@ public class Usuario
 	}
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
-	}
-	
-	
-	
+	}	
 	public String getPhoto() {
 		return photo;
 	}
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
+	
+	
 	public Usuario(String username, String apellidos) {
 		super();
 		this.username = username;
