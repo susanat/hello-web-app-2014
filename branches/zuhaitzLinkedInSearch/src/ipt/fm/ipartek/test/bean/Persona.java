@@ -5,18 +5,46 @@ public class Persona {
 	private int id;
 	private String nombre;
 	private String apellidos;
-	private int edad;
+	private String foto;
+
+	public Persona() {
+		setId(-1);
+		setNombre("");
+		setApellidos("");
+		setFoto("");
+	}
 
 	/**
 	 * @param nombre
 	 * @param apellidos
-	 * @param edad
 	 */
-	public Persona(final String nombre, final String apellidos, final int edad) {
-		super();
+	public Persona(final String nombre, final String apellidos) {
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+	}
+
+	/**
+	 * @param nombre
+	 * @param apellidos
+	 * @param foto
+	 */
+	public Persona(final String nombre, final String apellidos, final String foto) {
 		setNombre(nombre);
 		setApellidos(apellidos);
-		setEdad(edad);
+		setFoto(foto);
+	}
+
+	/**
+	 * @param id
+	 * @param nombre
+	 * @param apellidos
+	 * @param foto
+	 */
+	public Persona(final int id, final String nombre, final String apellidos, final String foto) {
+		this.id = id;
+		setNombre(nombre);
+		setApellidos(apellidos);
+		setFoto(foto);
 	}
 
 	/**
@@ -24,6 +52,14 @@ public class Persona {
 	 */
 	public int getId() {
 		return id;
+	}
+
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId(final int id) {
+		this.id = id;
 	}
 
 	/**
@@ -57,18 +93,18 @@ public class Persona {
 	}
 
 	/**
-	 * @return the edad
+	 * @return the foto
 	 */
-	public int getEdad() {
-		return edad;
+	public String getFoto() {
+		return foto;
 	}
 
 	/**
-	 * @param edad
-	 *            the edad to set
+	 * @param foto
+	 *            the foto to set
 	 */
-	public void setEdad(final int edad) {
-		this.edad = edad;
+	public void setFoto(final String foto) {
+		this.foto = foto;
 	}
 
 }

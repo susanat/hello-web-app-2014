@@ -12,9 +12,14 @@ public class Constantes {
 
 	// Operaciones CRUD
 	public static final String CRUD_OP = "op";
-	public static final String CRUD_INSERT = "insert";
-	public static final String CRUD_LIST = "list";
+	public static final int CRUD_INSERT = 1;
+	public static final int CRUD_UPDATE = 2;
+	public static final int CRUD_DELETE = 3;
 
 	public static final int ID_NULL = -1;
+
+	// Atributos
+	public static final String ATT_PERSONA = "persona";
+	public static final String ATT_PERSONAS = "personas";
 
 }

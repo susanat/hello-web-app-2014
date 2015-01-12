@@ -14,13 +14,19 @@ public class SearchServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
+	@Override
+	public void init() throws ServletException {
+		// TODO Auto-generated method stub
+		super.init();
+	}
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-	IOException {
+			IOException {
 		request.setCharacterEncoding("UTF-8");
 
 		// recoger parámetros
