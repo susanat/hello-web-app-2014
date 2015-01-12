@@ -36,10 +36,11 @@ public class InitListener implements ServletContextListener, ServletContextAttri
          System.out.println("Iniciada la conexión a base de datos");
          
        try{  
+    	   //TODO: crear una función para esto
          DAOFactory factoria = DAOFactory.getDaoFactoriaAbstracta(Globales.GLOBAL_MOTOR);
          IUsuarioDAO modelUsuario = factoria.getUsuarioDAO();
          
-         
+         //Cargamos aquí todos los modelos que necesitemos, en el contexto de los servlet
          sce.getServletContext().setAttribute("modelUsuario", modelUsuario );
          
        }catch ( Exception e)
@@ -105,9 +106,11 @@ public class InitListener implements ServletContextListener, ServletContextAttri
     	//TODO cerrar conexión a base de datos
     	//System.out.println("Cerrada la conexión a base de datos");
     	
-    	//TODO liberar memoria y cerrar 
-    	
-    	
+    	//TODO liberar memoria y cerrar    	
     }
+    
+    
+    
+    
 	
 }

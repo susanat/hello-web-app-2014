@@ -28,6 +28,14 @@
 			</form>
 			<%
 			
+			%>
+			<form action="user" method="post">	
+				<input type='hidden' value='GU' name = 'action' />						
+				<input type='hidden' value='<%=String.valueOf(lst.getId())%>' name="index" />		    	
+		    	<input type='submit' name="submit" value='Actualizar' class='btn btn-outline btn-success' />
+			</form>
+			<%
+			
 			out.print("<br>");
 						
 		}
