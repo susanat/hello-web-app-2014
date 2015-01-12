@@ -11,6 +11,10 @@ public class Persona {
 
 	public Persona() {
 		super();
+		this.nombre = null;
+		this.foto = null;
+		this.apellido1 = null;
+		this.id = ID_NULL;
 	}
 
 	public Persona(String nombre, String _ape) {
