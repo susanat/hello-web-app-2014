@@ -13,6 +13,12 @@ import com.ipartek.formacion.linkedin.bean.Persona;
  */
 public interface IPersonaDAO {
 
+    static final String TABLA = "persona";
+    static final String COL_ID = "id";
+    static final String COL_NOMBRE = "nombre";
+    static final String COL_APELLIDOS = "apellidos";
+    static final String COL_FOTO = "url_foto";
+
     ArrayList<Persona> getAll();
 
     Persona getById(Persona p);
