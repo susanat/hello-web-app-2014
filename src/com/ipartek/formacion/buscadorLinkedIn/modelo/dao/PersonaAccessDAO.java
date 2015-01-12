@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import com.ipartek.formacion.buscadorLinkedIn.bean.Persona;
 import com.ipartek.formacion.buscadorLinkedIn.modelo.dao.interfaz.IPersonaDAO;
 
-public class PersonaMySqlDAO implements IPersonaDAO {
+public class PersonaAccessDAO implements IPersonaDAO {
 
     private Connection conexion = null;
     private PreparedStatement st = null;
@@ -38,7 +38,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 	ArrayList<Persona> lista = new ArrayList<Persona>();
 
 	try {
-	    conexion = MYSQLDAOFactory.getInstance().conectarDriver();
+	    conexion = AccessDAOFactory.getInstance().conectarDriver();
 	    st = conexion.prepareStatement(SELECT_ALL);
 	    rs = st.executeQuery();
 	    while (rs.next()) {
@@ -50,7 +50,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 
 	    e.printStackTrace();
 	} finally {
-	    MYSQLDAOFactory.getInstance().cerrarConexion(conexion, st, rs);
+	    AccessDAOFactory.getInstance().cerrarConexion(conexion, st, rs);
 
 	}
 
@@ -62,7 +62,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 	PreparedStatement st = null;
 	Persona p = new Persona();
 	try {
-	    conexion = MYSQLDAOFactory.getInstance().conectarDriver();
+	    conexion = AccessDAOFactory.getInstance().conectarDriver();
 	    st = conexion.prepareStatement(SELECT_BY_ID);
 	    st.setInt(1, id);
 	    rs = st.executeQuery();
@@ -84,7 +84,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 	    ex.printStackTrace();
 
 	} finally {
-	    MYSQLDAOFactory.getInstance().cerrarConexion(conexion, st, rs);
+	    AccessDAOFactory.getInstance().cerrarConexion(conexion, st, rs);
 	}
 	return p;
     }
@@ -95,7 +95,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 	int id = -1;
 	try {
 	    // Abrimos conexion
-	    conexion = MYSQLDAOFactory.getInstance().conectarDriver();
+	    conexion = AccessDAOFactory.getInstance().conectarDriver();
 	    st = conexion.prepareStatement(INSERT_INTO);
 	    st.setString(1, p.getNombre());
 	    st.setString(2, p.getApellidos());
@@ -113,7 +113,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 	    ex.printStackTrace();
 
 	} finally {
-	    MYSQLDAOFactory.getInstance().cerrarConexion(conexion, st, rs);
+	    AccessDAOFactory.getInstance().cerrarConexion(conexion, st, rs);
 	}
 
 	return id;
@@ -124,7 +124,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 	boolean resul = false;
 	PreparedStatement st = null;
 	try {
-	    conexion = MYSQLDAOFactory.getInstance().conectarDriver();
+	    conexion = AccessDAOFactory.getInstance().conectarDriver();
 	    st = conexion.prepareStatement(DELETE_FROM);
 	    st.setString(1, p.getNombre());
 	    st.setString(2, p.getApellidos());
@@ -134,7 +134,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 	    ex.printStackTrace();
 	    resul = false;
 	} finally {
-	    MYSQLDAOFactory.getInstance().cerrarConexion(conexion, st, rs);
+	    AccessDAOFactory.getInstance().cerrarConexion(conexion, st, rs);
 	}
 	return resul;
     }
@@ -144,7 +144,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 	PreparedStatement st = null;
 	try {
 
-	    conexion = MYSQLDAOFactory.getInstance().conectarDriver();
+	    conexion = AccessDAOFactory.getInstance().conectarDriver();
 	    st = conexion.prepareStatement(UPDATE_TABLE);
 	    st.setString(1, p.getNombre());
 	    st.setString(2, p.getApellidos());
@@ -153,7 +153,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 	} catch (Exception ex) {
 	    ex.printStackTrace();
 	} finally {
-	    MYSQLDAOFactory.getInstance().cerrarConexion(conexion, st, rs);
+	    AccessDAOFactory.getInstance().cerrarConexion(conexion, st, rs);
 	}
 	return null;
     }
