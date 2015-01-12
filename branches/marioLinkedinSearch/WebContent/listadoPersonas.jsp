@@ -23,40 +23,46 @@
 	       <hr>
 	       <%
 			ArrayList<Persona> personas = (ArrayList<Persona>) request.getAttribute("personas");
-		    for(int i=0; i < personas.size(); i++){
-		     %>
-		       	 <div class='container'> 
-					<form action='persona' method='post'>
-						<img alt='foto de perfil' name="foto" src='<%=personas.get(i).getUrl_foto() %>' class='pull-left margin-right img-circle' height='120' width='120'>
-						
-						<input type='hidden' name='id' value='<%=personas.get(i).getId() %>'>
-						
-						<input type='text' name='nombre' value='<%=personas.get(i).getNombre() %>'>
-						
-						<input type='text' name='apellidos' value='<%=personas.get(i).getApellido() %>'>
-						
-						<input type='text' name='edad' value='<%=personas.get(i).getEdad() %>'>
-						
-						<input type='hidden' name='operacion' value='2'>
-						<br>
-						<input type='submit' value='Actualizar' class='btn btn-primary btn-xs pull-left margin'>
-						
-					</form>
-					
-					<form action='persona' method='post' >
-						<input type='hidden' name='id' value='<%=personas.get(i).getId() %>'>
-						<input type='hidden' name='operacion' value='3'>
-						<input type='submit' value='Eliminar' class='btn btn-danger btn-xs margin'>
-					</form>
-				</div>
+		   	if (personas.size()==0){
+		   	%>
+		   		<div class='container'>
+		   			<h3>0 resultados obtenidos </h3>
+		   		</div>
 				<hr>
+		   	<%} else{
+		       for(int i=0; i < personas.size(); i++){
+			     %>
+			       	 <div class='container'> 
+						<form action='persona' method='post'>
+							<img alt='foto de perfil' name="foto" src='<%=personas.get(i).getUrl_foto() %>' class='pull-left margin-right img-circle' height='120' width='120'>
+							
+							<input type='hidden' name='id' value='<%=personas.get(i).getId() %>'>
+							
+							<input type='text' name='nombre' value='<%=personas.get(i).getNombre() %>'>
+							
+							<input type='text' name='apellidos' value='<%=personas.get(i).getApellido() %>'>
+							
+							<input type='text' name='edad' value='<%=personas.get(i).getEdad() %>'>
+							
+							<input type='hidden' name='operacion' value='2'>
+							<br>
+							<input type='submit' value='Actualizar' class='btn btn-primary btn-xs pull-left margin'>
+							
+						</form>
+						
+						<form action='persona' method='post' >
+							<input type='hidden' name='id' value='<%=personas.get(i).getId() %>'>
+							<input type='hidden' name='operacion' value='3'>
+							<input type='submit' value='Eliminar' class='btn btn-danger btn-xs margin'>
+						</form>
+					</div>
+					<hr>
 	       		    
 	       <%
-	        }
+	        	} // cierre del for
+		   	} // cierre del if
 	       %>
 	       
-	       
-	 
 	    </div>
 	
    </div>
