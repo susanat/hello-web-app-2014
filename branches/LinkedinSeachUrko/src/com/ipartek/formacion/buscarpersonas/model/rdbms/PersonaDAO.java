@@ -27,7 +27,7 @@ public class PersonaDAO implements IPersonaDAO {
     @Override
     public ArrayList<Persona> getAll() {
 	ArrayList<Persona> personas = null;
-	int reg = Constantes.SQL_ERROR;
+	// int reg = Constantes.SQL_ERROR;
 	// con.connect();
 	CallableStatement cStmt = null;
 	try {
@@ -73,13 +73,14 @@ public class PersonaDAO implements IPersonaDAO {
     public Persona getById(final Persona p) {
 	Persona per = null;
 	CallableStatement cStmt = null;
-	int reg = Constantes.SQL_ERROR;
-	con.connect();
+	// int reg = Constantes.SQL_ERROR;
+	// con.connect();
 	try {
 	    cStmt = connection.prepareCall("{call getById(?)}");
 	    cStmt.setInt(1, p.getCodigo());
 	    rs = cStmt.executeQuery();
 	    while (rs.next()) {
+		per = new Persona();
 		per = rsToPojo(per);
 	    }
 
@@ -98,7 +99,7 @@ public class PersonaDAO implements IPersonaDAO {
     public int insert(final Persona p) {
 	int reg = Constantes.SQL_ERROR;
 	CallableStatement cStmt = null;
-	con.connect();
+	// con.connect();
 
 	try {
 	    cStmt = connection.prepareCall("{call insertPersona(?,?,?)}");
@@ -145,7 +146,7 @@ public class PersonaDAO implements IPersonaDAO {
 	int reg = Constantes.SQL_ERROR;
 	CallableStatement cStmt = null;
 
-	con.connect();
+	// con.connect();
 
 	try {
 	    cStmt = connection.prepareCall("{call updatePersona(?,?,?,?)}");
