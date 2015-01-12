@@ -34,11 +34,11 @@ public class PersonaServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-			IOException {
+	IOException {
 		// TODO repasar esto, ahora el id va siempre con los forms si la persona
 		// lo tiene
-		if (request.getParameter("id") != null) {
-			final Persona p = daoPersona.getById(Integer.parseInt(request.getParameter("id")));
+		if (request.getParameter("idList") != null) {
+			final Persona p = daoPersona.getById(Integer.parseInt(request.getParameter("idList")));
 			request.setAttribute(Constantes.ATT_PERSONA, p);
 			request.getRequestDispatcher(Constantes.JSP_FORM_PERSONA).forward(request, response);
 		} else {
