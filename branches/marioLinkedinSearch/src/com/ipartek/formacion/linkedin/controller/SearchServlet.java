@@ -1,6 +1,7 @@
 package com.ipartek.formacion.linkedin.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.linkedin.bean.LinkedInParse;
+import com.ipartek.formacion.linkedin.bean.Persona;
 
 /**
  * Servlet implementation class BuscarServlet
@@ -30,10 +32,10 @@ public class SearchServlet extends HttpServlet {
 	// buscar el linkedin
 
 	LinkedInParse parse = new LinkedInParse(first, last);
-	String htmlResult = parse.getHtml();
+	ArrayList<Persona> personas = parse.getHtml();
 
 	// pasar attributo resultado
-	request.setAttribute("resulthtml", htmlResult);
+	request.setAttribute("personas", personas);
 	// forward a jsp de busqueda
 	request.getRequestDispatcher("resultados.jsp").forward(request,
 		response);
