@@ -25,9 +25,9 @@
 			ArrayList<Persona> personas = (ArrayList<Persona>) request.getAttribute("personas");
 		    for(int i=0; i < personas.size(); i++){
 		     %>
-		       	 <div class='container'>
+		       	 <div class='container'> 
 					<form action='persona' method='post'>
-						<img alt='foto de perfil' name="foto" src='<%=personas.get(i).getUrl_foto() %>' class='pull-left margin-right' height='60' width='60'>
+						<img alt='foto de perfil' name="foto" src='<%=personas.get(i).getUrl_foto() %>' class='pull-left margin-right img-circle' height='120' width='120'>
 						
 						<input type='hidden' name='id' value='<%=personas.get(i).getId() %>'>
 						
@@ -49,6 +49,7 @@
 						<input type='submit' value='Eliminar' class='btn btn-danger btn-xs margin'>
 					</form>
 				</div>
+				<hr>
 				<br>
 	       		    
 	       <%

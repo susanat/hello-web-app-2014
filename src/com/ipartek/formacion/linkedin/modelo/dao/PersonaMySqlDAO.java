@@ -1,6 +1,7 @@
 package com.ipartek.formacion.linkedin.modelo.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,17 +10,33 @@ import java.util.ArrayList;
 import com.ipartek.formacion.linkedin.bean.Persona;
 
 public class PersonaMySqlDAO implements IPersonaDAO {
+    private Connection conexion = null;
+    public final static String SQL_SELECT_ALL = "SELECT * FROM "
+	    + IPersonaDAO.TABLA;
+    public final static String SQL_SELECT_BYID = "SELECT * FROM "
+	    + IPersonaDAO.TABLA + " WHERE id=?" + IPersonaDAO.TABLA;
+
+    public final static String SQL_INSERT = "INSERT INTO " + IPersonaDAO.TABLA
+	    + " (nombre,apellidos,edad, url_foto) VALUES ( ? , ? , ?, ?)";
+
+    public final static String SQL_DELETE = "DELETE FROM " + IPersonaDAO.TABLA
+	    + " WHERE id=?";
+
+    public final static String SQL_UPDATE = "UPDATE " + IPersonaDAO.TABLA
+	    + " SET nombre=?,apellidos=?,edad=? WHERE id=?";
 
     @Override
-    public ArrayList<Persona> getAll() {
+    public synchronized ArrayList<Persona> getAll() {
 	ArrayList<Persona> personas = null;
 	Statement st = null;
 	ResultSet rs = null;
-	Connection conexion = MySqlDAOFactory.conectar();
+
 	try {
+	    conexion = MySqlDAOFactory.getInstance().conectar();
+
 	    personas = new ArrayList<Persona>();
 	    st = conexion.createStatement();
-	    rs = st.executeQuery("SELECT * FROM persona");
+	    rs = st.executeQuery(SQL_SELECT_ALL);
 	    Persona p = null;
 	    while (rs.next()) {
 		p = new Persona(rs.getInt("id"), rs.getString("nombre"),
@@ -30,7 +47,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 
 	} catch (Exception e) {
 	    // cerrar conexion
-	    MySqlDAOFactory.desconectar();
+
 	    e.printStackTrace();
 
 	} finally { // cerrar todos los objetos creados para el acceso de BBDD
@@ -50,6 +67,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 		    e2.printStackTrace();
 		}
 	    }
+	    MySqlDAOFactory.getInstance().desconectar();
 
 	}
 
@@ -58,15 +76,15 @@ public class PersonaMySqlDAO implements IPersonaDAO {
     }
 
     @Override
-    public Persona getById(Persona p) {
+    public synchronized Persona getById(Persona p) {
 	Persona pers = null;
-	java.sql.PreparedStatement st = null;
+	PreparedStatement st = null;
 	ResultSet rs = null;
-	Connection conexion = MySqlDAOFactory.conectar();
-	try {
 
-	    String sqlInsert = "SELECT * FROM persona WHERE id=?";
-	    st = conexion.prepareStatement(sqlInsert);
+	try {
+	    conexion = MySqlDAOFactory.getInstance().conectar();
+
+	    st = conexion.prepareStatement(SQL_SELECT_BYID);
 	    st.setInt(1, p.getId());
 
 	    rs = st.executeQuery();
@@ -77,7 +95,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 
 	} catch (Exception e) {
 	    // cerrar conexion
-	    MySqlDAOFactory.desconectar();
+
 	    e.printStackTrace();
 
 	} finally { // cerrar todos los objetos creados para el acceso de BBDD
@@ -97,6 +115,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 		    e2.printStackTrace();
 		}
 	    }
+	    MySqlDAOFactory.getInstance().desconectar();
 
 	}
 
@@ -104,15 +123,14 @@ public class PersonaMySqlDAO implements IPersonaDAO {
     }
 
     @Override
-    public int insert(Persona p) {
-	int idNuevo = 0;
-	Connection conexion = MySqlDAOFactory.conectar();
-	java.sql.PreparedStatement st = null;
+    public synchronized int insert(Persona p) {
+	int idNuevo = -1;
+
+	PreparedStatement st = null;
 	ResultSet rs = null;
 	try {
-	    String sqlInsert = "INSERT INTO persona (nombre,apellidos,edad, url_foto) VALUES ( ? , ? , ?, ?)";
-
-	    st = conexion.prepareStatement(sqlInsert,
+	    conexion = MySqlDAOFactory.getInstance().conectar();
+	    st = conexion.prepareStatement(SQL_INSERT,
 		    Statement.RETURN_GENERATED_KEYS);
 	    st.setString(1, p.getNombre());
 	    st.setString(2, p.getApellido());
@@ -127,7 +145,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 
 	    try (ResultSet generatedKeys = st.getGeneratedKeys()) {
 		if (generatedKeys.next()) {
-		    idNuevo = (int) generatedKeys.getLong(1);
+		    idNuevo = generatedKeys.getInt(1);
 		} else {
 		    throw new SQLException(
 			    "Creating user failed, no ID obtained.");
@@ -136,7 +154,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 
 	} catch (Exception e) {
 	    // cerrar conexion
-	    MySqlDAOFactory.desconectar();
+
 	    e.printStackTrace();
 
 	} finally { // cerrar todos los objetos creados para el acceso de BBDD
@@ -156,6 +174,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 		    e2.printStackTrace();
 		}
 	    }
+	    MySqlDAOFactory.getInstance().desconectar();
 
 	}
 
@@ -163,14 +182,15 @@ public class PersonaMySqlDAO implements IPersonaDAO {
     }
 
     @Override
-    public boolean delete(Persona p) {
+    public synchronized boolean delete(Persona p) {
 	boolean correcto = false;
-	Connection conexion = MySqlDAOFactory.conectar();
-	java.sql.PreparedStatement st = null;
+
+	PreparedStatement st = null;
 	ResultSet rs = null;
 	try {
-	    String sqlInsert = "DELETE FROM persona WHERE id=?";
-	    st = conexion.prepareStatement(sqlInsert);
+	    conexion = MySqlDAOFactory.getInstance().conectar();
+
+	    st = conexion.prepareStatement(SQL_DELETE);
 	    st.setInt(1, p.getId());
 
 	    st.executeUpdate();
@@ -180,7 +200,6 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 
 	    e.printStackTrace();
 	    // cerrar conexion
-	    MySqlDAOFactory.desconectar();
 
 	} finally { // cerrar todos los objetos creados para el acceso de BBDD
 	    // cerrar ResultSet
@@ -199,6 +218,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 		    e2.printStackTrace();
 		}
 	    }
+	    MySqlDAOFactory.getInstance().desconectar();
 
 	}
 
@@ -206,28 +226,25 @@ public class PersonaMySqlDAO implements IPersonaDAO {
     }
 
     @Override
-    public boolean update(Persona p) {
+    public synchronized boolean update(Persona p) {
 	boolean correcto = false;
-	Connection conexion = MySqlDAOFactory.conectar();
-	java.sql.PreparedStatement st = null;
+	PreparedStatement st = null;
 	ResultSet rs = null;
 	try {
+	    conexion = MySqlDAOFactory.getInstance().conectar();
 
-	    String sqlInsert = "UPDATE persona SET nombre=?,apellidos=?,edad=?,url_foto=? WHERE id=?";
-
-	    st = conexion.prepareStatement(sqlInsert);
+	    st = conexion.prepareStatement(SQL_UPDATE);
 	    st.setString(1, p.getNombre());
 	    st.setString(2, p.getApellido());
 	    st.setInt(3, p.getEdad());
-	    st.setString(4, p.getUrl_foto());
-	    st.setInt(5, p.getId());
+	    st.setInt(4, p.getId());
 
 	    st.executeUpdate();
 	    correcto = true;
 
 	} catch (Exception e) {
 	    // cerrar conexion
-	    MySqlDAOFactory.desconectar();
+
 	    e.printStackTrace();
 
 	} finally { // cerrar todos los objetos creados para el acceso de BBDD
@@ -247,6 +264,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 		    e2.printStackTrace();
 		}
 	    }
+	    MySqlDAOFactory.getInstance().desconectar();
 
 	}
 

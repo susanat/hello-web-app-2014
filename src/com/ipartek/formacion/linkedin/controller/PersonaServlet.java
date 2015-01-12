@@ -22,6 +22,8 @@ import com.ipartek.formacion.linkedin.modelo.dao.IPersonaDAO;
  */
 public class PersonaServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    DAOFactory factoria = null;
+    IPersonaDAO daoPersona = null;
 
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -31,9 +33,11 @@ public class PersonaServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request,
 	    HttpServletResponse response) throws ServletException, IOException {
 	request.setCharacterEncoding("UTF-8");
-	DAOFactory factoria = DAOFactory.getDAOFactory(DAOFactory.MYSQL);
+	if (factoria == null) {
+	    factoria = DAOFactory.getDAOFactory(DAOFactory.MYSQL);
+	    daoPersona = factoria.getPersonaDAO();
+	}
 
-	IPersonaDAO daoPersona = factoria.getPersonaDAO();
 	ArrayList<Persona> pers = daoPersona.getAll();
 
 	// conectar BBDD
@@ -55,9 +59,11 @@ public class PersonaServlet extends HttpServlet {
 	    HttpServletResponse response) throws ServletException, IOException {
 	request.setCharacterEncoding("UTF-8");
 	String id = "";
+	if (factoria == null) {
+	    factoria = DAOFactory.getDAOFactory(DAOFactory.MYSQL);
+	    daoPersona = factoria.getPersonaDAO();
+	}
 	String op = request.getParameter("operacion");
-	DAOFactory factoria = DAOFactory.getDAOFactory(DAOFactory.MYSQL);
-	IPersonaDAO daoPersona = factoria.getPersonaDAO();
 	Persona p = null;
 
 	if (op.equals("1")) {
@@ -65,8 +71,9 @@ public class PersonaServlet extends HttpServlet {
 	    p = new Persona(0, request.getParameter("nombre"),
 		    request.getParameter("apellidos"), 18,
 		    request.getParameter("foto"));
-
-	    if (daoPersona.insert(p) != 0) {
+	    int idnuevo = daoPersona.insert(p);
+	    if (idnuevo >= 0) {
+		System.out.println(idnuevo);
 		System.out.println("bien insertada");
 	    } else {
 		System.out.println("mal insertada");
@@ -88,13 +95,10 @@ public class PersonaServlet extends HttpServlet {
 	    }
 
 	} else if (op.equals("3")) {
-	    String edad = request.getParameter("edad");
 	    id = request.getParameter("id");
 
-	    p = new Persona(Integer.parseInt(id),
-		    request.getParameter("nombre"),
-		    request.getParameter("apellidos"), Integer.parseInt(edad),
-		    request.getParameter("foto"));
+	    p = new Persona(Integer.parseInt(id), request.getParameter(""),
+		    request.getParameter(""), 18, request.getParameter(""));
 
 	    if (daoPersona.delete(p)) {
 		System.out.println("bien borrado");
