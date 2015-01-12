@@ -47,8 +47,6 @@ public class UserServlet extends HttpServlet {
 		//Creamos el objeto al iniciarse el servlet
 		modelUsuario = (IUsuarioDAO) getServletContext().getAttribute("modelUsuario");
 		
-		
-		
 	}
 
 	/**
@@ -57,12 +55,13 @@ public class UserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Usuario> lista = new ArrayList<Usuario>();
 		
+		String toRedirect = "";
+		
+		
 		//TODO: Importante para la codificación de los caracteres
 		request.setCharacterEncoding("UTF-8");
 		
-		//posibles parametros
-		//obtenemos los datos
-		
+		//posibles parametros		
 		//-- necesarios para la insercción y actualización
 		String nombre = null;
 		String apellidos = null;
@@ -70,13 +69,13 @@ public class UserServlet extends HttpServlet {
 		
 		//-- necesario para la eliminación y actualización
 		String index = null;
-			
+		String action = null;
 		
 		
 		//insertamos el usuario		
 		try {
 			
-			String action = request.getParameter("action");
+			action = request.getParameter("action");
 			
 			if(action != null) {
 				if("A".equalsIgnoreCase(action.trim())) {
@@ -86,7 +85,10 @@ public class UserServlet extends HttpServlet {
 					photo = request.getParameter("photo");
 					
 					//insertamos el usuario
-					modelUsuario.insert(new Usuario(nombre, apellidos, photo));
+					Usuario objInsertado = modelUsuario.insert(new Usuario(nombre, apellidos, photo));
+					
+					System.out.println(objInsertado.toString());
+					
 					
 				} else if("E".equalsIgnoreCase(action.trim())) {
 					
@@ -95,6 +97,21 @@ public class UserServlet extends HttpServlet {
 					
 					modelUsuario.delete(Integer.valueOf(index));
 										
+					
+				} else if("U".equalsIgnoreCase(action.trim())) {
+					
+					index = request.getParameter("index");
+					nombre = request.getParameter("nombre");
+					apellidos = request.getParameter("apellidos");
+					photo = request.getParameter("photo");
+					
+					//actualizamos el usuario
+					Usuario obj = modelUsuario.update(new Usuario(Integer.valueOf(index),nombre, apellidos, photo));
+										
+				} else if("GU".equalsIgnoreCase(action.trim())) {
+					index = request.getParameter("index");
+					Usuario obj = modelUsuario.getById(Integer.valueOf(index));
+					lista.add(obj);
 					
 				}
 			}
@@ -105,13 +122,19 @@ public class UserServlet extends HttpServlet {
 		}
 		
 		
-		//obtenemos la lista
-		try {
-			lista = modelUsuario.getAll();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			lista = null;
+		//obtenemos la lista de los usuario TODO: cambiar lógica
+		
+		if (action != null && "GU".equalsIgnoreCase(action.trim())) {			
+			toRedirect = "update.jsp";
+		} else {
+			try {
+				lista = modelUsuario.getAll();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				lista = null;
+			}
+			toRedirect = "listadoUsuarios.jsp";
 		}
 		
 		
@@ -119,7 +142,7 @@ public class UserServlet extends HttpServlet {
 		
 		//redirigimos
 		RequestDispatcher dispatcher = null;
-		dispatcher = request.getRequestDispatcher("listadoUsuarios.jsp");	    
+		dispatcher = request.getRequestDispatcher(toRedirect);	    
 		dispatcher.forward(request, response);
 	}
 
@@ -129,7 +152,6 @@ public class UserServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
-	
 	
 	
 	

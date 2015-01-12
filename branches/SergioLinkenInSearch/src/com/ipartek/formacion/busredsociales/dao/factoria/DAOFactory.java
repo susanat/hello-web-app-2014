@@ -16,7 +16,7 @@ public abstract class DAOFactory
 	public static DAOFactory getDaoFactoriaAbstracta (int tipo) {
 		switch (tipo) {			
 			case MYSQL:
-				return new MysqlDAOFactory();
+				return MysqlDAOFactory.getInstance();
 				
 			
 		}
