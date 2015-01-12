@@ -17,7 +17,7 @@
 		
 			out.print("<tr>");
 			for(Persona persona : personas) {
-				out.print("<a href='" + Constantes.CONTROLLER_PERSONA + "?id=" + persona.getId() + "'><td>" 
+				out.print("<a href='" + Constantes.CONTROLLER_PERSONA + "?idList=" + persona.getId() + "'><td>" 
 					+ persona.getNombre() + " " + persona.getApellidos() + "</td></a><br>");
 			}
 			out.print("</tr>");
