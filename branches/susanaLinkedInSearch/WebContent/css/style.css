@@ -103,7 +103,21 @@ body {
 .resultados .blanco li dl {
 	display:inline-block;
 	float: right;
-	width:650px;	
+	width:650px;
+	margin-top: 0; 		
 	
 }
+
+.resultados .blanco li dl.vcard-basic dt, .resultados .blanco li dl.vcard-expanded dt {
+	font-family: Helvetica;
+	font-size:15px;
+	font-weight:bold;
+ 	color:#55ACE6;
+ }
+ 
+ .resultados .blanco li dl.vcard-basic dd,  .resultados .blanco li dl.vcard-expanded dd 	 {
+	font-family: Helvetica;
+	font-size:15px;
+ 	color:#000;
+ }
 
