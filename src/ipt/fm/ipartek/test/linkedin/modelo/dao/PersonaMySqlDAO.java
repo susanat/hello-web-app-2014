@@ -2,12 +2,11 @@ package ipt.fm.ipartek.test.linkedin.modelo.dao;
 
 import ipt.fm.ipartek.test.linkedin.bean.Persona;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
 
 public class PersonaMySqlDAO implements IPersonaDAO {
 
@@ -25,10 +24,10 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 	    	    
 	    	try{
         	    	//Obtener conexion
-        		    con = (Connection) MySqlDAOFactory.getInstance().conectar();
+        		    con = MySqlDAOFactory.getInstance().conectar();
         		    
         		//crear PrepsaredStatement
-        		    pst = (PreparedStatement) con.prepareStatement(SQL_GET_ALL);
+        		    pst = con.prepareStatement(SQL_GET_ALL);
         		    
         		//executar statement y recoger Statement
         		    rs =pst.executeQuery();
@@ -82,10 +81,10 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 	    	    
 	    	try{
         	    	//Obtener conexion
-        		    con = (Connection) MySqlDAOFactory.getInstance().conectar();
+        		    con = MySqlDAOFactory.getInstance().conectar();
         		    
         		//crear PrepsaredStatement
-        		    pst = (PreparedStatement) con.prepareStatement(SQL_GET_BY_ID);
+        		    pst = con.prepareStatement(SQL_GET_BY_ID);
         		   pst.setInt(1, p.getId()); 
         		//executar statement y recoger Statement
         		    rs =pst.executeQuery();
