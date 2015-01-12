@@ -15,9 +15,10 @@
 
 	<form action="PersonaServlet" method="post">
 
-		<input type="text" name="nombre" placeholder="Nombre" required>
-		<br> <input type="text" name="apellidos" placeholder="Apellidos"
-			required> <br> Action
+		<input type="text" name="nombre" placeholder="Nombre" required><br> 
+		<input type="text" name="apellidos" placeholder="Apellidos" required><br>
+		<input type="text" name="foto" placeholder="Url Fotografia"><br>
+		 Action
 		<table>
 			<tr>
 				<td>

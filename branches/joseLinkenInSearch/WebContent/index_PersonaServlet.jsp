@@ -13,10 +13,10 @@
 
 	${requestScope.personas}
 
-	<form action="searchProfile" method="post">
+	<form action="PersonaServlet" method="post">
 
-		<input type="text" name="first" placeholder="Nombre" required>
-		<br> <input type="text" name="last" placeholder="Apellidos"
+		<input type="text" name="nombre" placeholder="Nombre" required>
+		<br> <input type="text" name="apellidos" placeholder="Apellidos"
 			required> <br> Action
 		<table>
 			<tr>
