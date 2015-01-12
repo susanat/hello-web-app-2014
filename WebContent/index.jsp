@@ -7,13 +7,16 @@
 <meta charset="UTF-8">
 
 <title>LinkedIn Search</title>
+<link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
-
+<div class="registro">
 <h1>LinkedIn Search</h1>
 
+<h2>Personas</h2>
 
-${requestScope.personas}
+
+
 
 <form action="searchProfile" method="post">
 	
@@ -21,10 +24,15 @@ ${requestScope.personas}
 	<br>
 	<input type="text" name="last" placeholder="Apellidos" required>
 	<br>
-	<input type="submit" value="buscar">	
+	<input type="submit" value="BUSCAR">	
 </form>
+</div>
 
+<div class="resultados">
+<h1>Resultados de la busqueda</h1>
+${requestScope.personas}
 ${requestScope.resulthtml}
+</div>
 
 
 </body>
