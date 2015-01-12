@@ -1,11 +1,16 @@
 package ipt.fm.ipartek.test.linkedin;
 
+import ipt.fm.ipartek.test.linkedin.bean.Persona;
+import ipt.fm.ipartek.test.linkedin.modelo.dao.DAOFactory;
+import ipt.fm.ipartek.test.linkedin.modelo.dao.IPersonaDAO;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class SearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	IPersonaDAO daoPersona = null;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -24,6 +30,13 @@ public class SearchServlet extends HttpServlet {
 	public SearchServlet() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		DAOFactory factoria = DAOFactory.getDAOFactory(DAOFactory.MYSQL);
+		daoPersona = factoria.getPersonaDAO();
 	}
 
 	/**
@@ -42,7 +55,28 @@ public class SearchServlet extends HttpServlet {
 		String last = request.getParameter("last");
 
 		// conectar BBDD
-		request.setAttribute("personas", conectar(first, last));
+		// request.setAttribute("personas", conectar(first, last));
+
+		// insertar una nueva persona
+		// daoPersona.insert(new Persona(first, last));
+
+		// modificar una persona (id=2)
+		// Persona p = new Persona(first, last);
+		// p.setId(2);
+		// daoPersona.update(p);
+		// p = null;
+
+		// obtener el id de esa persona
+		int indPersona = daoPersona.getByNombreApellidos(new Persona(first,
+				last));
+
+		Persona p = new Persona();
+		p.setId(indPersona);
+		daoPersona.delete(p);
+		p = null;
+
+		// recuperar personas
+		request.setAttribute("personas", daoPersona.getAll());
 
 		// buscar el linkedin
 		LinkedInParse parse = new LinkedInParse(first, last);

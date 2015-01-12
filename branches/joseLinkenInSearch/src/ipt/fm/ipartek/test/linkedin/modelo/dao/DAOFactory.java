@@ -10,7 +10,7 @@ public abstract class DAOFactory {
 
 		switch (tipo) {
 		case MYSQL:
-			return new MySqlDAOFactory();
+			return MySqlDAOFactory.getInstance();
 		default:
 			return null;
 		}

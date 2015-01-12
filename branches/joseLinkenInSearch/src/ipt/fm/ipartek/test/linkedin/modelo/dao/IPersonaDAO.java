@@ -13,6 +13,12 @@ import java.util.ArrayList;
  */
 public interface IPersonaDAO {
 
+	static final String TABLA = "persona";
+	static final String COL_ID = "id";
+	static final String COL_NOMBRE = "nombre";
+	static final String COL_APELLIDOS = "apellidos";
+	static final String COL_FOTO = "foto";
+
 	/**
 	 * Listado de todas las personas de la BBDD
 	 * 
@@ -30,11 +36,20 @@ public interface IPersonaDAO {
 	Persona getById(Persona p);
 
 	/**
+	 * Busca una Persona en la BBDD a partir de su nombre y apellidos
+	 * 
+	 * @param p
+	 *            Persona con el nombre y apellidos que se busca
+	 * @return indice de la persona buscada, si produce un error devuelve -1
+	 */
+	int getByNombreApellidos(Persona p);
+
+	/**
 	 * Anadir una Persona en la BBDD
 	 * 
 	 * @param p
 	 *            Persona sin el Id
-	 * @return Persona anadida
+	 * @return indice de la persona anadida, si produce un error devuelve -1
 	 */
 	int insert(Persona p);
 

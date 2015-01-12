@@ -14,7 +14,7 @@ import javax.sql.DataSource;
 public class FactoriaMySql {
 
 	private static Connection con = null;
-	private static final String DATA_SOURCE = "java:comp/env/jdbc/TestDB";
+	private static final String DATA_SOURCE = "java:comp/env/jdbc/test";
 
 	public static Connection conectar() {
 		// patron singleton, si ya esta creada para que volver hacerlo ?
