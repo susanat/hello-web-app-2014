@@ -20,7 +20,6 @@ body {
 }
 
 .registro h2{
-	font-family: Helvetica;
 	font-size: 20px;
 	color:#55ACE6;
 }
@@ -46,7 +45,7 @@ body {
 	font-weight: bold; 	
 } 
 
-.registro form input::placeholder{
+.registro form input placeholder{
 	color:#55ACE6;	
 } 	 	
 
@@ -61,5 +60,50 @@ body {
 	border-radius:10px;
 	text-align: center;
 	margin-top: 10px;
+}
+
+.resultados h2{
+	font-family: Helvetica;
+	font-size: 20px;
+	color:#999;
+	
+}
+
+.resultados .blanco li.vcard{
+	border-top:2px solid #999;
+}
+
+.resultados .blanco li{
+	list-style-type:none; 	
+	padding: 20px;
+	text-align: left; 
+	overflow: auto;
+}
+
+.resultados .blanco  li a {
+	text-decoration:none;
+	text-transform:uppercase;
+	color:#55ACE6;	
+	padding: 20px;
+	text-align: left; 
+}
+
+.resultados .blanco  li ul {
+	margin: 0px; 
+	height:20px;;
+}
+
+.resultados .blanco li.view-profile{
+	float:right;
+	padding:0px;
+	overflow: hidden;
+}
+
+
+.resultados .blanco li dl {
+	display:inline-block;
+	float: right;
+	width:650px;	
+	
 }
 
