@@ -15,12 +15,12 @@
 <body>
 	<div class="panel panel-primary">
 		<div class="panel-heading">
-	        <h2 class="panel-title">LISTADO DE LAS PERSONAS EN LA BD</h2>
+	        <h2 class="panel-title">LISTADO DE LAS PERSONAS</h2>
 	    </div>
 	    
 	    <div class="panel-body">
 	       <a href="index.jsp" class="btn btn-primary btn-sm active" role="button">Volver a la búsqueda</a>
-	       <br><br>
+	       <hr>
 	       <%
 			ArrayList<Persona> personas = (ArrayList<Persona>) request.getAttribute("personas");
 		    for(int i=0; i < personas.size(); i++){
@@ -50,7 +50,6 @@
 					</form>
 				</div>
 				<hr>
-				<br>
 	       		    
 	       <%
 	        }
