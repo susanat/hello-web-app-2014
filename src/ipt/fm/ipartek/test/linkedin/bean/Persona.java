@@ -8,6 +8,14 @@ public class Persona {
 
 	public static final int ID_NULL = -1;
 
+	public Persona() {
+		super();
+		this.id = ID_NULL;
+		this.nombre = null;
+		this.apellidos = null;
+		this.foto = null;
+	}
+
 	/**
 	 * Constructor de una Persona con un id Nulo y una fota Nula
 	 * 
@@ -57,6 +65,6 @@ public class Persona {
 	@Override
 	public String toString() {
 		return "Persona [id=" + id + ", nombre=" + nombre + ", apellidos="
-				+ apellidos + "]";
+				+ apellidos + ", foto=" + foto + "]";
 	}
 }
