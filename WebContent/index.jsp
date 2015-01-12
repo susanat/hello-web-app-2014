@@ -30,7 +30,7 @@
 		</form>
 	  	<br>
 		<form action="persona" method="get"> 	
-			<input type="submit" class="btn btn-primary btn-sm" value="Ver todos">
+			<input type="submit" class="btn btn-info btn-sm" value="Ver todos">
 		</form>
     </div>
 	

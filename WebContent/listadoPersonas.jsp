@@ -8,18 +8,20 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta charset="utf-8">
   <base href="<%=request.getContextPath()+"/"%>">
-  <title>Listado de búsqueda</title>
+  <title>Listado de personas</title>
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/main.css" rel="stylesheet">
 </head>
 <body>
 	<div class="panel panel-primary">
 		<div class="panel-heading">
-	        <h2 class="panel-title">LISTADO DE LAS PERSONAS</h2>
+	        <h2 class="panel-title">Listado de las Personas</h2>
 	    </div>
 	    
 	    <div class="panel-body">
-	       <a href="index.jsp" class="btn btn-primary btn-sm active" role="button">Volver a la búsqueda</a>
+	       <a href="index.jsp" class="btn btn-primary btn-sm active" role="button">
+	       		<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>&nbsp;&nbsp;Volver a la búsqueda
+	       </a>
 	       <hr>
 	       <%
 			ArrayList<Persona> personas = (ArrayList<Persona>) request.getAttribute("personas");
