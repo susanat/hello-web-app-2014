@@ -18,7 +18,7 @@ public class TestFactoriaMysql {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		conexion = MySqlDAOFactory.conectar();
+		conexion = MySqlDAOFactory.getInstance().conectar();
 		String createTableSQL = "CREATE TABLE personaPrueba("
 				+ "id NUMBER(5) NOT NULL, " + "nombre VARCHAR(20) NOT NULL, "
 				+ "apellido1 VARCHAR(20) NOT NULL" + ")";
@@ -30,7 +30,7 @@ public class TestFactoriaMysql {
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 
-		MySqlDAOFactory.desconectar();
+		MySqlDAOFactory.getInstance().desconectar();
 	}
 
 	@Before

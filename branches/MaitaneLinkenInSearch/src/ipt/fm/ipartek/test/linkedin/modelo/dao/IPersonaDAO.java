@@ -14,6 +14,12 @@ import java.util.ArrayList;
 
 public interface IPersonaDAO {
 
+	static final String TABLA = "persona";
+	static final String COL_ID = "id";
+	static final String COL_NOMBRE = "nombre";
+	static final String COL_APELLIDOS = "apellido1";
+	static final String COL_FOTO = "foto";
+
 	/**
 	 * Se selecciona todos los registos de la BBDD (tabla Personas)
 	 * 
