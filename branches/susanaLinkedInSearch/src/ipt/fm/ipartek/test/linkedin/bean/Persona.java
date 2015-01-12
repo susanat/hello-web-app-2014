@@ -7,6 +7,14 @@ public class Persona {
 	private String apellidos;
 	private String foto;
 	
+	public Persona(){
+	    super();
+	    this.id = -1;
+	    this.nombre = "";
+	    this.apellidos = "";
+	    this.foto = "";
+	}
+	
 	public Persona(String nombre, String apellidos) {
 		super();
 		this.id = -1;
@@ -46,6 +54,13 @@ public class Persona {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
+
+	@Override
+	public String toString() {
+	    return "Persona [id=" + id + ", nombre=" + nombre + ", apellidos="
+		    + apellidos + ", foto=" + foto + "]";
+	}
+	
 	
 	
 	
