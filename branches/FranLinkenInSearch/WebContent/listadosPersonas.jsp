@@ -1,3 +1,5 @@
+<%@page import="ipt.fm.ipartek.test.linkedin.bean.Persona"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -12,27 +14,29 @@
 <a href="http://localhost:8080/LinkenInSearch/index.jsp">Volver</a>
 <br>
 <%
-	String personas = (String)request.getAttribute("personas");
-	if (personas.length() > 0) {
-		String[] persona = personas.split(";");
-		String[] datos;
-		for (int i=0; i<persona.length; i++) {
-			datos = persona[i].split(",");
+	ArrayList<Persona> personas = (ArrayList<Persona>)request.getAttribute("personas");
+	if (personas != null && personas.size() > 0) {
+		for (int i=0; i<personas.size(); i++) {
 %>
+			<img src="<%=personas.get(i).getFoto()%>" alt="<%=personas.get(i).getNombre()+" " +personas.get(i).getApellidos()%>" height="60" width="60">
 			<form action="persona" method="post">
-				<input type="text" name="id" value="<%=datos[2]%>" readonly>
-				<input type="text" name="nombre" value="<%=datos[0]%>">
-				<input type="text" name="apellidos" value="<%=datos[1]%>">
+				<input type="text" name="id" value="<%=personas.get(i).getId()%>" readonly>
+				<input type="text" name="nombre" value="<%=personas.get(i).getNombre()%>">
+				<input type="text" name="apellidos" value="<%=personas.get(i).getApellidos()%>">
 				<input type="hidden" name="operacion" value="0">
 				<input type="submit" value="Actualizar">
 			</form>
 			<form action="persona" method="post">
-				<input type="hidden" name="id" value="<%=datos[2]%>">
+				<input type="hidden" name="id" value="<%=personas.get(i).getId()%>">
 				<input type="hidden" name="operacion" value="1">
 				<input type="submit" value="Eliminar">
 			</form>
 <%
 		}
+	} else {
+%>
+	<p>Vacio</p>
+<%
 	}
 
 %>
