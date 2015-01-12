@@ -63,7 +63,7 @@ public class LinkedInParse {
 
 		    form += "<input type='submit' value='Añadir'></form>";
 		    listaResultados.getElementsByClass("vcard").get(i)
-		    .append(form);
+			    .append(form);
 		}
 
 		resul = listaResultados.html();

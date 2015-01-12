@@ -1,6 +1,11 @@
 package com.ipartek.formacion.linkedin.bean;
 
 public class Persona {
+    public final static String NOMBRE_DEFAULT = "Default";
+    public final static String APELLIDOS_DEFAULT = "Default";
+    public final static int EDAD_DEFAULT = 18;
+    public final static String FOTO_DEFAULT = "Default";
+
     private int id;
     private String nombre;
     private String apellido;
@@ -13,6 +18,17 @@ public class Persona {
 
     public void setUrl_foto(String url_foto) {
 	this.url_foto = url_foto;
+
+    }
+
+    public Persona(int id) {
+	super();
+	this.id = id;
+	this.nombre = NOMBRE_DEFAULT;
+	this.apellido = APELLIDOS_DEFAULT;
+	this.edad = EDAD_DEFAULT;
+	this.url_foto = FOTO_DEFAULT;
+
     }
 
     public Persona(int id, String nombre, String apellido, int edad,

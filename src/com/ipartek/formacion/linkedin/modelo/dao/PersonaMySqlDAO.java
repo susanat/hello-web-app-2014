@@ -11,6 +11,7 @@ import com.ipartek.formacion.linkedin.bean.Persona;
 
 public class PersonaMySqlDAO implements IPersonaDAO {
     private Connection conexion = null;
+
     public final static String SQL_SELECT_ALL = "SELECT * FROM "
 	    + IPersonaDAO.TABLA;
     public final static String SQL_SELECT_BYID = "SELECT * FROM "
@@ -125,7 +126,6 @@ public class PersonaMySqlDAO implements IPersonaDAO {
     @Override
     public synchronized int insert(Persona p) {
 	int idNuevo = -1;
-
 	PreparedStatement st = null;
 	ResultSet rs = null;
 	try {
