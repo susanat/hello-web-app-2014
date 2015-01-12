@@ -1,17 +1,12 @@
 package ipt.fm.ipartek.test.controller;
 
 import ipt.fm.ipartek.test.bean.Persona;
+import ipt.fm.ipartek.test.modelo.dao.DAOFactory;
+import ipt.fm.ipartek.test.modelo.dao.IPersonaDAO;
 import ipt.fm.ipartek.test.util.Constantes;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 
-import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,9 +17,16 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class PersonaServlet extends HttpServlet {
 
+	IPersonaDAO daoPersona = null;
+
 	private static final long serialVersionUID = 1L;
 
-	private int personaId = Constantes.ID_NULL;
+	@Override
+	public void init() throws ServletException {
+		super.init();
+		final DAOFactory factory = DAOFactory.getFactoriaDAO(DAOFactory.MYSQL);
+		daoPersona = factory.getIPersonaDAO();
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -32,18 +34,16 @@ public class PersonaServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-	IOException {
-		try {
-			// if personaId > Constantes.ID_NULL que vaya al form con los datos
-			// del id
-			personaId = Integer.parseInt(request.getParameter("id"));
-
-			listPersonas(request);
-			request.getRequestDispatcher("list.jsp").forward(request, response);
-		} catch (NamingException | SQLException e) {
-			e.printStackTrace();
-		} catch (final Exception e) {
-			personaId = Constantes.ID_NULL;
+			IOException {
+		// TODO repasar esto, ahora el id va siempre con los forms si la persona
+		// lo tiene
+		if (request.getParameter("id") != null) {
+			final Persona p = daoPersona.getById(Integer.parseInt(request.getParameter("id")));
+			request.setAttribute(Constantes.ATT_PERSONA, p);
+			request.getRequestDispatcher(Constantes.JSP_FORM_PERSONA).forward(request, response);
+		} else {
+			request.setAttribute(Constantes.ATT_PERSONAS, daoPersona.getAll());
+			request.getRequestDispatcher(Constantes.JSP_LIST_PERSONA).forward(request, response);
 		}
 	}
 
@@ -56,62 +56,32 @@ public class PersonaServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
-		try {
-			insertPersona(getParameters(request));
-			doGet(request, response);
-		} catch (SQLException | NamingException e) {
-			e.printStackTrace();
+		switch (Integer.parseInt(request.getParameter(Constantes.CRUD_OP))) {
+
+		case Constantes.CRUD_INSERT:
+			final int idPersonaInsertada = daoPersona.insert(getParameters(request));
+			break;
+
+		case Constantes.CRUD_UPDATE:
+			final Persona p = daoPersona.update(getParameters(request));
+			break;
+
+		case Constantes.CRUD_DELETE:
+			if (daoPersona.delete(getParameters(request))) {
+				request.setAttribute(Constantes.ATT_PERSONA, null);
+				doGet(request, response);
+			}
+			break;
 		}
+
+		doGet(request, response);
 	}
 
 	private Persona getParameters(final HttpServletRequest request) {
-		final Persona persona = new Persona(request.getParameter("nombre"), request.getParameter("apellidos"),
-				Integer.parseInt(request.getParameter("edad")));
+		final Persona persona = new Persona(Integer.parseInt(request.getParameter(IPersonaDAO.COL_ID)),
+				request.getParameter(IPersonaDAO.COL_NOMBRE), request.getParameter(IPersonaDAO.COL_APELLIDOS),
+				request.getParameter(IPersonaDAO.COL_FOTO));
 		return persona;
-	}
-
-	private void listPersonas(final HttpServletRequest request) throws NamingException, SQLException {
-		Connection connection = null;
-		Statement st = null;
-		ResultSet rs = null;
-		final String sql = "SELECT nombre, apellido1, edad FROM persona";
-		final ArrayList<Persona> personas = new ArrayList<Persona>();
-
-		connection = FactoriaMySql.openConnection();
-
-		st = connection.createStatement();
-		rs = st.executeQuery(sql);
-
-		while (rs.next()) {
-			personas.add(new Persona(rs.getString("nombre"), rs.getString("apellido1"), rs.getInt("edad")));
-		}
-
-		request.setAttribute("personas", personas);
-	}
-
-	private void insertPersona(final Persona persona) throws SQLException, NamingException {
-		Connection connection = null;
-		PreparedStatement st = null;
-		final String sql = "INSERT INTO persona (nombre, apellido1, edad) VALUES (?, ?, ?)";
-
-		connection = FactoriaMySql.openConnection();
-
-		st = connection.prepareStatement(sql);
-		st.setString(1, persona.getNombre());
-		st.setString(2, persona.getApellidos());
-		st.setInt(3, 30);
-
-		st.executeUpdate();
-
-		if (st != null) {
-			try {
-				st.close();
-			} catch (final Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-		FactoriaMySql.closeConnection();
 	}
 
 }
