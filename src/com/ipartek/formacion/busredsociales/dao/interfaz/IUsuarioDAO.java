@@ -14,6 +14,19 @@ import com.ipartek.formacion.busredsociales.dao.factoria.DAOException;
  *
  */
 public interface IUsuarioDAO {
+	
+	public final static String COL_NAME_ID = "id";
+	public final static String COL_NAME_USERNAME = "username";
+	public final static String COL_NAME_APELLIDOS = "apellidos";	
+	public final static String COL_NAME_PHOTO = "photo";
+	
+	
+	public final static int COL_ID = 1;
+	public final static int COL_USERNAME = 2;
+	public final static int COL_APELLIDOS = 3;	
+	public final static int COL_PHOTO = 4;
+	
+	public final static String TABLENAME = "user";
 
 	public List<Usuario> getAll() throws DAOException, Exception;
 	
