@@ -30,8 +30,8 @@
 
 <div class="resultados">
 <h1>Resultados de la busqueda</h1>
-${requestScope.personas}
-${requestScope.resulthtml}
+<h2>Nº de resultados: ${requestScope.personas} </h2>
+<div class="blanco">${requestScope.resulthtml}</div>
 </div>
 
 
