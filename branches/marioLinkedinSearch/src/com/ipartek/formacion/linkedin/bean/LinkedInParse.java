@@ -1,5 +1,7 @@
 package com.ipartek.formacion.linkedin.bean;
 
+import java.util.ArrayList;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -32,17 +34,20 @@ public class LinkedInParse {
 	this.last = "last=" + last + "&search=Buscar";
     }
 
-    public String getHtml() {
-	String resul = "";
-	String form = "";
+    public ArrayList<Persona> getHtml() {
+	ArrayList<Persona> personas = null;
 	try {
 	    Document doc = Jsoup.connect(SEARCH_URL + getFirst() + getLast())
 		    .get();
 	    Element listaResultados = doc.getElementById("result-set");
 	    if (listaResultados != null) {
+		personas = new ArrayList<Persona>();
 		String nombre = "";
 		String apellidos = "";
 		String foto = "";
+		String basic = "";
+		String expanded = "";
+		Persona p = null;
 		int cant = listaResultados.getElementsByClass("vcard").size();
 		for (int i = 0; i < cant; i++) {
 		    nombre = listaResultados.getElementsByClass("given-name")
@@ -51,33 +56,24 @@ public class LinkedInParse {
 			    .getElementsByClass("family-name").get(i).text();
 		    foto = listaResultados.getElementsByTag("img").get(i)
 			    .absUrl("src");
+		    nombre = listaResultados.getElementsByClass("given-name")
+			    .get(i).text();
+		    basic = listaResultados.getElementsByClass("vcard-basic")
+			    .get(i).html();
+		    expanded = listaResultados
+			    .getElementsByClass("vcard-expanded").get(i).html();
+		    p = new Persona(0, nombre, apellidos, 18, foto, basic,
+			    expanded);
+		    personas.add(p);
 
-		    form = "<form action='persona' method='post'>";
-		    form += "<input type='hidden' name='nombre' value='"
-			    + nombre + "'>";
-		    form += "<input type='hidden' name='apellidos' value='"
-			    + apellidos + "'>";
-		    form += "<input type='hidden' name='foto' value='" + foto
-			    + "'>";
-		    form += "<input type='hidden' name='operacion' value='1'>";
-
-		    form += "<input type='submit' value='Añadir'></form>";
-		    listaResultados.getElementsByClass("vcard").get(i)
-			    .append(form);
 		}
-
-		resul = listaResultados.html();
-
-	    } else {
-		resul = "<h1> 0 resultados</h1>";
 
 	    }
 
 	} catch (Exception e) {
-	    resul = e.getMessage();
 	    e.printStackTrace();
 	}
 
-	return resul;
+	return personas;
     }
 }
