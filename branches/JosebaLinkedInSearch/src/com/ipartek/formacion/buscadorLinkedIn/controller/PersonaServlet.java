@@ -3,7 +3,6 @@ package com.ipartek.formacion.buscadorLinkedIn.controller;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -45,7 +44,7 @@ public class PersonaServlet extends HttpServlet {
 	    // venimos desde el enlace de listar, no hay que crear o recoger
 	    // nada
 	    request.setAttribute("personas", listarConDAO());// Estamos usando
-							     // listar con DAO
+	    // listar con DAO
 
 	    request.getRequestDispatcher("listadoPersonas.jsp").forward(
 		    request, response);
@@ -62,55 +61,6 @@ public class PersonaServlet extends HttpServlet {
 	    request.getRequestDispatcher("listadoPersonas.jsp").forward(
 		    request, response);
 	}
-
-    }
-
-    private String listar() {
-	// conectar base de datos
-	String personas = "";
-	Connection conexion = null;
-	Statement st = null;
-	ResultSet rs = null;
-
-	try {
-	    conexion = crearConexion();
-
-	    st = conexion.createStatement();
-	    rs = st.executeQuery("SELECT nombre,apellidos, URLImagen FROM persona");
-
-	    while (rs.next()) {
-		personas += "<div class='container'><img src='"
-			+ rs.getString("URLImagen")
-			+ "' class='img-circle'><br>";
-		personas += rs.getString("nombre");
-		personas += "    ";
-		personas += rs.getString("apellidos");
-		personas += "     ";
-		personas += "<form method='post' action='BorradoServlet'>"
-			+ "<input type='text' hidden name='accion' value='actualizar'> "
-			+ "<input type='text' name='nombre' hidden value='"
-			+ rs.getString("nombre")
-			+ "'><input type='text' name='apellidos' hidden value='"
-			+ rs.getString("apellidos")
-			+ "'><input type=submit value='Actualizar' class='btn btn-primary'><br>"
-			+ "</form>";
-		personas += "<form method='post' action='BorradoServlet'>"
-			+ "<input type='text' hidden name='accion' value='borrar'> "
-			+ "<input type='text' name='nombre' hidden value='"
-			+ rs.getString("nombre")
-			+ "'><input type='text' name='apellidos' hidden value='"
-			+ rs.getString("apellidos")
-			+ "'><input type=submit value='borrar' class='btn btn-danger'>"
-			+ "</form></div>";
-		personas += "<br>";
-	    }
-	} catch (Exception ex) {
-	    ex.printStackTrace();
-	} finally {
-	    cerrarConexion(conexion, st, rs);
-
-	}
-	return personas;
 
     }
 
@@ -150,28 +100,6 @@ public class PersonaServlet extends HttpServlet {
 	}
 
 	return personas;
-
-    }
-
-    private void insertar(Persona p1, String urlImagen) {
-
-	Connection conexion = null;
-	PreparedStatement st = null;
-	ResultSet rs = null;
-	try {
-	    conexion = crearConexion();
-	    st = conexion
-		    .prepareStatement("INSERT INTO persona(nombre, apellidos, URLImagen) VALUES(?,?,?)");
-	    st.setString(1, p1.getNombre());
-	    st.setString(2, p1.getApellidos());
-	    st.setString(3, urlImagen);
-	    st.executeUpdate();
-	} catch (Exception e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	} finally {
-	    cerrarConexion(conexion, st, rs);
-	}
 
     }
 

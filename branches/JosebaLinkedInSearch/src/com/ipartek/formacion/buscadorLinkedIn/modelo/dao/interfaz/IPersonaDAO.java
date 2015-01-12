@@ -14,11 +14,17 @@ import com.ipartek.formacion.buscadorLinkedIn.bean.Persona;
 
 public interface IPersonaDAO {
 
+    static final String TABLA = "persona";
+    static final String COL_ID = "id";
+    static final String NOMBRE = "nombre";
+    static final String APELLIDOS = "apellidos";
+    static final String LINK_FOTO = "URLImagen";
+
     ArrayList<Persona> getAll();
 
-    Persona getByID(Persona p);
+    Persona getByID(int id);
 
-    Persona insert(Persona p);
+    int insert(Persona p);
 
     boolean delete(Persona p);
 

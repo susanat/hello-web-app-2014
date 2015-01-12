@@ -6,6 +6,10 @@ public class Persona {
     private String apellidos;
     private String urlImagen;
 
+    public Persona() {
+	super();
+    }
+
     public Persona(String nombre, String apellidos) {
 	super();
 	this.nombre = nombre;
@@ -29,6 +33,18 @@ public class Persona {
 
     public String getUrlImagen() {
 	return urlImagen;
+    }
+
+    public void setNombre(String nombre) {
+	this.nombre = nombre;
+    }
+
+    public void setApellidos(String apellidos) {
+	this.apellidos = apellidos;
+    }
+
+    public void setUrlImagen(String urlImagen) {
+	this.urlImagen = urlImagen;
     }
 
 }
