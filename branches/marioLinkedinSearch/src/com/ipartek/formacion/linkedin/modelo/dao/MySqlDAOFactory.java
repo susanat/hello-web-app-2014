@@ -22,6 +22,7 @@ public class MySqlDAOFactory extends DAOFactory {
     private synchronized static void createInstance() {
 	if (INSTANCE == null) {
 	    INSTANCE = new MySqlDAOFactory();
+
 	}
     }
 
@@ -37,9 +38,17 @@ public class MySqlDAOFactory extends DAOFactory {
 	    try {
 		InitialContext ctx = new InitialContext();
 		DataSource ds = (DataSource) ctx.lookup(DATA_SOURCE);
-		con = ds.getConnection();
+		try {
+		    con = ds.getConnection();
+		} catch (Exception e) {
+		    e.printStackTrace();
+		    System.out
+		    .println("No se ha podido conectar a la BD. Enciéndela, anda.");
+		}
+
 	    } catch (Exception e) {
 		e.printStackTrace();
+		System.out.println("LA CONEXIÓN A LA BD, HA FALLADO");
 	    }
 	}
 	return con;

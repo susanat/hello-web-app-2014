@@ -22,6 +22,12 @@ import com.ipartek.formacion.linkedin.modelo.dao.IPersonaDAO;
  */
 public class PersonaServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    public static final int CERO = 0;
+
+    public static final String OP_INSERTAR = "1";
+    public static final String OP_ACTUALIZAR = "2";
+    public static final String OP_BORRAR = "3";
+
     DAOFactory factoria = null;
     IPersonaDAO daoPersona = null;
 
@@ -66,20 +72,20 @@ public class PersonaServlet extends HttpServlet {
 	String op = request.getParameter("operacion");
 	Persona p = null;
 
-	if (op.equals("1")) {
+	if (op.equals(OP_INSERTAR)) {
 
-	    p = new Persona(0, request.getParameter("nombre"),
-		    request.getParameter("apellidos"), 18,
+	    p = new Persona(CERO, request.getParameter("nombre"),
+		    request.getParameter("apellidos"), Persona.EDAD_DEFAULT,
 		    request.getParameter("foto"));
 	    int idnuevo = daoPersona.insert(p);
-	    if (idnuevo >= 0) {
+	    if (idnuevo >= CERO) {
 		System.out.println(idnuevo);
 		System.out.println("bien insertada");
 	    } else {
 		System.out.println("mal insertada");
 	    }
 
-	} else if (op.equals("2")) {
+	} else if (op.equals(OP_ACTUALIZAR)) {
 	    String edad = request.getParameter("edad");
 	    id = request.getParameter("id");
 
@@ -94,11 +100,10 @@ public class PersonaServlet extends HttpServlet {
 		System.out.println("mal actualizado");
 	    }
 
-	} else if (op.equals("3")) {
+	} else if (op.equals(OP_BORRAR)) {
 	    id = request.getParameter("id");
 
-	    p = new Persona(Integer.parseInt(id), request.getParameter(""),
-		    request.getParameter(""), 18, request.getParameter(""));
+	    p = new Persona(Integer.parseInt(id));
 
 	    if (daoPersona.delete(p)) {
 		System.out.println("bien borrado");
