@@ -55,23 +55,26 @@ public class LinkedInParse {
 			Element listaResultados = doc.getElementById("result-set");
 			if (listaResultados != null) {
 
-				Iterator<Element> perfiles = listaResultados.select("h2")
+				Iterator<Element> perfiles = listaResultados.select("li.vcard")
 						.iterator();
 
 				String nombre = "";
 				String apellidos = "";
+				String foto = "";
 				String boton = "";
 				Element perfilActual = null;
 				while (perfiles.hasNext()) {
 					perfilActual = perfiles.next();
 					nombre = perfilActual.select("span.given-name").text();
 					apellidos = perfilActual.select("span.family-name").text();
+					foto = perfilActual.select("img").attr("src");
 					boton = "<a href=\"http://localhost:8080/LinkenInSearch/persona?nombre="
 							+ nombre
 							+ "&apellidos="
 							+ apellidos
-							+ "\">Añadir</a>";
-					perfilActual.append(boton);
+							+ "&foto="
+							+ foto + "\">Añadir</a>";
+					perfilActual.select("h2").append(boton);
 				}
 
 				resul = listaResultados.html();
