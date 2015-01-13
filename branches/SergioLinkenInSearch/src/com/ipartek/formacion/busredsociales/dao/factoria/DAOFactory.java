@@ -8,6 +8,8 @@ public abstract class DAOFactory
 	//DAOs
 	public abstract IUsuarioDAO getUsuarioDAO() throws DAOException, Exception;
 	
+	public abstract boolean checkConnection() throws DAOException, Exception;
+	
 	
 	public final static int ACCESS = 1;
 	public final static int MYSQL = 2;

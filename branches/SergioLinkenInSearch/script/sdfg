@@ -1,0 +1,77 @@
+Pendiente:
+
+- "The Human Division" Saga Fuerzas de Defensa Coloniales de John Scalzi. Publicado en 2013 
+En castellano a fecha Enero 2015 no encontrado
+
+
+Revisar, parece que tiene algunos interesantes, aunque no para descargar:
+http://infiernocanario.blogspot.com.es/search/label/libros
+
+
+//Para el blog
+
+Ventajas y desventajas de MyISAM e InnoDB:
+http://www.tufuncion.com/mysql-innodb-myisam
+
+...Por ejemplo si queremos hacer una tienda online o una aplicación de reserva de vuelos sin duda tendremos que escoger InnoDB que nos asegura mayor integridad de datos.
+
+MyISAM sera la elección adecuada si eres nuevo con MySQL y para aplicaciones webs simples o poco definidas, por poner ejemplos de aplicaciones que deberían utilizar MyISAM: CMS (content management systems), simples motores de búsqueda ó blogs.
+
+
+
+//Comprobar y dar opciones para bd no-sql:
+https://infow.wordpress.com/2012/09/04/nosql-i-introduccion/
+http://www.notodocodigo.com/introduccion-a-mongodb/mongo-en-java/
+https://josemmsimo.wordpress.com/2014/01/02/conectando-una-aplicacion-java-con-mongodb-en-windows/
+http://www.linux-party.com/index.php/89-basesdedatos/6599-5-pros-y-5-contras-de-cinco-bases-de-datos-nosql-
+
+MongoDB: ¿Qué?, ¿cómo?, ¿cuándo?, ¿dónde?
+http://blog.bvision.com/?p=4461
+
+
+MyISAM to InnoDB o viceversa:
+
+
+http://blog.nuuve.com/2010/03/24/convertir-todas-las-tablas-innodb-a-myisam/
+
+Como editar una a una cada tabla de la base de datos no era una opción, me puse a buscar un poco y encontré una solución muy sencilla y flexible en CodeSnippets, que simplemente genera el volcado de las consultas necesarias para convertir las tablas de todas las bases de datos del servidor:
+
+SELECT CONCAT('ALTER TABLE ',table_schema,'.',table_name,' engine=MyISAM;') FROM information_schema.tables WHERE engine = 'InnoDB';
+
+- Si queremos convertir sólo las tablas de una base de datos en concreto, podemos modificar la consulta anterior y escribir algo así:
+
+SELECT CONCAT('ALTER TABLE ',table_schema,'.',table_name,'  engine=MyISAM;') FROM information_schema.tables WHERE engine = 'InnoDB'  and table_schema = 'NOMBRE_DB';
+
+http://rubenlacasa.es/2013/10/21/como-cambiar-de-myisam-a-innodb-mysql-tips/
+
+<?php
+/**
+* Created by Ruben Lacasa Mas
+* User: Ruben Lacasa Mas <ruben@rubenlacasa.es>
+* Date: 18/10/13
+* Time: 12:18
+*/
+$dbhost = 'hostname';
+$dbname = 'dbname';
+$dbuser = 'dbuser';
+$dbpass = 'dbpassword';
+$dsn = 'mysql:dbname='.$dbname.';host='.$dbhost;
+try {
+$dbh = new PDO($dsn, $dbuser, $dbpass);
+} catch (PDOException $e) {
+echo 'Connection failed: ' . $e->getMessage();
+}
+$sql = "SHOW TABLES";
+$query = $dbh->prepare($sql);
+$query->execute();
+$tables = $query->fetchAll(PDO::FETCH_CLASS);
+foreach ($tables as $table) {
+$sqlAlter = "ALTER TABLE ".$table->Tables_in_dbname." ENGINE=INNODB;";
+$dbh->exec($sqlAlter);
+} 
+
+Conectar access con java sin ODBC
+
+http://rmijdbc.ow2.org/
+http://ucanaccess.sourceforge.net/site.html
+
