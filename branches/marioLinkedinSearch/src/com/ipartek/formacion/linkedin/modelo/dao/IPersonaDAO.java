@@ -19,14 +19,14 @@ public interface IPersonaDAO {
     static final String COL_APELLIDOS = "apellidos";
     static final String COL_FOTO = "url_foto";
 
-    ArrayList<Persona> getAll();
+    ArrayList<Persona> getAll() throws ModelException;
 
-    Persona getById(Persona p);
+    Persona getById(Persona p) throws ModelException;
 
-    int insert(Persona p);
+    int insert(Persona p) throws ModelException;
 
-    boolean delete(Persona p);
+    boolean delete(Persona p) throws ModelException;
 
-    boolean update(Persona p);
+    boolean update(Persona p) throws ModelException;
 
 }

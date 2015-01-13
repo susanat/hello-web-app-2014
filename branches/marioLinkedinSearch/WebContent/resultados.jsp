@@ -41,12 +41,12 @@
 		       for(int i=0; i < personas.size(); i++){
 			     %>
 		  		<div class='container'> 	  		
-					<div class='container'>
+					<div class='row'>
 						<img alt='foto de perfil' name="foto" src='<%=personas.get(i).getUrl_foto() %>' class='pull-left margin-right img-circle' height='120' width='120'>
 						<h2><%=personas.get(i).getNombre()+" "+ personas.get(i).getApellido()%> </h2>
 					</div>
 					<br>
-					<div class='container'>
+					<div class='row'>
 						<dl class="dl-horizontal"><%= personas.get(i).getInfo_basic() %></dl>
 						<dl class="dl-horizontal"><%= personas.get(i).getInfo_expanded() %></dl>
 						<form action='persona' method='post'>

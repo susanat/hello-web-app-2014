@@ -32,23 +32,20 @@ public class MySqlDAOFactory extends DAOFactory {
 	return INSTANCE;
     }
 
-    public Connection conectar() {
+    public Connection conectar() throws ModelException {
 
 	if (con == null) {
 	    try {
 		InitialContext ctx = new InitialContext();
 		DataSource ds = (DataSource) ctx.lookup(DATA_SOURCE);
-		try {
-		    con = ds.getConnection();
-		} catch (Exception e) {
-		    e.printStackTrace();
-		    System.out
-		    .println("No se ha podido conectar a la BD. Enciéndela, anda.");
-		}
+
+		con = ds.getConnection();
 
 	    } catch (Exception e) {
+
 		e.printStackTrace();
-		System.out.println("LA CONEXIÓN A LA BD, HA FALLADO");
+		System.out.println("LA CONEXIÓN A LA BD HA FALLADO");
+		throw new ModelException("LA CONEXIÓN A LA BD HA FALLADO");
 	    }
 	}
 	return con;
