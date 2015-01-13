@@ -27,7 +27,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 	    + " SET nombre=?,apellidos=?,edad=? WHERE id=?";
 
     @Override
-    public synchronized ArrayList<Persona> getAll() {
+    public synchronized ArrayList<Persona> getAll() throws ModelException {
 	ArrayList<Persona> personas = null;
 	Statement st = null;
 	ResultSet rs = null;
@@ -47,9 +47,8 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 	    }
 
 	} catch (Exception e) {
-	    // cerrar conexion
-
 	    e.printStackTrace();
+	    throw new ModelException(e.getMessage());
 
 	} finally { // cerrar todos los objetos creados para el acceso de BBDD
 	    // cerrar ResultSet
@@ -77,7 +76,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
     }
 
     @Override
-    public synchronized Persona getById(Persona p) {
+    public synchronized Persona getById(Persona p) throws ModelException {
 	Persona pers = null;
 	PreparedStatement st = null;
 	ResultSet rs = null;
@@ -98,6 +97,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 	    // cerrar conexion
 
 	    e.printStackTrace();
+	    throw new ModelException(e.getMessage());
 
 	} finally { // cerrar todos los objetos creados para el acceso de BBDD
 	    // cerrar ResultSet
@@ -124,7 +124,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
     }
 
     @Override
-    public synchronized int insert(Persona p) {
+    public synchronized int insert(Persona p) throws ModelException {
 	int idNuevo = -1;
 	PreparedStatement st = null;
 	ResultSet rs = null;
@@ -156,6 +156,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 	    // cerrar conexion
 
 	    e.printStackTrace();
+	    throw new ModelException(e.getMessage());
 
 	} finally { // cerrar todos los objetos creados para el acceso de BBDD
 	    // cerrar ResultSet
@@ -182,7 +183,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
     }
 
     @Override
-    public synchronized boolean delete(Persona p) {
+    public synchronized boolean delete(Persona p) throws ModelException {
 	boolean correcto = false;
 
 	PreparedStatement st = null;
@@ -199,7 +200,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 	} catch (Exception e) {
 
 	    e.printStackTrace();
-	    // cerrar conexion
+	    throw new ModelException(e.getMessage());
 
 	} finally { // cerrar todos los objetos creados para el acceso de BBDD
 	    // cerrar ResultSet
@@ -226,7 +227,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
     }
 
     @Override
-    public synchronized boolean update(Persona p) {
+    public synchronized boolean update(Persona p) throws ModelException {
 	boolean correcto = false;
 	PreparedStatement st = null;
 	ResultSet rs = null;
@@ -246,6 +247,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 	    // cerrar conexion
 
 	    e.printStackTrace();
+	    throw new ModelException(e.getMessage());
 
 	} finally { // cerrar todos los objetos creados para el acceso de BBDD
 	    // cerrar ResultSet
