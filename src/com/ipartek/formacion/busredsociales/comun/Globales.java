@@ -8,6 +8,28 @@ public class Globales {
 		
 	}
 	
+	/**
+	 * Errores críticos
+	 */
+	
+	public enum ETypeCriticalError {
+		LOG,
+		DATABASE,
+		AUXILIAR_TABLES,
+		STADISTICS
+	}
+	
+	public static boolean GLOBAL_IS_CRITICAL_ERROR = false;
+	public static ETypeCriticalError GLOBAL_TYPE_CRITICAL_ERROR = null;
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * url ROOT del sitio
