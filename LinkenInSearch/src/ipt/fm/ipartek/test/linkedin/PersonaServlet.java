@@ -78,6 +78,18 @@ public class PersonaServlet extends HttpServlet {
 			
 			urlforward = "index.jsp";
 		}
+		
+		if(command.equalsIgnoreCase("update")){
+			String id = request.getParameter("id");
+			String nombre = request.getParameter("nombre");
+			String apellido = request.getParameter("apellido");
+			String foto = request.getParameter("foto");
+			
+			personaDAO.update(new Persona(Integer.parseInt(id), nombre, apellido, foto));
+			
+			urlforward = "index.jsp";
+			
+		}
 				
 		request.getRequestDispatcher(urlforward).forward(request, response);
 	}
