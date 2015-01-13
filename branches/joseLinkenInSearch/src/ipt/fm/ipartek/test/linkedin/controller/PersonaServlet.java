@@ -35,25 +35,25 @@ public class PersonaServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
 
 		// Recogemos la accion a ejecutar
-		String accion = request.getParameter("Action");
+		// String accion = request.getParameter("Action");
 
 		// Recogemos los datos de la Persona
-		String nombre = request.getParameter("nombre");
-		String apellidos = request.getParameter("apellidos");
-		Persona persona = new Persona(nombre, apellidos);
+		// String nombre = request.getParameter("nombre");
+		// String apellidos = request.getParameter("apellidos");
+		// Persona persona = new Persona(nombre, apellidos);
 
 		// Miramos que accion ejecutamos
-		if ("Crear".equalsIgnoreCase(accion)) {
-			persona.setId(totalRegistros());
-			insertar(persona);
-		} else {
-			if ("Buscar".equalsIgnoreCase(accion)) {
-				mostrarConsulta(consultar(persona));
-			}
-		}
+		// if ("Crear".equalsIgnoreCase(accion)) {
+		// persona.setId(totalRegistros());
+		// insertar(persona);
+		// } else {
+		// if ("Buscar".equalsIgnoreCase(accion)) {
+		// mostrarConsulta(consultar(persona));
+		// }
+		// }
 	}
 
 	/**
