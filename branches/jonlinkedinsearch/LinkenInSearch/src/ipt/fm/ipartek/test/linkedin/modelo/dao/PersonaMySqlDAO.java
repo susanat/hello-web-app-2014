@@ -183,7 +183,31 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 	@Override
 	public Persona update(Persona p) {
 		// TODO Auto-generated method stub
-		return null;
+				conn = MySqlDAOFactory.conectar();
+				Statement st = null;
+				try {
+					st = conn.createStatement();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				String id = String.valueOf(p.getId());
+				String nombre = p.getNombre();
+				String apellido = p.getApellido();
+				String foto = p.getFoto();
+				
+				
+				String sqlUpdate = "UPDATE persona SET nombre=\""+nombre+"\", apellido1=\""+apellido+"\", edad=0, foto=\""+foto+"\" WHERE id="+id;
+				
+				try {
+					st.executeUpdate( sqlUpdate );
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				return null;
 	}
 
 }
