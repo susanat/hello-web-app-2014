@@ -25,7 +25,7 @@
 	       <hr>
 	       <%
 			ArrayList<Persona> personas = (ArrayList<Persona>) request.getAttribute("personas");
-		   	if (personas.size()==0){
+		   	if (personas == null || personas.size()==0){
 		   	%>
 		   		<div class='container'>
 		   			<h3>0 resultados obtenidos </h3>
