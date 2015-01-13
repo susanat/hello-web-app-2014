@@ -8,9 +8,19 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Formulario Persona</title>
+		
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+		
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="js/bootstrap.min.js"></script>		
 	</head>
 	
 	<body>
+	
 		<%
 			Persona persona = (Persona) request.getAttribute(Constantes.ATT_PERSONA);
 			String buttonValue ="Crear";
@@ -27,28 +37,44 @@
 				buttonValue = "Modificar";
 			}
 		%>
-	
-		<h1><%=buttonValue%> Persona</h1>
-		<form action="<%=Constantes.CONTROLLER_PERSONA%>" method="post">
-			<input type="hidden" name="id" value="<%=persona.getId()%>">
-			<input type='hidden' name='op' value='<%=op%>'>
-			<input type="text" name="nombre" placeholder="Nombre" value="<%=persona.getNombre()%>" required>
-			<br>
-			<input type="text" name="apellidos" placeholder="Apellidos" value="<%=persona.getApellidos()%>" required>
-			<br>
-			<input type="text" name="foto" placeholder="Foto" value="<%=persona.getFoto()%>">
-			<br>
-			<input type="submit" value="<%=buttonValue%>">	
-		</form>
-		
-		<% if(!isNew) { %>
-		<form action='<%=Constantes.CONTROLLER_PERSONA%>' method='post'>
-			<input type="hidden" name="id" value="<%=persona.getId()%>">
-			<input type='hidden' name='op' value='<%=Constantes.CRUD_DELETE%>'>
-			<input type='submit' class="btn btn-danger pull-right" value='Eliminar'>
-		</form>
-		<% } %>
-		
-		<a href="<%=Constantes.JSP_INDEX%>" title="volver">Volver</a>	
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">	
+					<h1><%=buttonValue%> Persona</h1>
+					<form action="<%=Constantes.CONTROLLER_PERSONA%>" method="post">
+						<input type="hidden" name="id" value="<%=persona.getId()%>">
+						<input type='hidden' name='op' value='<%=op%>'>
+						<div class="form-group">
+							<input type="text" class="form-control col-md-4" name="nombre" placeholder="Nombre" value="<%=persona.getNombre()%>" required><br>
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control col-md-4" name="apellidos" placeholder="Apellidos" value="<%=persona.getApellidos()%>" required><br>
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control col-md-4" name="foto" placeholder="Foto" value="<%=persona.getFoto()%>"><br><br>
+						</div>
+						<div class="form-group">
+							<input type="submit" class="btn btn-success pull-left" value="<%=buttonValue%>">
+						</div>
+					</form>
+					<a href="<%=Constantes.JSP_INDEX%>" class="btn btn-primary pull-left" title="volver">Volver</a>	
+					
+					<% if(!isNew) { %>
+					<form action='<%=Constantes.CONTROLLER_PERSONA%>' method='post'>
+						<div class="form-group">
+							<input type="hidden" name="id" value="<%=persona.getId()%>">
+						</div>
+						<div class="form-group">
+							<input type='hidden' name='op' value='<%=Constantes.CRUD_DELETE%>'>
+						</div>
+						<div class="form-group">
+							<input type='submit' class="btn btn-danger pull-right" value='Eliminar'>
+						</div>
+					</form>
+					<% } %>
+				</div>		
+			</div>
+		</div>	
+
 	</body>
 </html>
