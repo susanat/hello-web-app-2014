@@ -34,16 +34,18 @@ public class PersonaServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-	IOException {
-		// TODO repasar esto, ahora el id va siempre con los forms si la persona
-		// lo tiene
-		if (request.getParameter("idList") != null) {
-			final Persona p = daoPersona.getById(Integer.parseInt(request.getParameter("idList")));
-			request.setAttribute(Constantes.ATT_PERSONA, p);
-			request.getRequestDispatcher(Constantes.JSP_FORM_PERSONA).forward(request, response);
-		} else {
-			request.setAttribute(Constantes.ATT_PERSONAS, daoPersona.getAll());
-			request.getRequestDispatcher(Constantes.JSP_LIST_PERSONA).forward(request, response);
+			IOException {
+		try {
+			if (request.getParameter("idList") != null) {
+				final Persona p = daoPersona.getById(Integer.parseInt(request.getParameter("idList")));
+				request.setAttribute(Constantes.ATT_PERSONA, p);
+				request.getRequestDispatcher(Constantes.JSP_FORM_PERSONA).forward(request, response);
+			} else {
+				request.setAttribute(Constantes.ATT_PERSONAS, daoPersona.getAll());
+				request.getRequestDispatcher(Constantes.JSP_LIST_PERSONA).forward(request, response);
+			}
+		} catch (final Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -54,27 +56,31 @@ public class PersonaServlet extends HttpServlet {
 	@Override
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+		try {
+			request.setCharacterEncoding("UTF-8");
 
-		switch (Integer.parseInt(request.getParameter(Constantes.CRUD_OP))) {
+			switch (Integer.parseInt(request.getParameter(Constantes.CRUD_OP))) {
 
-		case Constantes.CRUD_INSERT:
-			final int idPersonaInsertada = daoPersona.insert(getParameters(request));
-			break;
+			case Constantes.CRUD_INSERT:
+				final int idPersonaInsertada = daoPersona.insert(getParameters(request));
+				break;
 
-		case Constantes.CRUD_UPDATE:
-			final Persona p = daoPersona.update(getParameters(request));
-			break;
+			case Constantes.CRUD_UPDATE:
+				final Persona p = daoPersona.update(getParameters(request));
+				break;
 
-		case Constantes.CRUD_DELETE:
-			if (daoPersona.delete(getParameters(request))) {
-				request.setAttribute(Constantes.ATT_PERSONA, null);
-				doGet(request, response);
+			case Constantes.CRUD_DELETE:
+				if (daoPersona.delete(getParameters(request))) {
+					request.setAttribute(Constantes.ATT_PERSONA, null);
+					doGet(request, response);
+				}
+				break;
 			}
-			break;
-		}
 
-		doGet(request, response);
+			doGet(request, response);
+		} catch (final Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private Persona getParameters(final HttpServletRequest request) {

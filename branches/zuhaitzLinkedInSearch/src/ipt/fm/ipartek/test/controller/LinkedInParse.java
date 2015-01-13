@@ -14,11 +14,13 @@ public class LinkedInParse {
 	private static String SEARCH_URL = "https://es.linkedin.com/pub/dir/?";
 	private String first;
 	private String last;
+	private String foto;
 
 	public LinkedInParse(final String first, final String last) {
 		super();
 		setFirst(first);
 		setLast(last);
+
 	}
 
 	public void setFirst(final String first) {
@@ -37,12 +39,27 @@ public class LinkedInParse {
 		}
 	}
 
+	/**
+	 * @param foto
+	 *            the foto to set
+	 */
+	public void setFoto(final String foto) {
+		this.foto = foto;
+	}
+
 	public String getFirst() {
 		return first;
 	}
 
 	public String getLast() {
 		return last;
+	}
+
+	/**
+	 * @return the foto
+	 */
+	public String getFoto() {
+		return foto;
 	}
 
 	public String getHtml() {
@@ -52,15 +69,20 @@ public class LinkedInParse {
 			final Document doc = Jsoup.connect(SEARCH_URL + getFirst() + getLast()).get();
 			final Element listaResultados = doc.getElementById("result-set");
 			final Element resultado = doc.getElementById("top-card");
+			Elements el = null;
 
 			if (listaResultados != null) {
 				res = listaResultados.html();
 			} else if (resultado != null) {
-				Elements el = resultado.getElementsByClass("profile-picture");
+				el = resultado.getElementsByClass("profile-picture");
 				res = el.html();
 
 				el = resultado.select("[id^=member]");
 				res += el.html();
+
+				el.select("[src]");
+				// el = el.getElementsByAttributeStarting("src");
+				setFoto(el.html());
 			} else {
 				res = "<h1>0 resultados</h1>";
 			}

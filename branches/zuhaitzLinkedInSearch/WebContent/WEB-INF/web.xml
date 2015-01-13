@@ -34,5 +34,11 @@
   <servlet-mapping>
     <servlet-name>PersonaServlet</servlet-name>
     <url-pattern>/persona</url-pattern>
-  </servlet-mapping>	
+  </servlet-mapping>
+  <listener>
+    <listener-class>ipt.fm.ipartek.test.listener.InitListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>ipt.fm.ipartek.test.listener.InitListener</listener-class>
+  </listener>
 </web-app>
