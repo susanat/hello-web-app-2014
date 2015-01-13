@@ -2,6 +2,7 @@ package com.ipartek.formacion.buscarpersonas.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.buscarpersonas.model.IPersonaDAO;
 import com.ipartek.formacion.buscarpersonas.util.Constantes;
 
 /**
@@ -17,13 +19,15 @@ import com.ipartek.formacion.buscarpersonas.util.Constantes;
 public class PersonaServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     int option;
+    private RequestDispatcher dispatcher = null;
+    IPersonaDAO daoPersona = null;
 
     /**
      * @see Servlet#init(ServletConfig)
      */
     @Override
     public void init(final ServletConfig config) throws ServletException {
-	// TODO Auto-generated method stub
+	super.init(config);
     }
 
     /**
