@@ -27,7 +27,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 	    + " SET nombre=?,apellidos=?,edad=? WHERE id=?";
 
     @Override
-    public synchronized ArrayList<Persona> getAll() {
+    public synchronized ArrayList<Persona> getAll() throws ModelException {
 	ArrayList<Persona> personas = null;
 	Statement st = null;
 	ResultSet rs = null;
@@ -47,9 +47,8 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 	    }
 
 	} catch (Exception e) {
-	    // cerrar conexion
-
 	    e.printStackTrace();
+	    throw new ModelException( e.getMessage() );
 
 	} finally { // cerrar todos los objetos creados para el acceso de BBDD
 	    // cerrar ResultSet
