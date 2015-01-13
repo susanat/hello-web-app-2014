@@ -44,7 +44,6 @@ public class LinkedInParse {
 			Document doc = Jsoup.connect( SEARCH_URL+getFirst()+getLast() ).get();
 			Element listaResultados = doc.getElementById("result-set");
 			if ( listaResultados != null ){
-				
 				resul = listaResultados.html();
 				
 			}else{
