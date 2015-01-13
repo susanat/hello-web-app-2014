@@ -12,14 +12,18 @@ import org.junit.Test;
 public class TestAccess {
 
 	private static final String DRIVER = "sun.jdbc.odbc.JdbcOdbcDriver";
-	private static final String CON_URL = "jdbc:odbc:TestDB";
+	private static final String CON_URL = "jdbc:odbc:dataSourceTest";
 	
 	@Test
 	public void test()  {
 		
 		try{
-			Class.forName( DRIVER );  
-			Connection conexion = DriverManager.getConnection(CON_URL);  
+			//cargar Driver
+			Class.forName( DRIVER );
+			//obtener conexion con DriverManager
+			Connection conexion = DriverManager.getConnection(CON_URL);
+			
+			
 			Statement st = conexion.createStatement(); 
 			ResultSet rs = st.executeQuery("select * from persona");
 			while ( rs.next() ) {

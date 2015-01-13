@@ -17,7 +17,7 @@ import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 public class TestFactoriaMySQL {
 
 	@Test
-	public void testGetByID() throws NamingException {
+	public void testGetByID() throws Exception {
 		
 		
 		  // Create initial context
