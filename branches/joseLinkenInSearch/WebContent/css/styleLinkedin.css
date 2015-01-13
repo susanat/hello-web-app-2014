@@ -1,0 +1,10 @@
+#idResultadoLinkedin li ul{
+	display:none;
+}
+#idResultadoLinkedin li .vcard-expanded{
+	display:none;
+}
+
+#idResultadoLinkedin li .vcard-basic > dt{
+	display:none;
+}
