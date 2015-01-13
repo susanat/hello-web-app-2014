@@ -39,6 +39,10 @@ public class SearchServlet extends HttpServlet {
 		daoPersona = factoria.getPersonaDAO();
 	}
 
+	public IPersonaDAO personaDAO() {
+		return daoPersona;
+	}
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
