@@ -16,6 +16,7 @@ import javax.sql.DataSource;
 import com.ipartek.formacion.linkedin.bean.Persona;
 import com.ipartek.formacion.linkedin.modelo.dao.DAOFactory;
 import com.ipartek.formacion.linkedin.modelo.dao.IPersonaDAO;
+import com.ipartek.formacion.linkedin.modelo.dao.ModelException;
 
 /**
  * Servlet implementation class PersonaServlet
@@ -38,22 +39,28 @@ public class PersonaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request,
 	    HttpServletResponse response) throws ServletException, IOException {
-	request.setCharacterEncoding("UTF-8");
-	if (factoria == null) {
-	    factoria = DAOFactory.getDAOFactory(DAOFactory.MYSQL);
-	    daoPersona = factoria.getPersonaDAO();
-	}
-
-	ArrayList<Persona> pers = daoPersona.getAll();
-
-	// conectar BBDD
-	// String resultado = consultarPersonas();
-
-	// pasar attributo resultado
-	request.setAttribute("personas", pers);
-	// forward a jsp de busqueda
-	request.getRequestDispatcher("listadoPersonas.jsp").forward(request,
-		response);
+    	
+    	try{
+			request.setCharacterEncoding("UTF-8");
+			
+			 factoria = DAOFactory.getDAOFactory(DAOFactory.MYSQL);
+			 daoPersona = factoria.getPersonaDAO();
+			 ArrayList<Persona> pers = daoPersona.getAll();
+			
+			request.setAttribute("personas", pers);
+			// forward a jsp de busqueda
+			request.getRequestDispatcher("listadoPersonas.jsp").forward(request,
+				response);
+    	}catch ( ModelException e){
+    		request.getRequestDispatcher("errorModelo.jsp").forward(request,
+    				response);
+    		
+    		
+    		
+    	}catch (Exception e) {
+    		request.getRequestDispatcher("error.jsp").forward(request,
+    				response);
+    	}
     }
 
     /**
@@ -63,6 +70,8 @@ public class PersonaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request,
 	    HttpServletResponse response) throws ServletException, IOException {
+    	
+   try{ 	
 	request.setCharacterEncoding("UTF-8");
 	String id = "";
 	if (factoria == null) {
@@ -116,6 +125,10 @@ public class PersonaServlet extends HttpServlet {
 
 	doGet(request, response);
 
+   }catch(Exception e){
+	   e.printStackTrace();
+   }
+	
     }
 
     /**
