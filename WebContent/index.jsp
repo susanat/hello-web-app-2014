@@ -13,23 +13,12 @@
 
 	${requestScope.personas}
 
-	<form action="PersonaServlet" method="post">
+	<form action="searchProfile" method="post">
 
-		<input type="text" name="nombre" placeholder="Nombre" required><br> 
-		<input type="text" name="apellidos" placeholder="Apellidos" required><br>
-		<input type="text" name="foto" placeholder="Url Fotografia"><br>
-		 Action
-		<table>
-			<tr>
-				<td>
-					<!--  <input type="radio" name="Action" value="Actualizar" /> Actualizar --> 
-					<!--  <input type="radio" name="Action" value="Eliminar" /> Eliminar -->
-					<input type="radio" name="Action" value="Crear" checked /> Crear 
-					<input type="radio" name="Action" value="Buscar" /> Buscar
-				</td>
-			</tr>
-		</table>
-		<input type="SUBMIT" value="Submit" />
+		<input type="text" name="first" placeholder="Nombre" required>
+		<br> <input type="text" name="last" placeholder="Apellidos"
+			required> <br>
+		<input type="SUBMIT" value="buscar" />
 	</form>
 
 	${requestScope.resulthtml}
