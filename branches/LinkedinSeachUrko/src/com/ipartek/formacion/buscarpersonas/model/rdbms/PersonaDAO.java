@@ -88,6 +88,22 @@ public class PersonaDAO implements IPersonaDAO {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	} finally {
+	    if (cStmt != null) {
+		try {
+		    cStmt.close();
+		} catch (SQLException e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
+		}
+	    }
+	    if (rs != null) {
+		try {
+		    rs.close();
+		} catch (SQLException e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
+		}
+	    }
 	    /*
 	     * if (con != null) { con.disconnect(); }
 	     */
@@ -112,6 +128,22 @@ public class PersonaDAO implements IPersonaDAO {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	} finally {
+	    if (cStmt != null) {
+		try {
+		    cStmt.close();
+		} catch (SQLException e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
+		}
+	    }
+	    if (rs != null) {
+		try {
+		    rs.close();
+		} catch (SQLException e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
+		}
+	    }
 	    /*
 	     * if (con != null) { con.disconnect(); }
 	     */
@@ -134,6 +166,22 @@ public class PersonaDAO implements IPersonaDAO {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	} finally {
+	    if (cStmt != null) {
+		try {
+		    cStmt.close();
+		} catch (SQLException e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
+		}
+	    }
+	    if (rs != null) {
+		try {
+		    rs.close();
+		} catch (SQLException e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
+		}
+	    }
 	    /*
 	     * if (con != null) { con.disconnect(); }
 	     */
@@ -159,6 +207,15 @@ public class PersonaDAO implements IPersonaDAO {
 	} catch (SQLException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
+	} finally {
+	    if (cStmt != null) {
+		try {
+		    cStmt.close();
+		} catch (SQLException e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
+		}
+	    }
 	}
 	return reg;
     }
