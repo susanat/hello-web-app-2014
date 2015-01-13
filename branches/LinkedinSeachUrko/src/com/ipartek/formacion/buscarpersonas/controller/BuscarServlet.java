@@ -69,8 +69,27 @@ public class BuscarServlet extends HttpServlet {
 	}
 
 	request.setAttribute(Constantes.ATT_LISTA_PERSONAS,
-		generateList(daoPersona.getAll()));
+		generateListado(daoPersona.getAll()));
 	dispatcher.forward(request, response);
+    }
+
+    private String generateListado(final List<Persona> personas) {
+	String text = null;
+	if (personas != null && personas.size() > 0) {
+	    text += "<ol>";
+	    for (Persona p : personas) {
+		text += "<li>" + p.getHTML() + "</li>"
+			+ "<a href='/persona?op=" + Constantes.DELETE
+			+ "&nombre=" + p.getNombre() + "&apellido="
+			+ p.getApellidos() + "&foto=" + p.getFoto()
+			+ "'>Borrar</a>" + " " + "<a href='/persona?op="
+			+ Constantes.UPDATE + "&nombre=" + p.getNombre()
+			+ "&apellido=" + p.getApellidos() + "&foto="
+			+ p.getFoto() + "'>Actualizar</a>";
+	    }
+	    text += "</ol>";
+	}
+	return text;
     }
 
     private String generateList(final List<Persona> personas) {

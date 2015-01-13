@@ -47,7 +47,7 @@ public class LinkedInParse {
 
 	data = doc.getElementById(LINKEDIN_ID);
 	li = data.select("li");
-	personas = new ArrayList();
+	personas = new ArrayList<Persona>();
 	for (Element x : li) {
 	    p = new Persona();
 	    p.setNombre(x.select(".given-name").text());
