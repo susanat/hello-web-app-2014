@@ -4,7 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 
-public class TransaccionNOatomica {
+public class TransaccionAtomica {
 
 	static final int NUM_TRANS = 10000;
 	static final String DRIVER = "com.mysql.jdbc.Driver";
@@ -27,6 +27,9 @@ public class TransaccionNOatomica {
 			//obtener conexion
 			con = DriverManager.getConnection(CON_URL,CON_USER,CON_PASS);
 			
+			//marcar coneexion como NO autocomitable
+			con.setAutoCommit(false);
+			
 			//insertar transacciones
 			for (int i=0; i < NUM_TRANS ; i++){
 				
@@ -34,6 +37,7 @@ public class TransaccionNOatomica {
 				if ( i == 3000 ){
 					throw new Exception("Falla durante el proceso batch");
 				}
+				
 				
 				//preparar el statement
 				pst = con.prepareStatement(SQL);
@@ -46,10 +50,20 @@ public class TransaccionNOatomica {
 				}
 				
 				
-			}
+			}//end: for
 			
+			//comito todas las sentencias DML
+			con.commit();
+			System.out.println("Guardamos TODO en BBDD");
 			
 		}catch ( Exception e){
+			try {				
+				con.rollback();
+				System.out.println(" No guardamos nada en BBDD");
+			} catch (SQLException e1) {
+				System.out.println("*** Exception ROLLBACK");
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 			
 		}finally{
