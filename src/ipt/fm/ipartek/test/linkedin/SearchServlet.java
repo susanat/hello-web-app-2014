@@ -1,6 +1,5 @@
 package ipt.fm.ipartek.test.linkedin;
 
-import ipt.fm.ipartek.test.linkedin.bean.Persona;
 import ipt.fm.ipartek.test.linkedin.modelo.dao.DAOFactory;
 import ipt.fm.ipartek.test.linkedin.modelo.dao.IPersonaDAO;
 
@@ -55,8 +54,21 @@ public class SearchServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		// recoger parametros
-		String first = request.getParameter("first");
-		String last = request.getParameter("last");
+		String first = request.getParameter("idNombre");
+		String last = request.getParameter("idApellidos");
+
+		// buscar el linkedin
+		LinkedInParse parse = new LinkedInParse(first, last);
+		String htmlResult = parse.getHtml();
+
+		// modificamos el fichero de resultado
+
+		// pasar attributo resultado
+		request.setAttribute("resulthtml", htmlResult);
+
+		// forwad a jsp de busqueda
+		request.getRequestDispatcher("index.jsp").forward(request, response);
+
 
 		// conectar BBDD
 		// request.setAttribute("personas", conectar(first, last));
@@ -70,27 +82,25 @@ public class SearchServlet extends HttpServlet {
 		// daoPersona.update(p);
 		// p = null;
 
-		// obtener el id de esa persona
-		int indPersona = daoPersona.getByNombreApellidos(new Persona(first,
-				last));
-
-		Persona p = new Persona();
-		p.setId(indPersona);
-		daoPersona.delete(p);
-		p = null;
-
-		// recuperar personas
-		request.setAttribute("personas", daoPersona.getAll());
-
-		// buscar el linkedin
-		LinkedInParse parse = new LinkedInParse(first, last);
-		String htmlResult = parse.getHtml();
-
-		// pasar attributo resultado
-		request.setAttribute("resulthtml", htmlResult);
-
-		// forwad a jsp de busqueda
-		request.getRequestDispatcher("index.jsp").forward(request, response);
+		/*
+		 * // obtener el id de esa persona int indPersona =
+		 * daoPersona.getByNombreApellidos(new Persona(first, last));
+		 * 
+		 * Persona p = new Persona(); p.setId(indPersona); daoPersona.delete(p);
+		 * p = null;
+		 * 
+		 * // recuperar personas request.setAttribute("personas",
+		 * daoPersona.getAll());
+		 * 
+		 * // buscar el linkedin LinkedInParse parse = new LinkedInParse(first,
+		 * last); String htmlResult = parse.getHtml();
+		 * 
+		 * // pasar attributo resultado request.setAttribute("resulthtml",
+		 * htmlResult);
+		 * 
+		 * // forwad a jsp de busqueda
+		 * request.getRequestDispatcher("index.jsp").forward(request, response);
+		 */
 
 	}
 
