@@ -1,3 +1,4 @@
+<%@page import="ipt.fm.ipartek.test.bean.Persona"%>
 <%@page import="ipt.fm.ipartek.test.util.Constantes"%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
@@ -19,6 +20,24 @@
 	</head>
 	
 	<body>
+	
+		<%
+			Persona persona = (Persona) request.getAttribute(Constantes.ATT_PERSONA);
+			String buttonValue ="Crear";
+			int op = Constantes.CRUD_UPDATE;
+			boolean isNew = false;
+			
+			// Nueva Persona
+			if (persona == null) {
+				persona = new Persona();
+				isNew = true;
+				op = Constantes.CRUD_INSERT;
+			// Modificar Persona
+			} else {
+				buttonValue = "Modificar";
+			}
+		%>
+	
 		<div class="container">
 			<div class="row">
 				<div class="col-md-4">	
@@ -40,8 +59,18 @@
 		
 					${requestScope.resulthtml}
 					
-					<a href="<%=Constantes.CONTROLLER_PERSONA%>" class="btn btn-primary" title="listar personas">Listar Personas</a>
-					<a href="<%=Constantes.JSP_FORM_PERSONA%>" class="btn btn-primary" title="crear persona">Crear Persona</a>
+					<a href="<%=Constantes.CONTROLLER_PERSONA%>" class="btn btn-primary pull-left" title="listar personas">Listar Personas</a>
+					
+					<% if(request.getAttribute("resulthtml") != null) {%>
+						<form action="<%=Constantes.CONTROLLER_PERSONA%>" method="post">
+							<input type='hidden' name='op' value='<%=Constantes.CRUD_INSERT%>'>
+							<input type="hidden" name="id" value="<%=persona.getId()%>">
+							<input type="hidden" name="nombre" value='<%=request.getParameter("first")%>'>
+							<input type="hidden" name="apellidos" value='<%=request.getParameter("last")%>'>
+							<input type="hidden" name="foto" value='<%=request.getAttribute("foto")%>'>
+							<input type="submit" class='btn btn-primary pull-right' value='Crear'>
+						</form>
+					<%}%>
 				</div>
 			</div>
 		</div>

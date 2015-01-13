@@ -26,7 +26,7 @@ public class SearchServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-			IOException {
+	IOException {
 		request.setCharacterEncoding("UTF-8");
 
 		// recoger parámetros
@@ -37,8 +37,9 @@ public class SearchServlet extends HttpServlet {
 		final LinkedInParse parse = new LinkedInParse(first, last);
 		final String htmlResult = parse.getHtml();
 
-		// pasar atributo resultado
+		// pasar atributos
 		request.setAttribute("resulthtml", htmlResult);
+		request.setAttribute("foto", parse.getFoto());
 
 		// forwad a jsp de búsqueda
 		request.getRequestDispatcher("index.jsp").forward(request, response);
