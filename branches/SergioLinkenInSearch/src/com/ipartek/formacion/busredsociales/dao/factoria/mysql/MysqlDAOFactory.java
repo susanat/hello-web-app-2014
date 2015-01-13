@@ -8,6 +8,7 @@ import javax.sql.DataSource;
 
 
 
+
 import com.ipartek.formacion.busredsociales.dao.factoria.DAOException;
 import com.ipartek.formacion.busredsociales.dao.factoria.DAOFactory;
 import com.ipartek.formacion.busredsociales.dao.interfaz.IUsuarioDAO;
@@ -57,18 +58,27 @@ public class MysqlDAOFactory extends DAOFactory {
 
 	public  Connection conectar() throws Exception {
 
-		if (conexion == null) {
+		
+		try {
 			
-			InitialContext ctx = new InitialContext();
-			// en el web.xml se configura el jdbc/MyConexion
-			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/MyConexion");
-			conexion = ds.getConnection();
-
 			if (conexion == null) {
-				throw new Exception("No se ha creado la conexión");
-			}
-		}
+				
+				InitialContext ctx = new InitialContext();
+				// en el web.xml se configura el jdbc/MyConexion
+				DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/MyConexion");
+				conexion = ds.getConnection();
 
+				if (conexion == null) {
+					throw new Exception("No se ha creado la conexión");
+				}
+			}
+			
+		} catch (SQLException ex) {
+			throw new DAOException(ex);			
+		} catch (Exception ex) {
+			throw new DAOException(ex);			
+		}
+		
 		return conexion;
 
 	}
@@ -88,6 +98,17 @@ public class MysqlDAOFactory extends DAOFactory {
 	@Override
 	public IUsuarioDAO getUsuarioDAO() throws DAOException, Exception {
 		return new MySqlUsuarioDAO();
+	}
+
+	@Override
+	public boolean checkConnection() throws DAOException, Exception {
+		
+		
+		conectar();
+		desconectar();		
+		
+		
+		return true;
 	}
 
 }
