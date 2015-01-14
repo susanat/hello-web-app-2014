@@ -57,7 +57,7 @@ public class PersonaServlet extends HttpServlet {
 		    response);
 	} catch (Exception e) {
 	    request.getRequestDispatcher("error.jsp")
-	    .forward(request, response);
+		    .forward(request, response);
 	}
     }
 
@@ -69,33 +69,25 @@ public class PersonaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request,
 	    HttpServletResponse response) throws ServletException, IOException {
 	request.setCharacterEncoding("UTF-8");
-	String id = "";
-	if (factoria == null) {
-	    factoria = DAOFactory.getDAOFactory(DAOFactory.MYSQL);
-	    daoPersona = factoria.getPersonaDAO();
-	}
-	String op = request.getParameter("operacion");
-	Persona p = null;
+	try {
+	    String id = "";
+	    if (factoria == null) {
+		factoria = DAOFactory.getDAOFactory(DAOFactory.MYSQL);
+		daoPersona = factoria.getPersonaDAO();
+	    }
+	    String op = request.getParameter("operacion");
+	    Persona p = null;
 
-	if (op.equals(OP_INSERTAR)) {
-	    try {
+	    if (op.equals(OP_INSERTAR)) {
+
 		p = new Persona(CERO, request.getParameter("nombre"),
 			request.getParameter("apellidos"),
 			Persona.EDAD_DEFAULT, request.getParameter("foto"));
 		int idnuevo = daoPersona.insert(p);
 		System.out.println(idnuevo);
 
-	    } catch (ModelException e) {
-		request.getRequestDispatcher("errorModelo.jsp").forward(
-			request, response);
-	    } catch (Exception e) {
-		request.getRequestDispatcher("error.jsp").forward(request,
-			response);
-	    }
+	    } else if (op.equals(OP_ACTUALIZAR)) {
 
-	} else if (op.equals(OP_ACTUALIZAR)) {
-
-	    try {
 		String edad = request.getParameter("edad");
 		id = request.getParameter("id");
 
@@ -106,35 +98,28 @@ public class PersonaServlet extends HttpServlet {
 
 		daoPersona.update(p);
 
-	    } catch (ModelException e) {
-		request.getRequestDispatcher("errorModelo.jsp").forward(
-			request, response);
-	    } catch (Exception e) {
-		request.getRequestDispatcher("error.jsp").forward(request,
-			response);
-	    }
+	    } else if (op.equals(OP_BORRAR)) {
 
-	} else if (op.equals(OP_BORRAR)) {
-	    try {
 		id = request.getParameter("id");
 
 		p = new Persona(Integer.parseInt(id));
 
 		daoPersona.delete(p);
 
-	    } catch (ModelException e) {
-		request.getRequestDispatcher("errorModelo.jsp").forward(
-			request, response);
-	    } catch (Exception e) {
-		request.getRequestDispatcher("error.jsp").forward(request,
-			response);
 	    }
 
+	    // conectar BBDD
+
+	    doGet(request, response);
+
+	} catch (ModelException e) {
+	    request.getRequestDispatcher("errorModelo.jsp").forward(request,
+		    response);
+
+	} catch (Exception e) {
+	    request.getRequestDispatcher("error.jsp")
+		    .forward(request, response);
 	}
-
-	// conectar BBDD
-
-	doGet(request, response);
     }
 
 }
