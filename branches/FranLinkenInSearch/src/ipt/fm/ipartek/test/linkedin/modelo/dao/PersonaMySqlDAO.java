@@ -12,7 +12,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 
 	@Override
 	public ArrayList<Persona> getAll() {
-		ArrayList<Persona> personas = null;
+		ArrayList<Persona> personas = new ArrayList<Persona>();
 
 		Connection conexion = null;
 		Statement st = null;
@@ -25,7 +25,6 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 			st = conexion.createStatement();
 			// Recoger resultados
 			rs = st.executeQuery("select * from persona");
-			personas = new ArrayList<Persona>();
 			Persona p = null;
 			while (rs.next()) {
 				p = new Persona(rs.getString("nombre"),
@@ -35,6 +34,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			personas = null;
 		} finally { // cerrar todos los objetos creados para el acceso a BBDD
 			cerrarObjetos(st, rs);
 			MySqlDAOFactory.getInstance().desconectar();

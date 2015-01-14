@@ -15,39 +15,43 @@ public interface IPersonaDAO {
 	/**
 	 * Función para leer todas las personas de la tabla.
 	 * 
-	 * @return
+	 * @return Lista de personas. Null si error.
 	 */
 	ArrayList<Persona> getAll();
 
 	/**
 	 * Función para leer una persona de la base de datos segun su id.
 	 * 
-	 * @param p
-	 * @return
+	 * @param Persona
+	 *            a buscar, solo se necesita su id.
+	 * @return Persona buscada, contiene todos los datos. Null si error.
 	 */
 	Persona getById(Persona p);
 
 	/**
 	 * Función para insertar una persona en la base de datos.
 	 * 
-	 * @param p
-	 * @return
+	 * @param Persona
+	 *            con los datos a insertar.
+	 * @return Persona insertada (con id nuevo). Null si error.
 	 */
 	Persona insert(Persona p);
 
 	/**
 	 * Función para borrar una persona de la base de datos.
 	 * 
-	 * @param p
-	 * @return
+	 * @param Persona
+	 *            a borrar, solo es necesario su id.
+	 * @return True si ha sido borrada. False si no ha sido borrada.
 	 */
 	boolean delete(Persona p);
 
 	/**
 	 * Función para modificar una persona de la base de datos.
 	 * 
-	 * @param p
-	 * @return
+	 * @param Persona
+	 *            a modificar.
+	 * @return Persona modificada. Null si error.
 	 */
 	Persona update(Persona p);
 }
