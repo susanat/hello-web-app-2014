@@ -118,13 +118,16 @@ public class PersonaServlet extends HttpServlet {
 					System.out.println("mal borrado");
 				}
 			}
-
+			
+			//Listar todas las personas
+			doGet(request, response);
 			
 
-			doGet(request, response);
-
+		} catch (ModelException e) {	
+			request.getRequestDispatcher("errorModelo.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
+			request.getRequestDispatcher("error.jsp").forward(request, response);
 		}
 
 	}
