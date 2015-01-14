@@ -2,13 +2,17 @@ package ipt.fm.ipartek.test.linkedin.controller;
 
 import ipt.fm.ipartek.test.linkedin.FactoriaMySql;
 import ipt.fm.ipartek.test.linkedin.bean.Persona;
+import ipt.fm.ipartek.test.linkedin.modelo.dao.DAOFactory;
+import ipt.fm.ipartek.test.linkedin.modelo.dao.IPersonaDAO;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class PersonaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	IPersonaDAO daoPersona = null;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -26,6 +31,13 @@ public class PersonaServlet extends HttpServlet {
 	public PersonaServlet() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		DAOFactory factoria = DAOFactory.getDAOFactory(DAOFactory.MYSQL);
+		daoPersona = factoria.getPersonaDAO();
 	}
 
 	/**
@@ -36,14 +48,20 @@ public class PersonaServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
+		String id = request.getParameter("id");
+		if (id == null) {
 
-		// Recogemos la accion a ejecutar
-		// String accion = request.getParameter("Action");
+		ArrayList<Persona> vPersonas = daoPersona.getAll();
+		}
+		// conectar BBDD
+		// String resultado = consultarPersonas();
 
-		// Recogemos los datos de la Persona
-		// String nombre = request.getParameter("nombre");
-		// String apellidos = request.getParameter("apellidos");
-		// Persona persona = new Persona(nombre, apellidos);
+		// pasar attributo resultado
+		request.setAttribute("personas", vPersonas);
+		// forward a jsp de busqueda
+		request.getRequestDispatcher("view_personas.jsp").forward(request,
+				response);
+
 
 		// Miramos que accion ejecutamos
 		// if ("Crear".equalsIgnoreCase(accion)) {
@@ -63,7 +81,32 @@ public class PersonaServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
+		Persona persona = null;
+		// Recogemos la accion a ejecutar
+		String accion = request.getParameter("action");
+
+		// Miramos que accion ejecutamos
+		if ("crear".equalsIgnoreCase(accion)) {
+			// Recogemos los datos de la Persona
+			String nombre = request.getParameter("nombre");
+			String apellidos = request.getParameter("apellidos");
+			String foto = request.getParameter("foto");
+			persona = new Persona(nombre, apellidos);
+			persona.setFoto(foto);
+			daoPersona.insert(persona);
+		} else {
+			String txtId = request.getParameter("id");
+			int id = Integer.parseInt(request.getParameter("id"));
+			persona = new Persona();
+			persona.setId(id);
+			persona = daoPersona.getById(persona);
+			if ("modificar".equalsIgnoreCase(accion)) {
+				request.setAttribute("id", id);
+			} else {
+				// borrar
+			}
+		}
 		doGet(request, response);
 	}
 
