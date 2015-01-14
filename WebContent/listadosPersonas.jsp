@@ -14,6 +14,13 @@
 <a href="http://localhost:8080/LinkenInSearch/index.jsp">Volver</a>
 <br>
 <%
+	if (request.getAttribute("mensaje") != null) {
+%>
+		<p><%=(String)request.getAttribute("mensaje")%></p>
+<%
+	}
+
+
 	ArrayList<Persona> personas = (ArrayList<Persona>)request.getAttribute("personas");
 	if (personas != null && personas.size() > 0) {
 		for (int i=0; i<personas.size(); i++) {
