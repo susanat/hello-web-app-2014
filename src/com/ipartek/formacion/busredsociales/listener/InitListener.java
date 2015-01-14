@@ -1,7 +1,9 @@
 package com.ipartek.formacion.busredsociales.listener;
 
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -12,6 +14,8 @@ import javax.servlet.ServletContextListener;
 
 import org.apache.tomcat.jni.Global;
 
+import com.ipartek.formacion.busredsociales.BDCriticalStep;
+import com.ipartek.formacion.busredsociales.CriticalStep;
 import com.ipartek.formacion.busredsociales.comun.Globales;
 import com.ipartek.formacion.busredsociales.comun.Globales.ETypeCriticalError;
 import com.ipartek.formacion.busredsociales.dao.factoria.DAOException;
@@ -37,7 +41,53 @@ public class InitListener implements ServletContextListener,
 		// TODO: obtener y conectar los logs
 		System.out
 				.println("Iniciada la configuración del log4j de la aplicación");
+		
+		
+		
+		//cargamos la lista de pasos críticos
+		List<CriticalStep> lstComprobaciones = new ArrayList<CriticalStep>();		
+		lstComprobaciones.add(new BDCriticalStep());
+		
+		
+		int i = 0;
+		CriticalStep step = null;
+		
+		do {
+			
+			//obtenemos el paso
+			step = lstComprobaciones.get(i);
+			
+			
+			try {
+				//en este caso asignamos la configuración
+				step.setConfiguration(sce.getServletContext());
+				
+				//en este caso comprobamos la configuración
+				step.checkConfiguration(sce.getServletContext());
+				
+			} catch (Exception e) {
+				//marcamos como error crítico
+				isErrorCritico = true;
+				Globales.GLOBAL_IS_CRITICAL_ERROR = true;
+				
+				//obtenemos el tipo de error crítico
+				Globales.GLOBAL_TYPE_CRITICAL_ERROR = ETypeCriticalError.DATABASE;
+				
+				//obtenemos el error crítico para ver si lo utilizamos
+			}
+			
+			
+			i++;
+			step = null;
+		
+			//mientras no haya error y no se hayan comprobado todos los pasos críticos
+		} while(!isErrorCritico || i < lstComprobaciones.size() -1);
+		
+		
+		
+		
 
+		/*
 		// TODO: obtener y conectar a base de datos
 		if (!isErrorCritico) {
 			System.out.println("Iniciada la conexión a base de datos");
@@ -49,6 +99,7 @@ public class InitListener implements ServletContextListener,
 				Globales.GLOBAL_TYPE_CRITICAL_ERROR = ETypeCriticalError.DATABASE;
 			}
 		}
+		*/
 
 		// TODO: carga de tablas auxiliares no modificables
 		System.out

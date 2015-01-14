@@ -43,10 +43,6 @@ public class FilterCriticalErrors implements Filter {
 		{
 			HttpServletRequest httpres = (HttpServletRequest) request;			
 			
-			
-			
-			
-			
 		}
 		*/
 		
@@ -56,6 +52,8 @@ public class FilterCriticalErrors implements Filter {
 		// place your code here
 		if(Globales.GLOBAL_IS_CRITICAL_ERROR) {
 			request.getRequestDispatcher("ErrorGrave.jsp").forward(request, response);
+		}else{
+			chain.doFilter(request, response);
 		}
 
 		//En este caso no quiero que continue comprobando otros filtros
