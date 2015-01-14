@@ -1,5 +1,6 @@
 package ipt.fm.ipartek.test.linkedin;
 
+import ipt.fm.ipartek.test.linkedin.bean.Persona;
 import ipt.fm.ipartek.test.linkedin.modelo.dao.DAOFactory;
 import ipt.fm.ipartek.test.linkedin.modelo.dao.IPersonaDAO;
 
@@ -8,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -54,17 +56,17 @@ public class SearchServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		// recoger parametros
-		String first = request.getParameter("idNombre");
-		String last = request.getParameter("idApellidos");
+		String first = request.getParameter("first");
+		String last = request.getParameter("last");
 
 		// buscar el linkedin
 		LinkedInParse parse = new LinkedInParse(first, last);
-		String htmlResult = parse.getHtml();
+		ArrayList<Persona> personas = parse.getHtml();
 
 		// modificamos el fichero de resultado
 
 		// pasar attributo resultado
-		request.setAttribute("resulthtml", htmlResult);
+		request.setAttribute("resulthtml", personas);
 
 		// forwad a jsp de busqueda
 		request.getRequestDispatcher("index.jsp").forward(request, response);
