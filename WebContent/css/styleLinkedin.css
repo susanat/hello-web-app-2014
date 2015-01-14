@@ -1,7 +1,7 @@
 #idResultadoLinkedin li ul{
 	display:none;
 }
-#idResultadoLinkedin li .vcard-expanded{
+#idResultadoLinkedin li dl + dl{
 	display:none;
 }
 

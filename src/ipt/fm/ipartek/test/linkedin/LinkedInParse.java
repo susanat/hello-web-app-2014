@@ -1,6 +1,9 @@
 package ipt.fm.ipartek.test.linkedin;
 
+import ipt.fm.ipartek.test.linkedin.bean.Persona;
+
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -36,30 +39,53 @@ public class LinkedInParse {
 		return last;
 	}
 
-	public String getHtml() {
-		String resul  = "";
+	public ArrayList<Persona> getHtml() {
+		ArrayList<Persona> personas = null;
 		
 		try {
 			
 			Document doc = Jsoup.connect( SEARCH_URL+getFirst()+getLast() ).get();
 			Element listaResultados = doc.getElementById("result-set");
 			if ( listaResultados != null ){
-				resul = listaResultados.html();
-				
-			}else{
-				resul = "<h1> 0 resultados </h1>";
+				personas = new ArrayList<Persona>();
+				String nombre = "";
+				String apellidos = "";
+				String foto = "";
+				String basic = "";
+				String expanded = "";
+				Persona p = null;
+				int cant = listaResultados.getElementsByClass("vcard").size();
+				for (int i = 0; i < cant; i++) {
+				    nombre = listaResultados.getElementsByClass("given-name")
+					    .get(i).text();
+				    apellidos = listaResultados
+					    .getElementsByClass("family-name").get(i).text();
+				    foto = listaResultados.getElementsByTag("img").get(i)
+					    .absUrl("src");
+				    nombre = listaResultados.getElementsByClass("given-name")
+					    .get(i).text();
+				    // basic = listaResultados.getElementsByClass("vcard-basic")
+					    //.get(i).html();
+				    // expanded = listaResultados
+					    // .getElementsByClass("vcard-expanded").get(i).html();
+				    p=new Persona();
+				    p.setNombre(nombre);
+				    p.setApellidos(apellidos);
+				    p.setFoto(foto);
+
+				    personas.add(p);
+			}
 			}
 			
 			
 			
 		} catch (IOException e) {
-			resul = e.getMessage();		
 			e.printStackTrace();
 		}
 
 		
 		
-		return resul;
+		return personas;
 	}
 	
 	
