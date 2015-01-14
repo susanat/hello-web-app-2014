@@ -9,9 +9,8 @@ public class Globales {
 	}
 	
 	/**
-	 * Errores críticos
-	 */
-	
+	 * Tipo errores críticos de arranque del programa
+	 */	
 	public enum ETypeCriticalError {
 		LOG,
 		DATABASE,
