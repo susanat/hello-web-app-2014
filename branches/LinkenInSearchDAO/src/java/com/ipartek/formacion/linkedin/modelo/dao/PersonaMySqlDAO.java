@@ -123,7 +123,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
     }
 
     @Override
-    public synchronized int insert(Persona p) {
+    public synchronized int insert(Persona p) throws ModelException {
 	int idNuevo = -1;
 	PreparedStatement st = null;
 	ResultSet rs = null;
@@ -152,9 +152,8 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 	    }
 
 	} catch (Exception e) {
-	    // cerrar conexion
-
-	    e.printStackTrace();
+	   	e.printStackTrace();
+	   	throw new ModelException(e.getMessage());
 
 	} finally { // cerrar todos los objetos creados para el acceso de BBDD
 	    // cerrar ResultSet
