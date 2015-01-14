@@ -153,7 +153,6 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 	    }
 
 	} catch (Exception e) {
-	    // cerrar conexion
 
 	    e.printStackTrace();
 	    throw new ModelException(e.getMessage());
