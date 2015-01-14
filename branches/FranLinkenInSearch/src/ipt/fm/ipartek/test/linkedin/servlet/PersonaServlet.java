@@ -5,6 +5,7 @@ import ipt.fm.ipartek.test.linkedin.modelo.dao.DAOFactory;
 import ipt.fm.ipartek.test.linkedin.modelo.dao.IPersonaDAO;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +17,31 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class PersonaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private String mensaje = "";
+	private DAOFactory factoria = null;
+	private IPersonaDAO daoPersona = null;
+
+	@Override
+	public void init() throws ServletException {
+		super.init();
+		factoria = DAOFactory.getFactoryDAO(DAOFactory.MYSQL);
+		daoPersona = factoria.getPersonaDAO();
+	}
+
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		mensaje = "";
+		req.setCharacterEncoding("UTF-8");
+		super.service(req, resp);
+	}
+
+	@Override
+	public void destroy() {
+		factoria = null;
+		daoPersona = null;
+		super.destroy();
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -24,10 +50,6 @@ public class PersonaServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		DAOFactory factoria = DAOFactory.getFactoryDAO(DAOFactory.MYSQL);
-		IPersonaDAO daoPersona = factoria.getPersonaDAO();
-
-		request.setCharacterEncoding("UTF-8");
 
 		if (request.getParameter("nombre") != null) {
 			String nombre = request.getParameter("nombre");
@@ -39,13 +61,16 @@ public class PersonaServlet extends HttpServlet {
 					p.setFoto(request.getParameter("foto"));
 				}
 				p = daoPersona.insert(p);
+				if (p == null) {
+					// No se ha ejecutado correctamente la inserción.
+					mensaje += "No se ha podido insertar.\r\n";
+				} else {
+					mensaje += "Persona añadida correctamente.\r\n";
+				}
 			}
 		}
 
-		request.setAttribute("personas", daoPersona.getAll());
-		// request.setAttribute("personas", listar());
-		request.getRequestDispatcher("listadosPersonas.jsp").forward(request,
-				response);
+		cargarLista(request, response);
 
 	}
 
@@ -56,10 +81,6 @@ public class PersonaServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		DAOFactory factoria = DAOFactory.getFactoryDAO(DAOFactory.MYSQL);
-		IPersonaDAO daoPersona = factoria.getPersonaDAO();
-
-		request.setCharacterEncoding("UTF-8");
 
 		String id = request.getParameter("id");
 		Persona p = null;
@@ -69,13 +90,45 @@ public class PersonaServlet extends HttpServlet {
 			String apellidos = request.getParameter("apellidos");
 			p = new Persona(nombre, apellidos, Integer.parseInt(id));
 			p = daoPersona.update(p);
+			if (p == null) {
+				// No se ha ejecutado correctamente la actualización.
+				mensaje += "No se ha podido actualizar el registro.\r\n";
+			} else {
+				mensaje += "Modificación realizada.\r\n";
+			}
 		} else if ("1".equals(request.getParameter("operacion"))) {
 			p = new Persona("", "", Integer.parseInt(id));
 			// Borrar
-			boolean resultado = daoPersona.delete(p);
+			if (!daoPersona.delete(p)) {
+				// No se ha ejecutado correctamente el borrado.
+				mensaje += "No se ha podido borrar el registro.\r\n";
+			} else {
+				mensaje += "Persona eliminada de la lista.\r\n";
+			}
 		}
 
-		request.setAttribute("personas", daoPersona.getAll());
+		cargarLista(request, response);
+
+	}
+
+	/**
+	 * Carga la lista de personas y redirige al jsp correspondiente.
+	 * 
+	 * @param request
+	 */
+	private void cargarLista(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		ArrayList<Persona> personas = daoPersona.getAll();
+		if (personas == null) {
+			// No se ha podido recuperar la lista de personas por un error.
+			mensaje += "No se ha podido recuperar las lista de personas.\r\n";
+		}
+		if (mensaje != null && mensaje != "") {
+			// Si se ha grabado algún mensaje de error, se manda a la petición
+			// para ser mostrado.
+			request.setAttribute("mensaje", mensaje);
+		}
+		request.setAttribute("personas", personas);
 		request.getRequestDispatcher("listadosPersonas.jsp").forward(request,
 				response);
 	}
