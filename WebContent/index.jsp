@@ -36,6 +36,8 @@
 			<button type="submit" class="btn btn-default">Buscar</button>
 		</form>
 	</div>
+	<br>
+	<a href="PersonaServlet.do">Tabla Personas</a>
 	<!-- 
 		<input type="text" name="first" placeholder="Nombre" required>
 		<br> <input type="text" name="last" placeholder="Apellidos"
@@ -50,18 +52,17 @@
 		<%
 			ArrayList<PersonaLinkedin> personas = (ArrayList<PersonaLinkedin>) request
 					.getAttribute("resulthtml");
-			if (personas != null) {
-				if (personas.isEmpty()) {
-					%>
-					No hay resultados
-					<%
-				} else {
-					for (int i = 0; i < personas.size(); i++) {
+			if (personas == null) {
+		%>
+		No hay resultados
+		<%
+			} else {
+				for (int i = 0; i < personas.size(); i++) {
 		%>
 		<div class='row col-md-offset-1 col-md-8 panel panel-default'>
 			<div class="panel-heading">
 				<h3 class="panel-title"><%=personas.get(i).getNombre() + " "
-								+ personas.get(i).getApellidos()%></h3>
+							+ personas.get(i).getApellidos()%></h3>
 			</div>
 			<div class="panel-body">
 				<div class='row'>
@@ -92,7 +93,6 @@
 
 		<%
 			}
-				}
 			}
 		%>
 	</div>
