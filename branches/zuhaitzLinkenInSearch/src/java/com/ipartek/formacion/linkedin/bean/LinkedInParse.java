@@ -1,5 +1,7 @@
 package com.ipartek.formacion.linkedin.bean;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import org.jsoup.Jsoup;
@@ -27,41 +29,58 @@ public class LinkedInParse {
 	}
 
 	public void setFirst(final String first) {
-		this.first = "first=" + first + "&";
+		this.first = first;
 	}
 
 	public void setLast(final String last) {
-		this.last = "last=" + last + "&search=Buscar";
+		this.last = last;
 	}
 
 	public ArrayList<Persona> getHtml() {
 		ArrayList<Persona> personas = null;
+		String nombre = "";
+		String apellidos = "";
+		String foto = "";
+		String basic = "";
+		String expanded = "";
+		Persona p = null;
+
 		try {
-			final Document doc = Jsoup.connect(SEARCH_URL + getFirst() + getLast()).get();
+			final Document doc = Jsoup.connect(
+					SEARCH_URL + "first=" + URLEncoder.encode(getFirst(), "UTF-8") + "&" + "last="
+							+ URLEncoder.encode(getLast(), "UTF-8") + "&search=Buscar").get();
 			final Element listaResultados = doc.getElementById("result-set");
+			final Element resultado = doc.getElementById("top-card");
+
 			if (listaResultados != null) {
 				personas = new ArrayList<Persona>();
-				String nombre = "";
-				String apellidos = "";
-				String foto = "";
-				String basic = "";
-				String expanded = "";
-				Persona p = null;
 				final int cant = listaResultados.getElementsByClass("vcard").size();
+
 				for (int i = 0; i < cant; i++) {
 					nombre = listaResultados.getElementsByClass("given-name").get(i).text();
 					apellidos = listaResultados.getElementsByClass("family-name").get(i).text();
 					foto = listaResultados.getElementsByTag("img").get(i).absUrl("src");
-					nombre = listaResultados.getElementsByClass("given-name").get(i).text();
 					basic = listaResultados.getElementsByClass("vcard-basic").get(i).html();
 					expanded = listaResultados.getElementsByClass("vcard-expanded").get(i).html();
-					p = new Persona(0, nombre, apellidos, 18, foto, basic, expanded);
-					personas.add(p);
 
+					p = new Persona(0, nombre, apellidos, foto, basic, expanded);
+					personas.add(p);
 				}
 
-			}
+			} else if (resultado != null) {
+				personas = new ArrayList<Persona>();
 
+				nombre = getFirst();
+				apellidos = getLast();
+				foto = doc.getElementById("bg-blur-profile-picture").absUrl("src");
+				basic = resultado.select("[id^=member]").html();
+				expanded = " ";
+
+				p = new Persona(0, nombre, apellidos, foto, basic, expanded);
+				personas.add(p);
+			}
+		} catch (final UnsupportedEncodingException e) {
+			e.printStackTrace();
 		} catch (final Exception e) {
 			e.printStackTrace();
 		}
