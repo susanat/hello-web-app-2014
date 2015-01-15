@@ -19,6 +19,8 @@
 	        <h2 class="panel-title">Resultados LinkedIn</h2>
 	    </div>
 	    <div class="panel-body">
+	    	   	 
+	    	
 	         <a href="index.jsp" class="btn btn-primary btn-sm active" role="button">
 	        	 <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>&nbsp;&nbsp;Volver a la búsqueda
 	         </a>
@@ -71,7 +73,8 @@
 	
    </div>
 	
-
+	
+	
 	
 </body>
 </html>

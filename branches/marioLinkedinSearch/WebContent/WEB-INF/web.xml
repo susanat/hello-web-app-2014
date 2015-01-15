@@ -35,5 +35,16 @@
     <res-type>javax.sql.DataSource</res-type>
     <res-auth>Container</res-auth>
   </resource-ref>
- 
+  <listener>
+    <listener-class>com.ipartek.formacion.linkedin.listener.InitListener</listener-class>
+  </listener>
+  <filter>
+    <display-name>LoadBDErrorFilter</display-name>
+    <filter-name>LoadBDErrorFilter</filter-name>
+    <filter-class>com.ipartek.formacion.linkedin.filter.LoadBDErrorFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>LoadBDErrorFilter</filter-name>
+    <url-pattern>*.jsp</url-pattern>
+  </filter-mapping>
 </web-app>

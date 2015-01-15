@@ -17,6 +17,7 @@ public interface IPersonaDAO {
     static final String COL_ID = "id";
     static final String COL_NOMBRE = "nombre";
     static final String COL_APELLIDOS = "apellidos";
+    static final String COL_EDAD = "edad";
     static final String COL_FOTO = "url_foto";
 
     ArrayList<Persona> getAll() throws ModelException;

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.linkedin.bean.Mensaje;
 import com.ipartek.formacion.linkedin.bean.Persona;
 import com.ipartek.formacion.linkedin.modelo.dao.DAOFactory;
 import com.ipartek.formacion.linkedin.modelo.dao.IPersonaDAO;
@@ -19,11 +20,11 @@ import com.ipartek.formacion.linkedin.modelo.dao.ModelException;
 public class PersonaServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     public static final int CERO = 0;
-
+    public static final String ATTR_MENSAJE = "mensaje";
     public static final String OP_INSERTAR = "1";
     public static final String OP_ACTUALIZAR = "2";
     public static final String OP_BORRAR = "3";
-
+    public Mensaje mensaje = null;
     DAOFactory factoria = null;
     IPersonaDAO daoPersona = null;
 
@@ -53,6 +54,7 @@ public class PersonaServlet extends HttpServlet {
 	    request.getRequestDispatcher("listadoPersonas.jsp").forward(
 		    request, response);
 	} catch (ModelException e) {
+
 	    request.getRequestDispatcher("errorModelo.jsp").forward(request,
 		    response);
 	} catch (Exception e) {
@@ -85,6 +87,16 @@ public class PersonaServlet extends HttpServlet {
 			Persona.EDAD_DEFAULT, request.getParameter("foto"));
 		int idnuevo = daoPersona.insert(p);
 		System.out.println(idnuevo);
+		if (idnuevo > 0) {
+		    mensaje = new Mensaje(
+			    "Contacto <strong>insertado</strong> con éxito",
+			    Mensaje.MSG_TYPE_SUCCESS);
+		} else {
+		    mensaje = new Mensaje(
+			    "Ha habido un fallo al insertar. Inténtalo de nuevo.",
+			    Mensaje.MSG_TYPE_DANGER);
+		}
+		request.setAttribute(ATTR_MENSAJE, mensaje);
 
 	    } else if (op.equals(OP_ACTUALIZAR)) {
 
@@ -96,7 +108,16 @@ public class PersonaServlet extends HttpServlet {
 			request.getParameter("apellidos"),
 			Integer.parseInt(edad), request.getParameter("foto"));
 
-		daoPersona.update(p);
+		if (daoPersona.update(p)) {
+		    mensaje = new Mensaje(
+			    "Contacto <strong>actualizado</strong> con éxito",
+			    Mensaje.MSG_TYPE_SUCCESS);
+		} else {
+		    mensaje = new Mensaje(
+			    "Ha habido un fallo al actualizar. Inténtalo de nuevo.",
+			    Mensaje.MSG_TYPE_DANGER);
+		}
+		request.setAttribute(ATTR_MENSAJE, mensaje);
 
 	    } else if (op.equals(OP_BORRAR)) {
 
@@ -104,12 +125,19 @@ public class PersonaServlet extends HttpServlet {
 
 		p = new Persona(Integer.parseInt(id));
 
-		daoPersona.delete(p);
-
+		if (daoPersona.delete(p)) {
+		    mensaje = new Mensaje(
+			    "Contacto <strong>borrado</strong> con éxito",
+			    Mensaje.MSG_TYPE_SUCCESS);
+		} else {
+		    mensaje = new Mensaje(
+			    "Ha habido un fallo al borrar. Inténtalo de nuevo.",
+			    Mensaje.MSG_TYPE_DANGER);
+		}
+		request.setAttribute(ATTR_MENSAJE, mensaje);
 	    }
 
-	    // conectar BBDD
-
+	    // Consultar todas las personas
 	    doGet(request, response);
 
 	} catch (ModelException e) {
@@ -121,5 +149,4 @@ public class PersonaServlet extends HttpServlet {
 		    .forward(request, response);
 	}
     }
-
 }
