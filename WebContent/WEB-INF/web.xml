@@ -1,35 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	id="WebApp_ID" version="2.5">
-	<display-name>LinkenInSearch</display-name>
-	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
-	</welcome-file-list>
-	<servlet>
-		<description>buscar el perfil publico de una persona en Linkedin</description>
-		<display-name>SearchServlet</display-name>
-		<servlet-name>SearchServlet</servlet-name>
-		<servlet-class>ipt.fm.ipartek.test.linkedin.SearchServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>SearchServlet</servlet-name>
-		<url-pattern>/searchProfile</url-pattern>
-	</servlet-mapping>
-
-	
-	<resource-ref>
-		<description>DB Connection de prueba</description>
-		<res-ref-name>jdbc/TestDB</res-ref-name>
-		<res-type>javax.sql.DataSource</res-type>
-		<res-auth>Container</res-auth>
-	</resource-ref>
-
-
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>Linkedin</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <description>Busca en linkedin el perfil introducido</description>
+    <display-name>SearchServlet</display-name>
+    <servlet-name>SearchServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.linkedin.controller.SearchServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchServlet</servlet-name>
+    <url-pattern>/searchProfile</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PersonaServlet</display-name>
+    <servlet-name>PersonaServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.linkedin.controller.PersonaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PersonaServlet</servlet-name>
+    <url-pattern>/persona</url-pattern>
+  </servlet-mapping>
+  
+  <resource-ref>
+	<description>DB Connection de prueba</description>
+	<res-ref-name>jdbc/TestDB</res-ref-name>
+	<res-type>javax.sql.DataSource</res-type>
+	<res-auth>Container</res-auth>
+  </resource-ref>
 </web-app>
