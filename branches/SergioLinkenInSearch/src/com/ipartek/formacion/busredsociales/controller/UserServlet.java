@@ -1,11 +1,6 @@
 package com.ipartek.formacion.busredsociales.controller;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.busredsociales.bean.Usuario;
 import com.ipartek.formacion.busredsociales.comun.Constantes;
+import com.ipartek.formacion.busredsociales.comun.Message;
+import com.ipartek.formacion.busredsociales.comun.Message.ETypeAlert;
 import com.ipartek.formacion.busredsociales.dao.interfaz.IUsuarioDAO;
+
 
 
 
@@ -26,9 +24,16 @@ import com.ipartek.formacion.busredsociales.dao.interfaz.IUsuarioDAO;
  * Servlet implementation class UserServlet
  */
 public class UserServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
 	
+	private static final long serialVersionUID = 1L;	
+	
+	/**
+	 * Mensaje de error
+	 */
+	Message msg = null;
+	
+	
+	//Declaración de modelos utilizado por el controlador
 	private IUsuarioDAO modelUsuario = null;
 	
 	
@@ -53,6 +58,10 @@ public class UserServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		
+		
 		List<Usuario> lista = new ArrayList<Usuario>();
 		
 		String toRedirect = "";
@@ -118,7 +127,15 @@ public class UserServlet extends HttpServlet {
 						
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();			
+			e.printStackTrace();	
+			
+			
+			msg.setError(true);
+			msg.setText("Usuario o contraseña incorrecto");
+			msg.setType(ETypeAlert.DANGER);
+			msg.setException(e);
+			
+			
 		}
 		
 		
@@ -133,12 +150,19 @@ public class UserServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				lista = null;
+				
+				msg.setError(true);
+				msg.setText("Usuario o contraseña incorrecto");
+				msg.setType(ETypeAlert.DANGER);
+				msg.setException(e);
+				
 			}
 			toRedirect = "listadoUsuarios.jsp";
 		}
 		
 		
 		request.setAttribute(Constantes.ATTR_LISTADO, lista);
+		request.setAttribute(Constantes.ATTR_MSG, msg);
 		
 		//redirigimos
 		RequestDispatcher dispatcher = null;
@@ -151,6 +175,20 @@ public class UserServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
+	}
+
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		
+		//instanciamos el nuevo mensaje por cada petición
+		//TODO mirar esto que no cuadra en el constructor de message
+		msg = new Message();
+		msg.clear();
+		
+		
+		//seguimos con el proceso doGet o doPost
+		super.service(req, resp);
 	}
 	
 	

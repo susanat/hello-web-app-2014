@@ -1,5 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<%@page import="com.ipartek.formacion.busredsociales.comun.Globales.ETypeCriticalError"%>
+<%@page import="com.ipartek.formacion.busredsociales.CriticalStepLogic.ETypeCriticalError"%>
+<%@page import="com.ipartek.formacion.busredsociales.CriticalStepLogic"%>
 <%@page import="com.ipartek.formacion.busredsociales.comun.Globales"%>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
@@ -245,8 +246,8 @@ p {
 	<div>
 	<%
 	
-		if(Globales.GLOBAL_TYPE_CRITICAL_ERROR != null) {
-			if(Globales.GLOBAL_TYPE_CRITICAL_ERROR == ETypeCriticalError.DATABASE) {
+		if(CriticalStepLogic.getCriticalError()) {
+			if(CriticalStepLogic.GLOBAL_TYPE_CRITICAL_ERROR == ETypeCriticalError.DATABASE) {
 				out.println("Problema de conexión con la base de datos, por favor, revise si está activa o los parámetros de conexión de la instalación.");
 			
 				

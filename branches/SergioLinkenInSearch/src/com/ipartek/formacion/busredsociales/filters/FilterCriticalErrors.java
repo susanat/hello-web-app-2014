@@ -5,11 +5,13 @@ import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
+import com.ipartek.formacion.busredsociales.CriticalStepLogic;
 import com.ipartek.formacion.busredsociales.comun.Globales;
 
 
@@ -18,6 +20,16 @@ import com.ipartek.formacion.busredsociales.comun.Globales;
  */
 public class FilterCriticalErrors implements Filter {
 
+	private FilterConfig config;
+
+	public void setFilterConfig(FilterConfig config) {
+		this.config = config;
+	}
+
+	public FilterConfig getFilterConfig() {
+		return config;
+	}
+	
     /**
      * Default constructor. 
      */
@@ -45,16 +57,27 @@ public class FilterCriticalErrors implements Filter {
 			
 		}
 		*/
+			
+		
+		ServletContext context = getFilterConfig().getServletContext();
+		
+		//chequeamos todos los pasos
+		CriticalStepLogic.checkAllSteps(context);
+		
+		//comprobamos si lo podemos arreglar
+		if(CriticalStepLogic.getCriticalError()) {
+			CriticalStepLogic.configureAllSteps(context);
+		}
 		
 		
 		
-		
-		// place your code here
-		if(Globales.GLOBAL_IS_CRITICAL_ERROR) {
+		if(CriticalStepLogic.getCriticalError()) {
 			request.getRequestDispatcher("ErrorGrave.jsp").forward(request, response);
-		}else{
+		} else {
 			chain.doFilter(request, response);
 		}
+	
+		
 
 		//En este caso no quiero que continue comprobando otros filtros
 		// pass the request along the filter chain
@@ -65,7 +88,7 @@ public class FilterCriticalErrors implements Filter {
 	 * @see Filter#init(FilterConfig)
 	 */
 	public void init(FilterConfig fConfig) throws ServletException {
-		// TODO Auto-generated method stub
+		setFilterConfig(fConfig);
 	}
 
 }

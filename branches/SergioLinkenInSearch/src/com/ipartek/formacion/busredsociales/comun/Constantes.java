@@ -32,6 +32,7 @@ public final class Constantes {
     
     
     public static final String ATTR_LISTADO = "listado";
+    public static final String ATTR_MSG = "mensage";
 	
 		
 }
