@@ -9,6 +9,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class PersonaMySqlDAO implements IPersonaDAO {
+	private final String tablaPersona = "persona";
+	private final String columnaId = "id";
+	private final String columnaNombre = "nombre";
+	private final String columnApellidos = "apellido1";
+	private final String columnaFoto = "foto";
 
 	@Override
 	public ArrayList<Persona> getAll() {
@@ -24,12 +29,12 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 			// consultar tabla personas
 			st = conexion.createStatement();
 			// Recoger resultados
-			rs = st.executeQuery("select * from persona");
+			rs = st.executeQuery("select * from " + tablaPersona);
 			Persona p = null;
 			while (rs.next()) {
-				p = new Persona(rs.getString("nombre"),
-						rs.getString("apellido1"), rs.getInt("id"));
-				p.setFoto(rs.getString("foto"));
+				p = new Persona(rs.getString(columnaNombre),
+						rs.getString(columnApellidos), rs.getInt(columnaId));
+				p.setFoto(rs.getString(columnaFoto));
 				personas.add(p);
 			}
 		} catch (Exception e) {
@@ -54,13 +59,14 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 		try {
 			conexion = MySqlDAOFactory.getInstance().conectar();
 
-			String sqlInsert = "select * from persona where id = ?";
+			String sqlInsert = "select * from " + columnaNombre + " where "
+					+ columnaId + " = ?";
 			st = conexion.prepareStatement(sqlInsert);
 			st.setInt(1, p.getId());
 			rs = st.executeQuery();
 			if (rs.first()) {
-				persona = new Persona(rs.getString("nombre"),
-						rs.getString("apellido1"), rs.getInt("id"));
+				persona = new Persona(rs.getString(columnaNombre),
+						rs.getString(columnApellidos), rs.getInt(columnaId));
 			}
 
 		} catch (Exception e) {
@@ -85,7 +91,9 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 			conexion = MySqlDAOFactory.getInstance().conectar();
 
 			// insertar persona nueva
-			String sqlInsert = "INSERT INTO persona ( nombre, apellido1, foto) VALUES (?,?,?)";
+			String sqlInsert = "INSERTz INTO " + tablaPersona + "( "
+					+ columnaNombre + ", " + columnApellidos + ", "
+					+ columnaFoto + ") VALUES (?,?,?)";
 			st2 = conexion.prepareStatement(sqlInsert,
 					Statement.RETURN_GENERATED_KEYS);
 			st2.setString(1, p.getNombre());
@@ -100,16 +108,6 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 			}
 			p.setId(i);
 			persona = p;
-			// st2.close();
-
-			// sqlInsert =
-			// "SELECT MAX(id) as id, nombre, apellido1 FROM persona";
-			// st2 = conexion.prepareStatement(sqlInsert);
-			// rs = st2.executeQuery();
-			// if (rs.next()) {
-			// persona = new Persona(rs.getString("nombre"),
-			// rs.getString("apellido1"), rs.getInt("id"));
-			// }
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -130,7 +128,8 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 		try {
 			conexion = MySqlDAOFactory.getInstance().conectar();
 
-			String sqlInsert = "DELETE FROM persona WHERE id=?";
+			String sqlInsert = "DELETE FROM " + tablaPersona + " WHERE "
+					+ columnaId + "=?";
 			st2 = conexion.prepareStatement(sqlInsert);
 			st2.setInt(1, p.getId());
 			st2.executeUpdate();
@@ -156,7 +155,9 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 		try {
 			conexion = MySqlDAOFactory.getInstance().conectar();
 
-			String sqlInsert = "UPDATE persona SET nombre=?, apellido1=? WHERE id=?";
+			String sqlInsert = "UPDATE " + tablaPersona + " SET "
+					+ columnaNombre + "=?, " + columnApellidos + "=? WHERE "
+					+ columnaId + "=?";
 			st2 = conexion.prepareStatement(sqlInsert);
 			st2.setString(1, p.getNombre());
 			st2.setString(2, p.getApellidos());

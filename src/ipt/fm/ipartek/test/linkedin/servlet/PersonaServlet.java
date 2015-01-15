@@ -1,6 +1,8 @@
 package ipt.fm.ipartek.test.linkedin.servlet;
 
+import ipt.fm.ipartek.test.linkedin.bean.Mensaje;
 import ipt.fm.ipartek.test.linkedin.bean.Persona;
+import ipt.fm.ipartek.test.linkedin.bean.Mensaje.MsgType;
 import ipt.fm.ipartek.test.linkedin.modelo.dao.DAOFactory;
 import ipt.fm.ipartek.test.linkedin.modelo.dao.IPersonaDAO;
 
@@ -17,9 +19,20 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class PersonaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private String mensaje = "";
-	private DAOFactory factoria = null;
-	private IPersonaDAO daoPersona = null;
+	/**
+	 * Objeto de tipo Mensaje para la comunicación con el usuario.
+	 */
+	private static Mensaje mensaje = null;
+	/**
+	 * Objeto tipo DAOFactoria. Selecciona el tipo de base de datos a controlar.
+	 */
+	private static DAOFactory factoria = null;
+	/**
+	 * Objeto de tipo IPersonaDAO que realiza las consultas a base de datos.
+	 */
+	private static IPersonaDAO daoPersona = null;
+
+	private String avisoSAT = "Inténtelo mas tarde y si persiste contacte con el servicio técnico.";
 
 	@Override
 	public void init() throws ServletException {
@@ -31,7 +44,7 @@ public class PersonaServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		mensaje = "";
+		mensaje = null;
 		req.setCharacterEncoding("UTF-8");
 		super.service(req, resp);
 	}
@@ -50,26 +63,6 @@ public class PersonaServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
-		if (request.getParameter("nombre") != null) {
-			String nombre = request.getParameter("nombre");
-			String apellidos = request.getParameter("apellidos");
-
-			if (!nombre.equals("") && !apellidos.equals("")) {
-				Persona p = new Persona(nombre, apellidos);
-				if (request.getParameter("foto") != null) {
-					p.setFoto(request.getParameter("foto"));
-				}
-				p = daoPersona.insert(p);
-				if (p == null) {
-					// No se ha ejecutado correctamente la inserción.
-					mensaje += "No se ha podido insertar.\r\n";
-				} else {
-					mensaje += "Persona añadida correctamente.\r\n";
-				}
-			}
-		}
-
 		cargarLista(request, response);
 
 	}
@@ -83,27 +76,51 @@ public class PersonaServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		String id = request.getParameter("id");
+		String nombre = "";
+		String apellidos = "";
 		Persona p = null;
 		if ("0".equals(request.getParameter("operacion"))) {
 			// Actualizar
-			String nombre = request.getParameter("nombre");
-			String apellidos = request.getParameter("apellidos");
+			nombre = request.getParameter("nombre");
+			apellidos = request.getParameter("apellidos");
 			p = new Persona(nombre, apellidos, Integer.parseInt(id));
 			p = daoPersona.update(p);
 			if (p == null) {
 				// No se ha ejecutado correctamente la actualización.
-				mensaje += "No se ha podido actualizar el registro.\r\n";
+				mensaje = new Mensaje(
+						"No se ha podido actualizar el registro. " + avisoSAT,
+						MsgType.ERR);
 			} else {
-				mensaje += "Modificación realizada.\r\n";
+				mensaje = new Mensaje("Modificación realizada con éxito.",
+						MsgType.INF);
 			}
 		} else if ("1".equals(request.getParameter("operacion"))) {
 			p = new Persona("", "", Integer.parseInt(id));
 			// Borrar
 			if (!daoPersona.delete(p)) {
 				// No se ha ejecutado correctamente el borrado.
-				mensaje += "No se ha podido borrar el registro.\r\n";
+				mensaje = new Mensaje("No se ha podido borrar el registro. "
+						+ avisoSAT, MsgType.ERR);
 			} else {
-				mensaje += "Persona eliminada de la lista.\r\n";
+				mensaje = new Mensaje("Persona eliminada de la lista.",
+						MsgType.INF);
+			}
+		} else if ("2".equals(request.getParameter("operacion"))) {
+			// Añadir
+			nombre = request.getParameter("nombre");
+			apellidos = request.getParameter("apellidos");
+			p = new Persona(nombre, apellidos);
+			if (request.getParameter("foto") != null) {
+				p.setFoto(request.getParameter("foto"));
+			}
+			p = daoPersona.insert(p);
+			if (p == null) {
+				// No se ha ejecutado correctamente la inserción.
+				mensaje = new Mensaje("No se ha podido insertar. " + avisoSAT,
+						MsgType.ERR);
+			} else {
+				mensaje = new Mensaje("Persona añadida correctamente.",
+						MsgType.INF);
 			}
 		}
 
@@ -121,9 +138,11 @@ public class PersonaServlet extends HttpServlet {
 		ArrayList<Persona> personas = daoPersona.getAll();
 		if (personas == null) {
 			// No se ha podido recuperar la lista de personas por un error.
-			mensaje += "No se ha podido recuperar las lista de personas.\r\n";
+			mensaje = new Mensaje(
+					"No se ha podido recuperar las lista de personas. "
+							+ avisoSAT, MsgType.ERR);
 		}
-		if (mensaje != null && mensaje != "") {
+		if (mensaje != null) {
 			// Si se ha grabado algún mensaje de error, se manda a la petición
 			// para ser mostrado.
 			request.setAttribute("mensaje", mensaje);

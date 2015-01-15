@@ -65,16 +65,24 @@ public class LinkedInParse {
 				Element perfilActual = null;
 				while (perfiles.hasNext()) {
 					perfilActual = perfiles.next();
+					perfilActual.select("ul").remove();
 					nombre = perfilActual.select("span.given-name").text();
 					apellidos = perfilActual.select("span.family-name").text();
 					foto = perfilActual.select("img").attr("src");
-					boton = "<a href=\"http://localhost:8080/LinkenInSearch/persona?nombre="
+					boton = "<form action=\"persona\" method=\"post\">"
+							+ "<input type=\"hidden\" name=\"nombre\" value="
 							+ nombre
-							+ "&apellidos="
+							+ ">"
+							+ "<input type=\"hidden\" name=\"apellidos\" value="
 							+ apellidos
-							+ "&foto="
-							+ foto + "\">Añadir</a>";
-					perfilActual.select("h2").append(boton);
+							+ ">"
+							+ "<input type=\"hidden\" name=\"foto\" value="
+							+ foto
+							+ ">"
+							+ "<input type=\"hidden\" name=\"operacion\" value=\"2\">"
+							+ "<input type=\"submit\" value=\"Añadir\">"
+							+ "</form>";
+					perfilActual.append(boton);
 				}
 
 				resul = listaResultados.html();

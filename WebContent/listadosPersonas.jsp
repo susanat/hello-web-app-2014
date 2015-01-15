@@ -1,3 +1,4 @@
+<%@page import="ipt.fm.ipartek.test.linkedin.bean.Mensaje"%>
 <%@page import="ipt.fm.ipartek.test.linkedin.bean.Persona"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -14,9 +15,21 @@
 <a href="http://localhost:8080/LinkenInSearch/index.jsp">Volver</a>
 <br>
 <%
+	boolean error = false;
 	if (request.getAttribute("mensaje") != null) {
+		String clase = "";
+		Mensaje mensaje = (Mensaje)request.getAttribute("mensaje");
+		if (mensaje.getType() == Mensaje.MsgType.ERR) {
+			clase = "error";
+			error = true;
+		} else if (mensaje.getType() == Mensaje.MsgType.INF) {
+			clase = "info";
+		} 
 %>
-		<p><%=(String)request.getAttribute("mensaje")%></p>
+		<div class="<%=clase%>" role="alert">
+			<%=mensaje.getMsg()%>
+		</div>
+
 <%
 	}
 
@@ -41,12 +54,14 @@
 <%
 		}
 	} else {
+		if (!error) {
 %>
-	<p>Vacio</p>
+			<p>Lista vacia</p>	
 <%
+		}
 	}
-
 %>
+
 
 </body>
 </html>
