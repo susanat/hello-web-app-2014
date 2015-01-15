@@ -1,17 +1,12 @@
 package com.ipartek.formacion.linkedin.controller;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 
-import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 
 import com.ipartek.formacion.linkedin.bean.Persona;
 import com.ipartek.formacion.linkedin.modelo.dao.DAOFactory;
@@ -37,27 +32,24 @@ public class PersonaServlet extends HttpServlet {
 	 *      response)
 	 */
 	@Override
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
+			IOException {
 
 		try {
 			request.setCharacterEncoding("UTF-8");
 
 			factoria = DAOFactory.getDAOFactory(DAOFactory.MYSQL);
 			daoPersona = factoria.getPersonaDAO();
-			ArrayList<Persona> pers = daoPersona.getAll();
 
+			final ArrayList<Persona> pers = daoPersona.getAll();
 			request.setAttribute("personas", pers);
-			// forward a jsp de busqueda
-			request.getRequestDispatcher("listadoPersonas.jsp").forward(
-					request, response);
-		} catch (ModelException e) {
-			request.getRequestDispatcher("errorModelo.jsp").forward(request,
-					response);
 
-		} catch (Exception e) {
-			request.getRequestDispatcher("error.jsp")
-					.forward(request, response);
+			request.getRequestDispatcher("listadoPersonas.jsp").forward(request, response);
+		} catch (final ModelException e) {
+			request.getRequestDispatcher("errorModelo.jsp").forward(request, response);
+
+		} catch (final Exception e) {
+			request.getRequestDispatcher("error.jsp").forward(request, response);
 		}
 	}
 
@@ -66,47 +58,41 @@ public class PersonaServlet extends HttpServlet {
 	 *      response)
 	 */
 	@Override
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(final HttpServletRequest request, final HttpServletResponse response)
+			throws ServletException, IOException {
 
 		try {
 			request.setCharacterEncoding("UTF-8");
 			String id = "";
+			final String op = request.getParameter("operacion");
+			Persona p = null;
+
 			if (factoria == null) {
 				factoria = DAOFactory.getDAOFactory(DAOFactory.MYSQL);
 				daoPersona = factoria.getPersonaDAO();
 			}
-			String op = request.getParameter("operacion");
-			Persona p = null;
 
 			if (op.equals(OP_INSERTAR)) {
-
-				p = new Persona(CERO, request.getParameter("nombre"),
-						request.getParameter("apellidos"),
-						Persona.EDAD_DEFAULT, request.getParameter("foto"));
-				int idnuevo = daoPersona.insert(p);
+				p = new Persona(CERO, request.getParameter("nombre"), request.getParameter("apellidos"),
+						request.getParameter("foto"));
+				final int idnuevo = daoPersona.insert(p);
+				
 				if (idnuevo >= CERO) {
 					System.out.println(idnuevo);
 					System.out.println("bien insertada");
 				} else {
 					System.out.println("mal insertada");
 				}
-
 			} else if (op.equals(OP_ACTUALIZAR)) {
-				String edad = request.getParameter("edad");
 				id = request.getParameter("id");
-
-				p = new Persona(Integer.parseInt(id),
-						request.getParameter("nombre"),
-						request.getParameter("apellidos"),
-						Integer.parseInt(edad), request.getParameter("foto"));
+				p = new Persona(Integer.parseInt(id), request.getParameter("nombre"),
+						request.getParameter("apellidos"), request.getParameter("foto"));
 
 				if (daoPersona.update(p)) {
 					System.out.println("bien actualizado");
 				} else {
 					System.out.println("mal actualizado");
 				}
-
 			} else if (op.equals(OP_BORRAR)) {
 				id = request.getParameter("id");
 
@@ -118,20 +104,17 @@ public class PersonaServlet extends HttpServlet {
 					System.out.println("mal borrado");
 				}
 			}
-			
-			//Listar todas las personas
-			doGet(request, response);
-			
 
-		} catch (ModelException e) {	
+			// Listar todas las personas
+			doGet(request, response);
+
+		} catch (final ModelException e) {
 			request.getRequestDispatcher("errorModelo.jsp").forward(request, response);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 			request.getRequestDispatcher("error.jsp").forward(request, response);
 		}
 
 	}
-
-
 
 }

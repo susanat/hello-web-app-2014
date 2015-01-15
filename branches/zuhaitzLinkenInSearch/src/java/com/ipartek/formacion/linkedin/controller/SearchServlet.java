@@ -15,41 +15,40 @@ import com.ipartek.formacion.linkedin.bean.Persona;
  * Servlet implementation class BuscarServlet
  */
 public class SearchServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-     *      response)
-     */
-    @Override
-    protected void doGet(HttpServletRequest request,
-	    HttpServletResponse response) throws ServletException, IOException {
-	request.setCharacterEncoding("UTF-8");
-	// recoger parametros
-	String first = request.getParameter("first");
-	String last = request.getParameter("last");
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	@Override
+	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
+			IOException {
+		request.setCharacterEncoding("UTF-8");
+		// recoger parametros
+		final String first = request.getParameter("first");
+		final String last = request.getParameter("last");
 
-	// buscar el linkedin
+		// buscar en linkedin
 
-	LinkedInParse parse = new LinkedInParse(first, last);
-	ArrayList<Persona> personas = parse.getHtml();
+		final LinkedInParse parse = new LinkedInParse(first, last);
+		final ArrayList<Persona> personas = parse.getHtml();
 
-	// pasar attributo resultado
-	request.setAttribute("personas", personas);
-	// forward a jsp de busqueda
-	request.getRequestDispatcher("resultados.jsp").forward(request,
-		response);
+		// pasar attributo resultado
+		request.setAttribute("personas", personas);
+		// forward a jsp de busqueda
+		request.getRequestDispatcher("resultados.jsp").forward(request, response);
 
-    }
+	}
 
-    /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-     *      response)
-     */
-    @Override
-    protected void doPost(HttpServletRequest request,
-	    HttpServletResponse response) throws ServletException, IOException {
-	doGet(request, response);
-    }
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	@Override
+	protected void doPost(final HttpServletRequest request, final HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
+	}
 
 }
