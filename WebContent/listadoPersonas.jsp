@@ -1,3 +1,5 @@
+<%@page import="com.ipartek.formacion.linkedin.controller.PersonaServlet"%>
+<%@page import="com.ipartek.formacion.linkedin.bean.Mensaje"%>
 <%@page import="com.ipartek.formacion.linkedin.bean.Persona"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -17,7 +19,20 @@
 		<div class="panel-heading">
 	        <h2 class="panel-title">Listado de las Personas</h2>
 	    </div>
-	    
+	     <%
+    	 	Mensaje mens = (Mensaje) request.getAttribute(PersonaServlet.ATTR_MENSAJE);
+    	 	if(mens != null){
+    	 	 %>
+   	 	 	 	<div class="alert alert-<%=mens.getType()%> alert-dismissible" role="alert">
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					  <span aria-hidden="true">&times;</span>
+				  </button>
+				  <%=mens.getMsg() %>
+				</div>
+				
+    	 	 <%    
+    	 	}
+    	 %>
 	    <div class="panel-body">
 	       <a href="index.jsp" class="btn btn-primary btn-sm active" role="button">
 	       		<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>&nbsp;&nbsp;Volver a la búsqueda
@@ -68,6 +83,10 @@
 	    </div>
 	
    </div>
+    <!-- JQuery  -->
+   <script src="js/jquery-1.11.1.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
      
 </body>
 </html>
