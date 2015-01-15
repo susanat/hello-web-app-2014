@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="css/style.css">
 <title>Insert title here</title>
 </head>
 <body>
@@ -26,7 +27,7 @@ for(Persona p:personas){
 	out.println("<input type='text' name='nombre' value='"+p.getNombre()+"' hidden>");
 	out.println("<input type='text' name='apellido' value='"+p.getApellido()+"' hidden>");
 	out.println("<span>"+p.getNombre()+" "+p.getApellido()+"</span>");
-	out.println("<input type='submit' value='añadir'>");
+	out.println("<input class='button-blue' type='submit' value='añadir'>");
 	out.println("</form>");
 }
 %>

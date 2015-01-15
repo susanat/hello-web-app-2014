@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="css/style.css">
 <title>LinkedIn Search</title>
 </head>
 <body>
@@ -15,7 +16,7 @@ ${requestScope.personas}
 <%
 out.println("<form action='PersonaServlet' method='post'>");
 out.println("<input type='text' name='cmd' value='list' hidden>");
-out.println("<input type='submit' value='Ver Todos'>");
+out.println("<input class='button-orange' type='submit' value='Ver Todos'>");
 out.println("</form>");
 %>
 
@@ -25,7 +26,7 @@ out.println("</form>");
 	<br>
 	<input type="text" name="last" placeholder="Apellidos" required>
 	<br>
-	<input type="submit" value="buscar">	
+	<input class='button-blue' type="submit" value="buscar">	
 </form>
 
 ${requestScope.resulthtml}

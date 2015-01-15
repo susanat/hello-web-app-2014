@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="css/style.css">
 <title>Insert title here</title>
 </head>
 <body>
@@ -20,14 +21,8 @@
 	out.println("<ul>");
 	for(Persona p:personas){
 		out.println("<li>");
-		out.println("<form action='PersonaServlet' method='post'>");
 		out.println("<img width='40' height='40' src='"+p.getFoto()+"'>");
-
-		out.println("<input type='text' name='cmd' value='delete' hidden>");
-		out.println("<input type='text' name='id' value='"+p.getId()+"'hidden>");
-		//out.println("<li>"+p.getNombre()+" "+p.getApellido()+"</li>");
-		out.println("<input type='submit' value='Borrar'>");
-		out.println("</form>");
+		
 		
 		out.println("<form action='PersonaServlet' method='post'>");
 		out.println("<input type='text' name='cmd' value='update' hidden>");
@@ -35,8 +30,17 @@
 		out.println("<input type='text' name='nombre' value='"+p.getNombre()+"'>");
 		out.println("<input type='text' name='apellido' value='"+p.getApellido()+"'>");
 		out.println("<input type='text' name='foto' value='"+p.getFoto()+"' hidden>");
-		out.println("<input type='submit' value='Update'>");
+		out.println("<input class='button-green' type='submit' value='Update'>");
+		
+		out.println("<form action='PersonaServlet' method='post'>");
+		out.println("<input type='text' name='cmd' value='delete' hidden>");
+		out.println("<input type='text' name='id' value='"+p.getId()+"'hidden>");
+		//out.println("<li>"+p.getNombre()+" "+p.getApellido()+"</li>");
+		out.println("<input class='button-red' type='submit' value='Borrar'>");
+		out.println("</form>");
 		out.println("</li>");
+		
+	
 	}
 	out.println("</ul>");
 	
