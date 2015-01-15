@@ -1,0 +1,115 @@
+Nuevo proyecto Java:
+
+Versión: Java 6
+
+Importar ficheros de texto con alumnos. Limpiar los que están mal y guardar en otro fichero los buenos.
+
+Fichero de entrada: personas.txt
+
+Ficheros de salida:
+- estadisticas.txt
+- personas_correctas.txt guarda las personas correctas
+- personas_error.txt guarda las personas erroneas
+- personas_repetidas.txt guarda las lineas repetidas por DNI, las dos personas
+
+
+
+
+1 linea dato de persona.
+
+
+*nombre
+*apellido1
+*apellido2
+*edad
+*mail
+*dni
+*categoria
+
+Necesario:
+
+Todos los datos
+Edad entre 18 y 99
+
+Errores posibles:
+
+Datos Incompletos -> linea
+Edad -> linea
+Email no valido -> linea
+DNI no valido -> linea
+UTF8 -> linea
+
+**Repetida -> linea
+
+
+**Mismo DNI.
+
+Salida Repetido:
+
+linea repe 1
+linea repe n (si es erróneo, añadir * para indicar que también se encuentra en registros erroneos
+--------------- (separación por linea)
+
+Salida estadísticas:
+
+	tiempo proceso: X milisegundos
+	registros leídos:
+	registros correctos:
+	registros erroneos:
+	registros duplicados: (por cada línea, si un dni aparece dos veces, suma dos)
+	
+
+	
+Fecha de entrega:
+
+Viernes 10:00 
+
+
+-----------------------------------------------------
+
+
+Rutas repositorios:
+
+https://primero-java-jse.googlecode.com/svn/
+
+branches/sergio_migracion/Migracion Personas
+
+https://ipformacion.ipartekaula.com/svn/migracion2014/
+
+branches/sergio_migracion/Migracion Personas
+
+
+----------------------------------------
+0.9.1
+
+- Fallos:
+
+
+FIXED 0.9.2 - No se mostraban en estadísticas número de duplicados
+FIXED 0.9.2 - No se validaba correctamente el DNI (se cumplimenta con 0 hasta llegar al tamaño adecuado)		
+FIXED 0.9.2 - Formato incorrecto ficheros duplicados		
+FIXED 0.9.2 - Formato incorrecto salida fichero de erróneos
+FIXED 0.9.2 - Null exception cuando no había datos en los ficheros 
+
+	- utilizar, para escritir el error, los datos proporcionados por el cliente
+	Datos Incompletos -> linea
+	Edad -> linea
+	Email no valido -> linea
+	DNI no valido -> linea
+	UTF8 -> linea 
+
+FIXED 0.9.3 - Guardar versión correcta de archivo (no interpreta algunos caracteres latinos)
+	
+0.9.4
+	- Añadido control estructura del proyecto
+	- Corregidos Blocker y Critical violations PMD
+	- Añadidos mensajes de información y alerta para el usuario
+	- Control de errores fallo de carga de fichero entrada
+	- Añadida clase Utils para Interfaz de Usuario
+	
+0.9.5
+	- Añadida lógica para fichero log
+	
+1.0 
+	- Limpieza de código 
+
