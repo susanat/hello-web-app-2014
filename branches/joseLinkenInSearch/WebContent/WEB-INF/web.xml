@@ -33,6 +33,6 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>PersonaServlet</servlet-name>
-    <url-pattern>/PersonaServlet</url-pattern>
+    <url-pattern>/PersonaServlet.do</url-pattern>
   </servlet-mapping>
 </web-app>
