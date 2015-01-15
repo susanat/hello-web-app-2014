@@ -2,6 +2,7 @@ package com.ipartek.formacion.buscadorLinkedIn.modelo.dao.interfaz;
 
 import java.util.ArrayList;
 
+import com.ipartek.formacion.buscadorLinkedIn.bean.Message;
 import com.ipartek.formacion.buscadorLinkedIn.bean.Persona;
 
 /**
@@ -28,6 +29,6 @@ public interface IPersonaDAO {
 
     boolean delete(Persona p);
 
-    Persona update(Persona p);
+    Message update(Persona p);
 
 }
