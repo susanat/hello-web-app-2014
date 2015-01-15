@@ -3,7 +3,7 @@ package com.ipartek.formacion.linkedin.modelo.dao;
 /**
  * Factoria Abstracta
  *
- * @author Mario Alvaro
+ * @author
  *
  */
 public abstract class DAOFactory {
