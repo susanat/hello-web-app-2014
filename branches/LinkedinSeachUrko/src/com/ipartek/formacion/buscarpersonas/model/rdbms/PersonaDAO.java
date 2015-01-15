@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.ipartek.formacion.buscarpersonas.bean.Persona;
+import com.ipartek.formacion.buscarpersonas.exception.ModelException;
 import com.ipartek.formacion.buscarpersonas.model.DAOFactory;
 import com.ipartek.formacion.buscarpersonas.model.IConnection;
 import com.ipartek.formacion.buscarpersonas.model.IPersonaDAO;
@@ -18,14 +19,20 @@ public class PersonaDAO implements IPersonaDAO {
     private ResultSet rs;
 
     public PersonaDAO(final int whichFactory) {
-	con = DAOFactory.getDAOFactory(whichFactory).getIConnection();
-	connection = con.getConnection();
-	con.connect();
-	rs = null;
+	try {
+	    con = DAOFactory.getDAOFactory(whichFactory).getIConnection();
+	    connection = con.getConnection();
+	    con.connect();
+	    rs = null;
+	} catch (ModelException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+
     }
 
     @Override
-    public ArrayList<Persona> getAll() {
+    public ArrayList<Persona> getAll() throws ModelException {
 	ArrayList<Persona> personas = null;
 	// int reg = Constantes.SQL_ERROR;
 	// con.connect();
@@ -43,8 +50,8 @@ public class PersonaDAO implements IPersonaDAO {
 		p = null;
 	    }
 	} catch (SQLException e) {
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
+	    throw new ModelException(e.getMessage());
 	} finally {
 	    if (cStmt != null) {
 		try {
@@ -70,7 +77,7 @@ public class PersonaDAO implements IPersonaDAO {
     }
 
     @Override
-    public Persona getById(final Persona p) {
+    public Persona getById(final Persona p) throws ModelException {
 	Persona per = null;
 	CallableStatement cStmt = null;
 	// int reg = Constantes.SQL_ERROR;
@@ -85,8 +92,8 @@ public class PersonaDAO implements IPersonaDAO {
 	    }
 
 	} catch (SQLException e) {
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
+	    throw new ModelException(e.getMessage());
 	} finally {
 	    if (cStmt != null) {
 		try {
@@ -112,7 +119,7 @@ public class PersonaDAO implements IPersonaDAO {
     }
 
     @Override
-    public int insert(final Persona p) {
+    public int insert(final Persona p) throws ModelException {
 	int reg = Constantes.SQL_ERROR;
 	CallableStatement cStmt = null;
 	// con.connect();
@@ -125,8 +132,8 @@ public class PersonaDAO implements IPersonaDAO {
 	    reg = cStmt.executeUpdate();
 	    rs = cStmt.getGeneratedKeys();
 	} catch (SQLException e) {
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
+	    throw new ModelException(e.getMessage());
 	} finally {
 	    if (cStmt != null) {
 		try {
@@ -152,7 +159,7 @@ public class PersonaDAO implements IPersonaDAO {
     }
 
     @Override
-    public int delete(final Persona p) {
+    public int delete(final Persona p) throws ModelException {
 	int reg = Constantes.SQL_ERROR;
 	CallableStatement cStmt = null;
 	// con.connect();
@@ -163,8 +170,8 @@ public class PersonaDAO implements IPersonaDAO {
 
 	    reg = cStmt.executeUpdate();
 	} catch (SQLException e) {
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
+	    throw new ModelException(e.getMessage());
 	} finally {
 	    if (cStmt != null) {
 		try {
@@ -190,7 +197,7 @@ public class PersonaDAO implements IPersonaDAO {
     }
 
     @Override
-    public int update(final Persona p) {
+    public int update(final Persona p) throws ModelException {
 	int reg = Constantes.SQL_ERROR;
 	CallableStatement cStmt = null;
 
@@ -205,8 +212,8 @@ public class PersonaDAO implements IPersonaDAO {
 
 	    reg = cStmt.executeUpdate();
 	} catch (SQLException e) {
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
+	    throw new ModelException(e.getMessage());
 	} finally {
 	    if (cStmt != null) {
 		try {
@@ -220,15 +227,15 @@ public class PersonaDAO implements IPersonaDAO {
 	return reg;
     }
 
-    private Persona rsToPojo(final Persona p) {
+    private Persona rsToPojo(final Persona p) throws ModelException {
 	try {
 	    p.setCodigo(rs.getInt(CAMPOS[0]));
 	    p.setNombre(rs.getString(CAMPOS[1]));
 	    p.setApellidos(rs.getString(CAMPOS[2]));
 	    p.setFoto(rs.getString(CAMPOS[3]));
 	} catch (SQLException e) {
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
+	    throw new ModelException(e.getMessage());
 	} finally {
 	    /*
 	     * if (con != null) { con.disconnect(); }

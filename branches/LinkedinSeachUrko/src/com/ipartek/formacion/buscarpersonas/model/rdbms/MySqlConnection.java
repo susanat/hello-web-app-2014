@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.ipartek.formacion.buscarpersonas.exception.ModelException;
 import com.ipartek.formacion.buscarpersonas.model.IConnection;
 
 public class MySqlConnection implements IConnection {
@@ -19,7 +19,7 @@ public class MySqlConnection implements IConnection {
     private static final String DATA_SOURCE = "java:comp/env/jdbc/datasourceTest";
 
     // Private constructor suppresses
-    private MySqlConnection() {
+    private MySqlConnection() throws ModelException {
 	if (connection == null) {
 	    connect();
 	}
@@ -27,13 +27,13 @@ public class MySqlConnection implements IConnection {
 
     // creador sincronizado para protegerse de posibles problemas multi-hilo
     // otra prueba para evitar instanciación múltiple
-    private synchronized static void createInstance() {
+    private synchronized static void createInstance() throws ModelException {
 	if (connection == null) {
 	    INSTANCE = new MySqlConnection();
 	}
     }
 
-    public static MySqlConnection getInstance() {
+    public static MySqlConnection getInstance() throws ModelException {
 	if (connection == null) {
 	    createInstance();
 	}
@@ -41,7 +41,7 @@ public class MySqlConnection implements IConnection {
     }
 
     @Override
-    public void connect() {
+    public void connect() throws ModelException {
 	// final String DRIVER = "com.mysql.jdbc.Driver";
 	// System.out.println("Connecting to MySQL...");
 
@@ -53,12 +53,10 @@ public class MySqlConnection implements IConnection {
 		connection = ds.getConnection();
 		// connection = DriverManager.getConnection(URL, USER, PASS);
 	    }
-	} catch (SQLException e) {
-	    // TODO Auto-generated catch block
+	} catch (Exception e) {
 	    e.printStackTrace();
-	} catch (NamingException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	    System.out.println("LA CONEXIÓN A LA BD HA FALLADO");
+	    throw new ModelException("LA CONEXIÓN A LA BD HA FALLADO");
 	}
     }
 
@@ -68,7 +66,7 @@ public class MySqlConnection implements IConnection {
     }
 
     @Override
-    public void disconnect() {
+    public void disconnect() throws ModelException {
 	if (connection != null) {
 	    try {
 		connection.close();
