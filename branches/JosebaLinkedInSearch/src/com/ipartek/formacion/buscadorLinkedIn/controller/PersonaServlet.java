@@ -40,6 +40,8 @@ public class PersonaServlet extends HttpServlet {
 	// recogemos atributos y creamos persona
 	request.setCharacterEncoding("UTF-8");
 
+	int id = 0;
+
 	if (request.getParameter("nombre") == null) {
 	    // venimos desde el enlace de listar, no hay que crear o recoger
 	    // nada
@@ -76,19 +78,21 @@ public class PersonaServlet extends HttpServlet {
 	    personas += "<div class='container'><img src='"
 		    + listaPersonas.get(i).getUrlImagen()
 		    + "' class='img-circle'><br>";
-	    personas += listaPersonas.get(i).getNombre();
-	    personas += "    ";
-	    personas += listaPersonas.get(i).getApellidos();
-	    personas += "     ";
+
 	    personas += "<form method='post' action='BorradoServlet'>"
-		    + "<input type='text' hidden name='accion' value='actualizar'> "
-		    + "<input type='text' name='nombre' hidden value='"
+		    + "<input type='text' hidden name='id' value='"
+		    + listaPersonas.get(i).getId()
+		    + "'><input type='text' hidden name='accion' value='actualizar'> "
+		    + "<input type='text' name='nombre' value='"
 		    + listaPersonas.get(i).getNombre()
-		    + "'><input type='text' name='apellidos' hidden value='"
+		    + "'><input type='text' name='apellidos' value='"
 		    + listaPersonas.get(i).getApellidos()
-		    + "'><input type=submit value='Actualizar' class='btn btn-primary'><br>"
+		    + "'><br><input type=submit value='Actualizar' class='btn btn-primary'><br>"
 		    + "</form>";
 	    personas += "<form method='post' action='BorradoServlet'>"
+		    + "<input type='text' hidden name='id' value='"
+		    + listaPersonas.get(i).getId()
+		    + "'>"
 		    + "<input type='text' hidden name='accion' value='borrar'> "
 		    + "<input type='text' name='nombre' hidden value='"
 		    + listaPersonas.get(i).getNombre()
@@ -104,7 +108,8 @@ public class PersonaServlet extends HttpServlet {
     }
 
     private void insertarConDAO(Persona p1, String urlImagen) {
-	Persona p = new Persona(p1.getNombre(), p1.getApellidos(), urlImagen);
+	Persona p = new Persona(p1.getNombre(), p1.getApellidos(), urlImagen,
+		p1.getId());
 	DAOFactory factoria = DAOFactory.getFactoriaDAO(DAOFactory.MYSQL);
 	IPersonaDAO DAOPersona = factoria.getPersonaDAO();
 	DAOPersona.insert(p);

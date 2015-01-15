@@ -5,6 +5,7 @@ public class Persona {
     private String nombre;
     private String apellidos;
     private String urlImagen;
+    private int id;
 
     public Persona() {
 	super();
@@ -14,6 +15,14 @@ public class Persona {
 	super();
 	this.nombre = nombre;
 	this.apellidos = apellidos;
+
+    }
+
+    public Persona(String nombre, String apellidos, int id) {
+	super();
+	this.nombre = nombre;
+	this.apellidos = apellidos;
+	this.id = id;
     }
 
     public Persona(String nombre, String apellidos, String urlImagen) {
@@ -21,6 +30,15 @@ public class Persona {
 	this.nombre = nombre;
 	this.apellidos = apellidos;
 	this.urlImagen = urlImagen;
+
+    }
+
+    public Persona(String nombre, String apellidos, String urlImagen, int id) {
+	super();
+	this.nombre = nombre;
+	this.apellidos = apellidos;
+	this.urlImagen = urlImagen;
+	this.id = id;
     }
 
     public String getNombre() {
@@ -45,6 +63,10 @@ public class Persona {
 
     public void setUrlImagen(String urlImagen) {
 	this.urlImagen = urlImagen;
+    }
+
+    public int getId() {
+	return id;
     }
 
 }

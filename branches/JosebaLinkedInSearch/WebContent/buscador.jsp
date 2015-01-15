@@ -4,18 +4,24 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Buscador LinkedIn</title>
+<link rel="stylesheet" type="text/css" href="css/styles.css"/>
 </head>
 <body>
 	<h1>LinkedIn Search</h1>
 	
 	
 	<form action="searchProfile" method="post">
-		Nombre:
-		<input type="text" name="first" id="first" required><br>
-		Apellido:
-		<input type="text" name="last" id="last" required><br>
-		<input type="submit" value="buscar">
+		<div class="form-group">
+		 <label for="first">Nombre</label>
+		<input type="text" name="first" id="first" required class="form-control" placeholder="Nombre">
+		</div>
+		<div class="form-group">
+		<label for="last">Apellido</label>
+		<input type="text" name="last" id="last" required class="form-control" placeholder="Apellido">
+		</div>
+		
+		<input type="submit" value="buscar" class="btn btn-default">
 	</form>
 	<h2><a href="PersonaServlet">Ver todos</a></h2>
 </body>

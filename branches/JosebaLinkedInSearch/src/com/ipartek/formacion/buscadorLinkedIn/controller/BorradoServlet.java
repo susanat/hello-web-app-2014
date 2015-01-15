@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.buscadorLinkedIn.bean.Message;
 import com.ipartek.formacion.buscadorLinkedIn.bean.Persona;
 import com.ipartek.formacion.buscadorLinkedIn.modelo.dao.DAOFactory;
 import com.ipartek.formacion.buscadorLinkedIn.modelo.dao.interfaz.IPersonaDAO;
@@ -37,31 +38,32 @@ public class BorradoServlet extends HttpServlet {
 	    HttpServletResponse response) throws ServletException, IOException {
 	request.setCharacterEncoding("UTF-8");
 	accion = request.getParameter("accion");
+	Message mensaje = null;
 	Persona p1 = new Persona(request.getParameter("nombre"),
-		request.getParameter("apellidos"));
+		request.getParameter("apellidos"), Integer.parseInt(request
+			.getParameter("id")));
 	if ("borrar".equals(accion)) {
 	    borrarConDAO(p1);
 	} else {
-	    actualizarConDAO(p1);
+	    mensaje = actualizarConDAO(p1);
 	}
 
+	request.setAttribute("mensaje", mensaje);
 	request.setAttribute("personas", listarConDAO());
 	request.getRequestDispatcher("listadoPersonas.jsp").forward(request,
 		response);
     }
 
-    private void actualizarConDAO(Persona p1) {
+    private Message actualizarConDAO(Persona p1) {
 	DAOFactory factoria = DAOFactory.getFactoriaDAO(DAOFactory.MYSQL);
 	IPersonaDAO DAOPersona = factoria.getPersonaDAO();
-	DAOPersona.update(p1); // returns boolean so we can check if operation
-	// was sucessful
+	return (DAOPersona.update(p1));
     }
 
     private void borrarConDAO(Persona p1) {
 	DAOFactory factoria = DAOFactory.getFactoriaDAO(DAOFactory.MYSQL);
 	IPersonaDAO DAOPersona = factoria.getPersonaDAO();
-	DAOPersona.delete(p1); // returns boolean so we can check if operation
-	// was sucessful
+	DAOPersona.delete(p1);
     }
 
     private String listarConDAO() {
@@ -76,19 +78,20 @@ public class BorradoServlet extends HttpServlet {
 	    personas += "<div class='container'><img src='"
 		    + listaPersonas.get(i).getUrlImagen()
 		    + "' class='img-circle'><br>";
-	    personas += listaPersonas.get(i).getNombre();
-	    personas += "    ";
-	    personas += listaPersonas.get(i).getApellidos();
-	    personas += "     ";
 	    personas += "<form method='post' action='BorradoServlet'>"
-		    + "<input type='text' hidden name='accion' value='actualizar'> "
-		    + "<input type='text' name='nombre' hidden value='"
+		    + "<input type='text' hidden name='id' value='"
+		    + listaPersonas.get(i).getId()
+		    + "'><input type='text' hidden name='accion' value='actualizar'> "
+		    + "<input type='text' name='nombre' value='"
 		    + listaPersonas.get(i).getNombre()
-		    + "'><input type='text' name='apellidos' hidden value='"
+		    + "'><input type='text' name='apellidos'value='"
 		    + listaPersonas.get(i).getApellidos()
-		    + "'><input type=submit value='Actualizar' class='btn btn-primary'><br>"
+		    + "'><br><input type=submit value='Actualizar' class='btn btn-primary'><br>"
 		    + "</form>";
 	    personas += "<form method='post' action='BorradoServlet'>"
+		    + "<input type='text' hidden name='id' value='"
+		    + listaPersonas.get(i).getId()
+		    + "'>"
 		    + "<input type='text' hidden name='accion' value='borrar'> "
 		    + "<input type='text' name='nombre' hidden value='"
 		    + listaPersonas.get(i).getNombre()

@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.ipartek.formacion.buscadorLinkedIn.bean.Message;
 import com.ipartek.formacion.buscadorLinkedIn.bean.Persona;
 import com.ipartek.formacion.buscadorLinkedIn.modelo.dao.interfaz.IPersonaDAO;
 
@@ -43,7 +44,8 @@ public class PersonaAccessDAO implements IPersonaDAO {
 	    rs = st.executeQuery();
 	    while (rs.next()) {
 		lista.add(new Persona(rs.getString("nombre"), rs
-			.getString("apellidos"), rs.getString("URLImagen")));
+			.getString("apellidos"), rs.getString("URLImagen"), rs
+			.getInt("id")));
 	    }
 
 	} catch (SQLException e) {
@@ -140,7 +142,7 @@ public class PersonaAccessDAO implements IPersonaDAO {
     }
 
     @Override
-    public Persona update(Persona p) {
+    public Message update(Persona p) {
 	PreparedStatement st = null;
 	try {
 
