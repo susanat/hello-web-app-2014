@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.ipartek.formacion.buscadorLinkedIn.bean.Message;
 import com.ipartek.formacion.buscadorLinkedIn.bean.Persona;
 import com.ipartek.formacion.buscadorLinkedIn.modelo.dao.interfaz.IPersonaDAO;
 
@@ -26,7 +27,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 	    + IPersonaDAO.LINK_FOTO + ") VALUES (?,?,?)";
 
     private String DELETE_FROM = "DELETE FROM " + IPersonaDAO.TABLA + " WHERE "
-	    + IPersonaDAO.NOMBRE + "= ? AND " + IPersonaDAO.APELLIDOS + " = ?";
+	    + IPersonaDAO.COL_ID + "= ? ";
 
     private String UPDATE_TABLE = "UPDATE " + IPersonaDAO.TABLA + " SET "
 	    + IPersonaDAO.NOMBRE + "= ? , " + IPersonaDAO.APELLIDOS
@@ -43,7 +44,8 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 	    rs = st.executeQuery();
 	    while (rs.next()) {
 		lista.add(new Persona(rs.getString("nombre"), rs
-			.getString("apellidos"), rs.getString("URLImagen")));
+			.getString("apellidos"), rs.getString("URLImagen"), rs
+			.getInt("id")));
 	    }
 
 	} catch (SQLException e) {
@@ -126,8 +128,8 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 	try {
 	    conexion = MYSQLDAOFactory.getInstance().conectarDriver();
 	    st = conexion.prepareStatement(DELETE_FROM);
-	    st.setString(1, p.getNombre());
-	    st.setString(2, p.getApellidos());
+	    st.setInt(1, p.getId());
+
 	    st.executeUpdate();
 	    resul = true;
 	} catch (Exception ex) {
@@ -140,7 +142,8 @@ public class PersonaMySqlDAO implements IPersonaDAO {
     }
 
     @Override
-    public Persona update(Persona p) {
+    public Message update(Persona p) {
+	Message mensaje = new Message();
 	PreparedStatement st = null;
 	try {
 
@@ -148,14 +151,20 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 	    st = conexion.prepareStatement(UPDATE_TABLE);
 	    st.setString(1, p.getNombre());
 	    st.setString(2, p.getApellidos());
-	    // TODO Necesitamos crear un metodo que devuelva el id de una
-	    // persona seleccionada y pasarselo a la query aqui
+	    st.setInt(3, p.getId());
+	    st.executeUpdate();
+	    // si llegamos hasta aqui la insercion ha sido correcta
+	    mensaje.setMsg("Actualizacion realizada correctamente");
+	    mensaje.setType("alert-success");
+
 	} catch (Exception ex) {
 	    ex.printStackTrace();
+	    mensaje.setMsg("Error actualizando");
+	    mensaje.setType("alert alert-danger");
 	} finally {
 	    MYSQLDAOFactory.getInstance().cerrarConexion(conexion, st, rs);
 	}
-	return null;
+	return mensaje;
     }
 
 }

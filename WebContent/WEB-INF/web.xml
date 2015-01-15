@@ -34,4 +34,26 @@
     <servlet-name>BorradoServlet</servlet-name>
     <url-pattern>/BorradoServlet</url-pattern>
   </servlet-mapping>
+  <listener>
+    <listener-class>com.ipartek.formacion.buscadorLinkedIn.listener.InitListener</listener-class>
+  </listener>
+  <filter>
+    <display-name>loadErrorFilter</display-name>
+    <filter-name>loadErrorFilter</filter-name>
+    <filter-class>com.ipartek.formacion.buscadorLinkedIn.filtros.loadErrorFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>loadErrorFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <servlet>
+    <description>Servlet que controla el proceso de actualizacion</description>
+    <display-name>UpdateServlet</display-name>
+    <servlet-name>UpdateServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.buscadorLinkedIn.controller.UpdateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateServlet</servlet-name>
+    <url-pattern>/UpdateServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
