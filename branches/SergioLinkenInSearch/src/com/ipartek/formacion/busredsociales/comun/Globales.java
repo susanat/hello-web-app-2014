@@ -8,25 +8,6 @@ public class Globales {
 		
 	}
 	
-	/**
-	 * Tipo errores críticos de arranque del programa
-	 */	
-	public enum ETypeCriticalError {
-		LOG,
-		DATABASE,
-		AUXILIAR_TABLES,
-		STADISTICS
-	}
-	
-	public static boolean GLOBAL_IS_CRITICAL_ERROR = false;
-	public static ETypeCriticalError GLOBAL_TYPE_CRITICAL_ERROR = null;
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

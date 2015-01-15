@@ -2,7 +2,16 @@ package com.ipartek.formacion.busredsociales;
 
 import javax.servlet.ServletContext;
 
-public abstract class CriticalStep {
+import com.ipartek.formacion.busredsociales.CriticalStepLogic.ETypeCriticalError;
+
+/**
+ * Esta clase abstracta contiene las funciones básica para el control de los pasos
+ * críticos al inicio del programa.
+ * 
+ * @author Sergio Rubio Nieto
+ *
+ */
+public abstract class CriticalStepFactory {
 
 	private boolean status = false;
 	
@@ -13,6 +22,8 @@ public abstract class CriticalStep {
 	public void setStatus(boolean setStatus) {
 		status = setStatus;
 	}
+	
+	public abstract ETypeCriticalError getTypeError();
 			
 	public abstract void setConfiguration(ServletContext context) throws Exception;
 	
