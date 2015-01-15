@@ -15,16 +15,21 @@ public class PersonaMySqlDAO implements IPersonaDAO {
     public final static String SQL_SELECT_ALL = "SELECT * FROM "
 	    + IPersonaDAO.TABLA;
     public final static String SQL_SELECT_BYID = "SELECT * FROM "
-	    + IPersonaDAO.TABLA + " WHERE id=?" + IPersonaDAO.TABLA;
+	    + IPersonaDAO.TABLA + " WHERE " + IPersonaDAO.COL_ID + "=?"
+	    + IPersonaDAO.TABLA;
 
     public final static String SQL_INSERT = "INSERT INTO " + IPersonaDAO.TABLA
-	    + " (nombre,apellidos,edad, url_foto) VALUES ( ? , ? , ?, ?)";
+	    + " (" + IPersonaDAO.COL_NOMBRE + "," + IPersonaDAO.COL_APELLIDOS
+	    + "," + IPersonaDAO.COL_EDAD + ", " + IPersonaDAO.COL_FOTO
+	    + ") VALUES ( ? , ? , ?, ?)";
 
     public final static String SQL_DELETE = "DELETE FROM " + IPersonaDAO.TABLA
-	    + " WHERE id=?";
+	    + " WHERE " + IPersonaDAO.COL_ID + "=?";
 
     public final static String SQL_UPDATE = "UPDATE " + IPersonaDAO.TABLA
-	    + " SET nombre=?,apellidos=?,edad=? WHERE id=?";
+	    + " SET " + IPersonaDAO.COL_NOMBRE + "=?,"
+	    + IPersonaDAO.COL_APELLIDOS + "=?," + IPersonaDAO.COL_EDAD
+	    + "=? WHERE " + IPersonaDAO.COL_ID + "=?";
 
     @Override
     public synchronized ArrayList<Persona> getAll() throws ModelException {
@@ -40,9 +45,11 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 	    rs = st.executeQuery(SQL_SELECT_ALL);
 	    Persona p = null;
 	    while (rs.next()) {
-		p = new Persona(rs.getInt("id"), rs.getString("nombre"),
-			rs.getString("apellidos"), rs.getInt("edad"),
-			rs.getString("url_foto"));
+		p = new Persona(rs.getInt(IPersonaDAO.COL_ID),
+			rs.getString(IPersonaDAO.COL_NOMBRE),
+			rs.getString(IPersonaDAO.COL_APELLIDOS),
+			rs.getInt(IPersonaDAO.COL_EDAD),
+			rs.getString(IPersonaDAO.COL_FOTO));
 		personas.add(p);
 	    }
 
@@ -89,9 +96,11 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 
 	    rs = st.executeQuery();
 
-	    pers = new Persona(rs.getInt("id"), rs.getString("nombre"),
-		    rs.getString("apellidos"), rs.getInt("edad"),
-		    rs.getString("url_foto"));
+	    pers = new Persona(rs.getInt(IPersonaDAO.COL_ID),
+		    rs.getString(IPersonaDAO.COL_NOMBRE),
+		    rs.getString(IPersonaDAO.COL_APELLIDOS),
+		    rs.getInt(IPersonaDAO.COL_EDAD),
+		    rs.getString(IPersonaDAO.COL_FOTO));
 
 	} catch (Exception e) {
 	    // cerrar conexion
