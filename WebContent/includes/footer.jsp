@@ -1,5 +1,6 @@
 
-	<%@page import="com.ipartek.formacion.busredsociales.comun.Constantes"%>
+	<%@page import="com.ipartek.formacion.busredsociales.comun.Message"%>
+<%@page import="com.ipartek.formacion.busredsociales.comun.Constantes"%>
 </div> <!-- FIN container -->	
         
         <!-- /.row -->
@@ -43,6 +44,28 @@
 	});
 	</script>
 	
+	<% 
+	if (request.getAttribute(Constantes.ATTR_MSG) != null) {
+		
+		Message msg = (Message)request.getAttribute(Constantes.ATTR_MSG);
+		
+		if(msg.isError()) {
+		
+	%>	
+	
+			<div class="alert alert-warning alert-dismissible" role="alert">
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			  <strong>Warning!</strong> Better check yourself, you're not looking too good.
+			  <br>
+			  <%= msg.getText() %>
+			  <br>
+			  
+			</div>
+	 
+	<% 
+		}
+	}
+	%>
 	
 
 </body>

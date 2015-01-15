@@ -2,17 +2,18 @@ package com.ipartek.formacion.busredsociales;
 
 import javax.servlet.ServletContext;
 
+import com.ipartek.formacion.busredsociales.CriticalStepLogic.ETypeCriticalError;
 import com.ipartek.formacion.busredsociales.comun.Globales;
 import com.ipartek.formacion.busredsociales.dao.factoria.DAOException;
 import com.ipartek.formacion.busredsociales.dao.factoria.DAOFactory;
 import com.ipartek.formacion.busredsociales.dao.interfaz.IUsuarioDAO;
 
-public class BDCriticalStep extends CriticalStep {
+public class CriticalStepBD extends CriticalStepFactory {
 
 	DAOFactory factoria = null;
 	
 	
-	public BDCriticalStep() {
+	public CriticalStepBD() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -36,8 +37,6 @@ public class BDCriticalStep extends CriticalStep {
 					// testeamos la conexión de todos los modelos
 					factoria.checkConnection();
 
-					
-
 				} catch (DAOException e) {
 					throw e;
 					
@@ -53,16 +52,30 @@ public class BDCriticalStep extends CriticalStep {
 		
 		try {
 			if(factoria == null) {
+				//mal, cambiamos el estatus
+				this.setStatus(false);
 				throw new NullPointerException();
 			}
 			
 			factoria.checkConnection();
 			
 		} catch (Exception ex) {
+			//mal, cambiamos el estatus
+			this.setStatus(false);
 			throw ex;
 		}
 		
-		return true;
+		//todo bien, actualizamos el estado
+		this.setStatus(true);
+		
+		
+		return getStatus();
+	}
+
+	@Override
+	public ETypeCriticalError getTypeError() {
+		return CriticalStepLogic.ETypeCriticalError.DATABASE;
+		
 	}
 
 }

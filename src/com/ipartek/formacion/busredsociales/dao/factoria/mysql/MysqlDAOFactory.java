@@ -68,15 +68,17 @@ public class MysqlDAOFactory extends DAOFactory {
 				DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/MyConexion");
 				conexion = ds.getConnection();
 
-				if (conexion == null) {
-					throw new Exception("No se ha creado la conexión");
-				}
+				
 			}
 			
 		} catch (SQLException ex) {
 			throw new DAOException(ex);			
 		} catch (Exception ex) {
 			throw new DAOException(ex);			
+		}
+		
+		if (conexion == null) {
+			throw new DAOException("Error indeterminado. No se ha creado la conexión");
 		}
 		
 		return conexion;
