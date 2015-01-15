@@ -2,10 +2,12 @@ package com.ipartek.formacion.buscarpersonas.model;
 
 import java.sql.Connection;
 
-public interface IConnection {
-    public void connect();
+import com.ipartek.formacion.buscarpersonas.exception.ModelException;
 
-    public void disconnect();
+public interface IConnection {
+    public void connect() throws ModelException;
+
+    public void disconnect() throws ModelException;
 
     public Connection getConnection();
     // public IConnection getConnection();
