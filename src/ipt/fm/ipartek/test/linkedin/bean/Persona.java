@@ -21,13 +21,14 @@ public class Persona {
 	 * 
 	 * @param nombre
 	 * @param apellidos
+	 * @param foto
 	 */
-	public Persona(String nombre, String apellidos) {
+	public Persona(String nombre, String apellidos, String foto) {
 		super();
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.id = ID_NULL;
-		this.foto = null;
+		this.foto = foto;
 	}
 
 	public int getId() {

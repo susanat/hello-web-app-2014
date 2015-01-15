@@ -1,3 +1,4 @@
+<%@page import="ipt.fm.ipartek.test.linkedin.bean.PersonaLinkedin"%>
 <%@page import="ipt.fm.ipartek.test.linkedin.bean.Persona"%>
 <%@page import="java.util.ArrayList"%>
 
@@ -14,7 +15,7 @@
 
 </head>
 <body>
-		<h1>LinkedIn Search</h1>
+	<h1>LinkedIn Search</h1>
 
 
 	<div class="container">
@@ -24,14 +25,12 @@
 		<form class="form-inline" action="searchProfile" method="post">
 			<div class="form-group">
 				<!-- <label class="sr-only" for="idNombre">Nombre</label> -->
-				 <input name="first"
-					type="text" class="form-control" id="first" placeholder="Nombre"
-					required>
+				<input name="first" type="text" class="form-control" id="first"
+					placeholder="Nombre" required>
 			</div>
 			<div class="form-group">
 				<!-- <label class="sr-only" for="idApellidos">Apellidos</label>  -->
-				<input name="last"
-					type="text" class="form-control" id="last"
+				<input name="last" type="text" class="form-control" id="last"
 					placeholder="Apellidos" required>
 			</div>
 			<button type="submit" class="btn btn-default">Buscar</button>
@@ -45,34 +44,57 @@
 		
 	</form>
 	 -->
-<div id="idResultadoLinkedin">
-	<%ArrayList<Persona> personas = (ArrayList<Persona>) request.getAttribute("resulthtml");
-					if(personas!=null){
-						for(int i=0; i<personas.size(); i++){
-							%>
-		  		<div class='container'> 	  		
-					<div class='row'>
-						<img alt='foto de perfil' name="foto" src='<%=personas.get(i).getFoto() %>'>
-						<h2><%=personas.get(i).getNombre()+" "+ personas.get(i).getApellidos()%> </h2>
+	<br>
+	<br>
+	<div id="idResultadoLinkedin">
+		<%
+			ArrayList<PersonaLinkedin> personas = (ArrayList<PersonaLinkedin>) request
+					.getAttribute("resulthtml");
+			if (personas != null) {
+				if (personas.isEmpty()) {
+					%>
+					No hay resultados
+					<%
+				} else {
+					for (int i = 0; i < personas.size(); i++) {
+		%>
+		<div class='row col-md-offset-1 col-md-8 panel panel-default'>
+			<div class="panel-heading">
+				<h3 class="panel-title"><%=personas.get(i).getNombre() + " "
+								+ personas.get(i).getApellidos()%></h3>
+			</div>
+			<div class="panel-body">
+				<div class='row'>
+					<div class="media col-md-2">
+						<img class="media-left" alt='foto de perfil' name="foto"
+							src='<%=personas.get(i).getFoto()%>'>
+
 					</div>
-					<br>
-					
-					<div class='row'>
+					<div class="media-body">
+						<%=personas.get(i).getBasic()%>
+						<%=personas.get(i).getExpanded()%>
+						<br>
 						<form action='PersonaServlet
 						' method='post'>
-					    	<input type='hidden' name='nombre' value='<%=personas.get(i).getNombre()%>'>
-					    	<input type='hidden' name='apellidos' value='<%=personas.get(i).getApellidos()%>'>
-					   		<input type='hidden' name='foto' value='<%=personas.get(i).getFoto()%>'>
-					    	<input type='hidden' name='action' value='crear'>
-			
-					    	<input type='submit' class="btn btn-primary" value='Guardar'>
-					    </form>
-				    </div>
-			    </div>							<%
-						}
-					}
-	%>
-</div>
+							<input type='hidden' name='nombre'
+								value='<%=personas.get(i).getNombre()%>'> <input
+								type='hidden' name='apellidos'
+								value='<%=personas.get(i).getApellidos()%>'> <input
+								type='hidden' name='foto' value='<%=personas.get(i).getFoto()%>'>
+							<input type='hidden' name='action' value='crear'> <input
+								type='submit' class="btn btn-primary" value='Guardar'>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
 
+		<%
+			}
+				}
+			}
+		%>
+	</div>
 </body>
 </html>
