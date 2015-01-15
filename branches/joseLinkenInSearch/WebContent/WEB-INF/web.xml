@@ -13,7 +13,7 @@
     <description>buscar el perfil publico de una persona en Linkedin</description>
     <display-name>SearchServlet</display-name>
     <servlet-name>SearchServlet</servlet-name>
-    <servlet-class>ipt.fm.ipartek.test.linkedin.SearchServlet</servlet-class>
+    <servlet-class>ipt.fm.ipartek.test.linkedin.controller.SearchServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>SearchServlet</servlet-name>

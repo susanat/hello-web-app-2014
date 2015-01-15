@@ -1,6 +1,8 @@
-package ipt.fm.ipartek.test.linkedin;
+package ipt.fm.ipartek.test.linkedin.controller;
 
+import ipt.fm.ipartek.test.linkedin.LinkedInParse;
 import ipt.fm.ipartek.test.linkedin.bean.Persona;
+import ipt.fm.ipartek.test.linkedin.bean.PersonaLinkedin;
 import ipt.fm.ipartek.test.linkedin.modelo.dao.DAOFactory;
 import ipt.fm.ipartek.test.linkedin.modelo.dao.IPersonaDAO;
 
@@ -61,7 +63,7 @@ public class SearchServlet extends HttpServlet {
 
 		// buscar el linkedin
 		LinkedInParse parse = new LinkedInParse(first, last);
-		ArrayList<Persona> personas = parse.getHtml();
+		ArrayList<PersonaLinkedin> personas = parse.getHtml();
 
 		// modificamos el fichero de resultado
 
@@ -106,6 +108,7 @@ public class SearchServlet extends HttpServlet {
 
 	}
 
+	/*
 	private String conectar(String first, String last) {
 		String personas = "";
 
@@ -122,7 +125,7 @@ public class SearchServlet extends HttpServlet {
 			 * DriverManager.getConnection("jdbc:mysql://localhost/test",
 			 * "root", "");
 			 */
-
+/*
 			// Cargar DataSource
 
 			conexion = FactoriaMySql.conectar();
@@ -189,13 +192,14 @@ public class SearchServlet extends HttpServlet {
 			 * if ( conexion != null ){ try{ conexion.close(); }catch (
 			 * Exception e){ e.printStackTrace(); } }
 			 */
-
+/*
 			FactoriaMySql.desconectar();
 
 		}
 
 		return personas;
 	}
+	*/
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
