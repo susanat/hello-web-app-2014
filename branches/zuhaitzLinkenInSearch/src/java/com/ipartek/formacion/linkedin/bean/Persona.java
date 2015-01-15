@@ -1,113 +1,101 @@
 package com.ipartek.formacion.linkedin.bean;
 
+import org.apache.catalina.startup.SetNextNamingRule;
+
 public class Persona {
-    public final static String NOMBRE_DEFAULT = "Default";
-    public final static String APELLIDOS_DEFAULT = "Default";
-    public final static int EDAD_DEFAULT = 18;
-    public final static String FOTO_DEFAULT = "Default";
-    public final static String INFO_BASIC_DEFAULT = "Default";
-    public final static String INFO_EXPANDED_DEFAULT = "Default";
+	public final static String NOMBRE_DEFAULT = "Default";
+	public final static String APELLIDOS_DEFAULT = "Default";
+	public final static String FOTO_DEFAULT = "Default";
+	public final static String INFO_BASIC_DEFAULT = "Default";
+	public final static String INFO_EXPANDED_DEFAULT = "Default";
 
-    private int id;
-    private String nombre;
-    private String apellido;
-    private int edad;
-    private String url_foto;
-    private String info_basic;
-    private String info_expanded;
+	private int id;
+	private String nombre;
+	private String apellido;
+	private String url_foto;
+	private String info_basic;
+	private String info_expanded;
 
-    public Persona(int id) {
-	super();
-	this.id = id;
-	this.nombre = NOMBRE_DEFAULT;
-	this.apellido = APELLIDOS_DEFAULT;
-	this.edad = EDAD_DEFAULT;
-	this.url_foto = FOTO_DEFAULT;
-	this.info_basic = INFO_BASIC_DEFAULT;
-	this.info_expanded = INFO_EXPANDED_DEFAULT;
+	public Persona(final int id) {
+		super();
+		setId(id);
+		setNombre(NOMBRE_DEFAULT);
+		setApellido(APELLIDOS_DEFAULT);
+		setUrl_foto(FOTO_DEFAULT);
+		setInfo_basic(INFO_BASIC_DEFAULT);
+		setInfo_expanded(INFO_EXPANDED_DEFAULT);
 
-    }
+	}
 
-    public Persona(int id, String nombre, String apellido, int edad,
-	    String url_foto) {
-	super();
-	this.id = id;
-	this.nombre = nombre;
-	this.apellido = apellido;
-	this.edad = edad;
-	this.url_foto = url_foto;
-	this.info_basic = INFO_BASIC_DEFAULT;
-	this.info_expanded = INFO_EXPANDED_DEFAULT;
-    }
+	public Persona(final int id, final String nombre, final String apellido, final String url_foto) {
+		super();
+		setId(id);
+		setNombre(nombre);
+		setApellido(apellido);
+		setUrl_foto(url_foto);
+		setInfo_basic(INFO_BASIC_DEFAULT);
+		setInfo_expanded(INFO_EXPANDED_DEFAULT);
+	}
 
-    public Persona(int id, String nombre, String apellido, int edad,
-	    String url_foto, String basic, String expanded) {
-	super();
-	this.id = id;
-	this.nombre = nombre;
-	this.apellido = apellido;
-	this.edad = edad;
-	this.url_foto = url_foto;
-	this.info_basic = basic;
-	this.info_expanded = expanded;
+	public Persona(final int id, final String nombre, final String apellido, final String url_foto, final String basic,
+			final String expanded) {
+		super();
+		setId(id);
+		setNombre(nombre);
+		setApellido(apellido);
+		setUrl_foto(url_foto);
+		setInfo_basic(basic);
+		setInfo_expanded(expanded);
 
-    }
+	}
 
-    public int getEdad() {
-	return edad;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setEdad(int edad) {
-	this.edad = edad;
-    }
+	public void setId(final int id) {
+		this.id = id;
+	}
 
-    public int getId() {
-	return id;
-    }
+	public String getNombre() {
+		return nombre;
+	}
 
-    public void setId(int id) {
-	this.id = id;
-    }
+	public void setNombre(final String nombre) {
+		this.nombre = nombre;
+	}
 
-    public String getNombre() {
-	return nombre;
-    }
+	public String getApellido() {
+		return apellido;
+	}
 
-    public void setNombre(String nombre) {
-	this.nombre = nombre;
-    }
+	public void setApellido(final String apellido) {
+		this.apellido = apellido;
+	}
 
-    public String getApellido() {
-	return apellido;
-    }
+	public String getUrl_foto() {
+		return url_foto;
+	}
 
-    public void setApellido(String apellido) {
-	this.apellido = apellido;
-    }
+	public void setUrl_foto(final String url_foto) {
+		this.url_foto = url_foto;
 
-    public String getUrl_foto() {
-	return url_foto;
-    }
+	}
 
-    public void setUrl_foto(String url_foto) {
-	this.url_foto = url_foto;
+	public String getInfo_basic() {
+		return info_basic;
+	}
 
-    }
+	public void setInfo_basic(final String info_basic) {
+		this.info_basic = info_basic;
+	}
 
-    public String getInfo_basic() {
-	return info_basic;
-    }
+	public String getInfo_expanded() {
+		return info_expanded;
+	}
 
-    public void setInfo_basic(String info_basic) {
-	this.info_basic = info_basic;
-    }
-
-    public String getInfo_expanded() {
-	return info_expanded;
-    }
-
-    public void setInfo_expanded(String info_expanded) {
-	this.info_expanded = info_expanded;
-    }
+	public void setInfo_expanded(final String info_expanded) {
+		this.info_expanded = info_expanded;
+	}
 
 }
