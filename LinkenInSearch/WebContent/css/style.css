@@ -1,0 +1,31 @@
+.button-blue {
+	background-color: #111177;
+	color: white;
+	padding: 1em;
+	border: 0;
+	border-radius: 5px;
+}
+
+.button-red {
+	background-color: #771111;
+	color: white;
+	padding: 1em;
+	border: 0;
+	border-radius: 5px;
+}
+
+.button-green {
+	background-color: #117711;
+	color: white;
+	padding: 1em;
+	border: 0;
+	border-radius: 5px;
+}
+
+.button-orange {
+	background-color: #776600;
+	color: white;
+	padding: 1em;
+	border: 0;
+	border-radius: 5px;
+}
