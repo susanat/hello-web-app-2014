@@ -1,5 +1,6 @@
 package com.ipartek.formacion.buscarpersonas.model.rdbms;
 
+import com.ipartek.formacion.buscarpersonas.exception.ModelException;
 import com.ipartek.formacion.buscarpersonas.model.DAOFactory;
 import com.ipartek.formacion.buscarpersonas.model.IConnection;
 import com.ipartek.formacion.buscarpersonas.model.IConnectionFactory;
@@ -28,7 +29,7 @@ public class MySqlConnectionFactory extends DAOFactory implements
     }
 
     @Override
-    public IConnection getIConnection() {
+    public IConnection getIConnection() throws ModelException {
 	// MySqlConnection mysqlCon = MySqlConnection.getInstance();
 	// mysqlCon.connect();
 	return MySqlConnection.getInstance();
