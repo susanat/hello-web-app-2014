@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 public class PersonaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	IPersonaDAO daoPersona = null;
-
+	RequestDispatcher dispatcher = null;
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -50,17 +51,23 @@ public class PersonaServlet extends HttpServlet {
 
 		String id = request.getParameter("id");
 		if (id == null) {
+			// forward a jsp de busqueda
+			request.getRequestDispatcher("personas\\list.jsp").forward(request,
+					response);
 
-		ArrayList<Persona> vPersonas = daoPersona.getAll();
+
+		} else {
+			// modificar
+			Persona p = new Persona();
+			p.setId(Integer.parseInt(id));
+			p = daoPersona.getById(p);
+			request.setAttribute("persona", p);
+			request.getRequestDispatcher("personas\\form.jsp").forward(request,
+					response);
 		}
 		// conectar BBDD
 		// String resultado = consultarPersonas();
 
-		// pasar attributo resultado
-		request.setAttribute("personas", vPersonas);
-		// forward a jsp de busqueda
-		request.getRequestDispatcher("view_personas.jsp").forward(request,
-				response);
 
 
 		// Miramos que accion ejecutamos
@@ -86,30 +93,35 @@ public class PersonaServlet extends HttpServlet {
 		// Recogemos la accion a ejecutar
 		String accion = request.getParameter("action");
 
+
 		// Miramos que accion ejecutamos
 		if ("crear".equalsIgnoreCase(accion)) {
 			// Recogemos los datos de la Persona
 			String nombre = request.getParameter("nombre");
 			String apellidos = request.getParameter("apellidos");
 			String foto = request.getParameter("foto");
-			persona = new Persona(nombre, apellidos);
-			persona.setFoto(foto);
+			persona = new Persona(nombre, apellidos, foto);
 			daoPersona.insert(persona);
 		} else {
-			String txtId = request.getParameter("id");
-			int id = Integer.parseInt(request.getParameter("id"));
-			persona = new Persona();
-			persona.setId(id);
-			persona = daoPersona.getById(persona);
-			if ("modificar".equalsIgnoreCase(accion)) {
-				request.setAttribute("id", id);
-			} else {
-				// borrar
+			String id = request.getParameter("id");
+			if("borrar".equalsIgnoreCase(accion)){
+				persona=new Persona();
+				persona.setId(Integer.parseInt(id));
+				daoPersona.delete(persona);
+
 			}
 		}
 		doGet(request, response);
 	}
 
+	private void getListado(HttpServletRequest request,
+			HttpServletResponse response) {
+		ArrayList<Persona> vPersonas = daoPersona.getAll();
+		// pasar attributo resultado
+		request.setAttribute("personas", vPersonas);
+		// forward a la vista
+		dispatcher = request.getRequestDispatcher("personas\\list.jsp");
+	}
 	/**
 	 * Inserta una Persona en la tabla
 	 * 

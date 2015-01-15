@@ -88,8 +88,6 @@ public class LinkedInParse {
 						expanded);
 				vPersonas.add(p);
 			}
-		}else{
-			vPersonas = new ArrayList<PersonaLinkedin>();	
 		}
 		return vPersonas;
 	}

@@ -19,9 +19,11 @@
 
 	<div class="container">
 
-		<%ArrayList<Persona> personas = (ArrayList<Persona>) request.getAttribute("personas");
-					if(personas!=null){
-						%>
+		<%
+			ArrayList<Persona> personas = (ArrayList<Persona>) request
+					.getAttribute("personas");
+			if (personas != null) {
+		%>
 		<table id="tabla" cellspacing="0" width="100%">
 			<thead>
 				<tr>
@@ -30,46 +32,39 @@
 					<th>Apellidos</th>
 					<th>Foto</th>
 					<th>
-						<!-- Operacion para Modificar -->
-					</th>
-					<th>
 						<!-- Operacion para Eliminar -->
+					</th>
 				</tr>
 			</thead>
 
 			<tbody>
-								<%	for(int i=0; i<personas.size(); i++){
-							%>
-			
+				<%
+					for (int i = 0; i < personas.size(); i++) {
+				%>
+
 				<tr>
-					<td><%=personas.get(i).getId() %></td>
-					<td><%=personas.get(i).getNombre() %></td>
-					<td><%=personas.get(i).getApellidos() %></td>
+					<td><a
+						href="<%="PersonaServlet.do?id=" + personas.get(i).getId()%>"> <%=personas.get(i).getId()%></a></td>
+					<td><%=personas.get(i).getNombre()%></td>
+					<td><%=personas.get(i).getApellidos()%></td>
 					<td></td>
 					<td>
-						<form action='PersonaServlet
-						' method='post'>
+						<form action='PersonaServlet.do' method='post'>
 							<input type='hidden' name='id'
 								value='<%=personas.get(i).getId()%>'> <input
-								type='hidden' name='action' value='modificar'> <input
-								type='submit' class="btn btn-primary" value='Modificar'>
-						</form>
-					</td>
-					<td>
-						<form action='PersonaServlet
-						' method='post'>
-							<input type='hidden' name='id'
-								value='<%=personas.get(i).getId()%>'> <input
-								type='hidden' name='action' value='borrar'> <input
-								type='submit' class="btn btn-primary" value='Borrar'>
-
+								type='submit' class="btn btn-outline btn-danger btn-xs"
+								name='action' value='borrar'>
 						</form>
 					</td>
 				</tr>
-				<%} %>
+				<%
+					}
+				%>
 			</tbody>
 		</table>
-		<% } %>
+		<%
+			}
+		%>
 	</div>
 
 </body>
