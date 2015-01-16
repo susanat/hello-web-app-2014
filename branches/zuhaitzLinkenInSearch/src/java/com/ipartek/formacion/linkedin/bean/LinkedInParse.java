@@ -73,8 +73,8 @@ public class LinkedInParse {
 				nombre = getFirst();
 				apellidos = getLast();
 				foto = doc.getElementById("bg-blur-profile-picture").absUrl("src");
-				resultado.getElementById("").remove(); // quitar el id que
-														// contiene el nombre
+				resultado.getElementById("").remove(); // quitar el tag id que
+				// contiene el nombre
 				basic = resultado.select("[id^=member]").html();
 				expanded = " ";
 
