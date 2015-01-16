@@ -1,41 +1,56 @@
+<%@page import="ipt.fm.ipartek.test.linkedin.Constantes"%>
 <%@page import="ipt.fm.ipartek.test.linkedin.bean.Persona"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+
+<%@include file="../includes/head.jsp" %>
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	<ul class="nav navbar-nav">
+	<li class="active"><a href="<%=Constantes.CTE_PERSONA_SERVLET%>">Tabla
+		Personas</a></li>
+	</ul>
+</div>
+	</div>
+	</nav>
+
+<div class="container">
 	<%
 		Persona p = (Persona) request.getAttribute("persona");
 	%>
-	<h1>LinkedIn Search</h1>
+	<form action="<%=Constantes.CTE_PERSONA_SERVLET%>" method="post" role="form">
+		<div class='row col-md-offset-1 col-md-8 panel panel-default'>
+			<div class="panel-body">
+				<div class='row'>
+					<div class="media col-md-2">
+						<img class="media-left" alt='foto de perfil' name="foto"
+							src='<%=p.getFoto()%>'>
 
+					</div>
+					<div class="media-body col-md-8 ">
+						<div class="form-group">
+							<label>Id</label> <input type="text" name="id" readonly
+								value="<%=p.getId()%>" class="form-control">
+						</div>
 
-	<div class="container col-lg-6">
-		<form action="PersonaServlet" method="post" role="form">
+						<div class="form-group">
+							<label>Nombre</label> <input type="text" name="nombre"
+								value="<%=p.getNombre()%>" class="form-control">
+						</div>
 
-			<div class="form-group">
-				<label>Id</label> <input type="text" name="id" readonly
-					value="<%=p.getId()%>" class="form-control">
+						<div class="form-group">
+							<label>Apellidos</label> <input type="text" name="apellidos"
+								value="<%=p.getApellidos()%>" class="form-control">
+						</div>
+						<div class="form-group">
+							<label>Foto</label> <input type="text" name="foto"
+								value="<%=p.getFoto()%>" class="form-control">
+						</div>
+						<input type='hidden' name='action'
+							value='<%=Constantes.CTE_ACC_ACTUALIZAR%>'> <input
+							type='submit' class="btn btn-primary" value='Guardar'>
+					</div>
+				</div>
 			</div>
-
-			<div class="form-group">
-				<label>Nombre</label> <input type="text" name="nombre"
-					value="<%=p.getNombre()%>" class="form-control">
-			</div>
-
-			<div class="form-group">
-				<label>Apellidos</label> <input type="text" name="apellidos"
-					value="<%=p.getApellidos()%>" class="form-control">
-			</div>
-			<div class="form-group">
-				<input type="submit" name="action" value="guardar"
-					class="form-control">
-			</div>			
-		</form>
+		</div>
+	</form>
 	</div>
 </body>
 </html>
