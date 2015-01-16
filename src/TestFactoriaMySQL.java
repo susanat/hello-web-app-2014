@@ -1,4 +1,4 @@
-package ipt.fm.ipartek.test.linkedin.modelo.dao;
+
 
 import static org.junit.Assert.assertEquals;
 import ipt.fm.ipartek.test.linkedin.bean.Persona;
