@@ -220,7 +220,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 	 * @return persona cargada con los datos de la consulta
 	 * @throws SQLException
 	 */
-	private Persona mapeo(ResultSet rs, Persona p) throws SQLException {
+	private Persona mapeo(ResultSet rs, Persona p) {
 		p.setId(rs.getInt(IPersonaDAO.COL_ID));
 		p.setNombre(rs.getString(IPersonaDAO.COL_NOMBRE));
 		p.setApellidos(rs.getString(IPersonaDAO.COL_APELLIDOS));
