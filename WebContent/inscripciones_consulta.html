@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Consultar Inscripciones</title>
+<script src="js/jquery.js"></script>
+<script src="js/plugins/dataTables/jquery.dataTables.js"></script>
+
+
+</head>
+
+<body>
+	
+	<h1>Consultar Inscripciones</h1>
+	
+	<input type="number" id="ano" value="" name="ano" >
+	<input type="button" id="btn" value="consultar">
+	
+	
+	<table id="tabla" class="display" cellspacing="0" width="100%">
+         <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Fecha Inscripcion</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Email</th>
+                    <th>Ultimo Acceso</th>
+                    <th>Ultimo login</th>
+                </tr>
+            </thead>		
+        
+        <tbody>
+ 			<tr>
+	        	 	<td>myid</td>
+	
+					<td>fechins</td>
+					<td>nombre</td>
+					<td>apellido</td>
+					<td>email</td>
+					<td>lastaccess</td>
+					<td>lastlogin</td>
+        	 
+        		 </tr>
+ 		</tbody>
+    </table>
+	
+	
+	<script>	
+	$( document ).ready(function() {
+	    
+		$('#tabla').dataTable();
+		
+		$('#ano').val( (new Date).getFullYear() );
+	    
+		$('#btn').click( function(){
+
+
+			
+			$.ajax("inscripcion", {
+				//*array de argumentos cn parametros conf*/
+				"type": "get",			// usualmente post o get	
+				"success": function(result) {
+					console.log("Llego el contenido y no hubo error", result);
+					if ( result['response'] == 200 ){
+						loadTable(result['jsonMatriculas']);
+					}else{
+						alert( result );
+					}	
+				},				
+				"error": function(result) {
+					console.error("Este callback maneja los errores", result);
+				},
+				"data": {ano: $('#ano').val() },				
+				"async": true
+			});
+
+			
+		});
+		
+	});
+	
+	function loadTable( data){
+		//limpiar tabla
+		tabla.fnClearTable();
+		
+		$.each ( data, function ( posi ){
+			tabla.fnAddData([data[posi].id,data[posi].nombre]);
+		} ); 
+		
+		
+	}
+	
+	</script>
+
+
+</body>
+
+</html> 
