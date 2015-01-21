@@ -34,41 +34,43 @@ public final class C_LOG {
 
 	try {
     
+	    /*
 	    ClsUtilsUI.showNoModalInformation(
-			"Configuración del log: "
+			"Configuraciï¿½n del log: "
 				+ ClsUtilsConstantes.SALTO_DE_LINEA
 				+ ClsUtilsConstantes.PATH_PROJECT + "\\migracion.log" 
 				+ ClsUtilsConstantes.SALTO_DE_LINEA 
-				+ LOG_PROPERTIES_FILE, "Migración");
+				+ LOG_PROPERTIES_FILE, "Migraciï¿½n");
+	     */
 	    
 	    LOG = Logger.getLogger(C_LOG.class);
 	    
-	    // añadimos el fichero
+	    // aï¿½adimos el fichero
 	    System.setProperty("my.log", 
 		    ClsUtilsConstantes.PATH_PROJECT
 		    + "\\migracion.log");
 
-	    ClsUtilsUI.showNoModalInformation("Modificado el archivo properties","migracion");
+	    //ClsUtilsUI.showNoModalInformation("Modificado el archivo properties","migracion");
 	    //System.out.println(System.getProperty("my.log"));
 
 	    PropertyConfigurator.configure(LOG_PROPERTIES_FILE);
 
-	    ClsUtilsUI.showNoModalInformation("Configurado el archivo properties","migracion");
+	    //ClsUtilsUI.showNoModalInformation("Configurado el archivo properties","migracion");
 	    
 	    Logger rootLogger = Logger.getRootLogger();	    
 	    Enumeration appenders = rootLogger.getAllAppenders();
 	    if (!appenders.hasMoreElements()) {
 	        System.out.println("LOG4J config file is missing");
-	        throw new Exception("Error en la configuración del log");
+	        throw new Exception("Error en la configuraciï¿½n del log");
 	    } else {
 	        System.out.println("appender found "
 	        + ((Appender) appenders.nextElement()).getName());
 	    }
 	    
-	    ClsUtilsUI.showNoModalInformation("Comprobado el archivo properties","migracion");
+	    //ClsUtilsUI.showNoModalInformation("Comprobado el archivo properties","migracion");
 	    
 	    if(LOG == null) {
-		ClsUtilsUI.showNoModalAlert("Error al crear el log.", "Migración");
+		ClsUtilsUI.showNoModalAlert("Error al crear el log.", "Migraciï¿½n");
 	    } else {
 		LOG.info("Inicio LOG: " + new Date());
 	    }
@@ -98,7 +100,7 @@ public final class C_LOG {
 	    message += "StackTrace: " + ex;
 	} else {
 	    message += ClsUtilsConstantes.SALTO_DE_LINEA;		    
-	    message += "Mensaje: " + "Error indeterminado. Excepción a null.";
+	    message += "Mensaje: " + "Error indeterminado. Excepciï¿½n a null.";
 	}
 	
 	LOG.error(message);
@@ -112,7 +114,7 @@ public final class C_LOG {
 	
 	if (showPanel) {
 	    try {
-		ClsUtilsUI.showNoModalAlert(mensaje, "Migración");
+		ClsUtilsUI.showNoModalAlert(mensaje, "Migraciï¿½n");
 	    } catch (InterruptedException e) {
 		
 	    }

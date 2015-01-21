@@ -213,8 +213,8 @@ public class MySqlPersonaDAO implements IPersonaDAO {
 	    //creación de tabla
 	    StringBuilder sql = new StringBuilder();
 	    
-	    sql.append("DROP TABLE `persona`");
-	    	    	    
+	    sql.append("DROP TABLE IF EXISTS `persona`");
+	    
 	    // s = conexion.prepareStatement(sqlInsert,
 	    // Statement.RETURN_GENERATED_KEYS);
 	    pst = conexion.prepareStatement(sql.toString());

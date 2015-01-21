@@ -32,7 +32,7 @@ import com.ipartek.ejercicio.migracion.utils.ClsUtilsUI;
 
 
 /**
- * Lígica del proceso de checkeo de datos.
+ * Lï¿½gica del proceso de checkeo de datos.
  * 
  * 
  * @author baskito
@@ -81,7 +81,6 @@ public class Actions {
 	    throw new Exception("No se ha podido crear la estructura del proyecto");
 	}
     }
-
 
 
     /**
@@ -268,7 +267,7 @@ public class Actions {
 
 		
 		//solo informamos en log
-		C_LOG.setLOG("Lectura y clasificación de datos finalizada" , Level.TRACE);
+		C_LOG.setLOG("Lectura y clasificaciï¿½n de datos finalizada" , Level.TRACE);
 		
 	} catch (Exception ex) {
 	    throw ex;
@@ -305,7 +304,7 @@ public class Actions {
     /**
      * Obtiene el modelo de persona de la factoria.
      * @return IPersonaDAO con el modelo de la persona
-     * @throws Exception Excepción genÃ©rica por algÃºn fallo
+     * @throws Exception Excepciï¿½n genÃ©rica por algÃºn fallo
      */
     public static IPersonaDAO getModelPersona() throws Exception {
 
@@ -321,11 +320,11 @@ public class Actions {
 	    // obtenemos los modelos
 	    IPersonaDAO modelUsuario = factoria.getPersonaDAO();
 
-	    // testeamos la conexión de todos los modelos
+	    // testeamos la conexiï¿½n de todos los modelos
 	    if (factoria.checkConnection()) {
 		return modelUsuario;
 	    } else {
-		throw new DAOException("Error en la devolución del modelo de persona");
+		throw new DAOException("Error en la devoluciï¿½n del modelo de persona");
 	    }
 
 	} catch (Exception e) {
@@ -337,10 +336,10 @@ public class Actions {
     
 
     /**
-     * Crea un objeto con los datos de la linea y comprueba si ístos tienen
-     * algín error.
+     * Crea un objeto con los datos de la linea y comprueba si ï¿½stos tienen
+     * algï¿½n error.
      * 
-     * (versiín utilizando reflection, como pruebas)
+     * (versiï¿½n utilizando reflection, como pruebas)
      * @see 
      * http://www.mkyong.com/java/how-to-use-reflection-to-call-java-method-at-runtime/
      * @param line String with line
@@ -350,23 +349,23 @@ public class Actions {
 
 	String[] splitLine = line.split(Constantes.STR_SEPARATOR);	
 
-	// String parameter para aíadir en caso que se pase valores tipo string
+	// String parameter para aï¿½adir en caso que se pase valores tipo string
 	Class[] paramString = new Class[1];
 	paramString[0] = String.class;
 
 
-	Class cls = null; //clase dinímica
-	Object obj = null; //objeto que se crearí
-	Method method = null; //contendrí el mítodo a invocar
-	String functionName = null; //nombre de la funciín
-	String parameter = ""; //parímetros a pasar en la funciín
+	Class cls = null; //clase dinï¿½mica
+	Object obj = null; //objeto que se crearï¿½
+	Method method = null; //contendrï¿½ el mï¿½todo a invocar
+	String functionName = null; //nombre de la funciï¿½n
+	String parameter = ""; //parï¿½metros a pasar en la funciï¿½n
 
 	try {
 	    // creamos el objeto por su nombre.
 	    cls = Class.forName(Constantes.PATH_OBJECT_PERSONAS);
 	    obj = cls.newInstance();
 	    for (int i = 0; i < Constantes.NUM_EXPECTED_FIELDS; i++) {
-		//obtenemos la funciín relativa al índice
+		//obtenemos la funciï¿½n relativa al ï¿½ndice
 		functionName = Constantes.MAP_CAMPOS_POS.get(i + 1);
 		parameter = splitLine[i];
 
@@ -381,7 +380,7 @@ public class Actions {
 		lstPersonas = new ArrayList<Persona>();
 	    }
 
-	    //aíadimos el objeto a la lista
+	    //aï¿½adimos el objeto a la lista
 	    lstPersonas.add((Persona) obj);
 
 
@@ -499,7 +498,7 @@ public class Actions {
      * Crea una lista con los registros duplicados.
      * 
      * @param lstObjPersonas List<String> Listado con los objetos de persona 
-     * @return HashMap<String, List<String>> vacío si no hay duplicados
+     * @return HashMap<String, List<String>> vacï¿½o si no hay duplicados
      */
     private HashMap<String, List<Persona>> getListDuplicated(
 	    final List<Persona> lstObjPersonas) {
@@ -519,9 +518,9 @@ public class Actions {
 
 	//recorro encontrando duplicados
 	for (Entry<String, List<Persona>> lst : map.entrySet()) {
-	    //compruebo si tiene mís de un elementos en la lista
+	    //compruebo si tiene mï¿½s de un elementos en la lista
 	    if (lst.getValue().size() > 1) {
-		//aíado al mapa
+		//aï¿½ado al mapa
 		mapDuplicados.put(lst.getKey() , lst.getValue());
 	    }
 
@@ -567,7 +566,7 @@ public class Actions {
     
     
     /**
-     * Inicia el proceso de exportación de las personas correctas
+     * Inicia el proceso de exportaciï¿½n de las personas correctas
      * a la base de datos.
      * @throws Exception 
      * @param objAction Object type action
@@ -584,7 +583,7 @@ public class Actions {
 	    aLines = objAction.getAgrupedLinesByFirstError().get(eErrorCause.NONE);
 	}
 	
-	//TODO: función a parte
+	//TODO: funciï¿½n a parte
 	//V 2.0 Excepciones de aÃ±adir a correctas independiente de 
 	//que tengan un tipo de error	
 	//obtenemos aquellas que han dado error en EDAD
@@ -611,18 +610,19 @@ public class Actions {
         	modelPersona = getModelPersona();
         	
         	
-        	//inicio transacción
+        	//inicio transacciï¿½n
         	modelPersona.conectarForTransaction();
         	
         	
         	//1, borrar tabla
+        	C_LOG.setLOG("Borramos la tabla de la base de datos.", Level.TRACE);
         	modelPersona.dropTable();
-        	//C_LOG.setLOG("Borrado de la tabla correcto.", Level.TRACE);
-        	
+        	        	
         	//2, crear tabla
+        	C_LOG.setLOG("Creamos la tabla de la base de datos.", Level.TRACE);
         	modelPersona.createTable();
-        	//C_LOG.setLOG("Creación de la tabla correcto.", Level.TRACE);
         	
+        	C_LOG.setLOG("Insertamos el listado en la base de datos.", Level.TRACE);
         	int i = 0;
         	//3, pasar datos
         	for (String linea : aLines) {
@@ -632,16 +632,16 @@ public class Actions {
         	    obj = stringToPersona(linea);
         	    
         	    //insertar la linea
-        	    modelPersona.insert(obj);        	    
-        	    
+        	    modelPersona.insert(obj);
         	}
-        	//C_LOG.setLOG("AÃ±adidos a base de datos " + i + " personas.", Level.TRACE);
-        	        	
-        	//commit transacción
+
+        	//commit transacciï¿½n
         	modelPersona.setCommit();
+        	C_LOG.setLOG("Realizado el commit de " + i + " elementos.", Level.TRACE);
 	
 	} catch (Exception ex) {
 	    if (modelPersona != null) {
+		C_LOG.setLOG("Rollback realizado.", Level.ERROR);
 		modelPersona.setRollback();		
 	    }
 	    
@@ -669,21 +669,19 @@ public class Actions {
 	
 	try {
 	    ClsUtilsUI.showNoModalInformation(
-	    	"Activada migración. Pulse para continuar", "Migración");
+	    	"Activada migraciï¿½n. Pulse para continuar", "Migraciï¿½n");
 	} catch (InterruptedException e3) {	    
 	    e3.printStackTrace();
 	}
 	
 	
-	//Paso 1. instanciamos el objeto que contiene la lógica
+	//Paso 1. instanciamos el objeto que contiene la lï¿½gica
 	try {	    
 	    //configuramos el log
-	    ClsUtilsUI.showNoModalInformation(
-		    	"Configuración del log.", "Migración");
-	    //C_LOG.configureLog();
+	    //ClsUtilsUI.showNoModalInformation("Configuraciï¿½n del log.", "Migraciï¿½n");
+	    C_LOG.configureLog();
 	    //C_LOG.setLOG("Llamada al ejecutable", Level.TRACE);
-	    ClsUtilsUI.showNoModalInformation(
-		    	"Fin configuracion del log.", "Migración");
+	    //ClsUtilsUI.showNoModalInformation("Fin configuracion del log.", "Migraciï¿½n");
 	    //instanciamos el objeto actions	    
 	    objAction = new Actions();
 	    //Todo ok, seguimos para delante
@@ -692,7 +690,7 @@ public class Actions {
 	  //informamos del error
 	  try {
 	    ClsUtilsUI.showNoModalAlert(
-	      			"ERROR CRITICO " + e2, "Migración");
+	      			"ERROR CRITICO " + e2, "Migraciï¿½n");
         	} catch (InterruptedException e) {
         	    // TODO Auto-generated catch block
         	    e.printStackTrace();
@@ -707,7 +705,7 @@ public class Actions {
 	    try {
 		//informamos
 		ClsUtilsUI.showNoModalInformation(
-			"Se abrirá el fichero: " + filePath, "Migración");
+			"Se abrirï¿½ el fichero: " + filePath, "Migraciï¿½n");
 
 		//Abrimos el fichero		
 		objAction.readFile(filePath);
@@ -718,7 +716,7 @@ public class Actions {
 	    } catch (Exception e1) {	
 		try {		   
 		    ClsUtilsUI.showNoModalInformation(
-			    "Error la lectura del fichero. " + e1 + ClsUtilsConstantes.SALTO_DE_LINEA, "Migración");
+			    "Error la lectura del fichero. " + e1 + ClsUtilsConstantes.SALTO_DE_LINEA, "Migraciï¿½n");
 		    C_LOG.setLOG("Error en la lectura del fichero.", Level.ERROR);
 		} catch (InterruptedException ex) {
 		    // TODO Auto-generated catch block
@@ -730,17 +728,17 @@ public class Actions {
 	    if (continuar) {
 		try {		    
 		    ClsUtilsUI.showNoModalInformation(
-				"Se ha iniciado el procesado de datos", "Migración");		    
+				"Se ha iniciado el procesado de datos", "Migraciï¿½n");		    
 		    C_LOG.setLOG("Inicio proceso de lectura de los datos del fichero y su tratamiento.", Level.TRACE);
 		    // iniciamos el proceso
 		    objAction.startProcess();		    
-		    C_LOG.setLOG("Fin proceso de estructuración y lectura de los datos del fichero.", Level.TRACE);
+		    C_LOG.setLOG("Fin proceso de estructuraciï¿½n y lectura de los datos del fichero.", Level.TRACE);
 		    continuar = true;
 		} catch (Exception ex) {	
 		    try {		    
 			ClsUtilsUI.showNoModalAlert(
-				"Error en el procesado de datos. " + ex, "Migración");
-			C_LOG.setLOG("Error la estructuración de los datos.", Level.ERROR);					
+				"Error en el procesado de datos. " + ex, "Migraciï¿½n");
+			C_LOG.setLOG("Error la estructuraciï¿½n de los datos.", Level.ERROR);					
 		    } catch (InterruptedException ex1) {			
 			ex1.printStackTrace();				
 		    }
@@ -753,11 +751,11 @@ public class Actions {
 		try {	
 		    
 		    ClsUtilsUI.showNoModalInformation(
-				"Salida de datos a ficheros.", "Migración");
+				"Salida de datos a ficheros.", "Migraciï¿½n");
 		    
-		    C_LOG.setLOG("Inicio creación de ficheros.", Level.TRACE);
+		    C_LOG.setLOG("Inicio creaciï¿½n de ficheros.", Level.TRACE);
    		    
-		    //creamos el fichero de líneas Incorrectas
+		    //creamos el fichero de lï¿½neas Incorrectas
 		    Output.createErrorsFile(objAction.getAgrupedLinesByFirstError());		  
 		    
 		    //creamos el fichero con las correctas
@@ -766,7 +764,7 @@ public class Actions {
 		    //creamos el fichero de duplicados
 		    Output.createDuplicatedFile(objAction);
 		    
-		    //Creamos el fichero de estadísticas
+		    //Creamos el fichero de estadï¿½sticas
 		    Output.createStadisticFile(objAction);
 
 		    C_LOG.setLOG("Salida a ficheros fichero finalizada.", Level.INFO);
@@ -782,7 +780,7 @@ public class Actions {
 					"Error en la escritura en fichero", 
 					e, false);
 			    ClsUtilsUI.showNoModalInformation(
-				    "Error en la escritura del fichero", "Migración");
+				    "Error en la escritura del fichero", "Migraciï¿½n");
 			} catch (InterruptedException ex) {
 			    // TODO Auto-generated catch block
 			    ex.printStackTrace();
@@ -798,7 +796,7 @@ public class Actions {
 	    
 	    try {
 		ClsUtilsUI.showNoModalInformation(
-			"Se cargarán los datos en Base de datos.", 
+			"Se cargarï¿½n los datos en Base de datos.", 
 			"Carga en Base de datos");
 		
 		final Date fInicial = new Date();
@@ -813,7 +811,7 @@ public class Actions {
 		try {
 		    C_LOG.showFail("Error en la carga en base de datos", ex,
 			    true);
-		    ClsUtilsUI.showNoModalAlert("Error en la carga de base de datos. " + ex, "Migración");
+		    ClsUtilsUI.showNoModalAlert("Error en la carga de base de datos. " + ex, "Migraciï¿½n");
 		} catch (InterruptedException ex2) {
 		    // TODO Auto-generated catch block
 		    ex2.printStackTrace();
@@ -821,15 +819,17 @@ public class Actions {
 		continuar = false;
 	    }
 	   
+	} else {
+	    C_LOG.setLOG("Saltado el proceso de base de datos.", Level.ERROR);
 	}
 	
 	
 	//informamos
 	try {
 	    if(continuar == true) {
-		ClsUtilsUI.showNoModalInformation("Proceso completado", "Migración");
+		ClsUtilsUI.showNoModalInformation("Proceso completado", "Migraciï¿½n");
 	    } else {
-		ClsUtilsUI.showNoModalAlert("Proceso completado con errores.", "Migración");
+		ClsUtilsUI.showNoModalAlert("Proceso completado con errores.", "Migraciï¿½n");
 	    }
 	} catch (InterruptedException e) {
 	    // TODO Auto-generated catch block
