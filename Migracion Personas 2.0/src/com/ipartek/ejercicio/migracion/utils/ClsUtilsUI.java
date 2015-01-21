@@ -12,7 +12,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 /**
- * Clase de recopilación de funciones útiles para los controles UI de swing
+ * Clase de recopilaciï¿½n de funciones ï¿½tiles para los controles UI de swing
  * 
  * @author baskito
  * @version 03.11.2014
@@ -43,7 +43,7 @@ public class ClsUtilsUI {
     {
         int result = JOptionPane.showConfirmDialog(
                 jframe,
-                "¿Esta seguro?",
+                "ï¿½Esta seguro?",
                 "Exit Application",
                 JOptionPane.YES_NO_OPTION);
 
@@ -90,6 +90,7 @@ public class ClsUtilsUI {
     }
     
     public static Thread showNoModalInformation(final String message, final String title) throws InterruptedException{
+	/*
 	Thread t = new Thread(new Runnable(){
 	        public void run(){
 	            JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
@@ -98,5 +99,7 @@ public class ClsUtilsUI {
 	    t.start();
 	    t.join();
 	return t;
+	*/
+	return null;
     }
 }
