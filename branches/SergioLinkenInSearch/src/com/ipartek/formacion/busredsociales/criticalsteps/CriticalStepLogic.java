@@ -1,4 +1,4 @@
-package com.ipartek.formacion.busredsociales;
+package com.ipartek.formacion.busredsociales.criticalsteps;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -5,7 +5,7 @@ import javax.servlet.ServletContextAttributeListener;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import com.ipartek.formacion.busredsociales.CriticalStepLogic;
+import com.ipartek.formacion.busredsociales.criticalsteps.CriticalStepLogic;
 
 /**
  * Application Lifecycle Listener implementation class InitListener

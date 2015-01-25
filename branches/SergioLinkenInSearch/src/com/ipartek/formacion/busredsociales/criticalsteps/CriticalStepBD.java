@@ -1,9 +1,9 @@
-package com.ipartek.formacion.busredsociales;
+package com.ipartek.formacion.busredsociales.criticalsteps;
 
 import javax.servlet.ServletContext;
 
-import com.ipartek.formacion.busredsociales.CriticalStepLogic.ETypeCriticalError;
 import com.ipartek.formacion.busredsociales.comun.Globales;
+import com.ipartek.formacion.busredsociales.criticalsteps.CriticalStepLogic.ETypeCriticalError;
 import com.ipartek.formacion.busredsociales.dao.factoria.DAOException;
 import com.ipartek.formacion.busredsociales.dao.factoria.DAOFactory;
 import com.ipartek.formacion.busredsociales.dao.interfaz.IUsuarioDAO;
