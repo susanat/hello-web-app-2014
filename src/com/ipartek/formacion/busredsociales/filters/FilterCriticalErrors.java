@@ -11,8 +11,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-import com.ipartek.formacion.busredsociales.CriticalStepLogic;
 import com.ipartek.formacion.busredsociales.comun.Globales;
+import com.ipartek.formacion.busredsociales.criticalsteps.CriticalStepLogic;
 
 
 /**
