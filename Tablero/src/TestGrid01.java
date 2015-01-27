@@ -44,7 +44,7 @@ public class TestGrid01 {
 
     public class TestPane extends JPanel {
 
-        private int columnCount = 2;
+        private int columnCount = 3;
         private int rowCount = 4;
         private List<Rectangle> cells;
         private Point selectedCell;
