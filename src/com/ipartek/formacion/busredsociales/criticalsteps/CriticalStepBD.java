@@ -6,16 +6,38 @@ import com.ipartek.formacion.busredsociales.comun.Globales;
 import com.ipartek.formacion.busredsociales.criticalsteps.CriticalStepLogic.ETypeCriticalError;
 import com.ipartek.formacion.busredsociales.dao.factoria.DAOException;
 import com.ipartek.formacion.busredsociales.dao.factoria.DAOFactory;
+import com.ipartek.formacion.busredsociales.dao.factoria.mysql.MysqlDAOFactory;
 import com.ipartek.formacion.busredsociales.dao.interfaz.IUsuarioDAO;
 
 public class CriticalStepBD extends CriticalStepFactory {
 
-	DAOFactory factoria = null;
+	//patrón singleton para esta clase @see: http://es.wikipedia.org/wiki/Singleton	
+	private static CriticalStepBD INSTANCE = null;
+		
+	private CriticalStepBD() {}
+	
+	private static void createInstance() {
+        if (INSTANCE == null) {
+            // Sólo se accede a la zona sincronizada
+            // cuando la instancia no está creada
+            synchronized(CriticalStepBD.class) {
+                // En la zona sincronizada sería necesario volver
+                // a comprobar que no se ha creado la instancia
+                if (INSTANCE == null) { 
+                    INSTANCE = new CriticalStepBD();
+                }
+            }
+        }
+    }
+	
+	public static CriticalStepBD getInstance() {
+        if (INSTANCE == null) createInstance();
+        return INSTANCE;
+    }
 	
 	
-	public CriticalStepBD() {
-		// TODO Auto-generated constructor stub
-	}
+
+	private DAOFactory factoriaDao = null;
 
 	@Override
 	public void setConfiguration(ServletContext context) throws Exception {
@@ -24,18 +46,18 @@ public class CriticalStepBD extends CriticalStepFactory {
 
 					// Obtenemos la factoria relativa al motor utilizado para el
 					// almacenamiento de datos.
-					factoria = DAOFactory
+					factoriaDao = DAOFactory
 							.getDaoFactoriaAbstracta(Globales.GLOBAL_MOTOR);
 
 					// obtenemos los modelos
-					IUsuarioDAO modelUsuario = factoria.getUsuarioDAO();
+					IUsuarioDAO modelUsuario = factoriaDao.getUsuarioDAO();
 
 					// Cargamos aquí todos los modelos que necesitemos, en el contexto
 					// de los servlet
 					context.setAttribute("modelUsuario", modelUsuario);
 
 					// testeamos la conexión de todos los modelos
-					factoria.checkConnection();
+					factoriaDao.checkConnection();
 
 				} catch (DAOException e) {
 					throw e;
@@ -51,13 +73,13 @@ public class CriticalStepBD extends CriticalStepFactory {
 	public boolean checkConfiguration(ServletContext context) throws Exception {
 		
 		try {
-			if(factoria == null) {
+			if(factoriaDao == null) {
 				//mal, cambiamos el estatus
 				this.setStatus(false);
 				throw new NullPointerException();
 			}
 			
-			factoria.checkConnection();
+			factoriaDao.checkConnection();
 			
 		} catch (Exception ex) {
 			//mal, cambiamos el estatus
