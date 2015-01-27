@@ -26,27 +26,41 @@ public class CursoTest {
 	public static void setUpBeforeClass() throws Exception {
 		lstCurso = new ArrayList<Curso>();
 		
-		Session s = HibernateUtil.getSession();
+		Session s = null;
 		
-		
-        //s.beginTransaction();
-		
-		for(int i = 0; i< cantidad; i++) {
+		try {
 			
-			Curso p = new Curso();
-	        p.setNombre("testCurso " + i);
-	        p.setCodigo("Codigo " + i);
-	        p.setfInicio( new Date());	        
-	        p.setfFin( addDays(new Date(), 2) );
+			s = HibernateUtil.getSession();
+			//s.beginTransaction();
+			
+			for(int i = 0; i< cantidad; i++) {
+				
+				Curso p = new Curso();
+		        p.setNombre("testCurso " + i);
+		        p.setCodigo("Codigo " + i);
+		        p.setfInicio( new Date());	        
+		        p.setfFin( addDays(new Date(), 2) );
+		        
+		        lstCurso.add(p);
+			}
+			
+			for(Curso p : lstCurso) {
+	        	s.save(p);        	
+	        }
 	        
-	        lstCurso.add(p);
+			//s.getTransaction().commit();
+			
+		} catch (Exception ex) {
+			//s.getTransaction().rollback(); 
+			
+			s.clear();
+        	System.out.print("Ha saltado el rollback del update.");
+        	ex.printStackTrace();
+        	
+        	assertTrue(false);
 		}
 		
-		for(Curso p : lstCurso) {
-        	s.save(p);        	
-        }
         
-		//s.getTransaction().commit();
 		
 	}
 
@@ -114,18 +128,35 @@ public class CursoTest {
 		Session s = HibernateUtil.getSession();
         s.beginTransaction();
         
-        Curso pNueva = new Curso();
-        pNueva.setNombre("CursoNueva");
-        s.save(pNueva);
         
-        Curso pModificada = (Curso) s.load(Curso.class, pNueva.getId() );
-        pModificada.setNombre("CursoModificada");
-        s.save(pModificada);
-          
-        Curso pRecuperada = (Curso) s.load(Curso.class, pModificada.getId() );
-        assertTrue( "CursoModificada" ==  pRecuperada.getNombre() );
+        try {
         
-        s.getTransaction().commit();
+        	Curso pNueva = new Curso();
+            pNueva.setNombre("CursoNueva");
+            pNueva.setCodigo("DNuevo");
+            pNueva.setfInicio(new Date());
+            pNueva.setfFin(addDays(new Date(), 10));
+            s.save(pNueva);
+            
+            Curso pModificada = (Curso) s.load(Curso.class, pNueva.getId() );
+            pModificada.setNombre("CursoModificada");
+            s.save(pModificada);
+              
+            Curso pRecuperada = (Curso) s.load(Curso.class, pModificada.getId() );
+            assertTrue( "CursoModificada" ==  pRecuperada.getNombre() );
+            
+            s.getTransaction().commit();
+        } catch (Exception ex) {
+        	
+        	s.getTransaction().rollback();        	        	
+        	System.out.print("Ha saltado el rollback del update.");
+        	ex.printStackTrace();
+        	
+        	assertTrue(false);
+        	
+        }
+        
+        
 	}
 	
 	@Test
@@ -136,31 +167,45 @@ public class CursoTest {
 		//insertamos
 		Session s = HibernateUtil.getSession();
         s.beginTransaction();
-                
-        Curso p = new Curso();        
-        p.setNombre("testCurso para borrar");
-        p.setCodigo("Codigo para borrar");
-        p.setfInicio( new Date());	        
-        p.setfFin( addDays(new Date(), 2) );               
+          
+        try {
+        	
+        	 Curso p = new Curso();        
+             p.setNombre("testCurso para borrar");
+             p.setCodigo("Codigo para bor");
+             p.setfInicio( new Date());	        
+             p.setfFin( addDays(new Date(), 2) );               
+             
+             s.save(p);        
+             s.getTransaction().commit();
+             
+             id = p.getId();
+     		
+             
+             //borramos		
+             s.beginTransaction();        
+             s.delete(p);        
+             s.getTransaction().commit();
+             
+             
+             
+             //comprobamos
+             s  = HibernateUtil.getSession();
+             p = (Curso) s.get(Curso.class, id);
+             assertNull(p);
+        	
+        } catch (Exception ex) {
+        	s.getTransaction().rollback();  
+        	s.clear();
+        	System.out.print("Ha saltado el rollback del update.");
+        	ex.printStackTrace();
+        	
+        	assertTrue(false);
+        }
         
-        s.save(p);        
-        s.getTransaction().commit();
-        
-        id = p.getId();
-		
-        
-        //borramos        	
-		s = HibernateUtil.getSession();
-        s.beginTransaction();        
-        s.delete(p);        
-        s.getTransaction().commit();
         
         
-        
-        //comprobamos
-        s  = HibernateUtil.getSession();
-        p = (Curso) s.get(Curso.class, id);
-        assertNull(p);
+       
 		
 	}
 	
