@@ -8,7 +8,7 @@ public class prueba_points {
 	public static void main(String[] args) {
     
 		Point p1 = new Point(0,0);
-		Point p2 = new Point(1,3);
+		Point p2 = new Point(3,3);
 		
 		//int a = Math.abs(p1.x - p2.x) + Math.abs(p1.y - p2.y);
 		//System.out.println(a);
@@ -50,6 +50,7 @@ public class prueba_points {
 		}
 		*/
 		
+		/*
 		BestWay4(p1, p2, getDistance(p1, p2), null);
 		
 				
@@ -61,10 +62,154 @@ public class prueba_points {
 					System.out.println("***************" + System.getProperty("line.separator"));
 				}
 				
+		*/
 		
+		BestWay5(p1,p2, getDistance(p1,p2), null);
 		
+		System.out.println("Rutas cortas posibles:" + rutas.size());
+		
+		for(List<Point> lst : rutas) {
+			System.out.println("***************" + System.getProperty("line.separator"));
+			System.out.println("Casillas utilizadas: " + lst.size() + System.getProperty("line.separator"));
+			for(Point p : lst) {
+				System.out.println(p.toString());
+			}			
+			System.out.println("***************" + System.getProperty("line.separator"));
+		}
     }
 	
+	private static void BestWay5(Point a, Point b, int minDistance,
+			List<Point> p) {
+		
+		if (rutas == null) {
+			rutas = new ArrayList<List<Point>>();
+		}
+		
+		if(p == null) {
+			p = new ArrayList<Point>();
+			p.add(a);
+		}
+
+		int distance = 0;
+		Point adjacent = null;
+
+		for (int i = 0; i < 4; i++) {
+
+			
+			
+			switch (i) {
+			case 0:
+
+				adjacent = getPointUp(a);
+				distance = getDistance(adjacent, b);
+				
+					
+				if(distance == 0) {
+					p.add(adjacent);
+					rutas.add(p);
+					p = null;
+				} else 	if(distance < minDistance){
+					List<Point> p2 = null;
+					
+					
+					p2 = new ArrayList<Point>(p);
+					
+					
+					p2.add(adjacent);
+					
+					BestWay5(adjacent, b, distance, p2);
+									
+				} 
+				
+
+				break;
+			case 1:
+				adjacent = getPointDown(a);
+				distance = getDistance(adjacent, b);
+
+				if(distance == 0) {
+					p.add(adjacent);
+					rutas.add(p);
+					p = null;
+				} else 	if(distance < minDistance){
+					List<Point> p2 = null;
+					
+					
+					p2 = new ArrayList<Point>(p);
+					
+					
+					p2.add(adjacent);
+					
+					BestWay5(adjacent, b, distance, p2);
+									
+				}  
+			
+
+				break;
+
+			case 2:
+				adjacent = getPointLeft(a);
+				distance = getDistance(adjacent, b);
+
+				if(distance == 0) {
+					p.add(adjacent);
+					rutas.add(p);
+					p = null;
+				} else 	if(distance < minDistance){
+					List<Point> p2 = null;
+					
+					
+					p2 = new ArrayList<Point>(p);
+					
+					
+					p2.add(adjacent);
+					
+					BestWay5(adjacent, b, distance, p2);
+									
+				} 
+				
+				
+				break;
+
+			case 3:
+				
+				adjacent = getPointRight(a);
+				distance = getDistance(adjacent, b);
+				
+				
+
+				if(distance == 0) {
+					p.add(adjacent);
+					rutas.add(p);
+					p = null;
+				} else 	if(distance < minDistance){
+					List<Point> p2 = null;
+					
+					
+					p2 = new ArrayList<Point>(p);
+					
+					
+					p2.add(adjacent);
+					
+					BestWay5(adjacent, b, distance, p2);
+									
+				} 
+				
+
+				break;
+
+			default:
+				break;
+			}
+			
+			
+		
+			
+		}
+		
+		System.out.println("Terminado el ciclo");
+		
+	}
 	
 	private static void BestWay4(Point a, Point b, int minDistance,
 			List<Point> p) {
