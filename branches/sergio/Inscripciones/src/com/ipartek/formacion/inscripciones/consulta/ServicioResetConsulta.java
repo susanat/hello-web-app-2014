@@ -37,12 +37,16 @@ public class ServicioResetConsulta extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		String sAno = null;
+		String sMes = null;
+		
+		
 		String jSonRespuesta = "";
 
 		try {
 
 			// obtengo el argumento
 			sAno = request.getParameter("ano");
+			sMes = request.getParameter("mes");
 
 			if (sAno == null) {
 				jSonRespuesta = "{\"response\":\"200\", \"msg\":\"Sin argumento\"}";
@@ -51,7 +55,7 @@ public class ServicioResetConsulta extends HttpServlet {
 					jSonRespuesta = "{\"response\":\"0\", \"msg\":\"Argumento incorrecto\"}";
 				} else {
 
-					String jsonlist =  getJsonList(sAno);
+					String jsonlist =  getJsonList(sAno, sMes );
 					String jsonlistByMonth =  getJsonListByMonth(sAno);
 					
 					
@@ -84,13 +88,25 @@ public class ServicioResetConsulta extends HttpServlet {
 		doGet(request, response);
 	}
 
-	private String getJsonList(String sAno) throws Exception {
+	private String getJsonList(String sAno, String sMes) throws Exception {
 
 		String res = "";
 		Gson obj = new Gson();
 
 		conectar();
-		List<Matricula> lst = getAll(Integer.valueOf(sAno));
+		
+		List<Matricula> lst = null;
+		
+		if(sMes == null || "".equals(sMes.trim())) {
+			lst = getAll(Integer.valueOf(sAno));
+		} else {
+			lst = getAll(Integer.valueOf(sAno), Integer.valueOf(sMes));
+		}
+		
+		 
+		
+		
+		
 		desconectar();
 
 		res = obj.toJson(lst);
@@ -230,8 +246,12 @@ public class ServicioResetConsulta extends HttpServlet {
 		
 	}
 	
-
 	public List<Matricula> getAll(int ano) throws Exception {
+		return getAll(ano, 0);
+	}
+	
+
+	public List<Matricula> getAll(int ano, int mes) throws Exception {
 
 		Connection conexion = null;
 		Statement s = null;
@@ -251,20 +271,30 @@ public class ServicioResetConsulta extends HttpServlet {
 			 */
 
 			StringBuilder select = new StringBuilder();
-			select.append("select ");
-			select.append("id, ");
-			select.append("firstaccess, ");
-			select.append("firstname, ");
-			select.append("lastname, ");
-			select.append("email, ");
-			select.append("lastaccess, ");
-			select.append("lastlogin ");
-			select.append("from ");
-			select.append("user ");
-			select.append("where ");
-			select.append("FROM_UNIXTIME(firstaccess,'%Y') = ");
+			select.append(" select ");
+			select.append(" id, ");
+			select.append(" firstaccess, ");
+			select.append(" firstname, ");
+			select.append(" lastname, ");
+			select.append(" email, ");
+			select.append(" lastaccess, ");
+			select.append(" lastlogin, ");
+			select.append(" FROM_UNIXTIME(firstaccess,'%m') as mes ");			
+			select.append(" from ");
+			select.append(" user ");
+			select.append(" where ");
+			select.append(" FROM_UNIXTIME(firstaccess,'%Y') = ");
 			select.append(ano);
-
+			
+			if(mes != 0) {
+				select.append(" and FROM_UNIXTIME(firstaccess,'%m') = ");
+				select.append(mes);
+			}
+			
+			
+			
+			select.append(" order by firstaccess; ");
+					
 			rs = s.executeQuery(select.toString());
 
 			int i = 0;
