@@ -1,0 +1,9 @@
+Pasos:
+
+1- Crear si no existe una carpeta en la raiz del ejecutable llamada "source"
+
+2- Incluir el fichero a procesar dentro de la carpeta "source"
+
+3- Crear base de datos mysql escuchando en el puerto 3306 en local llamada "migracion" usando el script sql llamado create_database.sql situado en la carpeta DOC del proyecto. 
+
+4- Ejecutar programa. 
