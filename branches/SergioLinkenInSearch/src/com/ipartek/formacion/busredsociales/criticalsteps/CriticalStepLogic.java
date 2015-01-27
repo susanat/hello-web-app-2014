@@ -59,7 +59,7 @@ public final class CriticalStepLogic {
 			//Le añadimos los pasos
 			
 			//Paso de comprobación para la base de datos
-			lstComprobaciones.add(new CriticalStepBD());
+			lstComprobaciones.add(CriticalStepBD.getInstance());
 		}
 	}
 	
