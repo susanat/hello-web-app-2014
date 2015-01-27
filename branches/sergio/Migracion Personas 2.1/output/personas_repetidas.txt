@@ -1,0 +1,8 @@
+UTF8=>Anita,Morgan,Santo Tom�,23,AnitaJMorgan@spambob.com,75193179S,CLIENTE,
+UTF8=>Anita,Morgan,Santo Tom�,23,AnitaJMorgan@spambob.com,75193179S,CLIENTE,
+Raymond,Rojas,Las Veguillas,37,RaymondTRojas@dodgit.com,94387805Z,TRABAJADOR,
+Raymond,Rojas,Las Veguillas,37,RaymondTRojas@dodgit.com,94387805Z,TRABAJADOR,
+UTF8=>Mark,Ellis,Gibrale�n,21,MarkGEllis@dodgit.com,730804W,JEFE,
+UTF8=>Mark,Ellis,Gibrale�n,21,MarkGEllis@dodgit.com,730804W,JEFE,
+James,Fuller,Noalejo,23,JamesBFuller@pookmail.com,65036368G,CLIENTE,
+James,Fuller,Noalejo,23,JamesBFuller@pookmail.com,65036368G,CLIENTE,

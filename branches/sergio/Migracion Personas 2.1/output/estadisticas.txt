@@ -1,0 +1,13 @@
+L�neas Totales: 10004
+L�neas Correctas: 7559
+L�neas con alg�n fallo: 2445
+Total analizado: 10004
+ - Campos de mas: 0
+ - Campos de menos: 1
+ - Texto no validos: 2440
+ - EMAIL no valido: 1
+ - DNI no valido: 3
+ - Edad no valida: 0
+N�mero de duplicados: 4
+Tiempo de proceso: 387 milisegundos
+Tiempo de proceso: 00:00
