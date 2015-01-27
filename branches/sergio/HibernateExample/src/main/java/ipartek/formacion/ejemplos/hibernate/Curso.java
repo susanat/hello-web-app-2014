@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,7 +24,7 @@ public class Curso {
 	
 	@Id
     @GeneratedValue
-    @Column(name = "idCurso")
+    @Column(name = "id")
     Long id;
     
 	/* Persistente, un tipo basico (string) */
@@ -33,21 +34,28 @@ public class Curso {
     
     /* Persistente, un tipo basico (string) */
     @Basic
-    @Column(name = "codigo")
+    @Column(name = "codigo", nullable = false, length = 15)
     private String codigo;
     
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "f_inicio")
+    @Column(name = "f_inicio", nullable = false)
     private Date fInicio;
     
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "f_fin")
+    @Column(name = "f_fin", nullable = false)
     private Date fFin;
 
     
+    //Si queremos que curso no meta relación en la tabla al añadir una persona nueva dentro del curso
     @ManyToMany(cascade = {CascadeType.ALL},mappedBy="cursos")
-    private Set<Persona> personas=new HashSet();
-    
+     
+    /*
+    @ManyToMany(fetch=FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinTable(name="PersonaCurso", 
+    			joinColumns={@JoinColumn(name="idCurso")}, 
+    			inverseJoinColumns={@JoinColumn(name="idPersona")})
+    */
+    private Set<Persona> personas=new HashSet<Persona>();
     
 	public Set<Persona> getPersonas() {
 		return personas;
@@ -73,9 +81,11 @@ public class Curso {
 		return id;
 	}
 
+	/*
 	private void setId(Long id) {
 		this.id = id;
 	}
+	*/
 
 	public String getNombre() {
 		return nombre;
@@ -108,9 +118,45 @@ public class Curso {
 	public void setfFin(Date fFin) {
 		this.fFin = fFin;
 	}
+		
+	
+	// HERE IS THE NEW ANNOTATION CODE WE'VE ADDED
+	@ManyToOne
+	private Categoria categoria;
+      
+    public Categoria getCategoria()  
+    {  
+        return categoria;  
+    }  
+    public void setCategoria(Categoria categoria)  
+    {  
+        this.categoria = categoria;  
+    }  
+
+	@Override
+	public String toString() {
+		
+		//return super.toString();		
+		String texto = "";
+		
+		texto += "Nombre: " + getNombre() + nl;
+		texto += "Codigo: " + getCodigo() + nl;
+		texto += "finicio: " + getfInicio() + nl;
+		texto += "ffin: " + getfFin() + nl;
+		
+		String cat = categoria == null ? "none" : categoria.getNombre();
+		texto += (String) ("Categoria: " + cat + nl);
+		
+		int size = getPersonas() == null ? 0 : getPersonas().size();
+		texto += (String) ("Nº alumnos: " + String.valueOf(size) + nl);
+				
+		
+		return texto;
+		
+	}
 	
 	
-	
+	public static String nl = System.getProperty("line.separator");
 	
 
 }

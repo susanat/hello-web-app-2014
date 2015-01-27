@@ -24,8 +24,12 @@
 		<!-- Permite que sea autocomitable -->
 		<property name="connection.autocommit">true</property>  
 
-		<!-- Clase PojO para mapear contra la tabla de BBDD  -->
+		<!-- Clase Pojo para mapear contra la tabla de BBDD  -->
 		<mapping class="ipartek.formacion.ejemplos.hibernate.Persona" />
 		<mapping class="ipartek.formacion.ejemplos.hibernate.Curso" />
+		<mapping class="ipartek.formacion.ejemplos.hibernate.Direccion" />
+		<mapping class="ipartek.formacion.ejemplos.hibernate.Categoria" />
+		
+		
 	</session-factory>
 </hibernate-configuration>
