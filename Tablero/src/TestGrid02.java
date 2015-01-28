@@ -17,12 +17,12 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 
-public class TestGrid01 {
+public class TestGrid02 {
 	public static void main(String[] args) {
-        new TestGrid01();
+        new TestGrid02();
     }
 
-    public TestGrid01() {
+    public TestGrid02() {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -44,7 +44,7 @@ public class TestGrid01 {
 
     public class TestPane extends JPanel {
 
-        private int columnCount = 3;
+        private int columnCount = 4;
         private int rowCount = 4;
         private List<Rectangle> cells;
         private Point selectedCell;
@@ -89,7 +89,6 @@ public class TestGrid01 {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            
             Graphics2D g2d = (Graphics2D) g.create();
 
             int width = getWidth();
@@ -118,7 +117,7 @@ public class TestGrid01 {
 
                 int index = selectedCell.x + (selectedCell.y * columnCount);
                 Rectangle cell = cells.get(index);
-                g2d.setColor(Color.BLUE);
+                g2d.setColor(Color.BLUE);                
                 g2d.fill(cell);
 
             }

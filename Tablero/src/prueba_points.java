@@ -5,10 +5,15 @@ import java.util.List;
 
 public class prueba_points {
 
+	
+	private static List<List<Point>> rutas = new ArrayList<List<Point>>();
+	private static List<Point> lstBloqued = null; 
+	
+	
 	public static void main(String[] args) {
     
 		Point p1 = new Point(0,0);
-		Point p2 = new Point(3,3);
+		Point p2 = new Point(1,2);
 		
 		//int a = Math.abs(p1.x - p2.x) + Math.abs(p1.y - p2.y);
 		//System.out.println(a);
@@ -27,7 +32,7 @@ public class prueba_points {
 		*/
 		
 		
-		//En teor�a pilla el primer camino que encuentra
+		//En teor�a pilla el primer camino que encuentra
 		/*
 		firstBestWay(p1, p2, 1000, l );
 				
@@ -64,8 +69,34 @@ public class prueba_points {
 				
 		*/
 		
-		BestWay5(p1,p2, getDistance(p1,p2), null);
+		//BestWay5(p1,p2, getDistance(p1,p2), null);
 		
+		lstBloqued = new ArrayList<Point>();
+		//lstBloqued.add(new Point(1,2));
+		//lstBloqued.add(new Point(2,2));
+		
+		lstBloqued.add(new Point(0,1));
+		lstBloqued.add(new Point(1,1));
+		lstBloqued.add(new Point(2,1));
+		
+		boolean rutaEncontrada = false;
+		int distancia = 0;
+		int i = 0;
+		
+		do {
+		
+			distancia = getDistance(p1,p2) + i;			
+			
+			if(BestWay6(p1,p2, distancia, null)) {
+				rutaEncontrada = true;
+			} else {
+				i++;
+			}
+		
+		}while(rutaEncontrada == false);
+		
+		
+		System.out.println("***************" + System.getProperty("line.separator"));
 		System.out.println("Rutas cortas posibles:" + rutas.size());
 		
 		for(List<Point> lst : rutas) {
@@ -77,6 +108,138 @@ public class prueba_points {
 			System.out.println("***************" + System.getProperty("line.separator"));
 		}
     }
+	
+	public static boolean isBloqued(Point[] bloqued, Point p) {		
+		return inArrayPoint(bloqued, p);		
+	}
+	
+	public static boolean inArrayPoint(Point[] arr, Point targetValue) {
+		//Busca en el array si existe el objeto pasado 
+		for (Point s : arr) {
+			if (s.equals(targetValue))
+				return true;
+		}
+		return false;
+	}
+	
+	private static void BestWay6comp(Point adjacent, Point b, List<Point> p, int minDistance) {
+		
+		//obtenemos la distancia
+		int distance = getDistance(adjacent, b);
+		
+		//Realizamos las comprobaciones
+		if(distance == 0) {
+			//asumimos que es el destino, este nunca tendría que ser un cuadro bloqueado
+			p.add(adjacent);
+			//Añadimos la ruta a la lista de rutas			
+			rutas.add(p);
+			//Eliminamos la lista (termina el ciclo)
+			p = null;
+		//restricciones a la distancia más corta
+		} else if(distance < minDistance){
+						
+			//otras restricciones, 
+			Boolean casillaValida = true;
+			
+			
+			//la adjacente tiene que estar en el tablero (hardcodeado)
+			if(adjacent.y > 3 || adjacent.y < 0 ) {
+				casillaValida = false;
+			}
+			
+			if(adjacent.x > 3 || adjacent.x < 0 ) {
+				casillaValida = false;
+			}
+			
+			
+			//la casilla adjacente no puede estar bloqueada
+			if(isBloqued(lstBloqued.toArray(new Point[lstBloqued.size()]), adjacent)) {
+				casillaValida = false;
+			}					
+					
+			
+			//la casilla adyacente tiene que estar a menos distancia que la anterior
+			
+			if(casillaValida) {
+				List<Point> p2 = null;
+				
+				//clonamos el array pasado, es una nueva rama
+				p2 = new ArrayList<Point>(p);
+				
+				//le añadimos la coordenada encontrada
+				p2.add(adjacent);
+				
+				//progresamos en la rama
+				BestWay6(adjacent, b, distance, p2);
+			}
+		} 
+	}
+	
+	private static boolean BestWay6(Point a, Point b, int minDistance,
+			List<Point> p) {
+		
+		//instanciamos el array de rutas
+		if (rutas == null) {
+			rutas = new ArrayList<List<Point>>();
+		}
+		
+		//si la lista temporal es null, la creamos y añadimos el primer paso
+		if(p == null) {
+			p = new ArrayList<Point>();
+			p.add(a);
+		}
+
+		int distance = 0;
+		Point adjacent = null;
+
+		for (int i = 0; i < 4; i++) {
+			switch (i) {
+			case 0:
+				//obtenemos la casilla adjacente
+				adjacent = getPointUp(a);
+				//Seguimos la rama
+				BestWay6comp(adjacent, b, p, minDistance);
+				break;
+			case 1:
+				adjacent = getPointDown(a);
+				//Seguimos la rama
+				BestWay6comp(adjacent, b, p, minDistance);
+				break;
+
+			case 2:
+				adjacent = getPointLeft(a);
+				//Seguimos la rama
+				BestWay6comp(adjacent, b, p, minDistance);
+				break;
+
+			case 3:				
+				adjacent = getPointRight(a);
+				//Seguimos la rama
+				BestWay6comp(adjacent, b, p, minDistance);
+				break;
+			default:
+				break;
+			}	
+		}		
+		
+		System.out.println("Terminado el ciclo, rutas encontradas: " + rutas.size());	
+		
+		if(rutas.size() == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	private static void BestWay5(Point a, Point b, int minDistance,
 			List<Point> p) {
@@ -205,12 +368,10 @@ public class prueba_points {
 			
 		
 			
-		}
-		
-		System.out.println("Terminado el ciclo");
-		
+		}		
+		//System.out.println("Terminado el ciclo");		
 	}
-	
+
 	private static void BestWay4(Point a, Point b, int minDistance,
 			List<Point> p) {
 		if (rutas == null) {
@@ -256,7 +417,7 @@ public class prueba_points {
 				distance = getDistance(adjacent, b);
 
 				if (distance == 0) { //linea completada
-					//clonamos el listado y lo a�adimos al listado de listados
+					//clonamos el listado y lo a�adimos al listado de listados
 									
 					p.add(adjacent);
 					rutas.add(p);
@@ -525,7 +686,7 @@ public class prueba_points {
 		}
 	}
 		
-	private static List<List<Point>> rutas = new ArrayList<List<Point>>();
+	
 		
 	private static void BestWay(Point a, Point b, int distance) 
 	{
