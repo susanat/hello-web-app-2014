@@ -23,7 +23,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 
-
 @Entity
 @Table(name = "Persona")
 public class Persona {
@@ -34,7 +33,7 @@ public class Persona {
     
 	/* Persistente, un tipo basico (string) */
     @Basic
-    @Column(name = "nombre")
+    @Column(name = "nombre", nullable = false)
     private String nombre;
     
     @Basic
@@ -43,12 +42,9 @@ public class Persona {
     
     
     @Basic
-    @Column(name = "apellidos")
+    @Column(name = "apellidos", nullable = false)
     private String apellidos;
     
-   
-   
-
 	@Temporal(TemporalType.TIMESTAMP)
     @Column(name = "fecha_nacimiento")
     private Date fechaNacimiento;
@@ -61,24 +57,17 @@ public class Persona {
     @Column(name = "fecha_modificacion")
     private Date fechaModificacion;
    
-   /* @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(  name="Persona_curso", 
-                 joinColumns={@JoinColumn(name="personaId")}, 
-                 inverseJoinColumns={@JoinColumn(name="cursoId")}
-    		)
-    */
-    
-    //private Set<Curso> cursos = new HashSet<Curso>(0);
+      
+    //Una persona estará en n filas de la tabla que la relaciona PersonaCurso. 
+    //El pk.persona será el objeto persona de la tabla creadora de id PersonaCursoId
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.persona", cascade=CascadeType.ALL )    
     private Set<PersonaCurso> personaCurso = new HashSet<PersonaCurso>(0);
+        
     
-    
-    
-    @OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE}) 
+    //@OneToOne(fetch = FetchType.LAZY, mappedBy = "persona", cascade={CascadeType.ALL}) 
+    @OneToOne(fetch = FetchType.LAZY, cascade={CascadeType.ALL})
     private Direccion direccion;  
      
-   
-
 
 	public Long getId() {
 		return id;
@@ -129,9 +118,6 @@ public class Persona {
 		this.apellidos = apellidos;
 	}
     
-    
-	
-	
 	
     public Date getFechaCreacion() {
 		return fechaCreacion;
@@ -148,16 +134,6 @@ public class Persona {
 	public void setFechaModificacion(Date fechaModificacion) {
 		this.fechaModificacion = fechaModificacion;
 	}
-
-/*
-	public Set<Curso> getCursos() {
-		return cursos;
-	}
-
-	public void setCursos(Set<Curso> cursos) {
-		this.cursos = cursos;
-	}
-  */  
 	
 	public Set<PersonaCurso> getPersonaCurso() {
 		return personaCurso;
@@ -177,6 +153,23 @@ public class Persona {
     protected void onUpdate() {
     	setFechaModificacion(new Date());
     }
+
+	public Persona(String nombre, int edad, String apellidos,
+			Date fechaNacimiento, Date fechaCreacion, Date fechaModificacion,
+			Direccion direccion) {
+		super();
+		this.nombre = nombre;
+		this.edad = edad;
+		this.apellidos = apellidos;
+		this.fechaNacimiento = fechaNacimiento;
+		this.fechaCreacion = fechaCreacion;
+		this.fechaModificacion = fechaModificacion;
+		this.direccion = direccion;
+	}
+	
+	public Persona() {
+		
+	}
   
     
     
