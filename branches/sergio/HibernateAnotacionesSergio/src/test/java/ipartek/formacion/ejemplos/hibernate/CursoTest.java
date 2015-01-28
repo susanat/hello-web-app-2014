@@ -73,7 +73,7 @@ public class CursoTest {
 		personas.add(p);		
 		
 		//insertar personas en curso
-		c.setPersonas(personas);		
+		//c.setPersonas(personas);		
 		
 		//persistir el curso
 		s.update(c);

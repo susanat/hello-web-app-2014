@@ -10,9 +10,12 @@ import javax.persistence.ManyToOne;
 
 @Embeddable
 public class PersonaCursoId implements java.io.Serializable{
-
+	
+	private static final long serialVersionUID = 7559565866336887092L;
+	
 	@ManyToOne
 	private Persona persona;
+	
 	@ManyToOne
 	private Curso curso;
 	
@@ -28,7 +31,5 @@ public class PersonaCursoId implements java.io.Serializable{
 	public void setCurso(Curso curso) {
 		this.curso = curso;
 	}
-	
-	
 	
 }

@@ -45,26 +45,9 @@ public class Curso {
     private Date fechaFin;
 
     
-    /* Nombre de 'mappedBy' es el atributo para los Cursos de la Clase Persona 
-    @ ManyToMany(fetch = FetchType.LAZY, mappedBy = "cursos")
-    */
-    
-    /*
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(  name="Persona_curso", 
-                 joinColumns={@JoinColumn(name="cursoId")}, 
-                 inverseJoinColumns={@JoinColumn(name="personaId")}
-    		)
-    */		
-    
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.curso" )
-    //private Set <Persona> personas = new HashSet<Persona>(0);
-   // private Set<PersonaCurso> personaCurso = new HashSet<PersonaCurso>(0);
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.curso" )    
     private Set<PersonaCurso> personaCurso = new HashSet<PersonaCurso>(0);
     
-	
-
-	
 
 	public Long getId() {
 		return id;

@@ -3,7 +3,7 @@
 	<session-factory>
 		<!-- Database connection settings -->
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="connection.url">jdbc:mysql://localhost/hibernate</property>
+		<property name="connection.url">jdbc:mysql://localhost/hibernate2</property>
 		<property name="connection.username">root</property>
 		<property name="connection.password"/>
 		<!-- JDBC connection pool (use the built-in) -->
@@ -24,9 +24,14 @@
 		<mapping class="ipartek.formacion.ejemplos.hibernate.Persona"/>
 		<mapping class="ipartek.formacion.ejemplos.hibernate.Curso"/>
 		<mapping class="ipartek.formacion.ejemplos.hibernate.PersonaCurso"/>
-		<mapping class="ipartek.formacion.ejemplos.hibernate.PersonaCursoId"/>
-		
+				
 		<mapping class="ipartek.formacion.ejemplos.hibernate.Direccion"/>
+		
+		<mapping class="ipartek.formacion.ejemplos.hibernate.User" />
+		
+		<!-- Embeddables para mapear ManyToMany con campos -->
+		<!-- persona-curso -->
+		<mapping class="ipartek.formacion.ejemplos.hibernate.PersonaCursoId"/>
 		
 		
 	</session-factory>
