@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,16 +28,14 @@ import javax.persistence.Transient;
 		@AssociationOverride(name = "pk.curso", joinColumns = @JoinColumn(name = "curso_id")) })
 public class PersonaCurso {
 
+	//@AssociationOverride son los nombre de las columnas que aparecen en PersonaCurso
+	
+	
+	//************* Configuración de las relaciones	
 	//Clave Primaria
 	@EmbeddedId
 	private PersonaCursoId pk = new PersonaCursoId();
 		
-	@Temporal(TemporalType.DATE)
-	@Column(name = "f_matricula", nullable = false, length = 10)
-	private Date fechaMatriculacion;
-	
-	
-
 	public PersonaCursoId getPk() {
 		return pk;
 	}
@@ -49,8 +48,7 @@ public class PersonaCurso {
 	/*
 	 * Getterr y setter para clase PersonaCursoId ( clave primaria )
 	 * 
-	 */
-	
+	 */	
 	@Transient
 	Persona getPersona(){
 		return pk.getPersona();
@@ -74,6 +72,10 @@ public class PersonaCurso {
 	 * 
 	 */
 	
+	//********************** Campos de la tabla intermedia
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "f_matricula", nullable = false, length = 10)
+	private Date fechaMatriculacion;
 	
 	public Date getFechaMatriculacion() {
 		return fechaMatriculacion;
@@ -81,6 +83,18 @@ public class PersonaCurso {
 
 	public void setFechaMatriculacion(Date fechaMatriculacion) {
 		this.fechaMatriculacion = fechaMatriculacion;
+	}
+	
+	
+	@ManyToOne
+	private User user;
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 	
