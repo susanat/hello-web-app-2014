@@ -1,30 +1,35 @@
 package ipartek.formacion.ejemplos.hibernatemavendao.entity;
 
+
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
-public class Curso {
+public class Alumno {
 
 	private Integer id;
 	private String nombre;
-	private List<Alumno> alumnos = new LinkedList<Alumno>();
+	private List<Curso> cursos = new LinkedList<Curso>();
 	
-	public List<Alumno> getAlumnos() {
-		return alumnos;
+
+	public List<Curso> getCursos() {
+		return cursos;
 	}
 
-	public void setAlumnos(List<Alumno> alumnos) {
-		this.alumnos = alumnos;
+	public void setCursos(List<Curso> cursos) {
+		this.cursos = cursos;
 	}
 	
-	public void setAlumno(Alumno obj) {
-		this.getAlumnos().add(obj);
+	public void setCurso(Curso obj) {
+		this.getCursos().add(obj);
 	}
 
-	public Curso() {
+	public Alumno() {
 	}
 
-	public Curso(String nombre) {
+	public Alumno(String nombre) {
 		this.nombre = nombre;
 	}
 
@@ -43,6 +48,8 @@ public class Curso {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
+
 	
 	
 

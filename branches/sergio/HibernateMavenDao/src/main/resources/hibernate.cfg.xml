@@ -26,6 +26,7 @@
 		
 		<!-- Clase POJO para mapear contra la tabla de BBDD con xml -->
 		<mapping resource="ipartek/formacion/ejemplos/hibernatemavendao/mapping/Curso.hbm.xml"></mapping>
+		<mapping resource="ipartek/formacion/ejemplos/hibernatemavendao/mapping/Alumno.hbm.xml"></mapping>
 		
 		
 		
