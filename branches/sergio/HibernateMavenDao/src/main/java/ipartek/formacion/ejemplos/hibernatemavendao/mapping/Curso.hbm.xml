@@ -11,5 +11,29 @@
         <property name="nombre" type="string">
             <column name="Nombre" length="100" />
         </property>
+        
+        <!-- Relacion many to many con la tabla alumnos -->
+        <bag name="alumnos" table="curso_alumno" 
+            inverse="false" lazy="true" fetch="select" cascade="remove">
+            <key>
+                <column name="curso_id" not-null="true" />
+            </key>
+            <many-to-many entity-name="ipartek.formacion.ejemplos.hibernatemavendao.entity.Alumno">
+                <column name="alumno_id" not-null="true" />
+            </many-to-many>
+        </bag>
+        
     </class>
 </hibernate-mapping>
+
+<!-- 
+
+    CascadeType.PERSIST : means that save() or persist() operations cascade to related entities.
+    CascadeType.MERGE : means that related entities are merged into managed state when the owning entity is merged.
+    CascadeType.REFRESH : does the same thing for the refresh() operation.
+    CascadeType.REMOVE : removes all related entities association with this setting when the owning entity is deleted.
+    CascadeType.DETACH : detaches all related entities if a “manual detach” occurs.
+    CascadeType.ALL : is shorthand for all of the above cascade operations.
+
+
+ -->

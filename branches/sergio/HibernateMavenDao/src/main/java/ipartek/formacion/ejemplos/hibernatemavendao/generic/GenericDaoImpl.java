@@ -17,7 +17,7 @@ public class GenericDaoImpl<Entity, K extends Serializable> implements
 		GenericDao<Entity, K> {
 
 	
-	private Session session;
+	private Session session = null;
 	
 	//casos es necesario tener acceso al tipo de la clase genérica en el contexto de ejecución
 	public Class<Entity> domainClass = getDomainClass();
@@ -34,7 +34,11 @@ public class GenericDaoImpl<Entity, K extends Serializable> implements
 
 	private Session getHibernateTemplate() {
 		//****** He cambiado algo raro con lo del artículo
-		session = HibernateUtil.getSession();		
+		
+		if(session == null) {
+			session = HibernateUtil.getSession();
+		}
+		
 		session.beginTransaction();
 		return session;
 	}
@@ -66,6 +70,7 @@ public class GenericDaoImpl<Entity, K extends Serializable> implements
 		try {
 			getHibernateTemplate().save(t);
 			session.getTransaction().commit();
+			session.clear();
 		} catch (HibernateException e) {
 			throw new UnableToSaveException(e);
 		}

@@ -13,6 +13,7 @@ public interface ICursoService {
 	public void GuardarCurso(Curso cursoacargar);
     public void ActualizarCurso(Curso cursoacargar);
     public void EliminarCurso(Curso micurso);
+    public Curso BuscarCurso(int id);
     public List<Curso> ListarCursos();
 	
 
