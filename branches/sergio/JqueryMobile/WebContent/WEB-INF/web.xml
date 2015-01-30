@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>JqueryMobile</display-name>
+  <welcome-file-list>
+    <welcome-file>home</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <description>Servlet que llevará el control de la aplicación</description>
+    <display-name>ServletHome</display-name>
+    <servlet-name>ServletHome</servlet-name>
+    <servlet-class>com.ipartek.formacion.pruebas.jquerymobile.ServletHome</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletHome</servlet-name>
+    <url-pattern>/home</url-pattern>
+  </servlet-mapping>
+</web-app>
