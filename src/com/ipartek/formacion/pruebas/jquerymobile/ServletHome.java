@@ -50,7 +50,13 @@ public class ServletHome extends HttpServlet {
 	 * @return true si es un mobil; false en caso contrario
 	 */
 	private boolean detectarUserAgentMobile ( HttpServletRequest request ){
-		boolean resul = true; 
+		boolean resul = false; 
+		
+		String agente = request.getHeader("User-Agent");
+		agente = agente.toLowerCase();
+		if ( agente.indexOf("mobi") > 0 ){
+			resul = true;
+		}
 		
 		return resul;
 	}
