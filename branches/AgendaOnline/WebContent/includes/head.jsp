@@ -16,11 +16,23 @@
 	rel="stylesheet">
 
 <!-- Custom CSS -->
+<!--
+¿Para que se necesita este CSS?
+¿Es necesario?
 <link href="css/sb-admin-2.css" rel="stylesheet">
+-->
+ 
+
+
+<!-- JQuery DataTables CSS -->
+<link href="css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="css/jquery.dataTables_themeroller.css" rel="stylesheet">
 
 <!-- Custom Fonts -->
 <link href="font-awesome/css/font-awesome.min.css"
 	rel="stylesheet" type="text/css">
+
+		
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -29,5 +41,6 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 <title>Insert title here</title>
+
 </head>
-<body>
+<body style="padding-top: 70px;">
