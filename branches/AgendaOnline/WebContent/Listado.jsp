@@ -1,22 +1,33 @@
+<%@page import="com.ipartek.formacion.agenda.bean.PruebasListaPersonas"%>
+<%@page import="com.ipartek.formacion.agenda.bean.Persona"%>
+<%@page import="java.util.ArrayList"%>
 <%@include file="includes/head.jsp"%>
 <%@include file="includes/nav.jsp"%>
 
+<%
+	ArrayList<Persona> vPersonas = PruebasListaPersonas.getPruebaPersona().listaCompleta();
+	int tamanio=vPersonas.size();
+%>
 
 <!-- Page Content -->
 <div class="container">
 
 	<div class="row">
 		<div class="col-lg-12 text-center">
-			<h1>Listado de personas</h1>
+			<h2>Numero de contactos encontrados:<%=vPersonas.size()%></h2>
 		</div>
+		<%if(!vPersonas.isEmpty())  {%>
 		<table id="idAgenda" class="display" width="100%" cellspacing="0">
 			<thead>
 				<tr>
 					<th></th>
 					<th>Nombre</th>
 					<th>Apellido</th>
-					<th>Tel Fijo</th>
 					<th>Tel. Movil</th>
+					<th>Tel. Fijo</th>
+					<th>Direccion</th>
+					<th>Poblacion</th>
+					<th>Provincia</th>
 				</tr>
 			</thead>
 
@@ -25,21 +36,34 @@
 					<th></th>
 					<th>Nombre</th>
 					<th>Apellido</th>
-					<th>Tel Fijo</th>
 					<th>Tel. Movil</th>
+					<th>Tel. Fijo</th>
+					<th>Direccion</th>
+					<th>Poblacion</th>
+					<th>Provincia</th>
 				</tr>
 			</tfoot>
 
 			<tbody>
+				<%
+				Persona p=null;
+				for (int iPersona=0; iPersona<vPersonas.size(); iPersona++) {
+					p=vPersonas.get(iPersona);
+				%>
+				
 				<tr>
-					<td><input type="checkbox" value="1"></td>
-					<td>Tiger</td>
-					<td>Nixon</td>
-					<td>949 999 999</td>
-					<td>666 666 666</td>
+					<td><input type="checkbox" value="<%=iPersona%>"></td>
+					<td><%=p.getNombre() %></td>
+					<td><%=p.getApellidos() %></td>
+					<td><%=p.getTelMovil() %></td>
+					<td><%=p.getTelFijo() %></td>
+					<td><%=p.getDireccion() %></td>
+					<td><%=p.getPoblacion() %></td>
+					<td><%=p.getProvincia() %></td>
 				</tr>
+				<%} %>
 			</tbody>
-		</table>
+		</table><%} %>
 	</div>
 	<!-- /.row -->
 
