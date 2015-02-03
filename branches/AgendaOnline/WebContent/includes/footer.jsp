@@ -8,14 +8,8 @@
 <!-- JQuery DataTable -->
 <script src="js/jquery.dataTables.min.js"></script>
 
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('#idAgenda').DataTable({
-			"bFilter" : false
-		});
-
-	});
-</script>
+<!-- JavaScript para tratar el listado -->
+<script src="js/listado.js"></script>
 
 <!-- Custom Theme JavaScript -->
 <!-- 
