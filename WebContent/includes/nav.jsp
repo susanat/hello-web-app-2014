@@ -20,13 +20,13 @@
 						class="form-control" type="text" id="inputSearch"
 						placeholder="Persona a buscar">
 				</div>
-				<input type="hidden" name="<%=Constantes.ACC_KEY%>"
-						value="<%=Constantes.ACC_BUSCAR_CONTACTO%>">
+				<input type="hidden" name="<%=Constantes.OP_KEY%>"
+						value="<%=Constantes.OP_BUSCAR%>">
 				<button type="submit" class="btn btn-default">
 					<span class="glyphicon glyphicon-search"></span> Buscar
 				</button>
 				<button type="submit" class="btn btn-default">
-					<span class="glyphicon glyphicon-remove"></span> Buscar
+					<span class="glyphicon glyphicon-remove"></span> Limpiar
 				</button>
 			</form>
 			<!-- /.navbar-form navbar-left form-inline -->
@@ -36,8 +36,8 @@
 					class="glyphicon glyphicon-user"></span>Añadir
 				</a>
 				<input type="text" name="id" value=""> <input
-						type="hidden" name="<%=Constantes.ACC_KEY%>"
-						value="<%=Constantes.ACC_ELIMINAR_CONTACTO%>"> 
+						type="hidden" name="<%=Constantes.OP_KEY%>"
+						value="<%=Constantes.OP_ELIMINAR%>"> 
 				<button type="button" class="btn btn-default">
 					<span class="glyphicon glyphicon-trash"></span>Eliminar
 				</button>
