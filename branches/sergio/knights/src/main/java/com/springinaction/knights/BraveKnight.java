@@ -5,7 +5,7 @@ public class BraveKnight implements Knight {
 	private int contQuest;
 
 	public BraveKnight(Quest quest) {
-		this.quest = quest;       //<co id="co_injectedQuest"/>
+		this.quest = quest; // <co id="co_injectedQuest"/>
 		this.contQuest = 0;
 	}
 
@@ -20,7 +20,6 @@ public class BraveKnight implements Knight {
 	}
 
 	public int getContQuest() {
-		// TODO Auto-generated method stub
 		return this.contQuest;
 	}
 }
