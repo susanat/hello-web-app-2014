@@ -1,0 +1,19 @@
+<project>
+
+	<!-- declaracion de variables -->
+	<property name="dir.javadoc" location="doc"/>
+	<property name="dir.source"  location="src/main"/>
+	
+	<!-- tareas a ejecutar -->
+    <target name="clean" description="delete temporal dirs">
+        <delete dir="${dir.javadoc}"/>
+    </target>
+	
+	<target name="doc" depends="clean" description="generate documentation">
+	    <javadoc sourcepath="${dir.source}" destdir="${dir.javadoc}"/>
+	</target>
+	
+
+	
+
+</project>
