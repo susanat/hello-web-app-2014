@@ -1,4 +1,4 @@
-package es.srn.projects.backend_maven_dao.dao.factoria.interfaz;
+package es.srn.projects.backendmavendao.dao.factoria.interfaz;
 
 public interface IGenericDAO {
 	
@@ -15,6 +15,13 @@ public interface IGenericDAO {
 	 * @throws Exception Excepción en caso de error.
 	 */
 	public void createTable() throws Exception;
+	
+	/**
+	 * Función destinada a eliminar una tabla en la base de datos.
+	 * @return true si se ha creado y false si no.
+	 * @throws Exception Excepción en caso de error.
+	 */
+	public boolean deleteTable() throws Exception;
 	
 	
 	/**

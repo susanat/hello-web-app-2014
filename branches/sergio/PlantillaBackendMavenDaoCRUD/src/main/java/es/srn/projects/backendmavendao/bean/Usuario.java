@@ -1,4 +1,4 @@
-package es.srn.projects.backend_maven_dao.bean;
+package es.srn.projects.backendmavendao.bean;
 
 public class Usuario 
 {
@@ -6,16 +6,17 @@ public class Usuario
 	public static final int DEFAULT_ID = -1;
 	public static final String DEFAULT_PHOTO = null;
 	
+	public static final String DEFAULT_STRING = "";
+	
 	
 	private int id = DEFAULT_ID;
-	private String username = "";
-	private String apellidos = "";
-	private String photo = DEFAULT_PHOTO;
-	
-	private String password;
-	private String eMail;
-	private String status;
-	private String timezone;
+	private String username = DEFAULT_STRING;
+	private String apellidos = DEFAULT_STRING;
+	private String photo = DEFAULT_PHOTO;	
+	private String password = DEFAULT_STRING;
+	private String eMail = DEFAULT_STRING;
+	private String status = DEFAULT_STRING;
+	private String timezone = DEFAULT_STRING;
 	
 	public int getId() {
 		return id;

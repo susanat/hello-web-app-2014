@@ -2,7 +2,7 @@
  * @author Sergio Rubio Nieto
  *
  */
-package es.srn.projects.backend_maven_dao.dao.factoria.interfaz;
+package es.srn.projects.backendmavendao.dao.factoria;
 
 /*
 Este package contendrá las interfaces de los DAO comunes a cualquier tipo
