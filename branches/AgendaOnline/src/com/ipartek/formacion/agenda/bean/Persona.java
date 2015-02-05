@@ -11,10 +11,10 @@ public class Persona {
 
 	// Constantes
 	private static int LONG_CP = 5;
-	private static int LONG_TEL_FIJO = 9;
-	private static int LONG_TEL_MOVIL = 7;
+	private static int LONG_TEL = 9;
 
 	// Variables
+	private int idcontacto;
 	private String nombre;
 	private String apellidos;
 	private int telFijo;
@@ -25,8 +25,17 @@ public class Persona {
 	private int cp;
 
 	// Getters y Setters
+
 	public String getNombre() {
 		return nombre;
+	}
+
+	public int getIdcontacto() {
+		return idcontacto;
+	}
+
+	public void setIdcontacto(int idcontacto) {
+		this.idcontacto = idcontacto;
 	}
 
 	public boolean setNombre(String nombre) {
@@ -79,7 +88,7 @@ public class Persona {
 
 	public boolean setTelFijo(int telFijo) {
 		// TODO Comprobar telefonos extranjetos
-		if (!(String.valueOf(telFijo).length() == LONG_TEL_FIJO)) {
+		if (!(String.valueOf(telFijo).length() == LONG_TEL)) {
 			return false;
 			// error el codigo no contiene 9 caracteres
 		} else {
@@ -94,7 +103,7 @@ public class Persona {
 
 	public boolean setTelMovil(int telMovil) {
 		// TODO Comprobar telefonos extranjetos, simbolo + y parentesis ()
-		if (!(String.valueOf(telMovil).length() == LONG_TEL_MOVIL)) {
+		if (!(String.valueOf(telMovil).length() == LONG_TEL)) {
 			return false;
 			// error el codigo no contiene 7 caracteres
 		} else {
@@ -191,18 +200,34 @@ public class Persona {
 	}
 
 	// Constructores
+
 	public Persona() {
 		super();
 	}
 
-	@Override
-	public String toString() {
-		return "Persona [nombre=" + nombre + ", apellidos=" + apellidos
-				+ ", telFijo=" + telFijo + ", telMovil=" + telMovil
-				+ ", direccion=" + direccion + ", poblacion=" + poblacion
-				+ ", provincia=" + provincia + ", cp=" + cp + "]";
+	public Persona(int idcontacto, String nombre, String apellidos,
+			int telFijo, int telMovil, String direccion, String poblacion,
+			String provincia, int cp) {
+		super();
+		this.idcontacto = idcontacto;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.telFijo = telFijo;
+		this.telMovil = telMovil;
+		this.direccion = direccion;
+		this.poblacion = poblacion;
+		this.provincia = provincia;
+		this.cp = cp;
 	}
 
+	@Override
+	public String toString() {
+		return "Persona [idcontacto = " + idcontacto + " + nombre=" + nombre
+				+ ", apellidos=" + apellidos + ", telFijo=" + telFijo
+				+ ", telMovil=" + telMovil + ", direccion=" + direccion
+				+ ", poblacion=" + poblacion + ", provincia=" + provincia
+				+ ", cp=" + cp + "]";
+	}
 	// COmprobacion de los campos nombre apellidos poblacion y provincia que no
 	// contenga numeros o simbolos, y que el campo numero telefono fijo y movil,
 	// codigo postal no contenga letras
