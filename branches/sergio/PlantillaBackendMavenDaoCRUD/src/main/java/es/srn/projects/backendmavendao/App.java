@@ -1,4 +1,4 @@
-package es.srn.projects.backend_maven_dao;
+package es.srn.projects.backendmavendao;
 
 /**
  * Hello world!

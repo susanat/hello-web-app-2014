@@ -1,8 +1,8 @@
-package es.srn.projects.backend_maven_dao.dao.factoria.interfaz;
+package es.srn.projects.backendmavendao.dao.factoria.interfaz;
 
 import java.util.List;
 
-import es.srn.projects.backend_maven_dao.bean.Usuario;
+import es.srn.projects.backendmavendao.bean.Usuario;
 
 
 /**
@@ -15,24 +15,23 @@ import es.srn.projects.backend_maven_dao.bean.Usuario;
  */
 public interface IUsuarioDAO extends IGenericDAO {
 	
+	public final static String TABLENAME = "user";
 	
 	public final static String COL_NAME_ID = "id";
 	public final static String COL_NAME_USERNAME = "username";
 	public final static String COL_NAME_APELLIDOS = "apellidos";	
-	public final static String COL_NAME_PHOTO = "photo";
-	
-	
-	public final static int COL_ID = 1;
-	public final static int COL_USERNAME = 2;
-	public final static int COL_APELLIDOS = 3;	
-	public final static int COL_PHOTO = 4;
-	
-	public final static String TABLENAME = "user";
-	
-	public void beginTrans() throws Exception;
-	public void commit() throws Exception;
-	public void rollback() throws Exception;
+	public final static String COL_NAME_PHOTO = "photo";	
+	public final static String COL_NAME_PASSWORD = "password";
+	public final static String COL_NAME_EMAIL = "email";
+	public final static String COL_NAME_STATUS = "status";	
+	public final static String COL_NAME_TIMEZONE = "timezone";
+			
 
+	/**
+	 * Obtiene todos los elementos de la tabla.
+	 * @return Listado de elementos o listado vacío si no existe ninguno
+	 * @throws Exception Excepción.
+	 */
 	public List<Usuario> getAll() throws Exception;
 	
 	public Usuario getById(Usuario obj) throws Exception;
@@ -46,5 +45,7 @@ public interface IUsuarioDAO extends IGenericDAO {
 	public boolean delete(Usuario obj) throws Exception;
 	
 	public boolean delete(int id) throws Exception;
+
+	
 	
 }
