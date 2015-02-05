@@ -73,7 +73,7 @@ public class PersonaController {
 		try {
 			
 			Session s = ipartek.formacion.ejemplos.hibernate.HibernateUtil.getSession();
-			devuelta = (Persona) s.load(Persona.class, id );
+			devuelta = (Persona) s.get(Persona.class, id );
 					
 			
 		} catch (PropertyValueException ex) {			
@@ -129,7 +129,7 @@ public class PersonaController {
 	public @ResponseBody JsonGenericResponse borrarPersona(@PathVariable("id") long id, HttpServletResponse res) {		
 		
 		JsonGenericResponse jsr = new JsonGenericResponse();
-				
+		
 		
 		try {
 			jsr.setObjeto(this.Delete(id));	
@@ -161,7 +161,11 @@ public class PersonaController {
 		Persona devuelta = null;
 		
 		try {
-			devuelta = Insert(persona);		
+			devuelta = update(persona);		
+			if(devuelta == null) {
+				res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				jsr.setException(new Exception("Persona not found."));			
+			}
 			
 		} catch (PropertyValueException ex) {			
 			res.setStatus(HttpServletResponse.SC_BAD_REQUEST);			
@@ -178,20 +182,7 @@ public class PersonaController {
 		return jsr;
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	public Persona Insert(Persona p) throws Exception {
 		Session s = null;
@@ -272,17 +263,20 @@ public class PersonaController {
 		try {
         	 //Lo obtenemos de bd y lo modificamos
              s.beginTransaction();
-             Persona pModificada = (Persona) s.load(Persona.class, p.getId() );
-             pModificada.setNombre("personaModificada");
-             s.update(pModificada);
-               
-             //lo volvemos a obtener de bd para comprobar
-             Persona pRecuperada = (Persona) s.load(Persona.class, pModificada.getId() );
-            
+             Persona pModificada = (Persona) s.get(Persona.class, p.getId() );
              
-             s.getTransaction().commit();
+             if(pModificada != null) { 
+            	 pModificada.setNombre("personaModificada");
+            	 s.update(pModificada);                 
+                 //lo volvemos a obtener de bd para comprobar
+                 Persona pRecuperada = (Persona) s.get(Persona.class, pModificada.getId() );                 
+                 s.getTransaction().commit();                 
+                 return pRecuperada;
+             } else {
+            	 return null;
+             }
              
-             return pRecuperada;
+             
         } catch (Exception ex) {
         	
         	s.getTransaction().rollback();        	        	
