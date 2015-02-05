@@ -4,6 +4,9 @@
 <head>
 
 <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script src="http://malsup.github.io/jquery.blockUI.js"></script>
+
+
 <title>Home</title>
 </head>
 <body>
@@ -18,11 +21,13 @@
 		<li><a href="#" id="personaById">GET by ID</a></li>
 		<li><a href="#" id="personaCreate">Create by POST</a></li>
 		<li><a href="#" id="personaModificar">Modificar by PUT</a></li>
-		<li><a href="#" id="personaDelete">bORRAR by DELETE</a></li>
+		<li><a href="#" id="personaDelete">Borrar by DELETE</a></li>
 	</ol>
 
 	<script>
 	
+		// unblock when ajax activity stops 
+    	$(document).ajaxStop($.unblockUI); 
 	
 			
 
@@ -53,6 +58,7 @@
 
 							//no ejecute el link
 							evento.preventDefault();
+							$.blockUI();
 
 							$
 									.ajax({
@@ -81,14 +87,21 @@
 										success : function(data, textStatus,
 												xhr) {
 											
+											var texto = "";
+											
 											//Recorro el listado devuelto
 											 $.each(data.objeto, function() {
 												 
 												 	//recorro cada campo
 											        $.each(this, function(k, v) {
-											            alert(k + ' ' + v);
+											            texto = texto + (k + ' ' + v + "\n");
 											        });
+												 	
+												 	texto = texto + "*********************** \n";
 											 });    
+											
+											
+											alert(texto);
 											
 										},
 										complete : function(xhr, textStatus) {
@@ -98,9 +111,11 @@
 										error : function(jqXHR, textStatus,
 												errorThrown) {
 
+											
 											data = jQuery
 													.parseJSON(jqXHR.responseText);
 
+											
 											alert("Datos del error: " + "\n");
 
 											alert("error: " + data.error + "\n");
@@ -119,11 +134,13 @@
 
 		$('#personaById').click(function(evento)  {
 
+			var id = 1;
 			evento.preventDefault();
+			$.blockUI();
 
 			$
 					.ajax({
-						url : "http://localhost:8080/formacion/persona/2",
+						url : "http://localhost:8080/formacion/persona/" + id,
 						type : "GET",						
 						contentType : "application/json",
 						statusCode : {
@@ -147,23 +164,27 @@
 						success : function(data, textStatus,
 								xhr) {
 
-							alert('Success respuesta ok'
-									+ "\n"
-									+ "Id: "
-									+ data.objeto.id
-									+ "\n"
-									+ "Nombre: "
-									+ data.objeto.nombre
-									+ "\n"
-									+ "Apellidos: "
-									+ data.objeto.apellidos
-									+ "\n"
-									+ "Edad: "
-									+ data.objeto.edad
-									+ "\n"
-									+ "Fecha Nac.: "
-									+ getFormatedDate(data.objeto.fechaNacimiento)
-									+ "\n");
+							if(data.objeto != null) {
+								alert('Success respuesta ok'
+										+ "\n"
+										+ "Id: "
+										+ data.objeto.id
+										+ "\n"
+										+ "Nombre: "
+										+ data.objeto.nombre
+										+ "\n"
+										+ "Apellidos: "
+										+ data.objeto.apellidos
+										+ "\n"
+										+ "Edad: "
+										+ data.objeto.edad
+										+ "\n"
+										+ "Fecha Nac.: "
+										+ getFormatedDate(data.objeto.fechaNacimiento)
+										+ "\n");
+							} else {
+								alert("no se ha encontrado la persona con id " + id);
+							}
 
 						},
 						complete : function(xhr, textStatus) {
@@ -201,6 +222,7 @@
 						function(evento) {
 
 							evento.preventDefault();
+							$.blockUI();
 
 							var persona = {
 								"nombre" : "Creado",
@@ -284,16 +306,16 @@
 									});
 						});
 
-		$('#personaModificar').click(function() {
+		$('#personaDelete').click(function( evento ) {
 
 			//new Persona("DesdeControler", "yepaaa", 28, new Date()
+			var id = 1;
+			evento.preventDefault();
+			$.blockUI();
 
 			$.ajax({
-				url : "http://localhost:8080/formacion/persona/",
-				type : "POST",
-				data : {
-					"ID" : 5
-				},
+				url : "http://localhost:8080/formacion/persona/" + id,
+				type : "DELETE",				
 				contentType : "application/json",
 					statusCode : {
 						200 : function(response) {
@@ -318,21 +340,8 @@
 
 						alert('Success respuesta ok'
 								+ "\n"
-								+ "Id: "
-								+ data.objeto.id
-								+ "\n"
-								+ "Nombre: "
-								+ data.objeto.nombre
-								+ "\n"
-								+ "Apellidos: "
-								+ data.objeto.apellidos
-								+ "\n"
-								+ "Edad: "
-								+ data.objeto.edad
-								+ "\n"
-								+ "Fecha Nac.: "
-								+ getFormatedDate(data.objeto.fechaNacimiento)
-								+ "\n");
+								+ "Borrado: "
+								+ data.objeto);
 
 					},
 					complete : function(xhr, textStatus) {
@@ -365,12 +374,14 @@
 	});
 		
 			
-		$('#personaDelete').click(function() {
+		$('#personaModificar').click(function( evento ) {
+			evento.preventDefault(  );
+			$.blockUI();
 
 			//new Persona("DesdeControler", "yepaaa", 28, new Date()
 
 			var persona = {
-				"id" : 1,
+				"id" : 2,
 				"nombre" : "Modificado",
 				"apellidos" : "Por home",
 				"edad" : 40,
@@ -404,10 +415,27 @@
 				success : function(data, textStatus,
 						xhr) {
 
-					alert('Success respuesta ok'
-							+ "\n"
-							+ "Borrado: "
-							+ data.objeto);
+					if(data.objeto != null) {
+						alert('Success respuesta ok'
+								+ "\n"
+								+ "Id: "
+								+ data.objeto.id
+								+ "\n"
+								+ "Nombre: "
+								+ data.objeto.nombre
+								+ "\n"
+								+ "Apellidos: "
+								+ data.objeto.apellidos
+								+ "\n"
+								+ "Edad: "
+								+ data.objeto.edad
+								+ "\n"
+								+ "Fecha Nac.: "
+								+ getFormatedDate(data.objeto.fechaNacimiento)
+								+ "\n");
+					} else {
+						alert("no se ha modificado la persona con id " + id);
+					}
 
 				},
 				complete : function(xhr, textStatus) {
