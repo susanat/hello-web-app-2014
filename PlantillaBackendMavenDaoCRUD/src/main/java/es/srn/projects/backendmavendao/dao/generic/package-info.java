@@ -5,4 +5,4 @@
  * @author Sergio Rubio Nieto
  *
  */
-package es.srn.projects.backend_maven_dao.dao.generic;
+package es.srn.projects.backendmavendao.dao.generic;

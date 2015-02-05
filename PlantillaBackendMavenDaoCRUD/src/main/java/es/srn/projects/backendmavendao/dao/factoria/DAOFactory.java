@@ -1,13 +1,13 @@
-package es.srn.projects.backend_maven_dao.dao.factoria;
+package es.srn.projects.backendmavendao.dao.factoria;
 
 import java.sql.SQLException;
 
-import es.srn.projects.backend_maven_dao.dao.factoria.interfaz.IUsuarioDAO;
-
+import es.srn.projects.backendmavendao.dao.factoria.interfaz.IUsuarioDAO;
+import es.srn.projects.backendmavendao.dao.factoria.mysql.MysqlDAOFactory;
 
 /**
- * Clase abstracta para la obtenci�n 
- * del tipo de conexi�n de almacenamiento de datos.
+ * Clase abstracta para la obtencion 
+ * del tipo de conexion de almacenamiento de datos.
  * @author baskito
  *
  */
@@ -30,9 +30,11 @@ public abstract class DAOFactory
 	 * @throws Exception Excepci�n comun.
 	 */
     public abstract boolean checkConnection() throws Exception;
-    public abstract boolean createDataBase() throws ClassNotFoundException, SQLException;
+    public abstract boolean createDataBase() throws ClassNotFoundException, SQLException;    
     public abstract void commit() throws SQLException;
     public abstract void rollback() throws SQLException;
+    public abstract boolean createTable(String sql) throws Exception;
+    public abstract boolean deleteTable(String sql) throws Exception;
     
     /**
      * Almacenamiento en access.
@@ -52,9 +54,13 @@ public abstract class DAOFactory
 	public static DAOFactory getDaoFactoriaAbstracta (int tipo) {
 		switch (tipo) {			
 			case MYSQL:
-				//return MysqlDAOFactory.getInstance();
+				return MysqlDAOFactory.getInstance();
 		}
 		
 		return null;
 	}
+
+
+	
+		
 }

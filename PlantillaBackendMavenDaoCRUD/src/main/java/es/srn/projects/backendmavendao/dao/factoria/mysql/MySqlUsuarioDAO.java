@@ -1,4 +1,4 @@
-package es.srn.projects.backend_maven_dao.dao.factoria.mysql;
+package es.srn.projects.backendmavendao.dao.factoria.mysql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,8 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.srn.projects.backend_maven_dao.bean.Usuario;
-import es.srn.projects.backend_maven_dao.dao.factoria.interfaz.IUsuarioDAO;
+import es.srn.projects.backendmavendao.bean.Usuario;
+import es.srn.projects.backendmavendao.dao.factoria.interfaz.IUsuarioDAO;
 
 
 /**
@@ -22,7 +22,6 @@ public class MySqlUsuarioDAO implements IUsuarioDAO {
 		
 	
 	private Connection session;
-	
 	
 	
 	@Override
@@ -56,6 +55,12 @@ public class MySqlUsuarioDAO implements IUsuarioDAO {
 		
 	}
 	
+	/**
+	 * Función que inicializa a null los objetos pasador y 
+	 * desconecta de la base de datos.
+	 * @param param Array de objeto a pasar a null.
+	 * @throws SQLException
+	 */
 	private void desconectar(Object ... param) throws SQLException {
 		
 		for(Object obj : param) {
@@ -65,7 +70,9 @@ public class MySqlUsuarioDAO implements IUsuarioDAO {
 		MysqlDAOFactory.getInstance().desconectar();
 	}
 	
-	
+	/**
+	 * Obtiene todos los elementos de la base de datos.
+	 */
 	public List<Usuario> getAll() throws Exception{		
 		
 		Statement s = null;
@@ -77,7 +84,7 @@ public class MySqlUsuarioDAO implements IUsuarioDAO {
 			//recuperamos la sesión
 			session = MysqlDAOFactory.getInstance().conectar();
 		} catch (SQLException ex) {			
-			//un intento más
+			//intenta crear una vez la base de datos más si da error mysql 1049.
 			if(ex.getErrorCode() == 1049) {				
 				createDatabase();				
 			} else {
@@ -197,72 +204,87 @@ public class MySqlUsuarioDAO implements IUsuarioDAO {
 	}
 
 	public Usuario insert(Usuario obj) throws Exception {
-		Connection conexion = null;
+		
+		Connection session = null;
 		PreparedStatement pst = null;
-		ResultSet rs = null;
+		ResultSet rs = null;		
+		
+		try {
+			//recuperamos la conexión con la base de datos.
+			session = MysqlDAOFactory.getInstance().conectar();
+		} catch (SQLException ex) {			
+			//intenta crear una vez la base de datos más si da error mysql 1049.
+			if(ex.getErrorCode() == MysqlDAOFactory.MYSQL_CODE_DB_NOT_FOUND) {				
+				createDatabase();				
+			} else {
+				throw ex;
+			}
+		} catch (Exception ex) {
+			throw ex;
+		}		
 		
 		try
-		{
-		   
-		   //Establecemos la conexión con la base de datos.
-		   conexion = MysqlDAOFactory.getInstance().conectar();
-		   
-		   //INSERT INTO `srncodesnippet`.`user` (`id`, `username`, `apellidos`, `password`, `email`, `status`, `timezone`) VALUES (NULL, 'Antonio', 'Segundo Puesto', '', NULL, '1', NULL);					
-			
-		   //insertar persona nueva
-		   //s = conexion.createStatement();
-		   //String sqlInsert = "INSERT INTO persona ( nombre, apellido1, edad) VALUES ( '"+first+"', '"+last+"', 34);";
-		   //String sqlInsert = "INSERT INTO `srncodesnippet`.`user` (`id`, `username`, `apellidos`, `password`, `email`, `status`, `timezone`) VALUES (NULL, '" + nombre + "', '" + apellidos + "', '', NULL, '1', NULL);";
-		   
+		{		  
 		   //sentencia sql para el prepare statement
-		   String sqlInsert = "INSERT INTO `srncodesnippet`.`user` (`id`, `username`, `apellidos`, `password`, `email`, `status`, `timezone`, `photo`) VALUES (NULL, ?, ?, '', NULL, '1', NULL, ?);";
+		
+			StringBuilder sql = new StringBuilder();
+			sql.append(" INSERT INTO ");
+			sql.append("`").append(TABLENAME).append("`");
+			sql.append("(");
+				//sql.append("`").append(COL_NAME_ID).append("`").append(",");
+				sql.append("`").append(COL_NAME_USERNAME).append("`").append(",");
+				sql.append("`").append(COL_NAME_APELLIDOS).append("`").append(",");
+				sql.append("`").append(COL_NAME_PHOTO).append("`").append(",");
+				sql.append("`").append(COL_NAME_PASSWORD).append("`").append(",");
+				sql.append("`").append(COL_NAME_EMAIL).append("`").append(",");
+				sql.append("`").append(COL_NAME_STATUS).append("`").append(",");
+				sql.append("`").append(COL_NAME_TIMEZONE).append("`");
+			sql.append(")");
+			//sql.append(" VALUES (?, ?, ?, ?, ?, ?, ?, ?); ");
+			sql.append(" VALUES (?, ?, ?, ?, ?, ?, ?); ");
+			
+			/*
+		   String sqlInsert = "INSERT INTO `" + TABLENAME + 
+				   "` (`id`, `username`, `apellidos`, `password`, `email`, `status`, `timezone`, `photo`) VALUES (NULL, ?, ?, '', NULL, '1', NULL, ?);";
+		   */
 		   		   
 		   //s = conexion.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);
-		   pst = conexion.prepareStatement(sqlInsert, new String[]{"id"});
-		   
-		   
+		   pst = session.prepareStatement(sql.toString(), new String[]{COL_NAME_ID});
+		   		   
 		   //añadimos los campos
 		   pst.setString(1, obj.getUsername());
-		   pst.setString(2, obj.getApellidos());
+		   pst.setString(2, obj.getApellidos());		   
 		   pst.setString(3, obj.getPhoto());
-		   
-		   
+		   pst.setString(4, obj.getPassword());
+		   pst.setString(5, obj.geteMail());
+		   pst.setString(6, obj.getStatus());
+		   pst.setString(7, obj.getTimezone());
+		   		   
 		   //realizamos la operación
 		   int res = pst.executeUpdate();
 		   
 		   //obtenemos la/s última key insertada
-		   if(res > 0) {
-			  
+		   if(res > 0) {			  
 			   //obtenemos el rs con las últimas claves insertadas
 			   rs = pst.getGeneratedKeys();			  			  
 			   rs.next();
 			  
 			   //recogemos el último id
-			   int auto_id = rs.getInt(1);
-			  
-			   //System.out.println(auto_id);
+			   int auto_id = rs.getInt(1);			  			   
 			  
 			  //devolvemos el usuario creado
-			   return this.getById(auto_id);
-			  
+			   return this.getById(auto_id);			  
 		   }	   
 		   
+		} catch (SQLException e) {
+			if(e.getErrorCode() == 1146) {
+				createTable();
+			}			
+			throw e;
 		} catch (Exception e) {
 			throw e;
-		} finally {
-			
-			if(rs != null) {
-				rs = null;
-			}
-			
-			
-			if (pst!=null) {
-				pst = null;
-			}
-			
-			
-			MysqlDAOFactory.getInstance().desconectar();
-			
+		} finally {			
+			desconectar(rs,pst);
 		}
 		
 		return null;
@@ -275,29 +297,51 @@ public class MySqlUsuarioDAO implements IUsuarioDAO {
 		ResultSet rs = null;
 		
 		try
-		{
-		   
+		{		   
 		   //Establecemos la conexión con la base de datos.
 		   conexion = MysqlDAOFactory.getInstance().conectar();
-		  
+		   
+		   StringBuilder sql = new StringBuilder();
+		   sql.append("UPDATE " );
+		   sql.append(TABLENAME);
+		   sql.append(" SET ");
+		   sql.append(COL_NAME_USERNAME).append(" = ? ").append(", ");
+		   sql.append(COL_NAME_APELLIDOS).append(" = ? ").append(", ");
+		   sql.append(COL_NAME_PHOTO).append(" = ? ").append(", ");
+		   sql.append(COL_NAME_PASSWORD).append(" = ? ").append(", ");
+		   sql.append(COL_NAME_EMAIL).append(" = ? ").append(", ");
+		   sql.append(COL_NAME_STATUS).append(" = ? ").append(", ");
+		   sql.append(COL_NAME_TIMEZONE ).append(" = ? ");
+		   sql.append(" WHERE ").append(COL_NAME_ID).append(" = ?;");
+			   		  
 		   //Preparamos la consulta
-		   String sql = "UPDATE " + TABLENAME + " SET "  
+		   /*
+		   String sql = "UPDATE " 
+				   + TABLENAME 
+				   + " SET "  
 				   + COL_NAME_USERNAME + " = ?,"
 				   + COL_NAME_APELLIDOS+ " = ?,"
-				   + COL_NAME_PHOTO + " = ? " 
+				   + COL_NAME_PHOTO + " = ?, " 
+				   + COL_NAME_PASSWORD + " = ?,"
+				   + COL_NAME_EMAIL+ " = ?,"
+				   + COL_NAME_STATUS + " = ?, " 
+				   + COL_NAME_TIMEZONE + " = ? "				   
 				   + "WHERE "+ COL_NAME_ID + " = ?;";
+		 */
 		  
-		  	  
-		   		   
 		   //s = conexion.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);
-		   pst = conexion.prepareStatement(sql);
+		   pst = conexion.prepareStatement(sql.toString());
 		   
 		   
-		   //añadimos los campos
+		   //añadimos los campos		 
 		   pst.setString(1, obj.getUsername());
-		   pst.setString(2, obj.getApellidos());
+		   pst.setString(2, obj.getApellidos());		   
 		   pst.setString(3, obj.getPhoto());
-		   pst.setInt(4, obj.getId());
+		   pst.setString(4, obj.getPassword());
+		   pst.setString(5, obj.geteMail());
+		   pst.setString(6, obj.getStatus());
+		   pst.setString(7, obj.getTimezone());
+		   pst.setInt(8, obj.getId());
 		   
 		   
 		   //realizamos la operación
@@ -312,20 +356,8 @@ public class MySqlUsuarioDAO implements IUsuarioDAO {
 		   
 		} catch (Exception e) {
 			throw e;
-		} finally {
-			
-			if(rs != null) {
-				rs = null;
-			}
-			
-			
-			if (pst!=null) {
-				pst = null;
-			}
-			
-			
-			MysqlDAOFactory.getInstance().desconectar();
-			
+		} finally {			
+			this.desconectar(rs, pst);
 		}
 		
 		return null;
@@ -346,13 +378,12 @@ public class MySqlUsuarioDAO implements IUsuarioDAO {
 		ResultSet rs = null;
 		
 		try
-		{
-		   
+		{		   
 		   //Establecemos la conexión con la base de datos.
 		   conexion = MysqlDAOFactory.getInstance().conectar();
 				   
 		   //sentencia sql para el prepare statement
-		   String sqlInsert = "delete from `srncodesnippet`.`user` where `id` = ?;";
+		   String sqlInsert = "delete from `" + TABLENAME+ "` where `" + COL_NAME_ID + "` = ?;";
 		   		   
 		   s = conexion.prepareStatement(sqlInsert);
 		   		   
@@ -390,18 +421,36 @@ public class MySqlUsuarioDAO implements IUsuarioDAO {
 	public void createTable() throws Exception {
 		StringBuilder sql = new StringBuilder();
 		
+		/*
 		sql.append("CREATE TABLE IF NOT EXISTS");
 		sql.append("`").append(TABLENAME).append("`");
 		sql.append("( `id` int(11) NOT NULL AUTO_INCREMENT,");
 		sql.append("`username` varchar(255) NOT NULL,");
 		sql.append("`apellidos` varchar(255) DEFAULT NULL,");
 		sql.append("`photo` varchar(255) DEFAULT NULL,");
+		sql.append("`password` varchar(255) DEFAULT NULL,");
+		sql.append("`email` varchar(255) DEFAULT NULL,");
+		sql.append("`status` varchar(255) DEFAULT NULL,");
+		sql.append("`timezone` varchar(255) DEFAULT NULL,");
 		sql.append("PRIMARY KEY (`id`)");
 		sql.append(") ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;");
-			
+		*/
+				
 		
+		sql.append(" CREATE TABLE IF NOT EXISTS");
+		sql.append(" `").append(TABLENAME).append("`");
+		sql.append(" (`").append(COL_NAME_ID).append("` int(11) NOT NULL AUTO_INCREMENT,");
+		sql.append(" `").append(COL_NAME_USERNAME).append("` varchar(255) NOT NULL,");
+		sql.append(" `").append(COL_NAME_APELLIDOS).append("` varchar(255) DEFAULT NULL,");
+		sql.append(" `").append(COL_NAME_PHOTO).append("` varchar(255) DEFAULT NULL,");
+		sql.append(" `").append(COL_NAME_PASSWORD).append("` varchar(255) DEFAULT NULL,");
+		sql.append(" `").append(COL_NAME_EMAIL).append("` varchar(255) DEFAULT NULL,");
+		sql.append(" `").append(COL_NAME_STATUS).append("` varchar(255) DEFAULT NULL,");
+		sql.append(" `").append(COL_NAME_TIMEZONE).append("` varchar(255) DEFAULT NULL,");
+		sql.append(" PRIMARY KEY (`").append(COL_NAME_ID).append("`)");
+		sql.append(" ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;");
 		
-		MysqlDAOFactory.getInstance().createDataBase(sql.toString())
+		MysqlDAOFactory.getInstance().createTable(sql.toString());
 	}
 
 	@Override
@@ -413,6 +462,15 @@ public class MySqlUsuarioDAO implements IUsuarioDAO {
 		//reintentamos conectar
 		session = MysqlDAOFactory.getInstance().conectar();
 	}
+
+
+	@Override
+	public boolean deleteTable() throws Exception {
+		//creamos la base de datos
+		return MysqlDAOFactory.getInstance().deleteTable(TABLENAME);
+	}
+
+	
 
 	
 
