@@ -26,7 +26,7 @@ public interface IPersonaDAO {
 	static final String COL_ID = "idcontacto";
 	static final String COL_NOMBRE = "nombre";
 	static final String COL_APELLIDOS = "apellidos";
-	static final String COL_TEL_FIJO = "telffijo";
+	static final String COL_TEL_FIJO = "telfijo";
 	static final String COL_TEL_MOVIL = "telfmovil";
 	static final String COL_DOMICILIO = "domicilio";
 	static final String COL_LOCALIDAD = "poblacion";
