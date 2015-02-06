@@ -28,6 +28,7 @@ public class MySqlDAOFactoryTest {
 
 	@Test
 	public void test() throws Exception {
+
 		f = (MySqlDAOFactory) DAOFactory.getDAOFactory(DAOFactory.MYSQL);
 		try {
 			f.conectar();
