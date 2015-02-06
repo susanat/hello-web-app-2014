@@ -52,7 +52,7 @@
 				%>
 				
 				<tr>
-					<td><input type="checkbox" value="<%=p.getTelMovil() %>"></td>
+					<td><input type="checkbox" value="<%=iPersona%>"></td>
 					<td><%=p.getNombre() %></td>
 					<td><%=p.getApellidos() %></td>
 					<td><%=p.getTelMovil() %></td>
