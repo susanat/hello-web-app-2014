@@ -1,7 +1,5 @@
 package com.ipartek.formacion.agenda.modelo.dao;
 
-import static org.junit.Assert.fail;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -29,7 +27,7 @@ public class MySqlDAOFactoryTest {
 	}
 
 	@Test
-	public void test() {
+	public void test() throws Exception {
 		f = (MySqlDAOFactory) DAOFactory.getDAOFactory(DAOFactory.MYSQL);
 		try {
 			f.conectar();
@@ -37,7 +35,7 @@ public class MySqlDAOFactoryTest {
 			e.printStackTrace();
 		}
 		f.desconectar();
-		fail("Not yet implemented");
+		// fail("Not yet implemented");
 	}
 
 }
