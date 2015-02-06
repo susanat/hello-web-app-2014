@@ -23,8 +23,8 @@
 					<th></th>
 					<th>Nombre</th>
 					<th>Apellido</th>
-					<th>Tel. Movil</th>
-					<th>Tel. Fijo</th>
+					<th>Movil</th>
+					<th>Fijo</th>
 					<th>Direccion</th>
 					<th>Poblacion</th>
 					<th>Provincia</th>
@@ -36,8 +36,8 @@
 					<th></th>
 					<th>Nombre</th>
 					<th>Apellido</th>
-					<th>Tel. Movil</th>
-					<th>Tel. Fijo</th>
+					<th>Movil</th>
+					<th>Fijo</th>
 					<th>Direccion</th>
 					<th>Poblacion</th>
 					<th>Provincia</th>
