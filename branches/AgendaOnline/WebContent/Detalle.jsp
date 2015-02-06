@@ -56,7 +56,7 @@
 						<textarea class="form-control" rows="3"></textarea>
 					</div>
 					<button type="submit" class="btn btn-default">Guardar</button>
-					<button type="reset" class="btn btn-default">Volver</button>
+					<a href="Listado.jsp" class="btn btn-default">Volver</a>
 				</div>
 				<!-- /.col-lg-12 -->
 			</form>
