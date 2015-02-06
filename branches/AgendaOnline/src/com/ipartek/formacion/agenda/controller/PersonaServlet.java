@@ -52,7 +52,7 @@ public class PersonaServlet extends HttpServlet {
 
 		} catch (Exception e) {
 			request.getRequestDispatcher("error.jsp")
-					.forward(request, response);
+			.forward(request, response);
 		}
 	}
 
@@ -83,7 +83,8 @@ public class PersonaServlet extends HttpServlet {
 						request.getParameter("domicilio"),
 						request.getParameter("poblacion"),
 						request.getParameter("provincia"),
-						Integer.parseInt("cp"));
+						Integer.parseInt("cp"),
+						request.getParameter("anotaciones"));
 
 				int idnuevo = daoPersona.insert(p);
 				if (idnuevo >= CERO) {
@@ -104,7 +105,8 @@ public class PersonaServlet extends HttpServlet {
 						request.getParameter("domicilio"),
 						request.getParameter("poblacion"),
 						request.getParameter("provincia"),
-						Integer.parseInt("cp"));
+						Integer.parseInt("cp"),
+						request.getParameter("anotaciones"));
 
 				if (daoPersona.update(p)) {
 					System.out.println("bien actualizado");
@@ -123,7 +125,8 @@ public class PersonaServlet extends HttpServlet {
 						request.getParameter("domicilio"),
 						request.getParameter("poblacion"),
 						request.getParameter("provincia"),
-						Integer.parseInt("cp"));
+						Integer.parseInt("cp"),
+						request.getParameter("anotaciones"));
 				if (daoPersona.delete(p)) {
 					System.out.println("bien borrado");
 				} else {
@@ -140,7 +143,7 @@ public class PersonaServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.getRequestDispatcher("error.jsp")
-					.forward(request, response);
+			.forward(request, response);
 		}
 
 	}
