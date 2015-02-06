@@ -23,6 +23,7 @@ public class Persona {
 	private String poblacion;
 	private String provincia;
 	private int cp;
+	private String anotaciones;
 
 	// Getters y Setters
 
@@ -198,6 +199,14 @@ public class Persona {
 			return true;
 		}
 	}
+	
+	public String getAnotaciones() {
+		return anotaciones;
+	}
+
+	public void setAnotaciones(String anotaciones) {
+		this.anotaciones = anotaciones;
+	}
 
 	// Constructores
 
@@ -207,7 +216,7 @@ public class Persona {
 
 	public Persona(int idcontacto, String nombre, String apellidos,
 			int telFijo, int telMovil, String direccion, String poblacion,
-			String provincia, int cp) {
+			String provincia, int cp, String anotaciones) {
 		super();
 		this.idcontacto = idcontacto;
 		this.nombre = nombre;
@@ -218,6 +227,7 @@ public class Persona {
 		this.poblacion = poblacion;
 		this.provincia = provincia;
 		this.cp = cp;
+		this.anotaciones = anotaciones;
 	}
 
 	@Override
