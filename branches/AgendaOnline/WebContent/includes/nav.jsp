@@ -35,7 +35,7 @@
 				<a type="button" class="btn btn-default" href="Detalle.jsp"> <span
 					class="glyphicon glyphicon-user"></span>Añadir
 				</a>
-				<input type="text" name="id" value=""> <input
+				<input type="text" name="idEliminar" id="idEliminar" value=""> <input
 						type="hidden" name="<%=Constantes.OP_KEY%>"
 						value="<%=Constantes.OP_ELIMINAR%>"> 
 				<button type="button" class="btn btn-default">
