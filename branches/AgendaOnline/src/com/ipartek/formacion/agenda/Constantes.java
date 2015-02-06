@@ -16,8 +16,12 @@ public class Constantes {
 	public static final String OP_BUSCAR = "f";
 	public static final String OP_ELIMINAR = "d";
 	public static final String OP_ACTUALIZAR = "u";
+	public static final String OP_CREAR = "c";
 
 	// Servlet
 	public static final String CONTROLLER_AGENDA = "";
+	public static final String CONTROLLER_DETALLE = "Detalle.jsp";
 
+	// Atrinuttos
+	public static final String ATT_PERSONA = "persona";
 }
