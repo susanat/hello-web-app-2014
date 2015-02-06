@@ -20,14 +20,14 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 
 	public final static String SQL_INSERT = "INSERT INTO "
 			+ IPersonaDAO.TABLA
-			+ " (nombre,apellidos, telFijo, telMovil, direccion, poblacion, provincia, cp) VALUES ( ? , ? , ?, ?)";
+			+ " (nombre,apellidos, telFijo, telMovil, direccion, poblacion, provincia, cp, anotaciones) VALUES ( ? , ? , ?, ?)";
 
 	public final static String SQL_DELETE = "DELETE FROM " + IPersonaDAO.TABLA
 			+ " WHERE idcontacto=?";
 
 	public final static String SQL_UPDATE = "UPDATE "
 			+ IPersonaDAO.TABLA
-			+ " SET nombre=?,apellidos=?, telFijo=?, telMovil=?, direccion=?, poblacion=?, provincia=?, cp=?, WHERE idcontacto=?";
+			+ " SET nombre=?,apellidos=?, telFijo=?, telMovil=?, direccion=?, poblacion=?, provincia=?, cp=?, anotaciones=?, WHERE idcontacto=?";
 
 	@Override
 	public ArrayList<Persona> getAll() throws ModelException {
@@ -47,7 +47,8 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 						rs.getString("nombre"), rs.getString("apellidos"),
 						rs.getInt("telFijo"), rs.getInt("telMovil"),
 						rs.getString("poblacion"), rs.getString("direccion"),
-						rs.getString("provincia"), rs.getInt("cp"));
+						rs.getString("provincia"), rs.getInt("cp"),
+						rs.getString("anotaciones"));
 				personas.add(p);
 			}
 
@@ -98,7 +99,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 					rs.getString("apellidos"), rs.getInt("telFijo"),
 					rs.getInt("telMovil"), rs.getString("poblacion"),
 					rs.getString("direccion"), rs.getString("provincia"),
-					rs.getInt("cp"));
+					rs.getInt("cp"), rs.getString("anotaciones"));
 		} catch (Exception e) {
 			// cerrar conexion
 
@@ -145,6 +146,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 			st.setString(6, p.getDireccion());
 			st.setString(7, p.getProvincia());
 			st.setInt(8, p.getCp());
+			st.setString(9, p.getAnotaciones());
 
 			int affectedRows = st.executeUpdate();
 			if (affectedRows == 0) {
@@ -250,6 +252,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 			st.setString(6, p.getDireccion());
 			st.setString(7, p.getProvincia());
 			st.setInt(8, p.getCp());
+			st.setString(9, p.getAnotaciones());
 
 			st.executeUpdate();
 			correcto = true;
