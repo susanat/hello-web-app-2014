@@ -3,12 +3,13 @@ $(document).ready(function() {
 		"bFilter" : false,
 		"aoColumnDefs" : [ {
 			"bSortable" : false,
-			"aTargets" : [ 0 ]
+			"aTargets" : [ 0,1 ]
 		}, ]
 	});
 
 	//Borramos la clase del la primera columna
 	$("#idAgenda tr").find('th:eq(0)').removeClass("sorting_asc");
+	$("#idAgenda tr").find('th:eq(1)').removeClass("sorting_asc");
 	//$("#idAgenda tr").find('th:eq(1)').toggleClass("sorting_asc");
 	//$("#idAgenda tr").find('td:eq(0)').removeClass("sorting_1");
 	//$("#idAgenda tr").find('td:eq(1)').toggleClass("sorting_1");

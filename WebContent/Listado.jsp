@@ -5,8 +5,9 @@
 <%@include file="includes/nav.jsp"%>
 
 <%
-	ArrayList<Persona> vPersonas = PruebasListaPersonas.getPruebaPersona().listaCompleta();
-	int tamanio=vPersonas.size();
+	ArrayList<Persona> vPersonas = PruebasListaPersonas
+			.getPruebaPersona().listaCompleta();
+	int tamanio = vPersonas.size();
 %>
 
 <!-- Page Content -->
@@ -14,12 +15,16 @@
 
 	<div class="row">
 		<div class="col-lg-12 text-center">
-			<h2>Numero de contactos encontrados:<%=vPersonas.size()%></h2>
+			<h2>
+				Numero de contactos encontrados:<%=vPersonas.size()%></h2>
 		</div>
-		<%if(!vPersonas.isEmpty())  {%>
+		<%
+			if (!vPersonas.isEmpty()) {
+		%>
 		<table id="idAgenda" class="display" width="100%" cellspacing="0">
 			<thead>
 				<tr>
+					<th></th>
 					<th></th>
 					<th>Nombre</th>
 					<th>Apellido</th>
@@ -34,6 +39,7 @@
 			<tfoot>
 				<tr>
 					<th></th>
+					<th></th>
 					<th>Nombre</th>
 					<th>Apellido</th>
 					<th>Movil</th>
@@ -46,24 +52,34 @@
 
 			<tbody>
 				<%
-				Persona p=null;
-				for (int iPersona=0; iPersona<vPersonas.size(); iPersona++) {
-					p=vPersonas.get(iPersona);
+					Persona p = null;
+						for (int iPersona = 0; iPersona < vPersonas.size(); iPersona++) {
+							p = vPersonas.get(iPersona);
 				%>
-				
+
 				<tr>
 					<td><input type="checkbox" value="<%=iPersona%>"></td>
-					<td><%=p.getNombre() %></td>
-					<td><%=p.getApellidos() %></td>
-					<td><%=p.getTelMovil() %></td>
-					<td><%=p.getTelFijo() %></td>
-					<td><%=p.getDireccion() %></td>
-					<td><%=p.getPoblacion() %></td>
-					<td><%=p.getProvincia() %></td>
+					<td>
+					<a href="Detalle.jsp?id=<%=iPersona%>">
+					<span class="glyphicon glyphicon-eye-open"></span>
+					</a></td>
+					
+					<td><%=p.getNombre()%></td>
+					<td><%=p.getApellidos()%></td>
+					<td><%=p.getTelMovil()%></td>
+					<td><%=p.getTelFijo()%></td>
+					<td><%=p.getDireccion()%></td>
+					<td><%=p.getPoblacion()%></td>
+					<td><%=p.getProvincia()%></td>
 				</tr>
-				<%} %>
+				<%
+					}
+				%>
 			</tbody>
-		</table><%} %>
+		</table>
+		<%
+			}
+		%>
 	</div>
 	<!-- /.row -->
 
