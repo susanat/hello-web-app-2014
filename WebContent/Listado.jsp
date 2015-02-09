@@ -86,4 +86,5 @@
 </div>
 <!-- /.container -->
 
+<%@include file="includes/modalDelete.jsp"%>
 <%@include file="includes/footer.jsp"%>
