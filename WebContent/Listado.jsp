@@ -14,18 +14,18 @@
 <div class="container">
 
 	<div class="row">
-		<div class="col-lg-12 text-center">
-			<h2>
-				Numero de contactos encontrados:<%=vPersonas.size()%></h2>
+		<div class="col-lg-12 ">
+			<h4 class="resultados">
+				Numero de contactos encontrados:<%=vPersonas.size()%></h4>
 		</div>
 		<%
 			if (!vPersonas.isEmpty()) {
 		%>
-		<table id="idAgenda" class="display" width="100%" cellspacing="0">
+		<table id="idAgenda" class="table table-bordered table-hover" width="100%" cellspacing="0">
 			<thead>
-				<tr>
+				<tr >
 					<th></th>
-					<th></th>
+					
 					<th>Nombre</th>
 					<th>Apellido</th>
 					<th>Movil</th>
@@ -36,10 +36,10 @@
 				</tr>
 			</thead>
 
-			<tfoot>
-				<tr>
+			<!--<tfoot>
+				<tr >
 					<th></th>
-					<th></th>
+					
 					<th>Nombre</th>
 					<th>Apellido</th>
 					<th>Movil</th>
@@ -48,7 +48,7 @@
 					<th>Poblacion</th>
 					<th>Provincia</th>
 				</tr>
-			</tfoot>
+			</tfoot>-->
 
 			<tbody>
 				<%
@@ -58,8 +58,8 @@
 				%>
 
 				<tr>
-					<td><input type="checkbox" value="<%=iPersona%>"></td>
-					<td>
+					<td><input type="checkbox" value="<%=iPersona%>">
+					
 					<a href="Detalle.jsp?id=<%=iPersona%>">
 					<span class="glyphicon glyphicon-eye-open"></span>
 					</a></td>
