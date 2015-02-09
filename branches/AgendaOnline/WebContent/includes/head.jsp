@@ -11,8 +11,9 @@
 <meta name="author" content="">
 
 
+
 <!-- Bootstrap Core CSS -->
-<link href="css/bootstrap.min.css"
+<link href="css/bootstrap.css"
 	rel="stylesheet">
 
 <!-- Custom CSS -->
@@ -21,19 +22,20 @@
 ¿Es necesario?
 <link href="css/sb-admin-2.css" rel="stylesheet">
 -->
- 
-
 
 <!-- JQuery DataTables CSS -->
-<link href="css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="css/jquery.dataTables.css" rel="stylesheet">
 <link href="css/jquery.dataTables_themeroller.css" rel="stylesheet">
+
+<!-- Bootstrap Core CSS -->
+<link href="css/style.css"
+	rel="stylesheet">
+
 
 <!-- Custom Fonts -->
 <link href="font-awesome-4.1.0/css/font-awesome.min.css"
 	rel="stylesheet" type="text/css">
-
-		
-
+	
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
