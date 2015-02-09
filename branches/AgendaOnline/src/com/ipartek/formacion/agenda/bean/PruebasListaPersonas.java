@@ -200,4 +200,18 @@ public class PruebasListaPersonas {
 
 		return listaPersona;
 	}
+
+	/**
+	 * Devuelve una persona de la lista 'listaCompleta' con la posicion indice
+	 * 
+	 * @param indice
+	 *            posicion de la lista
+	 * @return Persona de la lista
+	 */
+	public Persona obtenerPersonaPorId(int indice) {
+		ArrayList<Persona> vPersonas = listaCompleta();
+		Persona p = vPersonas.get(indice);
+		return p;
+	}
+
 }
