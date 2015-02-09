@@ -62,16 +62,16 @@ $(document).ready(
 			
 			//Tratamiento de la ventana modal
 			$('#modalEliminar').on('show.bs.modal', function(e) {
-				var objParrafo = $('#modalEliminar .modal-body');
-
+				var objParrafo = $('#modalEliminar .modal-body p');
+				var objEliminarSi=$('#modalEliminar modal-footer #eliminarSi');
 				// Comprueba si hay o no contactos seleccionados
 				var totalEliminar = $('#idEliminar').val();
 				if (totalEliminar == '') {
-					objParrafo.find('#idVacios').css('display', 'solid');
-					objParrafo.find('#idNoVacios').css('display', 'none');
+					objParrafo.text($('#idTextoVacio').val());
+					objEliminarSi.hide();
 				} else {
-					objParrafo.find('#idNoVacios').css('display', 'solid');
-					objParrafo.find('#idVacios').css('display', 'none');
+					objParrafo.text($('#idTextoSeleccion').val());
+					objEliminarSi.show();
 				}
 
 			})
