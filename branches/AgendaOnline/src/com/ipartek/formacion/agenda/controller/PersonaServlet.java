@@ -52,7 +52,7 @@ public class PersonaServlet extends HttpServlet {
 
 		} catch (Exception e) {
 			request.getRequestDispatcher("error.jsp")
-			.forward(request, response);
+					.forward(request, response);
 		}
 	}
 
@@ -76,15 +76,16 @@ public class PersonaServlet extends HttpServlet {
 
 			if (op.equals(OP_INSERTAR)) {
 
-				p = new Persona(CERO, request.getParameter("nombre"),
-						request.getParameter("apellidos"),
-						Integer.parseInt("telffijo"),
-						Integer.parseInt("telfmovil"),
-						request.getParameter("domicilio"),
-						request.getParameter("poblacion"),
-						request.getParameter("provincia"),
-						Integer.parseInt("cp"),
-						request.getParameter("anotaciones"));
+				p = requestToPersona(request);
+
+				/*
+				 * p = new Persona(CERO, request.getParameter("nombre"),
+				 * request.getParameter("apellidos"),
+				 * Integer.parseInt("telffijo"), Integer.parseInt("telfmovil"),
+				 * request.getParameter("domicilio"),
+				 * request.getParameter("poblacion"),
+				 * request.getParameter("provincia"), Integer.parseInt("cp"));
+				 */
 
 				int idnuevo = daoPersona.insert(p);
 				if (idnuevo >= CERO) {
@@ -97,16 +98,16 @@ public class PersonaServlet extends HttpServlet {
 			} else if (op.equals(OP_ACTUALIZAR)) {
 				idcontacto = request.getParameter("idcontacto");
 
-				p = new Persona(Integer.parseInt("idcontacto"),
-						request.getParameter("nombre"),
-						request.getParameter("apellidos"),
-						Integer.parseInt("telffijo"),
-						Integer.parseInt("telfmovil"),
-						request.getParameter("domicilio"),
-						request.getParameter("poblacion"),
-						request.getParameter("provincia"),
-						Integer.parseInt("cp"),
-						request.getParameter("anotaciones"));
+				p = requestToPersona(request);
+				/*
+				 * p = new Persona(Integer.parseInt("idcontacto"),
+				 * request.getParameter("nombre"),
+				 * request.getParameter("apellidos"),
+				 * Integer.parseInt("telffijo"), Integer.parseInt("telfmovil"),
+				 * request.getParameter("domicilio"),
+				 * request.getParameter("poblacion"),
+				 * request.getParameter("provincia"), Integer.parseInt("cp"));
+				 */
 
 				if (daoPersona.update(p)) {
 					System.out.println("bien actualizado");
@@ -117,16 +118,17 @@ public class PersonaServlet extends HttpServlet {
 			} else if (op.equals(OP_BORRAR)) {
 				idcontacto = request.getParameter("idcontacto");
 
-				p = new Persona(Integer.parseInt("idcontacto"),
-						request.getParameter("nombre"),
-						request.getParameter("apellidos"),
-						Integer.parseInt("telffijo"),
-						Integer.parseInt("telfmovil"),
-						request.getParameter("domicilio"),
-						request.getParameter("poblacion"),
-						request.getParameter("provincia"),
-						Integer.parseInt("cp"),
-						request.getParameter("anotaciones"));
+				p = requestToPersona(request);
+
+				/*
+				 * new Persona(Integer.parseInt("idcontacto"),
+				 * request.getParameter("nombre"),
+				 * request.getParameter("apellidos"),
+				 * Integer.parseInt("telffijo"), Integer.parseInt("telfmovil"),
+				 * request.getParameter("domicilio"),
+				 * request.getParameter("poblacion"),
+				 * request.getParameter("provincia"), Integer.parseInt("cp"));
+				 */
 				if (daoPersona.delete(p)) {
 					System.out.println("bien borrado");
 				} else {
@@ -143,8 +145,34 @@ public class PersonaServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.getRequestDispatcher("error.jsp")
-			.forward(request, response);
+					.forward(request, response);
 		}
 
+	}
+
+	Persona requestToPersona(HttpServletRequest request) {
+		Persona p = new Persona();
+
+		// TODO alternativa para el constructor de insertar nuevo o
+		// eliminar/editar
+
+		String nombre = request.getParameter("nombre");
+		String apellidos = request.getParameter("apellidos");
+		int telMovil = Integer.parseInt(request.getParameter("telfmovil"));
+		int telFijo = Integer.parseInt(request.getParameter("telffijo"));
+		String direccion = request.getParameter("direccion");
+		String poblacion = request.getParameter("poblacion");
+		String provincia = request.getParameter("provincia");
+		int cp = Integer.parseInt(request.getParameter("cp"));
+
+		p.setNombre(nombre);
+		p.setApellidos(apellidos);
+		p.setTelMovil(telMovil);
+		p.setTelFijo(telFijo);
+		p.setDireccion(direccion);
+		p.setPoblacion(poblacion);
+		p.setProvincia(provincia);
+		p.setCp(cp);
+		return p;
 	}
 }
