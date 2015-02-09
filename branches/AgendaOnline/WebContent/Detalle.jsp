@@ -7,11 +7,10 @@
 
 
 <%
-	ArrayList<Persona> vPersonas = PruebasListaPersonas.getPruebaPersona().listaCompleta();
-
 		//recoger attributo de Persona		
 		//Persona p = (Persona)request.getAttribute(Constantes.ATT_PERSONA);
-		Persona p = vPersonas.get(0);
+
+		Persona p = PruebasListaPersonas.getPruebaPersona().obtenerPersonaPorId(0);
 		//inicializar variables para el formulario		
 		String buttonValue = "Crear";
 		String op = Constantes.OP_ACTUALIZAR;
