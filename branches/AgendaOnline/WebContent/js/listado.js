@@ -48,10 +48,6 @@ $(document).ready(
 					indEliminar = jQuery.inArray(value, vIdEliminar);
 					// Elimino el valor del array de IDs a eliminar
 					vIdEliminar.splice(indEliminar, 1);
-					/*
-					 * vIdEliminar = jQuery.grep(vIdEliminar, function( a ) {
-					 * return a !== value; });
-					 */
 				}
 				// cargo los datos en el campo con los identificadores a
 				// eliminar
@@ -64,24 +60,18 @@ $(document).ready(
 				// Comprueba si hay o no contactos seleccionados
 				var totalEliminar = $('#idEliminar').val();
 				if (totalEliminar == '') {
+					//Si no hay contactos seleccionados - abro la ventana Vacia
 					$("#idEliminarVacio").modal('show');
 				} else {
-					//$('#idSelEliminar').val(totalEliminar);
+					//Si hay contactos seleccionados - abro la ventana informativa
 					$("#idEliminarSeleccion").modal('show');
 				}
 			});
 			
 			//Ejecutar la eliminacion de los contactos
-			/*
-			$('#idEliminarSeleccion').on('hidden.bs.modal', function(){
-				alert('Se procede a la eliminacion de los contactos seleccionados');
-			});
-			*/
+			//Al pulsar el boton de 'Confirmacion' oculta la ventana modal y hace un submit del formulario
 			$('#idConfirmarEliminar').click(function(){
 				$("#idEliminarSeleccion").modal('hide');
-				alert('Se procede a la eliminacion de los contactos seleccionados');
-				//$('#idEliminar').val($('#idSelEliminar').val());
-				alert($('#idEliminar').val());
 				$( "form" ).submit();
 			});
 		});
