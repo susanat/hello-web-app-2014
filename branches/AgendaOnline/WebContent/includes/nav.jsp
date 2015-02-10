@@ -9,7 +9,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">Agenda</a>
+			<a class="navbar-brand" href="<%=Constantes.CONTROLLER_AGENDA%>">Agenda</a>
 		</div>
 		<!-- /.navbar-header-->
 
