@@ -1,3 +1,50 @@
+/*
+*
+*Creación de nuevos estilos sobre los ya existentes en bootStrap.css
+*
+* @ Author Susana Costoya
+*/
+
+
+
+
+
+/***************************** Estilos Body ************************************/ 
+body{
+	
+	color:#868686;
+	
+}
+
+/* Botones por defecto*/
+
+.btn-default {
+  color: #fff;
+  background-color: #7CA8CF;
+}
+
+.btn-default:hover,
+.btn-default:focus,
+.btn-default.focus,
+.btn-default:active,
+.btn-default.active,
+.open > .dropdown-toggle.btn-default {
+  color: #fff;
+  background-color: #A3BDD4;
+}
+
+/*****************************Barra de navegación************************************/
+.navbar-default .navbar-brand {
+  color: #428bca;
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: #A3BDD4;
+ }
+
+/***************************** Estilos nuevos aplicados en la DataTable ************************************/ 
+
 .table > tbody > tr:nth-child(even){
     background-color: rgba(124, 168, 207, 0.2);
 }
@@ -5,6 +52,10 @@
 .table > thead > tr{
     background-color: rgba(124, 168, 207, 0.8);
     color:#fff;
+}
+
+.table-striped > tbody > tr:nth-child(odd) {
+  background-color: rgba(124, 168, 207, 0.57);
 }
 
 .resultados{	
@@ -74,3 +125,21 @@ label{
     font-weight: bold;
     
 }
+
+
+/*************************** @media ***********************************/
+
+@media (min-width: 768px) {
+  .container > .navbar-header,
+  .container-fluid > .navbar-header,
+  .container > .navbar-collapse,
+  .container-fluid > .navbar-collapse {
+    margin-right: 8px;
+    margin-left: 8px;
+  }
+}
+
+
+
+
+
