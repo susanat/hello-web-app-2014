@@ -3894,7 +3894,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-collapse.in {
   overflow-y: auto;
 }
-@media (min-width: 768px) {
+/*@media (min-width: 768px) {*/
   .navbar-collapse {
     width: auto;
     border-top: 0;
@@ -3995,7 +3995,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     margin-left: -15px;
   }
 }
-.navbar-toggle {
+/*.navbar-toggle {
   position: relative;
   float: right;
   padding: 9px 10px;
@@ -4018,7 +4018,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-toggle .icon-bar + .icon-bar {
   margin-top: 4px;
-}
+}*/
 @media (min-width: 768px) {
   .navbar-toggle {
     display: none;
