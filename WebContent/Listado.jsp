@@ -5,7 +5,8 @@
 <%@include file="includes/nav.jsp"%>
 
 <%
-	ArrayList<Persona> vPersonas =PruebasListaPersonas.getPruebaPersona().listaCompleta();
+	ArrayList<Persona> vPersonas = PruebasListaPersonas
+			.getPruebaPersona().listaCompleta();
 	//ArrayList<Persona> vPersonas =(ArrayList<Persona>)request.getAttribute( Constantes.ATT_PERSONAS );
 	int tamanio = vPersonas.size();
 %>
@@ -13,6 +14,8 @@
 <!-- Page Content -->
 <div class="container">
 
+	<div class="alert alert-success" role="alert">Se han eliminado
+		con exito los contactos</div>
 	<div class="row">
 		<div class="col-lg-12 ">
 			<h4 class="resultados">
@@ -20,16 +23,20 @@
 		</div>
 		<%
 			if (vPersonas.isEmpty()) {
-					%>
-						<h2>No existe nigun contacto, por favor cree un contacto <a href="<%=Constantes.CONTROLLER_DETALLE%>" title="nueva contacto">nuevo</a></h2>				
-					<%
-				}else{
 		%>
-		<table id="idAgenda" class="table table-bordered table-hover" width="100%" cellspacing="0">
+		<h2>
+			No existe nigun contacto, por favor cree un contacto <a
+				href="<%=Constantes.CONTROLLER_DETALLE%>" title="nueva contacto">nuevo</a>
+		</h2>
+		<%
+			} else {
+		%>
+		<table id="idAgenda" class="table table-bordered table-hover"
+			width="100%" cellspacing="0">
 			<thead>
-				<tr >
+				<tr>
 					<th></th>
-					
+
 					<th>Nombre</th>
 					<th>Apellido</th>
 					<th>Movil</th>
@@ -62,13 +69,14 @@
 				%>
 
 				<tr>
-					<td><input type="checkbox" value="<%= p.getIdcontacto()%>">
-					
-		                	<a href="<%= Constantes.CONTROLLER_DETALLE + "?id=" + p.getIdcontacto() %>">
-								<span class="glyphicon glyphicon-eye-open"></span>
-							</a>
-					</td>
-					
+					<td><input type="checkbox" value="<%=p.getIdcontacto()%>">
+
+						<a
+						href="<%=Constantes.CONTROLLER_DETALLE + "?id="
+							+ p.getIdcontacto()%>">
+							<span class="glyphicon glyphicon-eye-open"></span>
+					</a></td>
+
 					<td><%=p.getNombre()%></td>
 					<td><%=p.getApellidos()%></td>
 					<td><%=p.getTelMovil()%></td>
