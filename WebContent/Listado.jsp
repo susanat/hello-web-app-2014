@@ -5,8 +5,8 @@
 <%@include file="includes/nav.jsp"%>
 
 <%
-	ArrayList<Persona> vPersonas = PruebasListaPersonas
-			.getPruebaPersona().listaCompleta();
+	ArrayList<Persona> vPersonas =PruebasListaPersonas.getPruebaPersona().listaCompleta();
+	//ArrayList<Persona> vPersonas =(ArrayList<Persona>)request.getAttribute( Constantes.ATT_PERSONAS );
 	int tamanio = vPersonas.size();
 %>
 
@@ -19,7 +19,11 @@
 				Numero de contactos encontrados:<%=vPersonas.size()%></h4>
 		</div>
 		<%
-			if (!vPersonas.isEmpty()) {
+			if (vPersonas.isEmpty()) {
+					%>
+						<h2>No existe nigun contacto, por favor cree un contacto <a href="<%=Constantes.CONTROLLER_DETALLE%>" title="nueva contacto">nuevo</a></h2>				
+					<%
+				}else{
 		%>
 		<table id="idAgenda" class="table table-bordered table-hover" width="100%" cellspacing="0">
 			<thead>
@@ -60,9 +64,14 @@
 				<tr>
 					<td><input type="checkbox" value="<%= p.getIdcontacto()%>">
 					
-					<a href="<%= Constantes.CONTROLLER_DETALLE+"?id="+p.getIdcontacto()%>">
-					<span class="glyphicon glyphicon-eye-open"></span>
-					</a></td>
+						<form action="<%=Constantes.CONTROLLER_DETALLE%>" method="post">
+		                	<input type="hidden" name="id" value="<%=p.getIdcontacto()%>">
+		                	<input type="hidden" name="<%=Constantes.OP_KEY%>" value="<%=Constantes.OP_ACTUALIZAR%>">
+		                	<a href="<%= Constantes.CONTROLLER_DETALLE+"?id="+p.getIdcontacto()%>">
+								<span class="glyphicon glyphicon-eye-open"></span>
+							</a>
+		                </form>	
+					</td>
 					
 					<td><%=p.getNombre()%></td>
 					<td><%=p.getApellidos()%></td>
