@@ -36,7 +36,7 @@
 			<form role="form">
 				<div class="col-lg-4">
 					<div class="form-group">
-						<label>Nombre</label> <input type="text" tabindex="1" pattern="([A-Z,a-z]{2,20})" class="form-control" required value="<%=p.getNombre()%>">
+						<label>Nombre</label> <input type="text" tabindex="1" pattern="([A-Za-z ÑñáéíóúÁÉÍÓÚ]{2,20})" class="form-control" required value="<%=p.getNombre()%>">
 					</div>
 					<div class="form-group">
 						<label>Telefono fijo</label> <input type="tel"
@@ -46,7 +46,7 @@
 				<!-- /.col-lg-4 (nested) -->
 				<div class="col-lg-4">
 					<div class="form-group">
-						<label>Apellidos</label> <input type="text" tabindex="2" pattern="([A-Z,a-z]{7,60})" class="form-control" value="<%=p.getApellidos()%>">
+						<label>Apellidos</label> <input type="text" tabindex="2" pattern="([A-Za-z ÑñáéíóúÁÉÍÓÚ]{0,50})" class="form-control" value="<%=p.getApellidos()%>">
 					</div>
 					<div class="form-group">
 						<label>Movil</label> <input type="tel" tabindex="4" pattern="([0-9]{9})" class="form-control" required value="<%=p.getTelMovil()%>">
@@ -55,19 +55,19 @@
 				<!-- /.col-lg-4 (nested) -->
 				<div class="col-lg-12">
 					<div class="form-group">
-						<label>Domicilio</label> <input type="text" tabindex="5" pattern="([A-Za-z0-9áéíóúÁÉÍÓÚ]{8,60})" class="form-control" value="<%=p.getDireccion()%>">
+						<label>Domicilio</label> <input type="text" tabindex="5" pattern="([A-Za-z 0-9 / ª º ÑñáéíóúÁÉÍÓÚ]{0,60})" class="form-control" value="<%=p.getDireccion()%>">
 					</div>
 				</div>
 				<!-- /.col-lg-12 (nested) -->
 				<div class="col-lg-4">
 					<div class="form-group">
-						<label>Localidad</label> <input type="text" tabindex="6" pattern="([A-Za-z]{3,50})" class="form-control" value="<%=p.getPoblacion()%>">
+						<label>Localidad</label> <input type="text" tabindex="6" pattern="([A-Za-z ÑñáéíóúÁÉÍÓÚ]{0,50})" class="form-control" value="<%=p.getPoblacion()%>">
 					</div>
 				</div>
 				<!-- /.col-lg-4 (nested) -->
 				<div class="col-lg-4">
 					<div class="form-group">
-						<label>Provincia</label> <input type="text" tabindex="7" pattern="([A-Za-záéíóúÁÉÍÓÚ]{3,50})" class="form-control" value="<%=p.getProvincia()%>">
+						<label>Provincia</label> <input type="text" tabindex="7" pattern="([A-Za-z ÑñáéíóúÁÉÍÓÚ]{0,50})" class="form-control" value="<%=p.getProvincia()%>">
 					</div>
 				</div>
 				<!-- /.col-lg-4 (nested) -->
