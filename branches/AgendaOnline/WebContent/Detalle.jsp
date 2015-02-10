@@ -36,7 +36,7 @@
 			<form role="form">
 				<div class="col-lg-4">
 					<div class="form-group">
-						<label>Nombre</label> <input type="text" tabindex="1" pattern="([A-Za-z ÑñáéíóúÁÉÍÓÚ]{2,20})" class="form-control" required value="<%=p.getNombre()%>">
+						<label>Nombre</label> <input placeholder="Nombre" type="text" tabindex="1" pattern="([A-Za-z ÑñáéíóúÁÉÍÓÚ]{2,20})" class="form-control" required value="<%=p.getNombre()%>">
 					</div>
 					<div class="form-group">
 						<label>Telefono fijo</label> <input type="tel"
