@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Clase Abstracta de PRUEBAS con una lista de Personas
- * 
+ *
  * @author Jose
  *
  */
@@ -28,11 +28,11 @@ public class PruebasListaPersonas {
 		listaPersona = new ArrayList<Persona>();
 		return listaPersona;
 	}
-	
+
 	public ArrayList<Persona> listaConUnaPersona() {
 		listaPersona = new ArrayList<Persona>();
 
-		Persona p=new Persona();
+		Persona p = new Persona();
 		p.setNombre("Tiger");
 		p.setApellidos("Nixon");
 		p.setTelFijo(949999011);
@@ -42,14 +42,14 @@ public class PruebasListaPersonas {
 		p.setProvincia("Bizkaia");
 		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
-		
-		return listaPersona;		
+
+		return listaPersona;
 	}
-	
-	public ArrayList<Persona> listaCompleta(){
+
+	public ArrayList<Persona> listaCompleta() {
 		listaPersona = new ArrayList<Persona>();
-		
-		Persona p=new Persona();
+
+		Persona p = new Persona();
 		p.setNombre("Tiger");
 		p.setApellidos("Nixon");
 		p.setTelFijo(949999011);
@@ -59,8 +59,8 @@ public class PruebasListaPersonas {
 		p.setProvincia("Bizkaia");
 		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
-		
-		p=new Persona();
+
+		p = new Persona();
 		p.setNombre("Garrett");
 		p.setApellidos("Winters");
 		p.setTelFijo(949999012);
@@ -70,8 +70,8 @@ public class PruebasListaPersonas {
 		p.setProvincia("Bizkaia");
 		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
-		
-		p=new Persona();
+
+		p = new Persona();
 		p.setNombre("Ashton");
 		p.setApellidos("Cox");
 		p.setTelFijo(949999013);
@@ -82,7 +82,7 @@ public class PruebasListaPersonas {
 		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 
-		p=new Persona();
+		p = new Persona();
 		p.setNombre("Cedric");
 		p.setApellidos("Kelly");
 		p.setTelFijo(949999014);
@@ -93,7 +93,7 @@ public class PruebasListaPersonas {
 		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 
-		p=new Persona();
+		p = new Persona();
 		p.setNombre("Airi");
 		p.setApellidos("Satou");
 		p.setTelFijo(949999015);
@@ -104,7 +104,7 @@ public class PruebasListaPersonas {
 		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 
-		p=new Persona();
+		p = new Persona();
 		p.setNombre("Brielle");
 		p.setApellidos("Williamson");
 		p.setTelFijo(949999016);
@@ -115,7 +115,7 @@ public class PruebasListaPersonas {
 		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 
-		p=new Persona();
+		p = new Persona();
 		p.setNombre("Herrod");
 		p.setApellidos("Chandler");
 		p.setTelFijo(949999017);
@@ -126,7 +126,7 @@ public class PruebasListaPersonas {
 		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 
-		p=new Persona();
+		p = new Persona();
 		p.setNombre("Rhona");
 		p.setApellidos("Davidson");
 		p.setTelFijo(949999018);
@@ -136,8 +136,8 @@ public class PruebasListaPersonas {
 		p.setProvincia("Bizkaia");
 		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
-		
-		p=new Persona();
+
+		p = new Persona();
 		p.setNombre("Colleen");
 		p.setApellidos("Hurst");
 		p.setTelFijo(949999019);
@@ -148,7 +148,7 @@ public class PruebasListaPersonas {
 		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 
-		p=new Persona();
+		p = new Persona();
 		p.setNombre("Sonya");
 		p.setApellidos("Frost");
 		p.setTelFijo(949999020);
@@ -159,7 +159,7 @@ public class PruebasListaPersonas {
 		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 
-		p=new Persona();
+		p = new Persona();
 		p.setNombre("Jena");
 		p.setApellidos("Gaines");
 		p.setTelFijo(949999021);
@@ -169,8 +169,8 @@ public class PruebasListaPersonas {
 		p.setProvincia("Bizkaia");
 		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
-		
-		p=new Persona();
+
+		p = new Persona();
 		p.setNombre("Quinn");
 		p.setApellidos("Flynn");
 		p.setTelFijo(949999022);
@@ -180,8 +180,8 @@ public class PruebasListaPersonas {
 		p.setProvincia("Bizkaia");
 		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
-		
-		p=new Persona();
+
+		p = new Persona();
 		p.setNombre("Charde");
 		p.setApellidos("Marshall");
 		p.setTelFijo(949999023);
@@ -191,8 +191,8 @@ public class PruebasListaPersonas {
 		p.setProvincia("Bizkaia");
 		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
-		
-		p=new Persona();
+
+		p = new Persona();
 		p.setNombre("Haley");
 		p.setApellidos("Kennedy");
 		p.setTelFijo(949999024);
@@ -202,8 +202,8 @@ public class PruebasListaPersonas {
 		p.setProvincia("Bizkaia");
 		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
-		
-		p=new Persona();
+
+		p = new Persona();
 		p.setNombre("Tatyana");
 		p.setApellidos("Fitzpatrick");
 		p.setTelFijo(949999025);
@@ -219,7 +219,7 @@ public class PruebasListaPersonas {
 
 	/**
 	 * Devuelve una persona de la lista 'listaCompleta' con la posicion indice
-	 * 
+	 *
 	 * @param indice
 	 *            posicion de la lista
 	 * @return Persona de la lista
