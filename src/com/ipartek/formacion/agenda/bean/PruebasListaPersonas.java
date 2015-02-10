@@ -40,6 +40,7 @@ public class PruebasListaPersonas {
 		p.setDireccion("Melancolia, 13");
 		p.setPoblacion("Bilbao");
 		p.setProvincia("Bizkaia");
+		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 		
 		return listaPersona;		
@@ -56,6 +57,7 @@ public class PruebasListaPersonas {
 		p.setDireccion("Melancolia, 13");
 		p.setPoblacion("Bilbao");
 		p.setProvincia("Bizkaia");
+		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 		
 		p=new Persona();
@@ -66,6 +68,7 @@ public class PruebasListaPersonas {
 		p.setDireccion("Melancolia, 13");
 		p.setPoblacion("Bilbao");
 		p.setProvincia("Bizkaia");
+		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 		
 		p=new Persona();
@@ -76,6 +79,7 @@ public class PruebasListaPersonas {
 		p.setDireccion("Melancolia, 13");
 		p.setPoblacion("Bilbao");
 		p.setProvincia("Bizkaia");
+		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 
 		p=new Persona();
@@ -86,6 +90,7 @@ public class PruebasListaPersonas {
 		p.setDireccion("Melancolia, 13");
 		p.setPoblacion("Bilbao");
 		p.setProvincia("Bizkaia");
+		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 
 		p=new Persona();
@@ -96,6 +101,7 @@ public class PruebasListaPersonas {
 		p.setDireccion("Melancolia, 13");
 		p.setPoblacion("Bilbao");
 		p.setProvincia("Bizkaia");
+		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 
 		p=new Persona();
@@ -106,6 +112,7 @@ public class PruebasListaPersonas {
 		p.setDireccion("Melancolia, 13");
 		p.setPoblacion("Bilbao");
 		p.setProvincia("Bizkaia");
+		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 
 		p=new Persona();
@@ -116,6 +123,7 @@ public class PruebasListaPersonas {
 		p.setDireccion("Melancolia, 13");
 		p.setPoblacion("Bilbao");
 		p.setProvincia("Bizkaia");
+		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 
 		p=new Persona();
@@ -126,6 +134,7 @@ public class PruebasListaPersonas {
 		p.setDireccion("Melancolia, 13");
 		p.setPoblacion("Bilbao");
 		p.setProvincia("Bizkaia");
+		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 		
 		p=new Persona();
@@ -136,6 +145,7 @@ public class PruebasListaPersonas {
 		p.setDireccion("Melancolia, 13");
 		p.setPoblacion("Bilbao");
 		p.setProvincia("Bizkaia");
+		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 
 		p=new Persona();
@@ -146,6 +156,7 @@ public class PruebasListaPersonas {
 		p.setDireccion("Melancolia, 13");
 		p.setPoblacion("Bilbao");
 		p.setProvincia("Bizkaia");
+		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 
 		p=new Persona();
@@ -156,6 +167,7 @@ public class PruebasListaPersonas {
 		p.setDireccion("Melancolia, 13");
 		p.setPoblacion("Bilbao");
 		p.setProvincia("Bizkaia");
+		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 		
 		p=new Persona();
@@ -166,6 +178,7 @@ public class PruebasListaPersonas {
 		p.setDireccion("Melancolia, 13");
 		p.setPoblacion("Bilbao");
 		p.setProvincia("Bizkaia");
+		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 		
 		p=new Persona();
@@ -176,6 +189,7 @@ public class PruebasListaPersonas {
 		p.setDireccion("Melancolia, 13");
 		p.setPoblacion("Bilbao");
 		p.setProvincia("Bizkaia");
+		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 		
 		p=new Persona();
@@ -186,6 +200,7 @@ public class PruebasListaPersonas {
 		p.setDireccion("Melancolia, 13");
 		p.setPoblacion("Bilbao");
 		p.setProvincia("Bizkaia");
+		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 		
 		p=new Persona();
@@ -196,6 +211,7 @@ public class PruebasListaPersonas {
 		p.setDireccion("Melancolia, 13");
 		p.setPoblacion("Bilbao");
 		p.setProvincia("Bizkaia");
+		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 
 		return listaPersona;
