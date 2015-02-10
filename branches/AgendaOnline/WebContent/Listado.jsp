@@ -64,7 +64,7 @@
 				<tr>
 					<td><input type="checkbox" value="<%= p.getIdcontacto()%>">
 					
-		                	<a href="<%= Constantes.CONTROLLER_DETALLE+"?id="+p.getIdcontacto()%>">
+		                	<a href="<%= Constantes.CONTROLLER_DETALLE + "?id=" + p.getIdcontacto() %>">
 								<span class="glyphicon glyphicon-eye-open"></span>
 							</a>
 					</td>

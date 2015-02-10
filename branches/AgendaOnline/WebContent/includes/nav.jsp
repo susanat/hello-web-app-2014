@@ -32,7 +32,7 @@
 			<!-- /.navbar-form navbar-left form-inline -->
 
 			<form class="navbar-form navbar-right form-inline" action="<%=Constantes.CONTROLLER_AGENDA%>" method="post">
-				<a type="button" class="btn btn-default" href="Detalle.jsp"> <span
+				<a type="button" class="btn btn-default" href="<%= Constantes.CONTROLLER_DETALLE  %>"> <span
 					class="glyphicon glyphicon-user"></span>Añadir
 				</a>
 				<input type="hidden" name="idEliminar" id="idEliminar" value=""> <input
