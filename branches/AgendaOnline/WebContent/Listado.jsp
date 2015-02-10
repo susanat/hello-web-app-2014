@@ -58,9 +58,9 @@
 				%>
 
 				<tr>
-					<td><input type="checkbox" value="<%=iPersona%>">
+					<td><input type="checkbox" value="<%= p.getIdcontacto()%>">
 					
-					<a href="Detalle.jsp?id=<%=iPersona%>">
+					<a href="<%= Constantes.CONTROLLER_DETALLE+"?id="+p.getIdcontacto()%>">
 					<span class="glyphicon glyphicon-eye-open"></span>
 					</a></td>
 					
