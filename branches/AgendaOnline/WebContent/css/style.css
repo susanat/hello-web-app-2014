@@ -35,7 +35,8 @@ body{
 
 /*****************************Barra de navegación************************************/
 .navbar-default .navbar-brand {
-  color: #428bca;
+  color: #7CA8CF;
+  font-size: 20px; 
 }
 
 .navbar-default .navbar-brand:hover,
