@@ -59,20 +59,29 @@ $(document).ready(
 				$('#idEliminar').val(sIdEliminar);
 			});
 
-			
-			//Tratamiento de la ventana modal
-			$('#modalEliminar').on('show.bs.modal', function(e) {
-				var objParrafo = $('#modalEliminar .modal-body p');
-				var objEliminarSi=$('#modalEliminar modal-footer #eliminarSi');
+			// Tratamiento de la ventana modal
+			$('#idBtnEliminar').click(function() {
 				// Comprueba si hay o no contactos seleccionados
 				var totalEliminar = $('#idEliminar').val();
 				if (totalEliminar == '') {
-					objParrafo.text($('#idTextoVacio').val());
-					objEliminarSi.hide();
+					$("#idEliminarVacio").modal('show');
 				} else {
-					objParrafo.text($('#idTextoSeleccion').val());
-					objEliminarSi.show();
+					//$('#idSelEliminar').val(totalEliminar);
+					$("#idEliminarSeleccion").modal('show');
 				}
-
-			})
+			});
+			
+			//Ejecutar la eliminacion de los contactos
+			/*
+			$('#idEliminarSeleccion').on('hidden.bs.modal', function(){
+				alert('Se procede a la eliminacion de los contactos seleccionados');
+			});
+			*/
+			$('#idConfirmarEliminar').click(function(){
+				$("#idEliminarSeleccion").modal('hide');
+				alert('Se procede a la eliminacion de los contactos seleccionados');
+				//$('#idEliminar').val($('#idSelEliminar').val());
+				alert($('#idEliminar').val());
+				$( "form" ).submit();
+			});
 		});

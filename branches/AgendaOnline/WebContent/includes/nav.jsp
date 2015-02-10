@@ -38,7 +38,10 @@
 				<input type="hidden" name="idEliminar" id="idEliminar" value=""> <input
 						type="hidden" name="<%=Constantes.OP_KEY%>"
 						value="<%=Constantes.OP_ELIMINAR%>"> 
+				<!-- 
 				<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalEliminar">
+				 -->
+				<button type="button" class="btn btn-default" data-toggle="modal" id="idBtnEliminar">
 					<span class="glyphicon glyphicon-trash"></span>Eliminar
 				</button>
 			</form>
