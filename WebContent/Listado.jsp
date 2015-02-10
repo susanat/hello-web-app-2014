@@ -64,13 +64,9 @@
 				<tr>
 					<td><input type="checkbox" value="<%= p.getIdcontacto()%>">
 					
-						<form action="<%=Constantes.CONTROLLER_DETALLE%>" method="post">
-		                	<input type="hidden" name="id" value="<%=p.getIdcontacto()%>">
-		                	<input type="hidden" name="<%=Constantes.OP_KEY%>" value="<%=Constantes.OP_ACTUALIZAR%>">
 		                	<a href="<%= Constantes.CONTROLLER_DETALLE+"?id="+p.getIdcontacto()%>">
 								<span class="glyphicon glyphicon-eye-open"></span>
 							</a>
-		                </form>	
 					</td>
 					
 					<td><%=p.getNombre()%></td>
