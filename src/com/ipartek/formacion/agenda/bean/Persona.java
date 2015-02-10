@@ -2,7 +2,7 @@ package com.ipartek.formacion.agenda.bean;
 
 /**
  * Clase Persona con validación de los datos recogidos
- * 
+ *
  * @authores Susana Costoya, Kepa Escudero
  *
  */
@@ -15,15 +15,15 @@ public class Persona {
 
 	// Variables
 	private int idcontacto;
-	private String nombre;
-	private String apellidos;
+	private String nombre = "";
+	private String apellidos = "";
 	private int telFijo;
 	private int telMovil;
-	private String direccion;
-	private String poblacion;
-	private String provincia;
+	private String direccion = "";
+	private String poblacion = "";
+	private String provincia = "";
 	private int cp;
-	private String anotaciones;
+	private String anotaciones = "";
 
 	// Getters y Setters
 
@@ -199,7 +199,7 @@ public class Persona {
 			return true;
 		}
 	}
-	
+
 	public String getAnotaciones() {
 		return anotaciones;
 	}
@@ -248,7 +248,7 @@ public class Persona {
 	 * (poblacion.matches("^.*\\d.*$")) || (provincia.matches("^.*\\d.*$")) ||
 	 * (telFijo.matches("^.*\\d.*$")) || (telMovil.matches("^.*\\d.*$")) ||
 	 * (cp.matches("^.*\\d.*$"))) { resul = false; return resul; } return resul;
-	 * 
+	 *
 	 * }
 	 */
 }
