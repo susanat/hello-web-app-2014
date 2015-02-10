@@ -10,8 +10,8 @@
         <p>¿Desea eliminar los siguientes contactos?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-        <button type="button" class="btn btn-primary" id="idConfirmarEliminar">Si</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" id="idConfirmarEliminar">Aceptar</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
