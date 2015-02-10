@@ -23,26 +23,23 @@
 				<input type="hidden" name="<%=Constantes.OP_KEY%>"
 						value="<%=Constantes.OP_BUSCAR%>">
 				<button type="submit" class="btn btn-default">
-					<span class="glyphicon glyphicon-search"></span> Buscar
+					<span class="glyphicon glyphicon-search"></span> <span class="desaparecer">Buscar</span>
 				</button>
 				<button type="submit" class="btn btn-default">
-					<span class="glyphicon glyphicon-remove"></span> Limpiar
+					<span class="glyphicon glyphicon-remove"></span> <span class="desaparecer">Limpiar</span>
 				</button>
 			</form>
 			<!-- /.navbar-form navbar-left form-inline -->
 
 			<form class="navbar-form navbar-right form-inline" action="<%=Constantes.CONTROLLER_AGENDA%>" method="post">
 				<a type="button" class="btn btn-default" href="<%= Constantes.CONTROLLER_DETALLE  %>"> <span
-					class="glyphicon glyphicon-user"></span>Añadir
+					class="glyphicon glyphicon-user"></span><span class="desaparecer">Añadir</span>
 				</a>
 				<input type="hidden" name="idEliminar" id="idEliminar" value=""> <input
 						type="hidden" name="<%=Constantes.OP_KEY%>"
 						value="<%=Constantes.OP_ELIMINAR%>"> 
-				<!-- 
-				<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalEliminar">
-				 -->
-				<button type="button" class="btn btn-default" data-toggle="modal" id="idBtnEliminar">
-					<span class="glyphicon glyphicon-trash"></span>Eliminar
+							<button type="button" class="btn btn-default" data-toggle="modal" id="idBtnEliminar">
+					<span class="glyphicon glyphicon-trash"></span><span class="desaparecer">Eliminar</span>
 				</button>
 			</form>
 
