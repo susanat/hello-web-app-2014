@@ -54,7 +54,7 @@
 				<!-- /.col-lg-4 (nested) -->
 				<div class="col-lg-4">
 					<div class="form-group">
-						<label>Apellidos</label> <input placeholder="Apellido" type="text" tabindex="2"
+						<label>Apellidos</label> <input placeholder="Apellidos" type="text" tabindex="2"
 							pattern="([A-Za-z ÑñáéíóúÁÉÍÓÚ]{0,50})" class="form-control"
 							value="<%=p.getApellidos()%>">
 					</div>
