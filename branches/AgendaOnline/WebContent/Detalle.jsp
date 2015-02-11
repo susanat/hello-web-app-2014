@@ -42,7 +42,7 @@
 				<div class="col-lg-4">
 					<div class="form-group">
 						<label>Nombre</label> <input placeholder="Nombre" type="text"
-							tabindex="1" pattern="([A-Za-z ÑñáéíóúÁÉÍÓÚ]{2,20})"
+							tabindex="1" pattern="([A-Za-z ÑñáéíóúÁÉÍÓÚüÜ]{2,20})"
 							class="form-control" required value="<%=p.getNombre()%>">
 					</div>
 					<div class="form-group">
@@ -55,7 +55,7 @@
 				<div class="col-lg-4">
 					<div class="form-group">
 						<label>Apellidos</label> <input placeholder="Apellidos" type="text" tabindex="2"
-							pattern="([A-Za-z ÑñáéíóúÁÉÍÓÚ]{0,50})" class="form-control"
+							pattern="([A-Za-z ÑñáéíóúÁÉÍÓÚüÜ]{0,50})" class="form-control"
 							value="<%=p.getApellidos()%>">
 					</div>
 					<div class="form-group">
@@ -68,7 +68,7 @@
 				<div class="col-lg-12">
 					<div class="form-group">
 						<label>Domicilio</label> <input placeholder="Domicilio" type="text" tabindex="5"
-							pattern="([A-Za-z 0-9 / ª º ÑñáéíóúÁÉÍÓÚ]{0,60})"
+							pattern="([A-Za-z 0-9 / ª º ÑñáéíóúÁÉÍÓÚüÜ]{0,60})"
 							class="form-control" value="<%=p.getDireccion()%>">
 					</div>
 				</div>
@@ -76,7 +76,7 @@
 				<div class="col-lg-4">
 					<div class="form-group">
 						<label>Localidad</label> <input placeholder="Localidad" type="text" tabindex="6"
-							pattern="([A-Za-z ÑñáéíóúÁÉÍÓÚ]{0,50})" class="form-control"
+							pattern="([A-Za-z ÑñáéíóúÁÉÍÓÚüÜ]{0,50})" class="form-control"
 							value="<%=p.getPoblacion()%>">
 					</div>
 				</div>
@@ -84,7 +84,7 @@
 				<div class="col-lg-4">
 					<div class="form-group">
 						<label>Provincia</label> <input placeholder="Provincia" type="text" tabindex="7"
-							pattern="([A-Za-z ÑñáéíóúÁÉÍÓÚ]{0,50})" class="form-control"
+							pattern="([A-Za-z ÑñáéíóúÁÉÍÓÚüÜ]{0,50})" class="form-control"
 							value="<%=p.getProvincia()%>">
 					</div>
 				</div>
