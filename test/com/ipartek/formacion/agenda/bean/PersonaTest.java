@@ -37,16 +37,6 @@ public class PersonaTest {
 
 
 	@Test
-	/**
-	 * Pruebas con el Nombre
-	 * <ul>
-	 * 	<li>Comprobar que no sea NULL</li>
-	 * 	<li>Comprobar que no sea vacio</li>
-	 * 	<li>Comprobar que empiece por una letra</li>
-	 * 	<li>Comprobar que contenga letras y '.'</li>
-	 *  <li>Otras...</li>
-	 * </ul>
-	 */
 	public void testSetNombre() {
 		Persona p=new Persona();
 		String nombre=null;
@@ -54,34 +44,144 @@ public class PersonaTest {
 		nombre="";
 		assertFalse("No vale un nombre ''", p.setNombre(nombre));
 
-		char c;
-		for (int i = 35; i < 256; i++) {
-			c = (char) i;
-			nombre = String.valueOf(c);
-			System.out.println(nombre);
-			if (Character.isLetter(c)) {
-				assertTrue(nombre + ": Debe comenzar con una letra el nombre",
-						p.setNombre(nombre));
-			} else {
-				assertFalse(nombre + ": Debe comenzar con una letra el nombre",
-						p.setNombre(nombre));
-			}
-		}
+		nombre = "a";
+		assertFalse("No vale un nombre de un solo caracter'" + nombre + "'",
+				p.setNombre(nombre));
 
-		for (int i = 35; i < 256; i++) {
-			c = (char) i;
-			nombre = "a" + String.valueOf(c);
-			System.out.println(nombre);
-			if (Character.isLetter(c) || c == '.') {
-				assertTrue(nombre + ": Puede contener letras y '.' el nombre",
-						p.setNombre(nombre));
-			} else {
-				assertFalse(nombre + ": Puede contener letras y '.' el nombre",
-						p.setNombre(nombre));
-			}
-		}
+		nombre = "aa15aa";
+		assertFalse("No vale el nombre:" + nombre, p.setNombre(nombre));
+
+		nombre = "aa";
+		assertTrue("Nombre valido: " + nombre, p.setNombre(nombre));
+
+		nombre = "aa aa";
+		assertTrue("Nombre validos: " + nombre, p.setNombre(nombre));
+
+		nombre = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+		assertFalse("Nombre demasiado largo: " + nombre, p.setNombre(nombre));
+	}
+
+	@Test
+	public void testSetApellidos() {
+		Persona p = new Persona();
+		String apellidos = null;
+		assertFalse("No vale un apellido 'NULL'", p.setApellidos(apellidos));
+
+		apellidos = "";
+		assertFalse("Vale un apellido ''", p.setApellidos(apellidos));
+
+		apellidos = "aa15aa";
+		assertFalse("No vale los apellidos:" + apellidos,
+				p.setApellidos(apellidos));
+
+		apellidos = "a";
+		assertTrue("Apellidos validos: " + apellidos, p.setApellidos(apellidos));
+
+		apellidos = "aa aa";
+		assertTrue("Apellido validos: " + apellidos, p.setApellidos(apellidos));
+
+		apellidos = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+		assertFalse("Apellidos demasiado largo: " + apellidos,
+				p.setApellidos(apellidos));
+	}
+
+	@Test
+	public void testTelFijo() {
+		Persona p = new Persona();
+
+		int telFijo = 0;
+		assertFalse("No vale el Telefono Fijo: " + telFijo,
+				p.setTelFijo(telFijo));
+
+		telFijo = -123456789;
+		assertFalse("No vale el Telefono Fijo: " + telFijo,
+				p.setTelFijo(telFijo));
+
+		telFijo = -12345678;
+		assertFalse("No vale el Telefono Fijo: " + telFijo,
+				p.setTelFijo(telFijo));
+
+		telFijo = 1234567890;
+		assertFalse("No vale el Telefono Fijo: " + telFijo,
+				p.setTelFijo(telFijo));
+
+		telFijo = 123456789;
+		assertTrue("Vale el Telefono Fijo:" + telFijo, p.setTelFijo(telFijo));
 
 	}
 
+	@Test
+	public void testTelMovil() {
+		Persona p = new Persona();
 
+		int telMovil = 0;
+		assertFalse("No vale el Telefono Fijo: " + telMovil,
+				p.setTelMovil(telMovil));
+
+		telMovil = -123456789;
+		assertFalse("No vale el Telefono Fijo: " + telMovil,
+				p.setTelMovil(telMovil));
+
+		telMovil = -12345678;
+		assertFalse("No vale el Telefono Fijo: " + telMovil,
+				p.setTelMovil(telMovil));
+
+		telMovil = 1234567890;
+		assertFalse("No vale el Telefono Fijo: " + telMovil,
+				p.setTelMovil(telMovil));
+
+		telMovil = 123456789;
+		assertTrue("Vale el Telefono Fijo:" + telMovil, p.setTelMovil(telMovil));
+
+	}
+
+	@Test
+	public void testDireccion() {
+		Persona p=new Persona();
+		
+		String direccion=null;
+		assertFalse("No vale una direccion 'NULL'", p.setDireccion(direccion));
+		
+		direccion="";
+		assertTrue("Vale una direccion ''", p.setDireccion(direccion));
+		
+		direccion = "a";
+		assertTrue("Vale la direccion: " + direccion, p.setDireccion(direccion));
+
+		direccion = "c\\ aa";
+		assertTrue("Vale la direccion: " + direccion, p.setDireccion(direccion));
+
+		direccion = "c\\ aa, 12";
+		assertTrue("Vale la direccion: " + direccion, p.setDireccion(direccion));
+
+		direccion = "c\\\\ aa, 12";
+		assertFalse("No vale la direccion: " + direccion,
+				p.setDireccion(direccion));
+
+		direccion = "c\\ aa, nº 12";
+		assertTrue("Vale la direccion: " + direccion, p.setDireccion(direccion));
+
+		direccion = "c\\ aa, nº 12, 5";
+		assertTrue("Vale la direccion: " + direccion, p.setDireccion(direccion));
+
+		direccion = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+		assertFalse("Direccion demasiado larga: " + direccion,
+				p.setDireccion(direccion));
+
+	}
+
+	@Test
+	public void testPoblacion() {
+
+	}
+
+	@Test
+	public void testProvincia() {
+
+	}
+
+	@Test
+	public void testCP() {
+
+	}
 }
