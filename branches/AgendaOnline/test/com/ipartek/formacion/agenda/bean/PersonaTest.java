@@ -7,6 +7,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class PersonaTest {
@@ -27,12 +28,13 @@ public class PersonaTest {
 	public void tearDown() throws Exception {
 	}
 
+	@Ignore
 	@Test
 	public void test() {
 		Persona p = new Persona();
-		String s = "22";
+		String s = null;
 		int n = Integer.parseInt(s);
-		// p.setCp(Integer.parseInt(s));
+		p.setCp(Integer.parseInt(s));
 	}
 
 
@@ -68,7 +70,7 @@ public class PersonaTest {
 		assertFalse("No vale un apellido 'NULL'", p.setApellidos(apellidos));
 
 		apellidos = "";
-		assertFalse("Vale un apellido ''", p.setApellidos(apellidos));
+		assertTrue("Vale un apellido ''", p.setApellidos(apellidos));
 
 		apellidos = "aa15aa";
 		assertFalse("No vale los apellidos:" + apellidos,
@@ -158,10 +160,10 @@ public class PersonaTest {
 		assertFalse("No vale la direccion: " + direccion,
 				p.setDireccion(direccion));
 
-		direccion = "c\\ aa, nÂº 12";
+		direccion = "c\\ aa, nº 12";
 		assertTrue("Vale la direccion: " + direccion, p.setDireccion(direccion));
 
-		direccion = "c\\ aa, nÂº 12, 5";
+		direccion = "c\\ aa, nº 12, 5";
 		assertTrue("Vale la direccion: " + direccion, p.setDireccion(direccion));
 
 		direccion = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
@@ -172,16 +174,70 @@ public class PersonaTest {
 
 	@Test
 	public void testPoblacion() {
-
+		Persona p=new Persona();
+		
+		String poblacion=null;
+		assertFalse("No vale una poblacion 'NULL'", p.setPoblacion(poblacion));
+		
+		poblacion="";
+		assertTrue("Vale una poblacion ''", p.setPoblacion(poblacion));
+		
+		poblacion="aa12a";
+		assertFalse("No vale la poblacion "+poblacion, p.setPoblacion(poblacion));
+		
+		poblacion="aaa";
+		assertTrue("Vale la poblacion "+poblacion, p.setPoblacion(poblacion));
+		
+		poblacion="aaaa aaaa";
+		assertTrue("Vale la poblacion "+poblacion, p.setPoblacion(poblacion));
+		
+		poblacion= "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+		assertFalse("Poblacion demasiado larga: " + poblacion,
+				p.setPoblacion(poblacion));
 	}
 
+	
 	@Test
 	public void testProvincia() {
-
+		Persona p=new Persona();
+		
+		String provincia=null;
+		assertFalse("No valeue una provincia 'NULL'", p.setProvincia(provincia));
+		
+		provincia="";
+		assertTrue("Vale una provincia ''", p.setProvincia(provincia));
+		
+		provincia="aa12a";
+		assertFalse("No vale la provincia "+provincia, p.setProvincia(provincia));
+		
+		provincia="aaa";
+		assertTrue("Vale la provincia "+provincia, p.setProvincia(provincia));
+		
+		provincia="aaaa aaaa";
+		assertTrue("Vale la provincia "+provincia, p.setProvincia(provincia));
+		
+		provincia= "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+		assertFalse("Provincia demasiado larga: " + provincia,
+				p.setProvincia(provincia));
 	}
 
 	@Test
 	public void testCP() {
+		Persona p=new Persona();
+		
+		int cp=0;
+		assertFalse("Codigo Postal no valido: "+cp, p.setCp(cp));
+		
+		cp=-15;
+		assertFalse("Codigo Postal no valido: "+cp, p.setCp(cp));
+		
+		cp=-1234;
+		assertFalse("Codigo Postal no valido: "+cp, p.setCp(cp));
 
+		cp=12345;
+		assertTrue("Codigo Postal valido:"+cp, p.setCp(cp));
+		
+		cp=123456;
+		assertFalse("Codigo Postal no valido: "+cp, p.setCp(cp));
 	}
 }
