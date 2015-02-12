@@ -97,13 +97,13 @@ public class Persona {
 			// error nombre vacio
 		} else {
 			// NOTA: Vale unos apellidos vacios
-				if (!apellidos.matches("[A-Za-z ÑñáéíóúÁÉÍÓÚüÜ]{0,50}")) {
-					return false;
-					// error, caracteres no admitidos
-				} else {
-					this.apellidos = apellidos;
-					return true;
-				}
+			if (!apellidos.matches("[A-Za-z ÑñáéíóúÁÉÍÓÚüÜ]{0,50}")) {
+				return false;
+				// error, caracteres no admitidos
+			} else {
+				this.apellidos = apellidos;
+				return true;
+			}
 		}
 	}
 
@@ -118,18 +118,23 @@ public class Persona {
 	 *            : Telefono Fijo del contacto
 	 * @return boolean
 	 *         <ul>
+	 *         <li>False: si es un numero negativo</li>
 	 *         <li>False: si la longitud del telefono no es de 9 digitos</li>
 	 *         <li>True: si el telefono es correcto</li>
 	 *         </ul>
 	 */
 	public boolean setTelFijo(int telFijo) {
 		// TODO Comprobar telefonos extranjetos
-		if (!(String.valueOf(telFijo).length() == LONG_TEL)) {
+		if (telFijo < 0) {
 			return false;
-			// error el codigo no contiene 9 caracteres
 		} else {
-			this.telFijo = telFijo;
-			return true;
+			if (!(String.valueOf(telFijo).length() == LONG_TEL)) {
+				return false;
+				// error el codigo no contiene 9 caracteres
+			} else {
+				this.telFijo = telFijo;
+				return true;
+			}
 		}
 	}
 
@@ -144,18 +149,23 @@ public class Persona {
 	 *            : Telefono Movil del contacto
 	 * @return boolean
 	 *         <ul>
+	 *         <li>False: si es un numero negativo</li>
 	 *         <li>False: si la longitud del telefono no es de 9 digitos</li>
 	 *         <li>True: si el telefono es correcto</li>
 	 *         </ul>
 	 */
 	public boolean setTelMovil(int telMovil) {
 		// TODO Comprobar telefonos extranjetos, simbolo + y parentesis ()
-		if (!(String.valueOf(telMovil).length() == LONG_TEL)) {
+		if (telMovil < 0) {
 			return false;
-			// error el codigo no contiene 7 caracteres
 		} else {
-			this.telMovil = telMovil;
-			return true;
+			if (!(String.valueOf(telMovil).length() == LONG_TEL)) {
+				return false;
+				// error el codigo no contiene 7 caracteres
+			} else {
+				this.telMovil = telMovil;
+				return true;
+			}
 		}
 	}
 
@@ -182,14 +192,13 @@ public class Persona {
 			// error nombre vacio
 		} else {
 			// NOTA: Vale una direccion vacia
-				if (!direccion
-						.matches("[A-Za-z 0-9 / ª º ÑñáéíóúÁÉÍÓÚüÜ]{0,60}")) {
-					return false;
-					// error, caracteres no admitidos
-				} else {
-					this.direccion = direccion;
-					return true;
-				}
+			if (!direccion.matches("[A-Za-z 0-9 / ª º ÑñáéíóúÁÉÍÓÚüÜ]{0,60}")) {
+				return false;
+				// error, caracteres no admitidos
+			} else {
+				this.direccion = direccion;
+				return true;
+			}
 		}
 	}
 
@@ -216,13 +225,13 @@ public class Persona {
 			// error nombre vacio
 		} else {
 			// NOTA: Vale una Poblacion vacia
-				if (!poblacion.matches("[A-Za-z ÑñáéíóúÁÉÍÓÚüÜ]{0,50}")) {
-					return false;
-					// error, caracteres no admitidos
-				} else {
-					this.poblacion = poblacion;
-					return true;
-				}
+			if (!poblacion.matches("[A-Za-z ÑñáéíóúÁÉÍÓÚüÜ]{0,50}")) {
+				return false;
+				// error, caracteres no admitidos
+			} else {
+				this.poblacion = poblacion;
+				return true;
+			}
 		}
 	}
 
@@ -249,13 +258,13 @@ public class Persona {
 			// error nombre vacio
 		} else {
 			// NOTA: Vale una Provincia vacia
-				if (!provincia.matches("[A-Za-z ÑñáéíóúÁÉÍÓÚüÜ]{0,50}")) {
-					return false;
-					// error, caracteres no admitidos
-				} else {
-					this.provincia = provincia;
-					return true;
-				}
+			if (!provincia.matches("[A-Za-z ÑñáéíóúÁÉÍÓÚüÜ]{0,50}")) {
+				return false;
+				// error, caracteres no admitidos
+			} else {
+				this.provincia = provincia;
+				return true;
+			}
 		}
 	}
 
@@ -270,17 +279,22 @@ public class Persona {
 	 *            : Codigo Postal del contacto
 	 * @return boolean
 	 *         <ul>
+	 *         <li>False: si es un numero negativo</li>
 	 *         <li>False: si el tamanio del Codigo Postal no es de 5 digitos</li>
 	 *         <li>True: si el Codigo Postal es correcto</li>
 	 *         </ul>
 	 */
 	public boolean setCp(int cp) {
-		if (!(String.valueOf(cp).length() == LONG_CP)) {
+		if (cp < 0) {
 			return false;
-			// error el codigo no contiene 5 caracteres
 		} else {
-			this.cp = cp;
-			return true;
+			if (!(String.valueOf(cp).length() == LONG_CP)) {
+				return false;
+				// error el codigo no contiene 5 caracteres
+			} else {
+				this.cp = cp;
+				return true;
+			}
 		}
 	}
 
@@ -297,7 +311,6 @@ public class Persona {
 	public Persona() {
 		super();
 	}
-
 
 	public Persona(int idcontacto, String nombre, String apellidos,
 			int telFijo, int telMovil, String direccion, String poblacion,
