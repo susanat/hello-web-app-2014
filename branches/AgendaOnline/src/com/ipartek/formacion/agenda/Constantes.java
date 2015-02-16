@@ -19,9 +19,11 @@ public class Constantes {
 	public static final String OP_CREAR = "c";
 
 	// Servlet
-	public static final String CONTROLLER_AGENDA = "Listado.jsp";
-	public static final String CONTROLLER_DETALLE = "Detalle.jsp";
+	public static final String CONTROLLER_AGENDA = "PersonaServlet";
+	public static final String JSP_LISTADO = "Listado.jsp";
+	public static final String JSP_DETALLE = "Detalle.jsp";
 
 	// Atrinuttos
+	public static final String ATT_PERSONAS = "personas";
 	public static final String ATT_PERSONA = "persona";
 }

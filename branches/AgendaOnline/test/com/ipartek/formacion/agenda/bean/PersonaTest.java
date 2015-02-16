@@ -1,7 +1,8 @@
 package com.ipartek.formacion.agenda.bean;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -30,61 +31,127 @@ public class PersonaTest {
 
 	@Ignore
 	@Test
-	public void test() {
+	public void test() throws NumberFormatException, PersonaException {
 		Persona p = new Persona();
 		String s = null;
 		int n = Integer.parseInt(s);
 		p.setCp(Integer.parseInt(s));
 	}
 
-
 	@Test
 	public void testSetNombre() {
-		Persona p=new Persona();
-		String nombre=null;
-		assertFalse("No vale un nombre 'NULL'", p.setNombre(nombre));
-		nombre="";
-		assertFalse("No vale un nombre ''", p.setNombre(nombre));
+		Persona p = new Persona();
+		String nombre;
+
+		nombre = null;
+		try {
+			p.setNombre(nombre);
+			fail("Deberia producir un error");
+		} catch (PersonaException e) {
+			assertEquals(e.getMessage(), PersonaException.NOMBRE_EMPTY);
+		}
+
+		nombre = "";
+		try {
+			p.setNombre(nombre);
+			fail("Deberia producir un error");
+		} catch (PersonaException e) {
+			assertEquals(e.getMessage(), PersonaException.NOMBRE_EMPTY);
+		}
 
 		nombre = "a";
-		assertFalse("No vale un nombre de un solo caracter'" + nombre + "'",
-				p.setNombre(nombre));
+		try {
+			p.setNombre(nombre);
+			fail("Deberia producir un error");
+		} catch (PersonaException e) {
+			assertEquals(e.getMessage(), PersonaException.NOMBRE_INVALID_CHAR);
+		}
 
 		nombre = "aa15aa";
-		assertFalse("No vale el nombre:" + nombre, p.setNombre(nombre));
+		try {
+			p.setNombre(nombre);
+			fail("Deberia producir un error");
+		} catch (PersonaException e) {
+			assertEquals(e.getMessage(), PersonaException.NOMBRE_INVALID_CHAR);
+		}
 
 		nombre = "aa";
-		assertTrue("Nombre valido: " + nombre, p.setNombre(nombre));
+		try {
+			p.setNombre(nombre);
+			assertEquals(nombre, p.getNombre());
+		} catch (PersonaException e) {
+			fail("No deberia producir un error");
+		}
 
 		nombre = "aa aa";
-		assertTrue("Nombre validos: " + nombre, p.setNombre(nombre));
+		try {
+			p.setNombre(nombre);
+			assertEquals(nombre, p.getNombre());
+		} catch (PersonaException e) {
+			fail("No deberia producir un error");
+		}
 
 		nombre = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-		assertFalse("Nombre demasiado largo: " + nombre, p.setNombre(nombre));
+		try {
+			p.setNombre(nombre);
+			fail("Deberia producir un error");
+		} catch (PersonaException e) {
+			assertEquals(e.getMessage(), PersonaException.NOMBRE_INVALID_CHAR);
+		}
+
 	}
 
 	@Test
 	public void testSetApellidos() {
 		Persona p = new Persona();
+
 		String apellidos = null;
-		assertFalse("No vale un apellido 'NULL'", p.setApellidos(apellidos));
+		try {
+			p.setApellidos(apellidos);
+			assertTrue("Todo OK", true);
+		} catch (PersonaException e) {
+			fail("No deberia producir un error");
+		}
 
 		apellidos = "";
-		assertTrue("Vale un apellido ''", p.setApellidos(apellidos));
+		try {
+			p.setApellidos(apellidos);
+			assertEquals(apellidos, p.getApellidos());
+		} catch (PersonaException e) {
+			fail("No deberia producir un error");
+		}
 
 		apellidos = "aa15aa";
-		assertFalse("No vale los apellidos:" + apellidos,
-				p.setApellidos(apellidos));
+		try {
+			p.setApellidos(apellidos);
+			fail("Deberia producir un error");
+		} catch (PersonaException e) {
+			assertEquals(e.getMessage(), PersonaException.APELLIDO_INVALID_CHAR);
+		}
 
 		apellidos = "a";
-		assertTrue("Apellidos validos: " + apellidos, p.setApellidos(apellidos));
+		try {
+			p.setApellidos(apellidos);
+			assertEquals(apellidos, p.getApellidos());
+		} catch (PersonaException e) {
+			fail("No deberia producir un error");
+		}
 
 		apellidos = "aa aa";
-		assertTrue("Apellido validos: " + apellidos, p.setApellidos(apellidos));
+		try {
+			p.setApellidos(apellidos);
+			assertEquals(apellidos, p.getApellidos());
+		} catch (PersonaException e) {
+			fail("No deberia producir un error");
+		}
 
 		apellidos = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-		assertFalse("Apellidos demasiado largo: " + apellidos,
-				p.setApellidos(apellidos));
+		try {
+			p.setApellidos(apellidos);
+			fail("Deberia producir un error");
+		} catch (PersonaException e) {
+			assertEquals(e.getMessage(), PersonaException.APELLIDO_INVALID_CHAR);
+		}
 	}
 
 	@Test
@@ -92,23 +159,44 @@ public class PersonaTest {
 		Persona p = new Persona();
 
 		int telFijo = 0;
-		assertFalse("No vale el Telefono Fijo: " + telFijo,
-				p.setTelFijo(telFijo));
+		try {
+			p.setTelFijo(telFijo);
+			assertEquals(telFijo, p.getTelFijo());
+		} catch (PersonaException e) {
+			fail("No deberia producir un error");
+		}
 
 		telFijo = -123456789;
-		assertFalse("No vale el Telefono Fijo: " + telFijo,
-				p.setTelFijo(telFijo));
+		try {
+			p.setTelFijo(telFijo);
+			fail("Deberia producir un error");
+		} catch (PersonaException e) {
+			assertEquals(e.getMessage(), PersonaException.TEL_INVALID_FORMAT);
+		}
 
 		telFijo = -12345678;
-		assertFalse("No vale el Telefono Fijo: " + telFijo,
-				p.setTelFijo(telFijo));
+		try {
+			p.setTelFijo(telFijo);
+			fail("Deberia producir un error");
+		} catch (PersonaException e) {
+			assertEquals(e.getMessage(), PersonaException.TEL_INVALID_FORMAT);
+		}
 
 		telFijo = 1234567890;
-		assertFalse("No vale el Telefono Fijo: " + telFijo,
-				p.setTelFijo(telFijo));
+		try {
+			p.setTelFijo(telFijo);
+			fail("Deberia producir un error");
+		} catch (PersonaException e) {
+			assertEquals(e.getMessage(), PersonaException.TEL_INVALID_FORMAT);
+		}
 
 		telFijo = 123456789;
-		assertTrue("Vale el Telefono Fijo:" + telFijo, p.setTelFijo(telFijo));
+		try {
+			p.setTelFijo(telFijo);
+			assertEquals(telFijo, p.getTelFijo());
+		} catch (PersonaException e) {
+			fail("No deberia producir un error");
+		}
 
 	}
 
@@ -117,127 +205,275 @@ public class PersonaTest {
 		Persona p = new Persona();
 
 		int telMovil = 0;
-		assertFalse("No vale el Telefono Fijo: " + telMovil,
-				p.setTelMovil(telMovil));
+		try {
+			p.setTelMovil(telMovil);
+			fail("Deberia producir un error");
+		} catch (PersonaException e) {
+			assertEquals(e.getMessage(), PersonaException.TEL_INVALID_FORMAT);
+		}
 
 		telMovil = -123456789;
-		assertFalse("No vale el Telefono Fijo: " + telMovil,
-				p.setTelMovil(telMovil));
+		try {
+			p.setTelMovil(telMovil);
+			fail("Deberia producir un error");
+		} catch (PersonaException e) {
+			assertEquals(e.getMessage(), PersonaException.TEL_INVALID_FORMAT);
+		}
 
 		telMovil = -12345678;
-		assertFalse("No vale el Telefono Fijo: " + telMovil,
-				p.setTelMovil(telMovil));
+		try {
+			p.setTelMovil(telMovil);
+			fail("Deberia producir un error");
+		} catch (PersonaException e) {
+			assertEquals(e.getMessage(), PersonaException.TEL_INVALID_FORMAT);
+		}
 
 		telMovil = 1234567890;
-		assertFalse("No vale el Telefono Fijo: " + telMovil,
-				p.setTelMovil(telMovil));
+		try {
+			p.setTelMovil(telMovil);
+			fail("Deberia producir un error");
+		} catch (PersonaException e) {
+			assertEquals(e.getMessage(), PersonaException.TEL_INVALID_FORMAT);
+		}
 
 		telMovil = 123456789;
-		assertTrue("Vale el Telefono Fijo:" + telMovil, p.setTelMovil(telMovil));
+		try {
+			p.setTelMovil(telMovil);
+			assertEquals(telMovil, p.getTelMovil());
+		} catch (PersonaException e) {
+			fail("No deberia producir un error");
+		}
 
 	}
 
 	@Test
 	public void testDireccion() {
-		Persona p=new Persona();
-		
-		String direccion=null;
-		assertFalse("No vale una direccion 'NULL'", p.setDireccion(direccion));
-		
-		direccion="";
-		assertTrue("Vale una direccion ''", p.setDireccion(direccion));
-		
+		Persona p = new Persona();
+
+		String direccion = null;
+		try {
+			p.setDireccion(direccion);
+			assertTrue("Todo OK", true);
+		} catch (PersonaException e) {
+			fail("NULL - No deberia producir un error");
+		}
+
+		direccion = "";
+		try {
+			p.setDireccion(direccion);
+			assertEquals(direccion, p.getDireccion());
+		} catch (PersonaException e) {
+			fail("No deberia producir un error");
+		}
+
 		direccion = "a";
-		assertTrue("Vale la direccion: " + direccion, p.setDireccion(direccion));
+		try {
+			p.setDireccion(direccion);
+			assertEquals(direccion, p.getDireccion());
+		} catch (PersonaException e) {
+			fail("La direccion está incompleta");
+		}
 
-		direccion = "c\\ aa";
-		assertTrue("Vale la direccion: " + direccion, p.setDireccion(direccion));
+		direccion = "c/ aa";
+		try {
+			p.setDireccion(direccion);
+			assertEquals(direccion, p.getDireccion());
+		} catch (PersonaException e) {
+			fail("La direccion está mal cumplimentada");
+		}
 
-		direccion = "c\\ aa, 12";
-		assertTrue("Vale la direccion: " + direccion, p.setDireccion(direccion));
+		direccion = "c// aa, 12";
+		try {
+			p.setDireccion(direccion);
+			assertEquals(direccion, p.getDireccion());
+		} catch (PersonaException e) {
+			fail("La direccion está mal cumplimentada");
+		}
 
 		direccion = "c\\\\ aa, 12";
-		assertFalse("No vale la direccion: " + direccion,
-				p.setDireccion(direccion));
+		try {
+			p.setDireccion(direccion);
+			assertEquals(direccion, p.getDireccion());
+		} catch (PersonaException e) {
+			fail("La direccion está mal cumplimentada");
+		}
+		direccion = "c\\ aa, nº 12";
+		try {
+			p.setDireccion(direccion);
+			assertEquals(direccion, p.getDireccion());
+		} catch (PersonaException e) {
+			fail("La direccion está mal cumplimentada");
+		}
 
-		direccion = "c\\ aa, n� 12";
-		assertTrue("Vale la direccion: " + direccion, p.setDireccion(direccion));
-
-		direccion = "c\\ aa, n� 12, 5";
-		assertTrue("Vale la direccion: " + direccion, p.setDireccion(direccion));
+		direccion = "c\\ aa, nº12, 5";
+		try {
+			p.setDireccion(direccion);
+			assertEquals(direccion, p.getDireccion());
+		} catch (PersonaException e) {
+			fail("La direccion está mal cumplimentada");
+		}
 
 		direccion = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-		assertFalse("Direccion demasiado larga: " + direccion,
-				p.setDireccion(direccion));
-
+		try {
+			p.setDireccion(direccion);
+			assertEquals(direccion, p.getDireccion());
+		} catch (PersonaException e) {
+			fail("La direccion es demasiado larga");
+		}
 	}
 
 	@Test
 	public void testPoblacion() {
-		Persona p=new Persona();
-		
-		String poblacion=null;
-		assertFalse("No vale una poblacion 'NULL'", p.setPoblacion(poblacion));
-		
-		poblacion="";
-		assertTrue("Vale una poblacion ''", p.setPoblacion(poblacion));
-		
-		poblacion="aa12a";
-		assertFalse("No vale la poblacion "+poblacion, p.setPoblacion(poblacion));
-		
-		poblacion="aaa";
-		assertTrue("Vale la poblacion "+poblacion, p.setPoblacion(poblacion));
-		
-		poblacion="aaaa aaaa";
-		assertTrue("Vale la poblacion "+poblacion, p.setPoblacion(poblacion));
-		
-		poblacion= "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-		assertFalse("Poblacion demasiado larga: " + poblacion,
-				p.setPoblacion(poblacion));
+		Persona p = new Persona();
+
+		String poblacion = null;
+		try {
+			p.setProvincia(poblacion);
+			assertTrue("Todo OK", true);
+		} catch (PersonaException e) {
+			fail("NULL - No deberia producir un error");
+		}
+
+		poblacion = "";
+		try {
+			p.setProvincia(poblacion);
+			assertEquals(poblacion, p.getPoblacion());
+		} catch (PersonaException e) {
+			fail("'' - No deberia producir un error");
+		}
+
+		poblacion = "aa15aa";
+		try {
+			p.setPoblacion(poblacion);
+			fail("Deberia producir un error");
+		} catch (PersonaException e) {
+			assertEquals(e.getMessage(),
+					PersonaException.POBLACION_INVALID_CHAR);
+		}
+
+		poblacion = "a";
+		try {
+			p.setPoblacion(poblacion);
+			assertEquals(poblacion, p.getPoblacion());
+		} catch (PersonaException e) {
+			fail(poblacion + " - No deberia producir un error");
+		}
+
+		poblacion = "aa aa";
+		try {
+			p.setPoblacion(poblacion);
+			assertEquals(poblacion, p.getPoblacion());
+		} catch (PersonaException e) {
+			fail(poblacion + " - No deberia producir un error");
+		}
+
+		poblacion = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+		try {
+			p.setPoblacion(poblacion);
+			fail("Deberia producir un error");
+		} catch (PersonaException e) {
+			assertEquals(e.getMessage(),
+					PersonaException.POBLACION_INVALID_CHAR);
+		}
 	}
 
-	
 	@Test
 	public void testProvincia() {
-		Persona p=new Persona();
-		
-		String provincia=null;
-		assertFalse("No valeue una provincia 'NULL'", p.setProvincia(provincia));
-		
-		provincia="";
-		assertTrue("Vale una provincia ''", p.setProvincia(provincia));
-		
-		provincia="aa12a";
-		assertFalse("No vale la provincia "+provincia, p.setProvincia(provincia));
-		
-		provincia="aaa";
-		assertTrue("Vale la provincia "+provincia, p.setProvincia(provincia));
-		
-		provincia="aaaa aaaa";
-		assertTrue("Vale la provincia "+provincia, p.setProvincia(provincia));
-		
-		provincia= "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-		assertFalse("Provincia demasiado larga: " + provincia,
-				p.setProvincia(provincia));
+		Persona p = new Persona();
+
+		String provincia = null;
+		try {
+			p.setProvincia(provincia);
+			assertTrue("Todo OK", true);
+		} catch (PersonaException e) {
+			fail("NULL - No deberia producir un error");
+		}
+
+		provincia = "";
+		try {
+			p.setProvincia(provincia);
+			assertEquals(provincia, p.getProvincia());
+		} catch (PersonaException e) {
+			fail("'' - No deberia producir un error");
+		}
+
+		provincia = "aa15aa";
+		try {
+			p.setProvincia(provincia);
+			fail("Deberia producir un error");
+		} catch (PersonaException e) {
+			assertEquals(e.getMessage(),
+					PersonaException.PROVINCIA_INVALID_CHAR);
+		}
+
+		provincia = "a";
+		try {
+			p.setProvincia(provincia);
+			assertEquals(provincia, p.getProvincia());
+		} catch (PersonaException e) {
+			fail(provincia + " - No deberia producir un error");
+		}
+
+		provincia = "aa aa";
+		try {
+			p.setProvincia(provincia);
+			assertEquals(provincia, p.getProvincia());
+		} catch (PersonaException e) {
+			fail(provincia + " - No deberia producir un error");
+		}
+
+		provincia = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+		try {
+			p.setProvincia(provincia);
+			fail("Deberia producir un error");
+		} catch (PersonaException e) {
+			assertEquals(e.getMessage(),
+					PersonaException.PROVINCIA_INVALID_CHAR);
+		}
 	}
 
 	@Test
 	public void testCP() {
-		Persona p=new Persona();
-		
-		int cp=0;
-		assertFalse("Codigo Postal no valido: "+cp, p.setCp(cp));
-		
-		cp=-15;
-		assertFalse("Codigo Postal no valido: "+cp, p.setCp(cp));
-		
-		cp=-1234;
-		assertFalse("Codigo Postal no valido: "+cp, p.setCp(cp));
+		Persona p = new Persona();
 
-		cp=12345;
-		assertTrue("Codigo Postal valido:"+cp, p.setCp(cp));
-		
-		cp=123456;
-		assertFalse("Codigo Postal no valido: "+cp, p.setCp(cp));
+		int cp = 0;
+		try {
+			p.setCp(cp);
+			assertEquals(cp, p.getCp());
+		} catch (PersonaException e) {
+			fail("El CP " + cp + " es correcto");
+		}
+
+		cp = -15;
+		try {
+			p.setCp(cp);
+			fail("El CP " + cp + " no es correcto");
+		} catch (PersonaException e) {
+			assertEquals(e.getMessage(), PersonaException.CP_INVALID_FORMAT);
+		}
+
+		cp = -1234;
+		try {
+			p.setCp(cp);
+			fail("El CP " + cp + " no es correcto");
+		} catch (PersonaException e) {
+			assertEquals(e.getMessage(), PersonaException.CP_INVALID_FORMAT);
+		}
+
+		cp = 12345;
+		try {
+			p.setCp(cp);
+			assertEquals(cp, p.getCp());
+		} catch (PersonaException e) {
+			fail("El CP " + cp + " es correcto");
+		}
+
+		cp = 123456;
+		try {
+			p.setCp(cp);
+			fail("El CP " + cp + " no es correcto");
+		} catch (PersonaException e) {
+			assertEquals(e.getMessage(), PersonaException.CP_INVALID_FORMAT);
+		}
 	}
 }

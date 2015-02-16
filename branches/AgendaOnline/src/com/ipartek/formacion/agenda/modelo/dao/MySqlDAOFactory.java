@@ -2,10 +2,8 @@ package com.ipartek.formacion.agenda.modelo.dao;
 
 import java.sql.Connection;
 
-import javax.naming.Context;
 import javax.naming.InitialContext;
-
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+import javax.sql.DataSource;
 
 public class MySqlDAOFactory extends DAOFactory {
 	// patron singleton para esta clase, @see:
@@ -40,27 +38,27 @@ public class MySqlDAOFactory extends DAOFactory {
 			try {
 
 				// Create initial context
-				System.setProperty(Context.INITIAL_CONTEXT_FACTORY,
-						"org.apache.naming.java.javaURLContextFactory");
-				System.setProperty(Context.URL_PKG_PREFIXES,
-						"org.apache.naming");
-				InitialContext ic = new InitialContext();
-
-				ic.createSubcontext("java:");
-				ic.createSubcontext("java:/comp");
-				ic.createSubcontext("java:/comp/env");
-				ic.createSubcontext("java:/comp/env/jdbc");
-
-				// Construct DataSource
-				MysqlDataSource ds = new MysqlDataSource();
-				ds.setURL("jdbc:mysql://localhost:3306/agenda");
-				ds.setUser("root");
-				ds.setPassword("");
-
-				ic.bind("java:/comp/env/jdbc/TestAgenda", ds);
-
-				// InitialContext ctx = new InitialContext();
-				// DataSource ds = (DataSource) ctx.lookup(DATA_SOURCE);
+				/*
+				 * System.setProperty(Context.INITIAL_CONTEXT_FACTORY,
+				 * "org.apache.naming.java.javaURLContextFactory");
+				 * System.setProperty(Context.URL_PKG_PREFIXES,
+				 * "org.apache.naming"); InitialContext ic = new
+				 * InitialContext();
+				 * 
+				 * ic.createSubcontext("java:");
+				 * ic.createSubcontext("java:/comp");
+				 * ic.createSubcontext("java:/comp/env");
+				 * ic.createSubcontext("java:/comp/env/jdbc");
+				 * 
+				 * // Construct DataSource MysqlDataSource ds = new
+				 * MysqlDataSource();
+				 * ds.setURL("jdbc:mysql://localhost:3306/agenda");
+				 * ds.setUser("root"); ds.setPassword("");
+				 * 
+				 * ic.bind("java:/comp/env/jdbc/TestAgenda", ds);
+				 */
+				InitialContext ctx = new InitialContext();
+				DataSource ds = (DataSource) ctx.lookup(DATA_SOURCE);
 				con = ds.getConnection();
 
 			} catch (Exception e) {
