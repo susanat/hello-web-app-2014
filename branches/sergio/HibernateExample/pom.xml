@@ -4,7 +4,7 @@
 	<groupId>ipartek.formacion.ejemplos.hibernate</groupId>
 	<artifactId>HibernateEjemploAnotaciones</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.0</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<name>HibernateEjemploAnotaciones</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
@@ -39,6 +39,13 @@
 			<artifactId>javassist</artifactId>
 			<version>3.4.GA</version>
 			<scope>compile</scope>
+		</dependency>
+		
+		<!-- http://blog.gfi.es/swagger-documentando-servicios/ -->
+		<dependency>
+			<groupId>com.mangofactory</groupId>
+			<artifactId>swagger-springmvc</artifactId>
+			<version>0.8.8</version>
 		</dependency>
 
 	</dependencies>

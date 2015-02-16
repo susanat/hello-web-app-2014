@@ -19,30 +19,38 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.wordnik.swagger.annotations.ApiModel;
+import com.wordnik.swagger.annotations.ApiModelProperty;
+
 
 
 
 @Entity
 @Table(name = "Persona")
+@ApiModel(value = "Persona entity", description = "Complete info of a entity user")
 public class Persona {
 	
 	@Id
     @GeneratedValue
     @Column(name = "id")
+	@ApiModelProperty(value = "The id of the user")
     Long id;
     
-	/* Persistente, un tipo basico (string) */
+	/* Persistente, un tipo basico (string) */	
     @Basic
     @Column(name = "nombre", nullable = false)
+    @ApiModelProperty(value = "The name of the user", required = true)
     private String nombre;
     
     /* Persistente, un tipo basico (string) */
     @Basic
     @Column(name = "apellidos", nullable = false)
+    @ApiModelProperty(value = "The apellidos of the user", required = true)
     private String apellidos;
     
     @Basic
     @Column(name = "edad")    
+    @ApiModelProperty(value = "The edad of the user", required = true)
     private int edad = 18;
     
     /*
@@ -56,6 +64,7 @@ public class Persona {
     
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "f_nacimiento", nullable = false)
+    @ApiModelProperty(value = "The fecha nacimiento of the user", required = true)
     private Date fechaNacimiento;
     
     
@@ -71,11 +80,11 @@ public class Persona {
         return id;
     }
 
-    /*
-    private void setId(Long id) {
+    
+    public void setId(Long id) {
         this.id = id;
     }
-    */
+    
 
     
     public String getNombre() {    	
@@ -142,6 +151,7 @@ public class Persona {
 		this.fechaNacimiento = fechaNacimiento;		
 	}
     
+	//aconsejado que exista
 	public Persona() {}
     
 	
@@ -152,6 +162,7 @@ public class Persona {
 		
 		String texto = "";
 		
+		texto += "id: " + getId() + nl;
 		texto += "Nombre: " + getNombre() + nl;
 		texto += "apellidos: " + getApellidos() + nl;
 		texto += "edad: " + getEdad() + nl;
@@ -164,8 +175,6 @@ public class Persona {
 		
 		int size = getCursos() == null ? 0 : getCursos().size();		
 		texto += (String) ("Nº cursos: " + String.valueOf(size) + nl);
-		
-		
 		
 		
 		return texto;
