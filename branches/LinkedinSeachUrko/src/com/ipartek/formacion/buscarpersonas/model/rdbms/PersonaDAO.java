@@ -45,6 +45,7 @@ public class PersonaDAO implements IPersonaDAO {
 	    personas = new ArrayList<Persona>();
 	    while (rs.next()) {
 		p = new Persona();
+
 		rsToPojo(p);
 		personas.add(p);
 		p = null;
