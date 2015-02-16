@@ -16,18 +16,18 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 	public final static String SQL_SELECT_ALL = "SELECT * FROM "
 			+ IPersonaDAO.TABLA;
 	public final static String SQL_SELECT_BYID = "SELECT * FROM "
-			+ IPersonaDAO.TABLA + " WHERE idcontacto=?" + IPersonaDAO.TABLA;
+			+ IPersonaDAO.TABLA + " WHERE idcontacto=?";
 
 	public final static String SQL_INSERT = "INSERT INTO "
 			+ IPersonaDAO.TABLA
-			+ " (nombre,apellidos, telFijo, telMovil, direccion, poblacion, provincia, cp, anotaciones) VALUES ( ? , ? , ?, ?)";
+			+ " (nombre, apellidos, telfmovil, telffijo, domicilio, poblacion, provincia, cp, anotaciones) VALUES ( ? , ? , ?, ?, ? , ? , ?, ?, ?)";
 
 	public final static String SQL_DELETE = "DELETE FROM " + IPersonaDAO.TABLA
 			+ " WHERE idcontacto=?";
 
 	public final static String SQL_UPDATE = "UPDATE "
 			+ IPersonaDAO.TABLA
-			+ " SET nombre=?,apellidos=?, telFijo=?, telMovil=?, direccion=?, poblacion=?, provincia=?, cp=?, anotaciones=?, WHERE idcontacto=?";
+			+ " SET nombre=?, apellidos=?, telfmovil=?, telffijo=?, domicilio=?, poblacion=?, provincia=?, cp=?, anotaciones=?, WHERE idcontacto=?";
 
 	@Override
 	public ArrayList<Persona> getAll() throws ModelException {
@@ -45,18 +45,21 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 			while (rs.next()) {
 				p = new Persona(rs.getInt("idcontacto"),
 						rs.getString("nombre"), rs.getString("apellidos"),
-						rs.getInt("telFijo"), rs.getInt("telMovil"),
-						rs.getString("poblacion"), rs.getString("direccion"),
+						rs.getInt("telfmovil"), rs.getInt("telffijo"),
+						rs.getString("domicilio"), rs.getString("poblacion"),
 						rs.getString("provincia"), rs.getInt("cp"),
 						rs.getString("anotaciones"));
 				personas.add(p);
 			}
 
 		} catch (Exception e) {
+
 			e.printStackTrace();
 			throw new ModelException(e.getMessage());
 
-		} finally { // cerrar todos los objetos creados para el acceso de BBDD
+		} finally {
+
+			// cerrar todos los objetos creados para el acceso de BBDD
 			// cerrar ResultSet
 			if (rs != null) {
 				try {
@@ -73,17 +76,15 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 					e2.printStackTrace();
 				}
 			}
+			// cerrar conexion
 			MySqlDAOFactory.getInstance().desconectar();
-
 		}
-
 		return personas;
-
 	}
 
 	@Override
 	public synchronized Persona getById(Persona p) {
-		Persona pers = null;
+		Persona pers = new Persona();
 		PreparedStatement st = null;
 		ResultSet rs = null;
 
@@ -95,17 +96,24 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 
 			rs = st.executeQuery();
 
-			pers = new Persona(rs.getInt("idcontacto"), rs.getString("nombre"),
-					rs.getString("apellidos"), rs.getInt("telFijo"),
-					rs.getInt("telMovil"), rs.getString("poblacion"),
-					rs.getString("direccion"), rs.getString("provincia"),
-					rs.getInt("cp"), rs.getString("anotaciones"));
+			pers.setIdcontacto(rs.getInt("idcontacto"));
+			pers.setNombre(rs.getString("nombre"));
+			pers.setApellidos(rs.getString("apellidos"));
+			pers.setTelMovil(rs.getInt("telfmovil"));
+			pers.setTelFijo(rs.getInt("telffijo"));
+			pers.setDireccion(rs.getString("domicilio"));
+			pers.setPoblacion(rs.getString("poblacion"));
+			pers.setProvincia(rs.getString("provincia"));
+			pers.setCp(rs.getInt("cp"));
+			pers.setAnotaciones(rs.getString("anotaciones"));
+
 		} catch (Exception e) {
-			// cerrar conexion
 
 			e.printStackTrace();
 
-		} finally { // cerrar todos los objetos creados para el acceso de BBDD
+		} finally {
+
+			// cerrar todos los objetos creados para el acceso de BBDD
 			// cerrar ResultSet
 			if (rs != null) {
 				try {
@@ -122,10 +130,9 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 					e2.printStackTrace();
 				}
 			}
+			// cerrar conexion
 			MySqlDAOFactory.getInstance().desconectar();
-
 		}
-
 		return pers;
 	}
 
@@ -134,16 +141,17 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 		int idNuevo = -1;
 		PreparedStatement st = null;
 		ResultSet rs = null;
+
 		try {
 			conexion = MySqlDAOFactory.getInstance().conectar();
 			st = conexion.prepareStatement(SQL_INSERT,
 					Statement.RETURN_GENERATED_KEYS);
 			st.setString(1, p.getNombre());
 			st.setString(2, p.getApellidos());
-			st.setInt(3, p.getTelFijo());
-			st.setInt(4, p.getTelMovil());
-			st.setString(5, p.getPoblacion());
-			st.setString(6, p.getDireccion());
+			st.setInt(3, p.getTelMovil());
+			st.setInt(4, p.getTelFijo());
+			st.setString(5, p.getDireccion());
+			st.setString(6, p.getPoblacion());
 			st.setString(7, p.getProvincia());
 			st.setInt(8, p.getCp());
 			st.setString(9, p.getAnotaciones());
@@ -167,7 +175,9 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 			e.printStackTrace();
 			throw new ModelException(e.getMessage());
 
-		} finally { // cerrar todos los objetos creados para el acceso de BBDD
+		} finally {
+
+			// cerrar todos los objetos creados para el acceso de BBDD
 			// cerrar ResultSet
 			if (rs != null) {
 				try {
@@ -176,6 +186,7 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 					e2.printStackTrace();
 				}
 			}
+
 			// cerrar statements
 			if (st != null) {
 				try {
@@ -184,10 +195,9 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 					e2.printStackTrace();
 				}
 			}
+			// cerrar conexion
 			MySqlDAOFactory.getInstance().desconectar();
-
 		}
-
 		return idNuevo;
 	}
 
@@ -209,9 +219,9 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 		} catch (Exception e) {
 
 			e.printStackTrace();
-			// cerrar conexion
+		} finally {
 
-		} finally { // cerrar todos los objetos creados para el acceso de BBDD
+			// cerrar todos los objetos creados para el acceso de BBDD
 			// cerrar ResultSet
 			if (rs != null) {
 				try {
@@ -228,10 +238,9 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 					e2.printStackTrace();
 				}
 			}
+			// cerrar conexion
 			MySqlDAOFactory.getInstance().desconectar();
-
 		}
-
 		return correcto;
 	}
 
@@ -246,10 +255,10 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 			st = conexion.prepareStatement(SQL_UPDATE);
 			st.setString(1, p.getNombre());
 			st.setString(2, p.getApellidos());
-			st.setInt(3, p.getTelFijo());
-			st.setInt(4, p.getTelMovil());
-			st.setString(5, p.getPoblacion());
-			st.setString(6, p.getDireccion());
+			st.setInt(3, p.getTelMovil());
+			st.setInt(4, p.getTelFijo());
+			st.setString(5, p.getDireccion());
+			st.setString(6, p.getPoblacion());
 			st.setString(7, p.getProvincia());
 			st.setInt(8, p.getCp());
 			st.setString(9, p.getAnotaciones());
@@ -258,7 +267,6 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 			correcto = true;
 
 		} catch (Exception e) {
-			// cerrar conexion
 
 			e.printStackTrace();
 
@@ -279,10 +287,9 @@ public class PersonaMySqlDAO implements IPersonaDAO {
 					e2.printStackTrace();
 				}
 			}
+			// cerrar conexion
 			MySqlDAOFactory.getInstance().desconectar();
-
 		}
-
 		return correcto;
 	}
 

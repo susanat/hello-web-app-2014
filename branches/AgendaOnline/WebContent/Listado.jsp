@@ -1,13 +1,20 @@
 <%@page import="com.ipartek.formacion.agenda.bean.PruebasListaPersonas"%>
 <%@page import="com.ipartek.formacion.agenda.bean.Persona"%>
+<%@page import="com.ipartek.formacion.agenda.Constantes"%>
 <%@page import="java.util.ArrayList"%>
-<%@include file="includes/head.jsp"%>
-<%@include file="includes/nav.jsp"%>
+
+<jsp:include page="includes/head.jsp">
+<jsp:param value="LISTADO" name="titulo"/>
+</jsp:include>
+<jsp:include page="includes/nav.jsp">
+	<jsp:param value="false" name="esNuevo" />
+</jsp:include>
+
 
 <%
-	ArrayList<Persona> vPersonas = PruebasListaPersonas
-			.getPruebaPersona().listaCompleta();
-	//ArrayList<Persona> vPersonas =(ArrayList<Persona>)request.getAttribute( Constantes.ATT_PERSONAS );
+	//ArrayList<Persona> vPersonas = PruebasListaPersonas.getPruebaPersona().listaCompleta();
+	//ArrayList<Persona> vPersonas = PruebasListaPersonas.getPruebaPersona().listaVacia();
+	ArrayList<Persona> vPersonas = (ArrayList<Persona>)request.getAttribute( Constantes.ATT_PERSONAS );
 	int tamanio = vPersonas.size();
 %>
 
@@ -26,7 +33,7 @@
 		%>
 		<h2>
 			No existe nigun contacto, por favor cree un contacto <a
-				href="<%=Constantes.CONTROLLER_DETALLE%>" title="nueva contacto">nuevo</a>
+				href="<%=Constantes.JSP_DETALLE%>" title="nuevo contacto">nuevo</a>
 		</h2>
 		<%
 			} else {
@@ -38,12 +45,12 @@
 					<th></th>
 
 					<th>Nombre</th>
-					<th>Apellido</th>
+					<th class="desaparecer">Apellido</th>
 					<th>Movil</th>
-					<th>Fijo</th>
-					<th>Direccion</th>
-					<th>Poblacion</th>
-					<th>Provincia</th>
+					<th class="desaparecer">Fijo</th>
+					<th class="desaparecer">Direccion</th>
+					<th class="desaparecer">Poblacion</th>
+					<th class="desaparecer">Provincia</th>
 				</tr>
 			</thead>
 
@@ -52,7 +59,7 @@
 					<th></th>
 					
 					<th>Nombre</th>
-					<th>Apellido</th>
+					<th >Apellido</th>
 					<th>Movil</th>
 					<th>Fijo</th>
 					<th>Direccion</th>
@@ -72,18 +79,18 @@
 					<td><input type="checkbox" value="<%=p.getIdcontacto()%>">
 
 						<a
-						href="<%=Constantes.CONTROLLER_DETALLE + "?id="
+						href="<%=Constantes.CONTROLLER_AGENDA + "?id="
 							+ p.getIdcontacto()%>">
 							<span class="glyphicon glyphicon-eye-open"></span>
 					</a></td>
 
 					<td><%=p.getNombre()%></td>
-					<td><%=p.getApellidos()%></td>
+					<td class="desaparecer"><%=p.getApellidos()%></td>
 					<td><%=p.getTelMovil()%></td>
-					<td><%=p.getTelFijo()%></td>
-					<td><%=p.getDireccion()%></td>
-					<td><%=p.getPoblacion()%></td>
-					<td><%=p.getProvincia()%></td>
+					<td class="desaparecer"><%=p.getTelFijo()%></td>
+					<td class="desaparecer"><%=p.getDireccion()%></td>
+					<td class="desaparecer"><%=p.getPoblacion()%></td>
+					<td class="desaparecer"><%=p.getProvincia()%></td>
 				</tr>
 				<%
 					}

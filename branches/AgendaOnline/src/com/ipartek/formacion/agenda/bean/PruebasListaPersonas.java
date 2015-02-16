@@ -29,7 +29,7 @@ public class PruebasListaPersonas {
 		return listaPersona;
 	}
 
-	public ArrayList<Persona> listaConUnaPersona() {
+	public ArrayList<Persona> listaConUnaPersona() throws PersonaException {
 		listaPersona = new ArrayList<Persona>();
 
 		Persona p = new Persona();
@@ -40,13 +40,14 @@ public class PruebasListaPersonas {
 		p.setDireccion("Melancolia, 13");
 		p.setPoblacion("Bilbao");
 		p.setProvincia("Bizkaia");
+		p.setCp(48950);
 		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 
 		return listaPersona;
 	}
 
-	public ArrayList<Persona> listaCompleta() {
+	public ArrayList<Persona> listaCompleta() throws PersonaException {
 		listaPersona = new ArrayList<Persona>();
 
 		Persona p = new Persona();
@@ -57,6 +58,7 @@ public class PruebasListaPersonas {
 		p.setDireccion("Melancolia, 13");
 		p.setPoblacion("Bilbao");
 		p.setProvincia("Bizkaia");
+		p.setCp(48950);
 		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 
@@ -68,6 +70,7 @@ public class PruebasListaPersonas {
 		p.setDireccion("Melancolia, 13");
 		p.setPoblacion("Bilbao");
 		p.setProvincia("Bizkaia");
+		p.setCp(48950);
 		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 
@@ -79,6 +82,7 @@ public class PruebasListaPersonas {
 		p.setDireccion("Melancolia, 13");
 		p.setPoblacion("Bilbao");
 		p.setProvincia("Bizkaia");
+		p.setCp(48950);
 		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 
@@ -90,6 +94,7 @@ public class PruebasListaPersonas {
 		p.setDireccion("Melancolia, 13");
 		p.setPoblacion("Bilbao");
 		p.setProvincia("Bizkaia");
+		p.setCp(48950);
 		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 
@@ -101,6 +106,7 @@ public class PruebasListaPersonas {
 		p.setDireccion("Melancolia, 13");
 		p.setPoblacion("Bilbao");
 		p.setProvincia("Bizkaia");
+		p.setCp(48950);
 		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 
@@ -112,6 +118,7 @@ public class PruebasListaPersonas {
 		p.setDireccion("Melancolia, 13");
 		p.setPoblacion("Bilbao");
 		p.setProvincia("Bizkaia");
+		p.setCp(48950);
 		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 
@@ -123,6 +130,7 @@ public class PruebasListaPersonas {
 		p.setDireccion("Melancolia, 13");
 		p.setPoblacion("Bilbao");
 		p.setProvincia("Bizkaia");
+		p.setCp(48950);
 		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 
@@ -134,6 +142,7 @@ public class PruebasListaPersonas {
 		p.setDireccion("Melancolia, 13");
 		p.setPoblacion("Bilbao");
 		p.setProvincia("Bizkaia");
+		p.setCp(48950);
 		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 
@@ -145,6 +154,7 @@ public class PruebasListaPersonas {
 		p.setDireccion("Melancolia, 13");
 		p.setPoblacion("Bilbao");
 		p.setProvincia("Bizkaia");
+		p.setCp(48950);
 		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 
@@ -156,6 +166,7 @@ public class PruebasListaPersonas {
 		p.setDireccion("Melancolia, 13");
 		p.setPoblacion("Bilbao");
 		p.setProvincia("Bizkaia");
+		p.setCp(48950);
 		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 
@@ -167,6 +178,7 @@ public class PruebasListaPersonas {
 		p.setDireccion("Melancolia, 13");
 		p.setPoblacion("Bilbao");
 		p.setProvincia("Bizkaia");
+		p.setCp(48950);
 		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 
@@ -178,6 +190,7 @@ public class PruebasListaPersonas {
 		p.setDireccion("Melancolia, 13");
 		p.setPoblacion("Bilbao");
 		p.setProvincia("Bizkaia");
+		p.setCp(48950);
 		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 
@@ -189,6 +202,7 @@ public class PruebasListaPersonas {
 		p.setDireccion("Melancolia, 13");
 		p.setPoblacion("Bilbao");
 		p.setProvincia("Bizkaia");
+		p.setCp(48950);
 		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 
@@ -200,6 +214,7 @@ public class PruebasListaPersonas {
 		p.setDireccion("Melancolia, 13");
 		p.setPoblacion("Bilbao");
 		p.setProvincia("Bizkaia");
+		p.setCp(48950);
 		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 
@@ -211,6 +226,7 @@ public class PruebasListaPersonas {
 		p.setDireccion("Melancolia, 13");
 		p.setPoblacion("Bilbao");
 		p.setProvincia("Bizkaia");
+		p.setCp(48950);
 		p.setIdcontacto(listaPersona.size());
 		listaPersona.add(p);
 
@@ -223,8 +239,9 @@ public class PruebasListaPersonas {
 	 * @param indice
 	 *            posicion de la lista
 	 * @return Persona de la lista
+	 * @throws PersonaException
 	 */
-	public Persona obtenerPersonaPorId(int indice) {
+	public Persona obtenerPersonaPorId(int indice) throws PersonaException {
 		ArrayList<Persona> vPersonas = listaCompleta();
 		Persona p = vPersonas.get(indice);
 		return p;
