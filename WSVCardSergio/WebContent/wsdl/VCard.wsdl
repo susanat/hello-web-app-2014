@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://wsvcard.pruebas.formacion.ipartek.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://wsvcard.pruebas.formacion.ipartek.com" xmlns:intf="http://wsvcard.pruebas.formacion.ipartek.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://wsvcard.pruebas.formacion.ipartek.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="getVCard">
+    <complexType>
+     <sequence>
+      <element name="user" type="xsd:string"/>
+      <element name="password" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getVCardResponse">
+    <complexType>
+     <sequence>
+      <element name="getVCardReturn" type="impl:Persona"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="Persona">
+    <sequence>
+     <element name="apellido" nillable="true" type="xsd:string"/>
+     <element name="edad" type="xsd:int"/>
+     <element name="email" nillable="true" type="xsd:string"/>
+     <element name="nombre" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="getVCardResponse">
+
+      <wsdl:part element="impl:getVCardResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getVCardRequest">
+
+      <wsdl:part element="impl:getVCard" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="VCard">
+
+      <wsdl:operation name="getVCard">
+
+         <wsdl:input message="impl:getVCardRequest" name="getVCardRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getVCardResponse" name="getVCardResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="VCardSoapBinding" type="impl:VCard">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="getVCard">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getVCardRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getVCardResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="VCardService">
+
+      <wsdl:port binding="impl:VCardSoapBinding" name="VCard">
+
+         <wsdlsoap:address location="http://localhost:8080/WSVCardSergio/services/VCard"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
