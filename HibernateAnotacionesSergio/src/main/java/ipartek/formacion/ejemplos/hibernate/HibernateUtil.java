@@ -1,12 +1,9 @@
 package ipartek.formacion.ejemplos.hibernate;
 
-import java.io.File;
-
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
-import org.hibernate.cfg.Configuration;
 
 /**
  * Clase de utilidad para obtener la sesion de hibernate.
@@ -24,7 +21,8 @@ public class HibernateUtil {
                       
             
         } catch (Throwable ex) {
-            // Log exception!
+            // Log exception! Make sure you log the exception, as it might be swallowed
+            System.err.println("Initial SessionFactory creation failed." + ex);
             throw new ExceptionInInitializerError(ex);
         }
     }
@@ -36,8 +34,8 @@ public class HibernateUtil {
     
     public static void shutdown() {
         // Close caches and connection pools
-    	sessionFactory.close();
-       }
+    	sessionFactory.close();       
+    }
     
 }
 
